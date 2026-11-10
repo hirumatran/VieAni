@@ -23,7 +23,18 @@
    "types": [
     "Grass"
    ],
-   "dex": 1
+   "dex": 1,
+   "stats": {
+    "hp": 65,
+    "atk": 75,
+    "def": 60,
+    "spa": 50,
+    "spd": 65,
+    "spe": 135
+   },
+   "attackType": "Grass",
+   "attackClass": "physical",
+   "range": 1
   },
   {
    "id": 38,
@@ -37,7 +48,18 @@
    "types": [
     "Ground"
    ],
-   "dex": 2
+   "dex": 2,
+   "stats": {
+    "hp": 100,
+    "atk": 100,
+    "def": 100,
+    "spa": 40,
+    "spd": 70,
+    "spe": 40
+   },
+   "attackType": "Ground",
+   "attackClass": "physical",
+   "range": 1
   },
   {
    "id": 33,
@@ -51,7 +73,18 @@
    "types": [
     "Water"
    ],
-   "dex": 3
+   "dex": 3,
+   "stats": {
+    "hp": 100,
+    "atk": 80,
+    "def": 110,
+    "spa": 65,
+    "spd": 95,
+    "spe": 30
+   },
+   "attackType": "Water",
+   "attackClass": "physical",
+   "range": 1
   },
   {
    "id": 43,
@@ -66,7 +99,18 @@
     "Sky",
     "Water"
    ],
-   "dex": 4
+   "dex": 4,
+   "stats": {
+    "hp": 60,
+    "atk": 75,
+    "def": 50,
+    "spa": 85,
+    "spd": 70,
+    "spe": 110
+   },
+   "attackType": "Sky",
+   "attackClass": "special",
+   "range": 3
   },
   {
    "id": 27,
@@ -80,7 +124,18 @@
    "types": [
     "Grass"
    ],
-   "dex": 5
+   "dex": 5,
+   "stats": {
+    "hp": 70,
+    "atk": 70,
+    "def": 65,
+    "spa": 90,
+    "spd": 80,
+    "spe": 105
+   },
+   "attackType": "Grass",
+   "attackClass": "special",
+   "range": 3
   },
   {
    "id": 28,
@@ -95,7 +150,18 @@
     "Rock"
    ],
    "typeNote": "Lives on limestone karst forest",
-   "dex": 6
+   "dex": 6,
+   "stats": {
+    "hp": 65,
+    "atk": 80,
+    "def": 55,
+    "spa": 90,
+    "spd": 70,
+    "spe": 120
+   },
+   "attackType": "Rock",
+   "attackClass": "special",
+   "range": 3
   },
   {
    "id": 24,
@@ -110,7 +176,18 @@
     "Rock"
    ],
    "typeNote": "Lives on limestone karst island",
-   "dex": 7
+   "dex": 7,
+   "stats": {
+    "hp": 70,
+    "atk": 70,
+    "def": 65,
+    "spa": 90,
+    "spd": 80,
+    "spe": 105
+   },
+   "attackType": "Rock",
+   "attackClass": "special",
+   "range": 3
   },
   {
    "id": 46,
@@ -124,7 +201,18 @@
    "types": [
     "Grass"
    ],
-   "dex": 8
+   "dex": 8,
+   "stats": {
+    "hp": 75,
+    "atk": 105,
+    "def": 55,
+    "spa": 40,
+    "spd": 55,
+    "spe": 90
+   },
+   "attackType": "Grass",
+   "attackClass": "physical",
+   "range": 1
   },
   {
    "id": 23,
@@ -139,7 +227,18 @@
     "Rock"
    ],
    "typeNote": "Lives on limestone karst",
-   "dex": 9
+   "dex": 9,
+   "stats": {
+    "hp": 70,
+    "atk": 70,
+    "def": 65,
+    "spa": 90,
+    "spd": 80,
+    "spe": 105
+   },
+   "attackType": "Rock",
+   "attackClass": "special",
+   "range": 3
   },
   {
    "id": 49,
@@ -155,7 +254,18 @@
     "Grass"
    ],
    "typeNote": "Grazes seagrass",
-   "dex": 10
+   "dex": 10,
+   "stats": {
+    "hp": 105,
+    "atk": 50,
+    "def": 75,
+    "spa": 70,
+    "spd": 85,
+    "spe": 35
+   },
+   "attackType": "Water",
+   "attackClass": "special",
+   "range": 3
   },
   {
    "id": 18,
@@ -169,7 +279,18 @@
    "types": [
     "Sky"
    ],
-   "dex": 11
+   "dex": 11,
+   "stats": {
+    "hp": 70,
+    "atk": 75,
+    "def": 70,
+    "spa": 100,
+    "spd": 85,
+    "spe": 110
+   },
+   "attackType": "Sky",
+   "attackClass": "special",
+   "range": 3
   },
   {
    "id": 11,
@@ -184,7 +305,18 @@
     "Legendary",
     "Water"
    ],
-   "dex": 12
+   "dex": 12,
+   "stats": {
+    "hp": 95,
+    "atk": 115,
+    "def": 85,
+    "spa": 85,
+    "spd": 75,
+    "spe": 75
+   },
+   "attackType": "Water",
+   "attackClass": "physical",
+   "range": 1
   },
   {
    "id": 35,
@@ -199,7 +331,18 @@
     "Sky",
     "Water"
    ],
-   "dex": 13
+   "dex": 13,
+   "stats": {
+    "hp": 75,
+    "atk": 80,
+    "def": 55,
+    "spa": 90,
+    "spd": 70,
+    "spe": 110
+   },
+   "attackType": "Sky",
+   "attackClass": "special",
+   "range": 3
   },
   {
    "id": 16,
@@ -214,7 +357,18 @@
     "Rock"
    ],
    "typeNote": "Known from limestone-cave fossils",
-   "dex": 14
+   "dex": 14,
+   "stats": {
+    "hp": 110,
+    "atk": 125,
+    "def": 100,
+    "spa": 50,
+    "spd": 75,
+    "spe": 50
+   },
+   "attackType": "Rock",
+   "attackClass": "physical",
+   "range": 1
   },
   {
    "id": 3,
@@ -229,7 +383,18 @@
     "Legendary",
     "Water"
    ],
-   "dex": 15
+   "dex": 15,
+   "stats": {
+    "hp": 100,
+    "atk": 60,
+    "def": 115,
+    "spa": 100,
+    "spd": 115,
+    "spe": 40
+   },
+   "attackType": "Water",
+   "attackClass": "special",
+   "range": 3
   },
   {
    "id": 48,
@@ -243,7 +408,18 @@
    "types": [
     "Sky"
    ],
-   "dex": 16
+   "dex": 16,
+   "stats": {
+    "hp": 60,
+    "atk": 85,
+    "def": 55,
+    "spa": 70,
+    "spd": 65,
+    "spe": 85
+   },
+   "attackType": "Sky",
+   "attackClass": "physical",
+   "range": 2
   },
   {
    "id": 42,
@@ -257,7 +433,18 @@
    "types": [
     "Sky"
    ],
-   "dex": 17
+   "dex": 17,
+   "stats": {
+    "hp": 55,
+    "atk": 70,
+    "def": 60,
+    "spa": 90,
+    "spd": 75,
+    "spe": 100
+   },
+   "attackType": "Sky",
+   "attackClass": "special",
+   "range": 3
   },
   {
    "id": 26,
@@ -271,7 +458,18 @@
    "types": [
     "Grass"
    ],
-   "dex": 18
+   "dex": 18,
+   "stats": {
+    "hp": 70,
+    "atk": 70,
+    "def": 65,
+    "spa": 90,
+    "spd": 80,
+    "spe": 105
+   },
+   "attackType": "Grass",
+   "attackClass": "special",
+   "range": 3
   },
   {
    "id": 34,
@@ -285,7 +483,18 @@
    "types": [
     "Water"
    ],
-   "dex": 19
+   "dex": 19,
+   "stats": {
+    "hp": 100,
+    "atk": 65,
+    "def": 105,
+    "spa": 65,
+    "spd": 95,
+    "spe": 50
+   },
+   "attackType": "Water",
+   "attackClass": "physical",
+   "range": 1
   },
   {
    "id": 17,
@@ -300,7 +509,18 @@
    "types": [
     "Ground"
    ],
-   "dex": 20
+   "dex": 20,
+   "stats": {
+    "hp": 80,
+    "atk": 130,
+    "def": 70,
+    "spa": 50,
+    "spd": 70,
+    "spe": 110
+   },
+   "attackType": "Ground",
+   "attackClass": "physical",
+   "range": 1
   },
   {
    "id": 10,
@@ -316,7 +536,18 @@
     "Fire"
    ],
    "typeNote": "In the Thánh Gióng legend the iron horse breathes fire; folk tradition says the bamboo it scorched turned yellow (tre đằng ngà) and the village it burned became Làng Cháy",
-   "dex": 21
+   "dex": 21,
+   "stats": {
+    "hp": 80,
+    "atk": 115,
+    "def": 110,
+    "spa": 85,
+    "spd": 65,
+    "spe": 75
+   },
+   "attackType": "Fire",
+   "attackClass": "physical",
+   "range": 1
   },
   {
    "id": 41,
@@ -330,7 +561,18 @@
    "types": [
     "Water"
    ],
-   "dex": 22
+   "dex": 22,
+   "stats": {
+    "hp": 85,
+    "atk": 60,
+    "def": 70,
+    "spa": 90,
+    "spd": 85,
+    "spe": 60
+   },
+   "attackType": "Water",
+   "attackClass": "special",
+   "range": 3
   },
   {
    "id": 15,
@@ -346,7 +588,18 @@
     "Ground"
    ],
    "typeNote": "Grazing wild ox",
-   "dex": 23
+   "dex": 23,
+   "stats": {
+    "hp": 135,
+    "atk": 110,
+    "def": 110,
+    "spa": 40,
+    "spd": 75,
+    "spe": 40
+   },
+   "attackType": "Grass",
+   "attackClass": "physical",
+   "range": 1
   },
   {
    "id": 21,
@@ -360,7 +613,18 @@
    "types": [
     "Grass"
    ],
-   "dex": 24
+   "dex": 24,
+   "stats": {
+    "hp": 80,
+    "atk": 90,
+    "def": 70,
+    "spa": 55,
+    "spd": 80,
+    "spe": 105
+   },
+   "attackType": "Grass",
+   "attackClass": "physical",
+   "range": 1
   },
   {
    "id": 4,
@@ -375,7 +639,18 @@
     "Legendary",
     "Ground"
    ],
-   "dex": 25
+   "dex": 25,
+   "stats": {
+    "hp": 90,
+    "atk": 100,
+    "def": 85,
+    "spa": 85,
+    "spd": 85,
+    "spe": 85
+   },
+   "attackType": "Ground",
+   "attackClass": "physical",
+   "range": 1
   },
   {
    "id": 2,
@@ -390,7 +665,18 @@
     "Legendary",
     "Sky"
    ],
-   "dex": 26
+   "dex": 26,
+   "stats": {
+    "hp": 65,
+    "atk": 85,
+    "def": 65,
+    "spa": 110,
+    "spd": 85,
+    "spe": 120
+   },
+   "attackType": "Sky",
+   "attackClass": "special",
+   "range": 3
   },
   {
    "id": 37,
@@ -404,7 +690,18 @@
    "types": [
     "Water"
    ],
-   "dex": 27
+   "dex": 27,
+   "stats": {
+    "hp": 100,
+    "atk": 90,
+    "def": 80,
+    "spa": 65,
+    "spd": 80,
+    "spe": 65
+   },
+   "attackType": "Water",
+   "attackClass": "physical",
+   "range": 1
   },
   {
    "id": 6,
@@ -420,7 +717,18 @@
     "Rock"
    ],
    "typeNote": "Usually carved in stone",
-   "dex": 28
+   "dex": 28,
+   "stats": {
+    "hp": 105,
+    "atk": 85,
+    "def": 130,
+    "spa": 50,
+    "spd": 110,
+    "spe": 50
+   },
+   "attackType": "Rock",
+   "attackClass": "physical",
+   "range": 1
   },
   {
    "id": 9,
@@ -435,7 +743,18 @@
     "Legendary",
     "Ground"
    ],
-   "dex": 29
+   "dex": 29,
+   "stats": {
+    "hp": 75,
+    "atk": 105,
+    "def": 70,
+    "spa": 70,
+    "spd": 75,
+    "spe": 135
+   },
+   "attackType": "Ground",
+   "attackClass": "physical",
+   "range": 1
   },
   {
    "id": 8,
@@ -450,7 +769,18 @@
     "Legendary",
     "Ground"
    ],
-   "dex": 30
+   "dex": 30,
+   "stats": {
+    "hp": 75,
+    "atk": 125,
+    "def": 70,
+    "spa": 60,
+    "spd": 70,
+    "spe": 130
+   },
+   "attackType": "Ground",
+   "attackClass": "physical",
+   "range": 1
   },
   {
    "id": 12,
@@ -466,7 +796,18 @@
     "Poison"
    ],
    "typeNote": "Demon fox spirit",
-   "dex": 31
+   "dex": 31,
+   "stats": {
+    "hp": 65,
+    "atk": 65,
+    "def": 60,
+    "spa": 125,
+    "spd": 95,
+    "spe": 120
+   },
+   "attackType": "Poison",
+   "attackClass": "special",
+   "range": 3
   },
   {
    "id": 7,
@@ -481,7 +822,18 @@
     "Legendary",
     "Ground"
    ],
-   "dex": 32
+   "dex": 32,
+   "stats": {
+    "hp": 130,
+    "atk": 115,
+    "def": 115,
+    "spa": 45,
+    "spd": 80,
+    "spe": 45
+   },
+   "attackType": "Ground",
+   "attackClass": "physical",
+   "range": 1
   },
   {
    "id": 29,
@@ -495,7 +847,18 @@
    "types": [
     "Grass"
    ],
-   "dex": 33
+   "dex": 33,
+   "stats": {
+    "hp": 65,
+    "atk": 80,
+    "def": 55,
+    "spa": 90,
+    "spd": 70,
+    "spe": 120
+   },
+   "attackType": "Grass",
+   "attackClass": "special",
+   "range": 3
   },
   {
    "id": 40,
@@ -509,7 +872,18 @@
    "types": [
     "Ground"
    ],
-   "dex": 34
+   "dex": 34,
+   "stats": {
+    "hp": 65,
+    "atk": 75,
+    "def": 70,
+    "spa": 50,
+    "spd": 65,
+    "spe": 125
+   },
+   "attackType": "Ground",
+   "attackClass": "physical",
+   "range": 1
   },
   {
    "id": 44,
@@ -525,7 +899,18 @@
     "Grass"
    ],
    "typeNote": "Venomous bite (toxin from a brachial gland mixed with saliva)",
-   "dex": 35
+   "dex": 35,
+   "stats": {
+    "hp": 60,
+    "atk": 50,
+    "def": 65,
+    "spa": 125,
+    "spd": 100,
+    "spe": 50
+   },
+   "attackType": "Poison",
+   "attackClass": "special",
+   "range": 3
   },
   {
    "id": 25,
@@ -539,7 +924,18 @@
    "types": [
     "Grass"
    ],
-   "dex": 36
+   "dex": 36,
+   "stats": {
+    "hp": 70,
+    "atk": 70,
+    "def": 65,
+    "spa": 90,
+    "spd": 80,
+    "spe": 105
+   },
+   "attackType": "Grass",
+   "attackClass": "special",
+   "range": 3
   },
   {
    "id": 20,
@@ -553,7 +949,18 @@
    "types": [
     "Grass"
    ],
-   "dex": 37
+   "dex": 37,
+   "stats": {
+    "hp": 80,
+    "atk": 90,
+    "def": 70,
+    "spa": 55,
+    "spd": 80,
+    "spe": 105
+   },
+   "attackType": "Grass",
+   "attackClass": "physical",
+   "range": 1
   },
   {
    "id": 45,
@@ -568,7 +975,18 @@
     "Sky",
     "Water"
    ],
-   "dex": 38
+   "dex": 38,
+   "stats": {
+    "hp": 65,
+    "atk": 75,
+    "def": 50,
+    "spa": 75,
+    "spd": 65,
+    "spe": 90
+   },
+   "attackType": "Sky",
+   "attackClass": "physical",
+   "range": 2
   },
   {
    "id": 31,
@@ -584,7 +1002,18 @@
     "Ground"
    ],
    "typeNote": "Hunts from water and land",
-   "dex": 39
+   "dex": 39,
+   "stats": {
+    "hp": 100,
+    "atk": 120,
+    "def": 105,
+    "spa": 40,
+    "spd": 65,
+    "spe": 50
+   },
+   "attackType": "Water",
+   "attackClass": "physical",
+   "range": 1
   },
   {
    "id": 50,
@@ -598,7 +1027,18 @@
    "types": [
     "Grass"
    ],
-   "dex": 40
+   "dex": 40,
+   "stats": {
+    "hp": 65,
+    "atk": 70,
+    "def": 45,
+    "spa": 45,
+    "spd": 60,
+    "spe": 135
+   },
+   "attackType": "Grass",
+   "attackClass": "physical",
+   "range": 1
   },
   {
    "id": 36,
@@ -613,7 +1053,18 @@
     "Sky",
     "Water"
    ],
-   "dex": 41
+   "dex": 41,
+   "stats": {
+    "hp": 50,
+    "atk": 80,
+    "def": 55,
+    "spa": 90,
+    "spd": 70,
+    "spe": 135
+   },
+   "attackType": "Sky",
+   "attackClass": "special",
+   "range": 3
   },
   {
    "id": 47,
@@ -627,7 +1078,18 @@
    "types": [
     "Ground"
    ],
-   "dex": 42
+   "dex": 42,
+   "stats": {
+    "hp": 90,
+    "atk": 95,
+    "def": 75,
+    "spa": 35,
+    "spd": 65,
+    "spe": 60
+   },
+   "attackType": "Ground",
+   "attackClass": "physical",
+   "range": 1
   },
   {
    "id": 30,
@@ -641,7 +1103,18 @@
    "types": [
     "Ground"
    ],
-   "dex": 43
+   "dex": 43,
+   "stats": {
+    "hp": 85,
+    "atk": 75,
+    "def": 130,
+    "spa": 40,
+    "spd": 90,
+    "spe": 60
+   },
+   "attackType": "Ground",
+   "attackClass": "physical",
+   "range": 1
   },
   {
    "id": 19,
@@ -655,7 +1128,18 @@
    "types": [
     "Water"
    ],
-   "dex": 44
+   "dex": 44,
+   "stats": {
+    "hp": 110,
+    "atk": 80,
+    "def": 120,
+    "spa": 65,
+    "spd": 100,
+    "spe": 35
+   },
+   "attackType": "Water",
+   "attackClass": "physical",
+   "range": 1
   },
   {
    "id": 22,
@@ -671,7 +1155,18 @@
     "Grass"
    ],
    "typeNote": "Lives on limestone karst",
-   "dex": 45
+   "dex": 45,
+   "stats": {
+    "hp": 70,
+    "atk": 70,
+    "def": 65,
+    "spa": 90,
+    "spd": 80,
+    "spe": 105
+   },
+   "attackType": "Rock",
+   "attackClass": "special",
+   "range": 3
   },
   {
    "id": 1,
@@ -687,7 +1182,18 @@
     "Electric"
    ],
    "dex": 46,
-   "typeNote": "Dragons command rain, storm and thunder; Vietnamese communities held rain-praying rites (cầu mưa) to the dragon"
+   "typeNote": "Dragons command rain, storm and thunder; Vietnamese communities held rain-praying rites (cầu mưa) to the dragon",
+   "stats": {
+    "hp": 80,
+    "atk": 90,
+    "def": 75,
+    "spa": 115,
+    "spd": 80,
+    "spe": 90
+   },
+   "attackType": "Electric",
+   "attackClass": "special",
+   "range": 3
   },
   {
    "id": 14,
@@ -702,7 +1208,18 @@
    "types": [
     "Ground"
    ],
-   "dex": 47
+   "dex": 47,
+   "stats": {
+    "hp": 135,
+    "atk": 110,
+    "def": 110,
+    "spa": 40,
+    "spd": 75,
+    "spe": 40
+   },
+   "attackType": "Ground",
+   "attackClass": "physical",
+   "range": 1
   },
   {
    "id": 5,
@@ -718,7 +1235,18 @@
     "Fire"
    ],
    "dex": 48,
-   "typeNote": "Fire symbolism shared with the Vermilion Bird (Chu Tước), guardian of the South and the Fire phase in the Five Phases (Ngũ Hành)"
+   "typeNote": "Fire symbolism shared with the Vermilion Bird (Chu Tước), guardian of the South and the Fire phase in the Five Phases (Ngũ Hành)",
+   "stats": {
+    "hp": 75,
+    "atk": 75,
+    "def": 65,
+    "spa": 125,
+    "spd": 90,
+    "spe": 100
+   },
+   "attackType": "Fire",
+   "attackClass": "special",
+   "range": 3
   },
   {
    "id": 32,
@@ -732,7 +1260,18 @@
    "types": [
     "Water"
    ],
-   "dex": 49
+   "dex": 49,
+   "stats": {
+    "hp": 100,
+    "atk": 65,
+    "def": 125,
+    "spa": 65,
+    "spd": 95,
+    "spe": 30
+   },
+   "attackType": "Water",
+   "attackClass": "physical",
+   "range": 1
   },
   {
    "id": 13,
@@ -747,7 +1286,18 @@
     "Legendary",
     "Water"
    ],
-   "dex": 50
+   "dex": 50,
+   "stats": {
+    "hp": 135,
+    "atk": 85,
+    "def": 85,
+    "spa": 95,
+    "spd": 95,
+    "spe": 35
+   },
+   "attackType": "Water",
+   "attackClass": "special",
+   "range": 3
   }
  ],
  "types": [
@@ -763,5 +1313,105 @@
   "Poison"
  ],
  "typeRule": "Legendary=myth; Fire=fire-breathing or fire-symbol creatures; Water=lives in rivers/sea/wetland water; Electric=thunder, storm and lightning powers; Ground=heavy land animals, diggers; Rock=karst/cave/stone; Grass=forest plant-eaters & tree-dwellers; Sky=birds & flyers; Insect=bugs; Poison=venomous/poisonous",
- "sortNote": "dex numbers are temporary: A-Z by English name"
+ "sortNote": "dex numbers are temporary: A-Z by English name",
+ "typeChart": {
+  "Fire": {
+   "Grass": 2,
+   "Insect": 2,
+   "Fire": 0.5,
+   "Water": 0.5,
+   "Rock": 0.5
+  },
+  "Water": {
+   "Fire": 2,
+   "Ground": 2,
+   "Rock": 2,
+   "Water": 0.5,
+   "Grass": 0.5
+  },
+  "Electric": {
+   "Water": 2,
+   "Sky": 2,
+   "Electric": 0.5,
+   "Grass": 0.5,
+   "Ground": 0.5
+  },
+  "Grass": {
+   "Water": 2,
+   "Ground": 2,
+   "Rock": 2,
+   "Fire": 0.5,
+   "Grass": 0.5,
+   "Poison": 0.5,
+   "Sky": 0.5,
+   "Insect": 0.5
+  },
+  "Ground": {
+   "Fire": 2,
+   "Electric": 2,
+   "Poison": 2,
+   "Rock": 2,
+   "Grass": 0.5,
+   "Insect": 0.5,
+   "Sky": 0.5
+  },
+  "Rock": {
+   "Fire": 2,
+   "Sky": 2,
+   "Insect": 2,
+   "Ground": 0.5
+  },
+  "Sky": {
+   "Grass": 2,
+   "Insect": 2,
+   "Electric": 0.5,
+   "Rock": 0.5
+  },
+  "Insect": {
+   "Grass": 2,
+   "Fire": 0.5,
+   "Poison": 0.5,
+   "Sky": 0.5
+  },
+  "Poison": {
+   "Grass": 2,
+   "Poison": 0.5,
+   "Ground": 0.5,
+   "Rock": 0.5
+  }
+ },
+ "typeChartNote": "Attacker -> defender multipliers; anything not listed is 1x. From Pokemon's Gen 6+ chart (Sky = Flying, Insect = Bug). Against a dual-type defender the multipliers multiply, as in Pokemon. Pokemon's 0x immunities listed in typeChartSoftened are 0.5x here.",
+ "typeChartSoftened": [
+  [
+   "Electric",
+   "Ground"
+  ],
+  [
+   "Ground",
+   "Sky"
+  ]
+ ],
+ "legendaryRule": {
+  "dealt": 1.25,
+  "taken": 0.75,
+  "note": "A Legendary-type unit deals x1.25 damage to every type and takes x0.75 from every type, on top of its other type's matchups. Legendary vs Legendary: 1.25 x 0.75 = 0.9375."
+ },
+ "statRule": {
+  "stats": [
+   "hp",
+   "atk",
+   "def",
+   "spa",
+   "spd",
+   "spe"
+  ],
+  "bstByTier": {
+   "1": 420,
+   "2": 450,
+   "3": 480,
+   "4": 510,
+   "5": 530
+  },
+  "note": "Pokemon-style base stats. Total set by tier; split by body plan. Physical attacks use atk vs def, special use spa vs spd. Range in hexes: 1 melee, 2 swoop, 3 ranged. attackType is the unit's first non-Legendary type."
+ }
 }
