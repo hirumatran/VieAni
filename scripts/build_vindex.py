@@ -12,6 +12,10 @@ for s in data["species"]:
     png = custom if custom.exists() else root / f'assets/sprites/{s["id"]:02d}.png'
     if png.exists():
         sprites[s["id"]] = "data:image/png;base64," + base64.b64encode(png.read_bytes()).decode()
+vn = json.loads((root / "data/vn_info.json").read_text(encoding="utf-8"))  # Vietnamese info-card text
+for sp in data["species"]:
+    sp["vn"] = vn["species"].get(str(sp["id"]), {})
+data["vnMeta"] = {k: v for k, v in vn.items() if k != "species"}
 tpl = (root / "src/vindex.template.html").read_text(encoding="utf-8")
 out = (tpl.replace("__DATA__", json.dumps(data, ensure_ascii=False).replace("</", "<\\/"))
           .replace("__SPRITES__", json.dumps(sprites)))
