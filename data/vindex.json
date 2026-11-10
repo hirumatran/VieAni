@@ -1,0 +1,763 @@
+{
+ "version": "0.1-draft",
+ "updated": "2026-11-10",
+ "notes": "IUCN categories are global species-level categories unless 'vnStatus' says otherwise. Re-check each entry on iucnredlist.org before release; categories change on reassessment.",
+ "tierRule": {
+  "Legendary": 5,
+  "Vanished": 4,
+  "CR": 3,
+  "EN": 2,
+  "VU": 1,
+  "DD": 1
+ },
+ "species": [
+  {
+   "id": 39,
+   "vi": "Thỏ vằn Trường Sơn",
+   "en": "Annamite Striped Rabbit",
+   "sci": "Nesolagus timminsi",
+   "group": "Wild",
+   "iucn": "EN",
+   "habitat": "Forest",
+   "note": "Described 2000; reassessed DD→EN due to snaring.",
+   "types": [
+    "Grass"
+   ],
+   "dex": 1
+  },
+  {
+   "id": 38,
+   "vi": "Voi châu Á",
+   "en": "Asian Elephant",
+   "sci": "Elephas maximus",
+   "group": "Wild",
+   "iucn": "EN",
+   "habitat": "Forest",
+   "note": "Small wild remnant in Vietnam; Đắk Lắk elephant culture.",
+   "types": [
+    "Ground"
+   ],
+   "dex": 2
+  },
+  {
+   "id": 33,
+   "vi": "Giải",
+   "en": "Asian Giant Softshell Turtle",
+   "sci": "Pelochelys cantorii",
+   "group": "Wild",
+   "iucn": "CR",
+   "habitat": "River",
+   "note": "Large softshell of rivers and estuaries.",
+   "types": [
+    "Water"
+   ],
+   "dex": 3
+  },
+  {
+   "id": 43,
+   "vi": "Cò thìa",
+   "en": "Black-faced Spoonbill",
+   "sci": "Platalea minor",
+   "group": "Wild",
+   "iucn": "EN",
+   "habitat": "Wetland",
+   "note": "Winters at Xuân Thủy (Nam Định).",
+   "types": [
+    "Sky",
+    "Water"
+   ],
+   "dex": 4
+  },
+  {
+   "id": 27,
+   "vi": "Chà vá chân đen",
+   "en": "Black-shanked Douc",
+   "sci": "Pygathrix nigripes",
+   "group": "Wild",
+   "iucn": "CR",
+   "habitat": "Forest",
+   "note": "Southern Vietnam and Cambodia; CR since 2015.",
+   "types": [
+    "Grass"
+   ],
+   "dex": 5
+  },
+  {
+   "id": 28,
+   "vi": "Vượn Cao Vít",
+   "en": "Cao Vit Gibbon",
+   "sci": "Nomascus nasutus",
+   "group": "Wild",
+   "iucn": "CR",
+   "habitat": "Karst",
+   "note": "Trùng Khánh, Cao Bằng (and adjacent China); one of the rarest apes.",
+   "types": [
+    "Rock"
+   ],
+   "typeNote": "Lives on limestone karst forest",
+   "dex": 6
+  },
+  {
+   "id": 24,
+   "vi": "Voọc Cát Bà",
+   "en": "Cat Ba Langur",
+   "sci": "Trachypithecus poliocephalus",
+   "group": "Wild",
+   "iucn": "CR",
+   "habitat": "Karst",
+   "note": "Only on Cát Bà island; among the rarest primates.",
+   "types": [
+    "Rock"
+   ],
+   "typeNote": "Lives on limestone karst island",
+   "dex": 7
+  },
+  {
+   "id": 46,
+   "vi": "Báo gấm",
+   "en": "Clouded Leopard",
+   "sci": "Neofelis nebulosa",
+   "group": "Wild",
+   "iucn": "VU",
+   "habitat": "Forest",
+   "note": "Elusive arboreal cat.",
+   "types": [
+    "Grass"
+   ],
+   "dex": 8
+  },
+  {
+   "id": 23,
+   "vi": "Voọc mông trắng",
+   "en": "Delacour's Langur",
+   "sci": "Trachypithecus delacouri",
+   "group": "Wild",
+   "iucn": "CR",
+   "habitat": "Karst",
+   "note": "Endemic; key population in Vân Long, Ninh Bình.",
+   "types": [
+    "Rock"
+   ],
+   "typeNote": "Lives on limestone karst",
+   "dex": 9
+  },
+  {
+   "id": 49,
+   "vi": "Bò biển",
+   "en": "Dugong",
+   "sci": "Dugong dugon",
+   "group": "Wild",
+   "iucn": "VU",
+   "habitat": "Sea",
+   "note": "Seagrass beds of Côn Đảo and Phú Quốc.",
+   "types": [
+    "Water",
+    "Grass"
+   ],
+   "typeNote": "Grazes seagrass",
+   "dex": 10
+  },
+  {
+   "id": 18,
+   "vi": "Gà lôi lam mào trắng",
+   "en": "Edwards's Pheasant",
+   "sci": "Lophura edwardsi",
+   "group": "Vanished",
+   "iucn": "CR (Possibly Extinct in the Wild)",
+   "habitat": "Forest",
+   "note": "Endemic to central Vietnam; no confirmed wild record since 2000; survives in captivity.",
+   "types": [
+    "Sky"
+   ],
+   "dex": 11
+  },
+  {
+   "id": 11,
+   "vi": "Ngư Tinh",
+   "en": "Fish Demon",
+   "sci": null,
+   "group": "Legendary",
+   "iucn": null,
+   "habitat": "Sea",
+   "note": "Sea monster slain by Lạc Long Quân; its tail is said to have become Bạch Long Vĩ island.",
+   "types": [
+    "Legendary",
+    "Water"
+   ],
+   "dex": 12
+  },
+  {
+   "id": 35,
+   "vi": "Cò quắm lớn",
+   "en": "Giant Ibis",
+   "sci": "Thaumatibis gigantea",
+   "group": "Wild",
+   "iucn": "CR",
+   "habitat": "Wetland",
+   "note": "Cambodia's national bird; historical Vietnam records (Yok Đôn) – verify current status in Vietnam.",
+   "types": [
+    "Sky",
+    "Water"
+   ],
+   "dex": 13
+  },
+  {
+   "id": 16,
+   "vi": "Vượn khổng lồ",
+   "en": "Gigantopithecus",
+   "sci": "Gigantopithecus blacki",
+   "group": "Vanished",
+   "iucn": "Extinct (fossil)",
+   "habitat": "Karst",
+   "note": "Fossil teeth from Thẩm Khuyên cave (Lạng Sơn, ~475,000 yrs) and Lang Trang cave (Thanh Hóa).",
+   "types": [
+    "Rock"
+   ],
+   "typeNote": "Known from limestone-cave fossils",
+   "dex": 14
+  },
+  {
+   "id": 3,
+   "vi": "Kim Quy",
+   "en": "Golden Turtle God",
+   "sci": null,
+   "group": "Legendary",
+   "iucn": null,
+   "habitat": "River",
+   "note": "Helped An Dương Vương build Cổ Loa and gave a claw for the magic crossbow; reclaimed Lê Lợi's sword at Hoàn Kiếm Lake.",
+   "types": [
+    "Legendary",
+    "Water"
+   ],
+   "dex": 15
+  },
+  {
+   "id": 48,
+   "vi": "Hồng hoàng",
+   "en": "Great Hornbill",
+   "sci": "Buceros bicornis",
+   "group": "Wild",
+   "iucn": "VU",
+   "habitat": "Forest",
+   "note": "Large casqued hornbill of old-growth forest.",
+   "types": [
+    "Sky"
+   ],
+   "dex": 16
+  },
+  {
+   "id": 42,
+   "vi": "Công",
+   "en": "Green Peafowl",
+   "sci": "Pavo muticus",
+   "group": "Wild",
+   "iucn": "EN",
+   "habitat": "Forest",
+   "note": "Cát Tiên and Yok Đôn; peacock motif in Vietnamese art.",
+   "types": [
+    "Sky"
+   ],
+   "dex": 17
+  },
+  {
+   "id": 26,
+   "vi": "Chà vá chân xám",
+   "en": "Grey-shanked Douc",
+   "sci": "Pygathrix cinerea",
+   "group": "Wild",
+   "iucn": "CR",
+   "habitat": "Forest",
+   "note": "Endemic to central Vietnam.",
+   "types": [
+    "Grass"
+   ],
+   "dex": 18
+  },
+  {
+   "id": 34,
+   "vi": "Đồi mồi",
+   "en": "Hawksbill Turtle",
+   "sci": "Eretmochelys imbricata",
+   "group": "Wild",
+   "iucn": "CR",
+   "habitat": "Sea",
+   "note": "Côn Đảo and other reefs; prized shell drove its decline.",
+   "types": [
+    "Water"
+   ],
+   "dex": 19
+  },
+  {
+   "id": 17,
+   "vi": "Hổ Đông Dương",
+   "en": "Indochinese Tiger",
+   "sci": "Panthera tigris corbetti",
+   "group": "Vanished",
+   "iucn": "EN (species)",
+   "vnStatus": "No recent confirmed wild records; widely regarded as functionally extinct in the wild in Vietnam – verify",
+   "habitat": "Forest",
+   "note": "Revered as 'Ông Ba Mươi' in folk belief.",
+   "types": [
+    "Ground"
+   ],
+   "dex": 20
+  },
+  {
+   "id": 10,
+   "vi": "Ngựa sắt Thánh Gióng",
+   "en": "Iron Horse of Saint Gióng",
+   "sci": null,
+   "group": "Legendary",
+   "iucn": null,
+   "habitat": "Mythic",
+   "note": "Fire-breathing iron horse ridden by Thánh Gióng against the Ân invaders.",
+   "types": [
+    "Legendary",
+    "Rock"
+   ],
+   "typeNote": "Iron-forged mount",
+   "dex": 21
+  },
+  {
+   "id": 41,
+   "vi": "Cá heo Irrawaddy",
+   "en": "Irrawaddy Dolphin",
+   "sci": "Orcaella brevirostris",
+   "group": "Wild",
+   "iucn": "EN",
+   "habitat": "Sea",
+   "note": "Coastal and river dolphin; rare in Vietnamese waters – verify Vietnam records.",
+   "types": [
+    "Water"
+   ],
+   "dex": 22
+  },
+  {
+   "id": 15,
+   "vi": "Bò xám",
+   "en": "Kouprey",
+   "sci": "Bos sauveli",
+   "group": "Vanished",
+   "iucn": "CR (Possibly Extinct)",
+   "habitat": "Forest",
+   "note": "Wild forest ox of Indochina; no confirmed live sighting for decades.",
+   "types": [
+    "Grass",
+    "Ground"
+   ],
+   "typeNote": "Grazing wild ox",
+   "dex": 23
+  },
+  {
+   "id": 21,
+   "vi": "Mang lớn",
+   "en": "Large-antlered Muntjac",
+   "sci": "Muntiacus vuquangensis",
+   "group": "Wild",
+   "iucn": "CR",
+   "habitat": "Forest",
+   "note": "Described from Vũ Quang in 1994; Annamite endemic.",
+   "types": [
+    "Grass"
+   ],
+   "dex": 24
+  },
+  {
+   "id": 4,
+   "vi": "Lân",
+   "en": "Lân (Vietnamese qilin)",
+   "sci": null,
+   "group": "Legendary",
+   "iucn": null,
+   "habitat": "Mythic",
+   "note": "Tứ Linh; the lion-dance (múa lân) creature of Tết and Mid-Autumn.",
+   "types": [
+    "Legendary",
+    "Ground"
+   ],
+   "dex": 25
+  },
+  {
+   "id": 2,
+   "vi": "Chim Lạc",
+   "en": "Lạc Bird",
+   "sci": null,
+   "group": "Legendary",
+   "iucn": null,
+   "habitat": "Sky",
+   "note": "Long-beaked bird motif on Đông Sơn bronze drums (e.g. Ngọc Lũ drum); totem of the Lạc Việt.",
+   "types": [
+    "Legendary",
+    "Sky"
+   ],
+   "dex": 26
+  },
+  {
+   "id": 37,
+   "vi": "Cá tra dầu",
+   "en": "Mekong Giant Catfish",
+   "sci": "Pangasianodon gigas",
+   "group": "Wild",
+   "iucn": "CR",
+   "habitat": "River",
+   "note": "One of the largest freshwater fishes; Mekong endemic.",
+   "types": [
+    "Water"
+   ],
+   "dex": 27
+  },
+  {
+   "id": 6,
+   "vi": "Nghê",
+   "en": "Nghê Guardian",
+   "sci": null,
+   "group": "Legendary",
+   "iucn": null,
+   "habitat": "Mythic",
+   "note": "Dog-like guardian beast distinctive to Vietnamese temples and communal houses (đình).",
+   "types": [
+    "Legendary",
+    "Rock"
+   ],
+   "typeNote": "Usually carved in stone",
+   "dex": 28
+  },
+  {
+   "id": 9,
+   "vi": "Ngựa chín hồng mao",
+   "en": "Nine-red-maned Horse",
+   "sci": null,
+   "group": "Legendary",
+   "iucn": null,
+   "habitat": "Mythic",
+   "note": "Bride-price item in the Sơn Tinh – Thủy Tinh legend.",
+   "types": [
+    "Legendary",
+    "Ground"
+   ],
+   "dex": 29
+  },
+  {
+   "id": 8,
+   "vi": "Gà chín cựa",
+   "en": "Nine-spurred Rooster",
+   "sci": null,
+   "group": "Legendary",
+   "iucn": null,
+   "habitat": "Mythic",
+   "note": "Bride-price item in the Sơn Tinh – Thủy Tinh legend.",
+   "types": [
+    "Legendary",
+    "Ground"
+   ],
+   "dex": 30
+  },
+  {
+   "id": 12,
+   "vi": "Hồ Tinh",
+   "en": "Nine-tailed Fox Spirit",
+   "sci": null,
+   "group": "Legendary",
+   "iucn": null,
+   "habitat": "River",
+   "note": "Fox demon defeated by Lạc Long Quân; its collapsed lair is said to have formed Hồ Tây (West Lake).",
+   "types": [
+    "Legendary",
+    "Poison"
+   ],
+   "typeNote": "Demon fox spirit",
+   "dex": 31
+  },
+  {
+   "id": 7,
+   "vi": "Voi chín ngà",
+   "en": "Nine-tusked Elephant",
+   "sci": null,
+   "group": "Legendary",
+   "iucn": null,
+   "habitat": "Forest",
+   "note": "Bride-price item in the Sơn Tinh – Thủy Tinh legend.",
+   "types": [
+    "Legendary",
+    "Ground"
+   ],
+   "dex": 32
+  },
+  {
+   "id": 29,
+   "vi": "Vượn đen má trắng",
+   "en": "Northern White-cheeked Gibbon",
+   "sci": "Nomascus leucogenys",
+   "group": "Wild",
+   "iucn": "CR",
+   "habitat": "Forest",
+   "note": "Northern Vietnam, Laos, China.",
+   "types": [
+    "Grass"
+   ],
+   "dex": 33
+  },
+  {
+   "id": 40,
+   "vi": "Cầy vằn bắc",
+   "en": "Owston's Civet",
+   "sci": "Chrotogale owstoni",
+   "group": "Wild",
+   "iucn": "EN",
+   "habitat": "Forest",
+   "note": "Banded civet of northern/central Vietnam; bred at Cúc Phương.",
+   "types": [
+    "Ground"
+   ],
+   "dex": 34
+  },
+  {
+   "id": 44,
+   "vi": "Cu li nhỏ",
+   "en": "Pygmy Slow Loris",
+   "sci": "Xanthonycticebus pygmaeus",
+   "group": "Wild",
+   "iucn": "EN",
+   "habitat": "Forest",
+   "note": "Nocturnal, venomous bite; Vietnam, Laos, Cambodia, China.",
+   "types": [
+    "Poison",
+    "Grass"
+   ],
+   "typeNote": "Venomous bite (toxin from a brachial gland mixed with saliva)",
+   "dex": 35
+  },
+  {
+   "id": 25,
+   "vi": "Chà vá chân nâu",
+   "en": "Red-shanked Douc",
+   "sci": "Pygathrix nemaeus",
+   "group": "Wild",
+   "iucn": "CR",
+   "habitat": "Forest",
+   "note": "'Queen of primates'; Sơn Trà peninsula population. Uplisted EN→CR (2020).",
+   "types": [
+    "Grass"
+   ],
+   "dex": 36
+  },
+  {
+   "id": 20,
+   "vi": "Sao la",
+   "en": "Saola",
+   "sci": "Pseudoryx nghetinhensis",
+   "group": "Wild",
+   "iucn": "CR",
+   "habitat": "Forest",
+   "note": "Discovered 1992 in Vũ Quang; the 'Asian unicorn'.",
+   "types": [
+    "Grass"
+   ],
+   "dex": 37
+  },
+  {
+   "id": 45,
+   "vi": "Sếu đầu đỏ",
+   "en": "Sarus Crane",
+   "sci": "Antigone antigone",
+   "group": "Wild",
+   "iucn": "VU",
+   "habitat": "Wetland",
+   "note": "Tràm Chim, Đồng Tháp; crane also symbolic in temple 'hạc' statues.",
+   "types": [
+    "Sky",
+    "Water"
+   ],
+   "dex": 38
+  },
+  {
+   "id": 31,
+   "vi": "Cá sấu nước ngọt",
+   "en": "Siamese Crocodile",
+   "sci": "Crocodylus siamensis",
+   "group": "Wild",
+   "iucn": "CR",
+   "habitat": "Wetland",
+   "note": "Reintroduced to Bàu Sấu, Cát Tiên from 2001; now breeding there.",
+   "types": [
+    "Water",
+    "Ground"
+   ],
+   "typeNote": "Hunts from water and land",
+   "dex": 39
+  },
+  {
+   "id": 50,
+   "vi": "Cheo cheo lưng bạc",
+   "en": "Silver-backed Chevrotain",
+   "sci": "Tragulus versicolor",
+   "group": "Wild",
+   "iucn": "DD",
+   "habitat": "Forest",
+   "note": "Vietnam endemic 'mouse-deer'; photographed in 2019 after ~30 years without records.",
+   "types": [
+    "Grass"
+   ],
+   "dex": 40
+  },
+  {
+   "id": 36,
+   "vi": "Rẽ mỏ thìa",
+   "en": "Spoon-billed Sandpiper",
+   "sci": "Calidris pygmaea",
+   "group": "Wild",
+   "iucn": "CR",
+   "habitat": "Wetland",
+   "note": "Winters on Red River Delta mudflats (Xuân Thủy).",
+   "types": [
+    "Sky",
+    "Water"
+   ],
+   "dex": 41
+  },
+  {
+   "id": 47,
+   "vi": "Gấu chó",
+   "en": "Sun Bear",
+   "sci": "Helarctos malayanus",
+   "group": "Wild",
+   "iucn": "VU",
+   "habitat": "Forest",
+   "note": "Victim of bile farming; rescued bears at Tam Đảo, Cát Tiên.",
+   "types": [
+    "Ground"
+   ],
+   "dex": 42
+  },
+  {
+   "id": 30,
+   "vi": "Tê tê Java",
+   "en": "Sunda Pangolin",
+   "sci": "Manis javanica",
+   "group": "Wild",
+   "iucn": "CR",
+   "habitat": "Forest",
+   "note": "Heavily trafficked for scales and meat.",
+   "types": [
+    "Ground"
+   ],
+   "dex": 43
+  },
+  {
+   "id": 19,
+   "vi": "Rùa Hoàn Kiếm (Giải Thượng Hải)",
+   "en": "Swinhoe's Softshell Turtle",
+   "sci": "Rafetus swinhoei",
+   "group": "Vanished",
+   "iucn": "CR",
+   "habitat": "River",
+   "note": "'Cụ Rùa' of Hoàn Kiếm died Jan 2016; last known female (Đồng Mô) died Apr 2023; only 2–3 individuals known.",
+   "types": [
+    "Water"
+   ],
+   "dex": 44
+  },
+  {
+   "id": 22,
+   "vi": "Voọc mũi hếch",
+   "en": "Tonkin Snub-nosed Monkey",
+   "sci": "Rhinopithecus avunculus",
+   "group": "Wild",
+   "iucn": "CR",
+   "habitat": "Karst",
+   "note": "Endemic to northern Vietnam (e.g. Khau Ca, Hà Giang).",
+   "types": [
+    "Rock",
+    "Grass"
+   ],
+   "typeNote": "Lives on limestone karst",
+   "dex": 45
+  },
+  {
+   "id": 1,
+   "vi": "Rồng Lạc Việt",
+   "en": "Vietnamese Dragon",
+   "sci": null,
+   "group": "Legendary",
+   "iucn": null,
+   "habitat": "Sky",
+   "note": "First of the Tứ Linh (Four Sacred Beasts); Lạc Long Quân, dragon ancestor in the 'Con Rồng cháu Tiên' origin myth.",
+   "types": [
+    "Legendary",
+    "Sky"
+   ],
+   "dex": 46
+  },
+  {
+   "id": 14,
+   "vi": "Tê giác Java (Việt Nam)",
+   "en": "Vietnamese Javan Rhinoceros",
+   "sci": "Rhinoceros sondaicus annamiticus",
+   "group": "Vanished",
+   "iucn": "CR (species)",
+   "vnStatus": "Extinct – last individual found poached in Cát Tiên, April 2010; extinction confirmed by WWF/IRF, Oct 2011",
+   "habitat": "Forest",
+   "note": "Vietnam's subspecies is gone; ~50 of the species remain in Ujung Kulon, Indonesia.",
+   "types": [
+    "Ground"
+   ],
+   "dex": 47
+  },
+  {
+   "id": 5,
+   "vi": "Phượng Hoàng",
+   "en": "Vietnamese Phoenix",
+   "sci": null,
+   "group": "Legendary",
+   "iucn": null,
+   "habitat": "Sky",
+   "note": "Tứ Linh; imperial and feminine symbol in royal art.",
+   "types": [
+    "Legendary",
+    "Sky"
+   ],
+   "dex": 48
+  },
+  {
+   "id": 32,
+   "vi": "Rùa Trung Bộ",
+   "en": "Vietnamese Pond Turtle",
+   "sci": "Mauremys annamensis",
+   "group": "Wild",
+   "iucn": "CR",
+   "habitat": "Wetland",
+   "note": "Endemic to central Vietnam lowlands.",
+   "types": [
+    "Water"
+   ],
+   "dex": 49
+  },
+  {
+   "id": 13,
+   "vi": "Cá Ông",
+   "en": "Whale Lord",
+   "sci": "Cetacea (worshipped whales)",
+   "group": "Legendary",
+   "iucn": null,
+   "habitat": "Sea",
+   "note": "Whale worship by central/southern fishing communities; Vạn Thủy Tú temple (Phan Thiết) keeps a large whale skeleton.",
+   "types": [
+    "Legendary",
+    "Water"
+   ],
+   "dex": 50
+  }
+ ],
+ "types": [
+  "Legendary",
+  "Water",
+  "Ground",
+  "Rock",
+  "Grass",
+  "Sky",
+  "Insect",
+  "Poison"
+ ],
+ "typeRule": "Legendary=myth; Water=lives in rivers/sea/wetland water; Ground=heavy land animals, diggers; Rock=karst/cave/stone; Grass=forest plant-eaters & tree-dwellers; Sky=birds & flyers; Insect=bugs; Poison=venomous/poisonous",
+ "sortNote": "dex numbers are temporary: A-Z by English name"
+}
