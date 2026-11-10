@@ -313,9 +313,9 @@
    "note": "Fire-breathing iron horse ridden by Thánh Gióng against the Ân invaders.",
    "types": [
     "Legendary",
-    "Rock"
+    "Fire"
    ],
-   "typeNote": "Iron-forged mount",
+   "typeNote": "In the Thánh Gióng legend the iron horse breathes fire; folk tradition says the bamboo it scorched turned yellow (tre đằng ngà) and the village it burned became Làng Cháy",
    "dex": 21
   },
   {
@@ -684,9 +684,10 @@
    "note": "First of the Tứ Linh (Four Sacred Beasts); Lạc Long Quân, dragon ancestor in the 'Con Rồng cháu Tiên' origin myth.",
    "types": [
     "Legendary",
-    "Sky"
+    "Electric"
    ],
-   "dex": 46
+   "dex": 46,
+   "typeNote": "Dragons command rain, storm and thunder; Vietnamese communities held rain-praying rites (cầu mưa) to the dragon"
   },
   {
    "id": 14,
@@ -714,9 +715,10 @@
    "note": "Tứ Linh; imperial and feminine symbol in royal art.",
    "types": [
     "Legendary",
-    "Sky"
+    "Fire"
    ],
-   "dex": 48
+   "dex": 48,
+   "typeNote": "Fire symbolism shared with the Vermilion Bird (Chu Tước), guardian of the South and the Fire phase in the Five Phases (Ngũ Hành)"
   },
   {
    "id": 32,
@@ -750,14 +752,16 @@
  ],
  "types": [
   "Legendary",
+  "Fire",
   "Water",
+  "Electric",
+  "Grass",
   "Ground",
   "Rock",
-  "Grass",
   "Sky",
   "Insect",
   "Poison"
  ],
- "typeRule": "Legendary=myth; Water=lives in rivers/sea/wetland water; Ground=heavy land animals, diggers; Rock=karst/cave/stone; Grass=forest plant-eaters & tree-dwellers; Sky=birds & flyers; Insect=bugs; Poison=venomous/poisonous",
+ "typeRule": "Legendary=myth; Fire=fire-breathing or fire-symbol creatures; Water=lives in rivers/sea/wetland water; Electric=thunder, storm and lightning powers; Ground=heavy land animals, diggers; Rock=karst/cave/stone; Grass=forest plant-eaters & tree-dwellers; Sky=birds & flyers; Insect=bugs; Poison=venomous/poisonous",
  "sortNote": "dex numbers are temporary: A-Z by English name"
 }

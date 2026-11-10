@@ -12,6 +12,7 @@
   --lacquer:#8c1c13; --gold:#c9972b; --card:#ffffff; --shadow:0 2px 10px rgba(60,30,10,.10);
   --t-Legendary:#c9972b; --t-Water:#2f74c8; --t-Ground:#a0582c; --t-Rock:#7b6f5e;
   --t-Grass:#3a9a4f; --t-Sky:#2aa7b8; --t-Insect:#8fa81a; --t-Poison:#8a3ca6;
+  --t-Fire:#e0552a; --t-Electric:#f0c808;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
@@ -44,8 +45,9 @@ main{padding:18px 16px 40px}
 .card>*{width:100%}
 .card:hover,.card:focus-visible{transform:translateY(-3px);outline:2px solid var(--gold)}
 .art{aspect-ratio:1/1;display:grid;place-items:center;position:relative}
+.sprite{width:86%;height:86%;image-rendering:pixelated;image-rendering:crisp-edges;filter:drop-shadow(0 2px 0 rgba(0,0,0,.25))}
 .glyph{width:62%;aspect-ratio:1;border-radius:50%;display:grid;place-items:center;
-  font-weight:800;font-size:34px;color:#fff;background:rgba(255,255,255,.18);border:3px solid rgba(255,255,255,.55)}
+  font-weight:800;font-size:34px;color:#fff;background:rgba(255,255,255,.72);border:3px solid rgba(255,255,255,.9)}
 .tier{position:absolute;top:8px;right:10px;color:#fff;font-size:12px;letter-spacing:1px;text-shadow:0 1px 2px #0006}
 .status{position:absolute;top:8px;left:8px;font:700 11px/1 inherit;font-family:inherit;padding:4px 7px;border-radius:6px;background:#000a;color:#fff}
 .info{padding:10px 12px 14px}
@@ -90,7 +92,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:0 16px 30px}
 </div></div>
 
 <main><div class="wrap"><div class="grid" id="grid"></div><p class="empty" id="empty" hidden>No Vinmon match.</p></div></main>
-<footer>Draft data — IUCN categories to be re-checked on iucnredlist.org before release. Art is placeholder.</footer>
+<footer>Draft data — IUCN categories to be re-checked on iucnredlist.org before release. Sprites are draft pixel art drawn from each species' known markings.</footer>
 
 <dialog id="dlg"></dialog>
 
@@ -99,6 +101,9 @@ const DATA = __DATA__;
 const TIER = DATA.tierRule;
 const STATUS_TIER = s => s.group==="Legendary"?5 : s.group==="Vanished"?4 : (TIER[(s.iucn||"").split(" ")[0]]||1);
 const color = t => `var(--t-${t})`;
+const ink = t => t==="Electric" ? "#2b1d14" : "#fff";
+const SPRITES = __SPRITES__;
+const sprite = s => SPRITES[s.id] ? `<img class="sprite" src="${SPRITES[s.id]}" alt="">` : esc(initials(s));
 const esc = s => String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const initials = s => s.vi.replace(/\(.*\)/,"").trim().split(/\s+/).slice(0,2).map(w=>w[0]).join("").toUpperCase();
 const bg = s => s.types.length>1
@@ -112,7 +117,7 @@ let active = new Set();
 const chips = document.getElementById("chips");
 const counts = Object.fromEntries(DATA.types.map(t=>[t,DATA.species.filter(s=>s.types.includes(t)).length]));
 chips.innerHTML = `<button class="chip all on" data-t="">All</button>` +
-  DATA.types.map(t=>`<button class="chip" data-t="${t}" style="background:${color(t)};color:#fff">${t} ${counts[t]}</button>`).join("");
+  DATA.types.map(t=>`<button class="chip" data-t="${t}" style="background:${color(t)};color:${ink(t)}">${t} ${counts[t]}</button>`).join("");
 chips.addEventListener("click",e=>{
   const b=e.target.closest(".chip"); if(!b) return;
   const t=b.dataset.t;
@@ -137,13 +142,13 @@ function render(){
       <div class="art" style="background:${bg(s)}">
         <span class="status">${esc(statusLabel(s))}</span>
         <span class="tier" title="Tier ${STATUS_TIER(s)}">${stars(STATUS_TIER(s))}</span>
-        <div class="glyph">${esc(initials(s))}</div>
+        <div class="glyph">${sprite(s)}</div>
       </div>
       <div class="info">
         <div class="no">${pad(s.dex)}</div>
-        <div class="name">${esc(s.en)}</div>
-        <div class="vi">${esc(s.vi)}</div>
-        <div class="types">${s.types.map(t=>`<span class="type" style="background:${color(t)}">${t}</span>`).join("")}</div>
+        <div class="name">${esc(s.vi)}</div>
+        <div class="vi">${esc(s.en)}</div>
+        <div class="types">${s.types.map(t=>`<span class="type" style="background:${color(t)};color:${ink(t)}">${t}</span>`).join("")}</div>
       </div>
     </button>`).join("");
   document.getElementById("empty").hidden=list.length>0;
@@ -157,15 +162,15 @@ document.getElementById("grid").addEventListener("click",e=>{
   dlg.innerHTML=`
     <div class="d-art" style="background:${bg(s)}">
       <span class="status">${esc(statusLabel(s))}</span>
-      <div class="glyph">${esc(initials(s))}</div>
+      <div class="glyph">${sprite(s)}</div>
       <button class="close" aria-label="Close">✕</button>
     </div>
     <div class="d-body">
       <div class="no">${pad(s.dex)} · Tier ${STATUS_TIER(s)} ${stars(STATUS_TIER(s))}</div>
-      <h2>${esc(s.en)}</h2>
-      <div class="vi" style="font-size:16px">${esc(s.vi)}</div>
+      <h2>${esc(s.vi)}</h2>
+      <div class="vi" style="font-size:16px">${esc(s.en)}</div>
       ${s.sci?`<div class="sci">${esc(s.sci)}</div>`:""}
-      <div class="types">${s.types.map(t=>`<span class="type" style="background:${color(t)}">${t}</span>`).join("")}</div>
+      <div class="types">${s.types.map(t=>`<span class="type" style="background:${color(t)};color:${ink(t)}">${t}</span>`).join("")}</div>
       <dl>
         <dt>Group</dt><dd>${esc(s.group)}</dd>
         ${s.iucn?`<dt>IUCN</dt><dd>${esc(s.iucn)}</dd>`:""}
