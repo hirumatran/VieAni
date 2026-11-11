@@ -89,5 +89,6 @@ back into `data/*.json` before rebuilding the page.
 - Tracker: Google Sheet tab "Kế hoạch dự án" (status dropdown; overdue rows turn red).
 - Targets: Alpha Fri 15 Jan 2027 and public Beta Fri 26 Feb 2027 – both web-only on itch.io; native apps after beta. Tết buffer 4–14 Feb.
 - T01 done 11 Nov: project renamed Vinmon → VieAni, encyclopedia Vindex → VieIndex; TypeScript + Phaser; private repo → itch.io (butler); store accounts skipped.
-- Next: T02 GDD + T03 game skeleton, then T04 itch.io deploy (PO: itch.io account + BUTLER_API_KEY secret).
+- itch.io account created by PO: https://hirumatran.itch.io/ (ITCH_USER = hirumatran).
+- Next: T02 GDD + T03 game skeleton, then T04 itch.io deploy (PO still to do: create the game page + API key → GitHub secret BUTLER_API_KEY).
 - PO is sketching sprites on iPad directly in the board PDF.
