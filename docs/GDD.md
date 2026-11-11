@@ -172,7 +172,9 @@ Each battle picks one of **8 famous Vietnamese landscapes** at random, drawn as 
 same palette as the sprites (list and notes in `data/backgrounds.json`):
 Vịnh Hạ Long, Phong Nha – Kẻ Bàng, Vườn quốc gia Nam Cát Tiên, Ruộng bậc thang Mù Cang Chải,
 Hồ Hoàn Kiếm, Tràng An, Tràm Chim (Đồng Tháp), Côn Đảo.
-Backgrounds are drawn from scratch (photos only as reference), so there are no licence limits.
+**Art direction (PO, 11 Nov):** soft painted backgrounds (like the PO's Gemini reference) with
+pixel-art VieAni on top. The PO generates them with Gemini using `docs/BACKGROUND_PROMPTS.md`;
+Claude prepares them for the game. The procedural pixel drafts stay as placeholders until then.
 
 ## 10. Out of scope for alpha/beta
 Online multiplayer, accounts, payments, ads, leaderboards, native store apps.
