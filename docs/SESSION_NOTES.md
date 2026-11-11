@@ -90,5 +90,9 @@ back into `data/*.json` before rebuilding the page.
 - Targets: Alpha Fri 15 Jan 2027 and public Beta Fri 26 Feb 2027 – both web-only on itch.io; native apps after beta. Tết buffer 4–14 Feb.
 - T01 done 11 Nov: project renamed Vinmon → VieAni, encyclopedia Vindex → VieIndex; TypeScript + Phaser; private repo → itch.io (butler); store accounts skipped.
 - itch.io account created by PO: https://hirumatran.itch.io/ (ITCH_USER = hirumatran).
-- Next: T02 GDD + T03 game skeleton, then T04 itch.io deploy (PO still to do: create the game page + API key → GitHub secret BUTLER_API_KEY).
+- T02 (11 Nov): `docs/GDD.md` v1 drafted – waiting for PO review (3 questions at the end). All numbers mirrored in `game/src/core/config.ts`.
+- T03 done (11 Nov): `game/` = Vite + TypeScript + Phaser 4.2.1, Vitest (9 tests pass), `npm run build` OK.
+  Board scene shows the 8×8 board + bench + 5 sprites. Assets served from `../assets` (publicDir), base "./" for itch.io.
+  Phone portrait is small – landscape/phone layout is T33.
+- Next: T04 itch.io deploy (PO: create game page as HTML/Draft + API key → GitHub secret BUTLER_API_KEY), then T09 board drag-drop + T10 combat sim.
 - PO is sketching sprites on iPad directly in the board PDF.
