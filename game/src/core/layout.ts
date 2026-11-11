@@ -14,9 +14,10 @@ export const BENCH_CORNERS: Pt[] = [[256, 632], [1024, 632], [1044, 706], [236, 
 /** painted battle backgrounds (one picked at random per battle) */
 export const BACKGROUNDS = ["backgrounds/painted/bg_ha_long.webp"];
 
-/** 3×3 homography (as 8 numbers, h33 = 1) mapping the unit square to the quad `dst` */
-export function homography(dst: Pt[]): number[] {
-  const src: Pt[] = [[0, 0], [1, 0], [1, 1], [0, 1]];
+const UNIT: Pt[] = [[0, 0], [1, 0], [1, 1], [0, 1]];
+
+/** 3×3 homography (as 8 numbers, h33 = 1) mapping quad `src` (default: unit square) to quad `dst` */
+export function homography(dst: Pt[], src: Pt[] = UNIT): number[] {
   const A: number[][] = [];
   const b: number[] = [];
   for (let i = 0; i < 4; i++) {
@@ -53,8 +54,16 @@ function solve(A: number[][], b: number[]): number[] {
 
 export class Grid {
   readonly h: number[];
+  private inv: number[];
   constructor(corners: Pt[], readonly cols: number, readonly rows: number) {
     this.h = homography(corners);
+    this.inv = homography(UNIT, corners);
+  }
+  /** screen point -> [row, col] of the cell under it, or null if outside the grid */
+  cellAt(x: number, y: number): [number, number] | null {
+    const [u, v] = project(this.inv, x, y);
+    if (u < 0 || v < 0 || u >= 1 || v >= 1) return null;
+    return [Math.floor(v * this.rows), Math.floor(u * this.cols)];
   }
   /** corner points of cell (row, col), inset by `gap` (fraction of a cell) */
   cellQuad(row: number, col: number, gap = 0.05): Pt[] {

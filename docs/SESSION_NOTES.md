@@ -102,5 +102,11 @@ back into `data/*.json` before rebuilding the page.
 - T04 done 11 Nov: first successful butler upload (run 3). PO to tick "played in the browser" + embed 720×800 on itch edit page.
 - v0.2.0 (11 Nov): game switched to landscape 16:9 (1280×720). `game/src/core/layout.ts` = board/bench corners + homography (perspective grid); BoardScene draws the painted background, transparent cells and bench. itch embed must be 1280×720.
 - v0.3.0 (11 Nov): start screen `TitleScene` – Hạ Long background (slow drift), logo "VieAni – Huyền Thoại Dã Thú" (Google Fonts Baloo 2 + Be Vietnam Pro), buttons Bắt Đầu / Luyện Tập (both → board for now) / VieIndex (opens vieindex.html in an overlay; shipped in the build by a Vite plugin) / Cài Đặt (sound, speed ×1/×2, relaxed mode – stored in localStorage) / Đăng Nhập (toast "after beta"). VI/EN switch (`src/core/i18n.ts`). Board scene has "← Menu".
-- Next: T09 board drag-drop + T10 combat sim.
+- v0.4.0 (11 Nov): T09 + T10 done.
+  - `game/src/core/battle.ts`: deterministic simulation (10 ticks/s, 45 s cap → draw). HP = 200+10·HP, damage = 40·A/D·type·prey·roll(0.9–1.1)·star, interval = clamp(2·100/(Spe+50), 0.6–2.5 s), move 1 cell/0.4 s with BFS pathing, Chebyshev range, targeting nearest (ties: lowest HP, uid), Thiên địch prey within 3 cells (or unlimited for Thạch Sùng/Thằn Lằn vs insects) + damage mult. Energy +10/attack, +5/hit; at 100 a PLACEHOLDER skill (2× strike) until T11. `playerDamage()` and `mirror()`.
+  - Sim check (300 random 5v5, ★1): median 24.5 s, p90 45 s (≈10% timeouts/draws), A/B wins even.
+  - `game/src/core/team.ts`: own half + bench, board limit, swap, save/load (localStorage "vieani.practice.team").
+  - BoardScene: drag & drop (mouse/touch) with cell highlight via inverse homography (`Grid.cellAt`), "Trên sân n/5" (practice level 5), "⚔ Đấu thử" vs random tier≤3 team → replay (moves, lunges, damage numbers, HP bars, deaths) → THẮNG/THUA/HÒA + HP lost → "Về bàn".
+  - 29 unit tests.
+- Next: T11 skill templates + T12 status effects (→ M1), T13 Cộng sinh, T14 balance report.
 - PO is sketching sprites on iPad directly in the board PDF.

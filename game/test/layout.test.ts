@@ -11,6 +11,14 @@ describe("board projection", () => {
       expect(y).toBeCloseTo(BOARD_CORNERS[i][1], 6);
     });
   });
+  it("finds the cell under a screen point (inverse projection)", () => {
+    const g = new Grid(BOARD_CORNERS, 8, 8);
+    for (const [r, c] of [[0, 0], [3, 5], [7, 7], [4, 2]]) {
+      const [x, y] = g.foot(r, c);
+      expect(g.cellAt(x, y)).toEqual([r, c]);
+    }
+    expect(g.cellAt(5, 5)).toBeNull();
+  });
   it("far cells look smaller than near cells (perspective)", () => {
     const g = new Grid(BOARD_CORNERS, 8, 8);
     expect(g.cellWidth(0, 3)).toBeLessThan(g.cellWidth(7, 3));
