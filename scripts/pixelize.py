@@ -16,7 +16,7 @@ Steps:
 
 It also saves a side-by-side preview (<out>.preview.png) of the cleaned input
 and the 8x enlarged sprite. Finish the sprite by hand in Aseprite or Pixelorama,
-then run scripts/build_vindex.py. Sprites in assets/sprites/custom/ take
+then run scripts/build_vieindex.py. Sprites in assets/sprites/custom/ take
 priority over the drawn ones and are never overwritten by scripts/sprites.py.
 
     python3 scripts/pixelize.py --build-palette   # rebuild palette from current sprites
@@ -203,7 +203,7 @@ def convert(path, size, colors, tolerance, flip, outline_on, pal):
 
 def run_batch(args):
     import json, re
-    data = json.loads((ROOT / "data/vindex.json").read_text(encoding="utf-8"))
+    data = json.loads((ROOT / "data/vieindex.json").read_text(encoding="utf-8"))
     by_dex = {s["dex"]: s for s in data["species"]}
     if not PALETTE.exists():
         build_palette()
@@ -234,7 +234,7 @@ def run_batch(args):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("image", nargs="?", help="sketch or image file (PNG, JPG, ...)")
-    ap.add_argument("--id", type=int, help="VieAni id from data/vindex.json; saves assets/sprites/custom/<id>.png")
+    ap.add_argument("--id", type=int, help="VieAni id from data/vieindex.json; saves assets/sprites/custom/<id>.png")
     ap.add_argument("--out", help="output PNG path (instead of --id)")
     ap.add_argument("--size", type=int, default=32, help="sprite size in pixels (default 32)")
     ap.add_argument("--colors", type=int, default=12, help="max palette colours in this sprite (default 12)")

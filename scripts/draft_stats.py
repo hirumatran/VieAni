@@ -1,4 +1,4 @@
-"""Draft the type chart and base stats into data/vindex.json.
+"""Draft the type chart and base stats into data/vieindex.json.
 
     python3 scripts/draft_stats.py           # fill only species that have no stats yet
     python3 scripts/draft_stats.py --force   # redraft every species (overwrites hand edits!)
@@ -6,13 +6,13 @@
 Stats follow Pokemon's six base stats (HP, Attack, Defense, Sp. Atk, Sp. Def,
 Speed). Each species gets a body-plan profile (how its points are split) and a
 total set by its tier, so rarer VieAni are stronger. Edit the numbers in
-data/vindex.json by hand after drafting; this script won't touch them again
+data/vieindex.json by hand after drafting; this script won't touch them again
 without --force.
 """
 import json, pathlib, sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-P = ROOT / "data/vindex.json"
+P = ROOT / "data/vieindex.json"
 STATS = ["hp", "atk", "def", "spa", "spd", "spe"]
 
 # Attacker -> defender multipliers that are not 1x, taken from Pokemon's

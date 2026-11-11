@@ -9,7 +9,7 @@
 - **Read at 1×:** if you cannot recognise it at 64×64, simplify (silhouette + 2–3 key marks).
 
 ## Fastest route: draw ~30 base bodies, not 108 sprites
-Most VieAni share a body plan (see `body` / profile in `data/vindex.json`). Draw one
+Most VieAni share a body plan (see `body` / profile in `data/vieindex.json`). Draw one
 base per family, then recolour and change the markings:
 
 | Base body | VieAni that reuse it |
@@ -46,7 +46,7 @@ That turns 108 drawings into roughly 30 originals plus quick variants.
    `python3 scripts/pixelize.py --batch sketches/ --size 64`
    → `assets/sprites/custom/<id>.png` + `_batch_sheet.png` to review all at once.
 4. **Clean up** in Aseprite or Pixelorama (palette loaded): fix outline, eyes, key markings.
-5. `python3 scripts/build_vindex.py` – the VieIndex page uses your sprites automatically.
+5. `python3 scripts/build_vieindex.py` – the VieIndex page uses your sprites automatically.
 
 ## Licences
 Reference photos come from iNaturalist and Wikimedia Commons under Creative Commons or

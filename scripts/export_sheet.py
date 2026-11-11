@@ -16,7 +16,7 @@ TV = {"Legendary": "Huyền thoại", "Fire": "Lửa", "Water": "Nước", "Elec
 def main(out):
     out = pathlib.Path(out); out.mkdir(parents=True, exist_ok=True)
     L = lambda n: json.loads((ROOT / "data" / n).read_text(encoding="utf-8"))
-    d, vn, sy, rel = L("vindex.json"), L("vn_info.json"), L("synergies.json")["synergies"], L("relations.json")["relations"]
+    d, vn, sy, rel = L("vieindex.json"), L("vn_info.json"), L("synergies.json")["synergies"], L("relations.json")["relations"]
     G, IU = vn["labels"]["group"], vn["labels"]["iucn"]
     syn = {}
     for g in sy:

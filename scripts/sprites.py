@@ -896,7 +896,7 @@ SPECIES.update({
 
 
 def main():
-    data = json.loads((ROOT / "data/vindex.json").read_text(encoding="utf-8"))
+    data = json.loads((ROOT / "data/vieindex.json").read_text(encoding="utf-8"))
     OUT.mkdir(parents=True, exist_ok=True)
     rows = (len(data["species"]) + 9) // 10
     sheet = Image.new("RGBA", (10 * 34 * 4, rows * 34 * 4), (246, 239, 227, 255))

@@ -87,7 +87,7 @@ def commons(query):
 
 
 def main():
-    data = json.loads((ROOT / "data/vindex.json").read_text(encoding="utf-8"))
+    data = json.loads((ROOT / "data/vieindex.json").read_text(encoding="utf-8"))
     OUT.mkdir(exist_ok=True)
     cred_p = ROOT / "data/ref_credits.json"
     credits = json.loads(cred_p.read_text(encoding="utf-8")) if cred_p.exists() else {}

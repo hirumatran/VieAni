@@ -2,7 +2,7 @@
 skills, zodiac (12 con giáp), new synergies and predator/symbiosis relations.
 
     python3 scripts/expand_roster.py      # safe to re-run: skips if already applied
-then: python3 scripts/draft_stats.py --force && python3 scripts/sprites.py && python3 scripts/build_vindex.py
+then: python3 scripts/draft_stats.py --force && python3 scripts/sprites.py && python3 scripts/build_vieindex.py
 """
 import json, pathlib
 
@@ -241,7 +241,7 @@ NEW_REL = [
 
 
 def main():
-    d = load("vindex.json")
+    d = load("vieindex.json")
     if any(s["id"] == 51 for s in d["species"]):
         print("already expanded – nothing to do"); return
     # regroup existing: old "Wild" were all threatened -> Endangered (tier 3)
@@ -261,7 +261,7 @@ def main():
     d["tierRule"] = {"note": "Bậc 1: vật nuôi/loài gặp hằng ngày; 2: hoang dã (rừng, núi, biển) ít gặp nhưng chưa bị đe dọa; 3: loài bị đe dọa (IUCN CR/EN/VU/DD hoặc Sách Đỏ VN); 4: đã tuyệt chủng hoặc đã mất ở Việt Nam; 5: huyền thoại"}
     for s in d["species"]:
         s["tier"] = TIER_BY_GROUP[s["group"]]
-    save("vindex.json", d)
+    save("vieindex.json", d)
 
     sy = load("synergies.json")
     for g in sy["synergies"]:

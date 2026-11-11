@@ -6,7 +6,7 @@ Roles: **You = Product Owner** (vision, scope calls, art sketches, community, te
 ## Decisions (T01, confirmed 11 Nov 2026)
 | Topic | Decision |
 |---|---|
-| Name | Project renamed **Vinmon → VieAni** ("Vietnam Animal") to stay clear of Pokémon. Repo/file names (`vinmon`, `vindex.json`) kept for now. |
+| Name | Project renamed **Vinmon → VieAni** ("Vietnam Animal") to stay clear of Pokémon. Encyclopedia files renamed to `vieindex.*` (11 Nov); the `vinmon` palette file name is unchanged. |
 | Scope | Alpha = single player vs 7 AI bots (see MoSCoW below) |
 | Tech | **TypeScript + Phaser + Vite**, web only |
 | Platform | **Web only, on itch.io, for alpha and beta.** Native Android/iOS/PC after beta, once there is a community (PO has a MacBook for iOS later) |

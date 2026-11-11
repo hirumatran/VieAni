@@ -25,7 +25,7 @@ CRED = {}
 
 def load():
     L = lambda n: json.loads((ROOT / "data" / n).read_text(encoding="utf-8"))
-    d, vn = L("vindex.json"), L("vn_info.json")
+    d, vn = L("vieindex.json"), L("vn_info.json")
     cred = L("ref_credits.json") if (ROOT / "data/ref_credits.json").exists() else {}
     CRED.update(cred)
     return sorted(d["species"], key=lambda s: s["dex"]), vn, cred

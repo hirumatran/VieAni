@@ -7,12 +7,12 @@ Start the next session with this repo selected and ask Claude to read this file.
 
 | Path | What it is |
 |---|---|
-| `data/vindex.json` | Game data for 50 VieAni: names, IUCN, habitat, types, `typeChart`, `legendaryRule`, stats, attack type/class, range |
+| `data/vieindex.json` | Game data for 50 VieAni: names, IUCN, habitat, types, `typeChart`, `legendaryRule`, stats, attack type/class, range |
 | `data/synergies.json` | 17 Tộc hệ (synergies): members by id, activation levels, effects, basis |
 | `data/relations.json` | Thiên địch (predator → prey) and Cộng sinh (symbiosis) pairs with multiplier, effect, basis |
 | `data/vn_info.json` | Vietnamese info-card text: notes for all 50; population, habitat, location, threats, how to help and sources for the 37 real species |
-| `src/vindex.template.html` | VieIndex page template (search, type filters, sort, popup, type chart dialog) |
-| `vindex.html` | Built page – open in a browser. Rebuild after any data change |
+| `src/vieindex.template.html` | VieIndex page template (search, type filters, sort, popup, type chart dialog) |
+| `vieindex.html` | Built page – open in a browser. Rebuild after any data change |
 | `assets/sprites/<id>.png` | Draft 32×32 sprites drawn by `scripts/sprites.py` |
 | `assets/sprites/custom/<id>.png` | Your own sprites; override the drawn ones and are never overwritten |
 | `assets/palette/vinmon.{gpl,hex,png}` | Shared 32-colour palette (load `.gpl` in Aseprite / Pixelorama) |
@@ -20,7 +20,7 @@ Start the next session with this repo selected and ask Claude to read this file.
 ## Commands
 
 ```bash
-python3 scripts/build_vindex.py            # rebuild vindex.html after editing data
+python3 scripts/build_vieindex.py            # rebuild vieindex.html after editing data
 python3 scripts/pixelize.py sketch.jpg --id 20 [--flip] [--colors 8]   # sketch -> draft sprite
 python3 scripts/sprites.py                 # redraw the built-in sprites
 python3 scripts/draft_stats.py [--force]   # (re)draft stats; --force overwrites hand edits
