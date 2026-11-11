@@ -1,0 +1,20 @@
+{
+ "note": "Bảng thuật ngữ hiệu ứng trong trận (bản nháp) dùng cho kỹ năng, tộc hệ và vật phẩm.",
+ "energy": "Năng lượng: mỗi đòn đánh +10, mỗi lần bị đánh +5; đầy 100 thì dùng kỹ năng chủ động (như Hồ Tinh 'Biến hóa vạn trạng'), rồi về 0.",
+ "status": [
+  {"name": "Bay", "effect": "Bỏ qua ô cản và Bẫy; đòn cận chiến của Vinmon không phải hệ Trời đánh trượt 30%. Cung Tên Vàng gây ×2 lên mục tiêu đang Bay."},
+  {"name": "Dại", "effect": "Nổi điên: tấn công đồng đội gần nhất của chính mình trong thời gian hiệu lực. Vắc Xin và Gia Súc (4) miễn nhiễm."},
+  {"name": "Độc", "effect": "Mất % máu mỗi giây; không cộng dồn, lấy hiệu ứng mạnh hơn."},
+  {"name": "Bỏng", "effect": "Mất % máu mỗi giây; ô 'Làng Cháy' gây Bỏng cho kẻ địch đứng trên."},
+  {"name": "Chảy máu", "effect": "Mất % máu mỗi giây; cộng dồn tối đa 3 lần."},
+  {"name": "Sốt", "effect": "−20% Tốc độ (Muỗi Vằn)."},
+  {"name": "Choáng", "effect": "Không hành động. Mõ Gỗ gỡ Choáng."},
+  {"name": "Trói", "effect": "Không di chuyển nhưng vẫn đánh được mục tiêu trong tầm."},
+  {"name": "Nhốt", "effect": "Không di chuyển, không tấn công (Lồng Sắt, Nơm)."},
+  {"name": "Mê hoặc", "effect": "Tấn công đồng đội của chính mình (Hồ Tinh). Mõ Gỗ gỡ được."},
+  {"name": "Mù / Chói mắt", "effect": "Giảm chính xác: đòn đánh dễ trượt."},
+  {"name": "Ẩn mình", "effect": "Không bị chọn làm mục tiêu. Ngọc Dã Tràng nhìn thấy."},
+  {"name": "Hồi sinh", "effect": "Sống lại sau khi bị hạ (Phượng Hoàng, Quả Thị, Lá Đa Thần, Mèo Mun tạm thời 5 giây)."},
+  {"name": "Biến hình", "effect": "Đổi thành Vinmon khác giữ % máu (Cá Chép → Rồng Con, Hồ Tinh → bản sao)."}
+ ]
+}

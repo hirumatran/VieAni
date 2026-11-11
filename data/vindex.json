@@ -59,8 +59,16 @@
    "attackClass": "physical",
    "range": 1,
    "statNote": "Thú cỡ lớn: máu, tấn công, phòng thủ cao; chậm",
-   "skill": "Dậm đất: mỗi 8 giây làm choáng kẻ địch kề bên 1 giây",
-   "tier": 3
+   "skill": "Voi chiến Bà Triệu: khi Voi còn trên sân, cả đội +10% Tấn công. Dậm đất: mỗi 8 giây làm choáng kẻ địch kề bên 1 giây",
+   "tier": 3,
+   "story": "Bà Triệu ra trận mặc áo giáp vàng, đi guốc ngà, cưỡi voi trắng một ngà.",
+   "storySrc": [
+    [
+     "Bà Triệu (Wikipedia tiếng Việt)",
+     "https://vi.wikipedia.org/wiki/B%C3%A0_Tri%E1%BB%87u"
+    ]
+   ],
+   "storyAccuracy": "Truyền thuyết lịch sử"
   },
   {
    "id": 33,
@@ -433,8 +441,20 @@
    "attackClass": "special",
    "range": 3,
    "statNote": "Kim Quy: mai thần, phòng thủ rất cao",
-   "skill": "Nỏ thần: đồng đội đánh tầm xa +20% sát thương",
-   "tier": 5
+   "skill": "Nỏ thần: đồng đội đánh tầm xa +20% sát thương. Hoàn kiếm: 1 lần mỗi vòng, đòi lại 1 vật phẩm của kẻ địch và trao cho đồng đội",
+   "tier": 5,
+   "story": "Rùa thần Kim Quy giúp An Dương Vương xây thành Cổ Loa và trao móng làm lẫy nỏ thần; về sau Rùa vàng nổi lên hồ đòi vua Lê Lợi trả gươm thần, hồ được gọi là Hoàn Kiếm.",
+   "storySrc": [
+    [
+     "An Dương Vương",
+     "https://vi.wikipedia.org/wiki/An_D%C6%B0%C6%A1ng_V%C6%B0%C6%A1ng"
+    ],
+    [
+     "Hồ Hoàn Kiếm",
+     "https://vi.wikipedia.org/wiki/H%E1%BB%93_Ho%C3%A0n_Ki%E1%BA%BFm"
+    ]
+   ],
+   "storyAccuracy": "Truyện gốc"
   },
   {
    "id": 48,
@@ -605,9 +625,17 @@
    "attackClass": "physical",
    "range": 1,
    "statNote": "Ngựa sắt: thân sắt, tấn công và phòng thủ cao",
-   "skill": "Phun lửa: đốt cả một hàng kẻ địch, gây bỏng 3 giây",
+   "skill": "Phun lửa: đốt cả một hàng kẻ địch, để lại ô 'Làng Cháy' bỏng 4 giây. Nhổ tre đánh giặc: khi máu dưới 50% (gươm gãy), đòn đánh quét cả hàng ngang và +1 tầm",
    "zodiac": "Ngọ",
-   "tier": 5
+   "tier": 5,
+   "story": "Ngựa sắt phun lửa thiêu rừng, nơi ấy nay là làng Cháy; gươm gãy, Gióng nhổ tre quật giặc, tre bị lửa táp thành tre đằng ngà; vết chân ngựa thành dãy ao.",
+   "storySrc": [
+    [
+     "Thánh Gióng (Wikipedia tiếng Việt)",
+     "https://vi.wikipedia.org/wiki/Th%C3%A1nh_Gi%C3%B3ng"
+    ]
+   ],
+   "storyAccuracy": "Truyện gốc"
   },
   {
    "id": 41,
@@ -750,8 +778,16 @@
    "attackClass": "special",
    "range": 3,
    "statNote": "Chim Lạc: bay nhanh, tấn công ĐB",
-   "skill": "Vũ điệu trống đồng: khi Chim Lạc còn trên sân, đồng đội +10% Tốc độ",
-   "tier": 5
+   "skill": "Hồn trống đồng: đồng đội hệ Trời +10% Tốc độ; nếu đội có Trống Đồng Đông Sơn thì hiệu ứng trống ×2",
+   "tier": 5,
+   "story": "Chim Lạc là hình chim mỏ dài trên trống đồng Đông Sơn; giới nghiên cứu phỏng đoán có thể là cò, vạc, sếu, bồ nông hay hồng hoàng.",
+   "storySrc": [
+    [
+     "Chim Lạc (Wikipedia tiếng Việt)",
+     "https://vi.wikipedia.org/wiki/Chim_L%E1%BA%A1c"
+    ]
+   ],
+   "storyAccuracy": "Hình tượng gốc; cơ chế là sáng tạo"
   },
   {
    "id": 37,
@@ -837,9 +873,17 @@
    "attackClass": "physical",
    "range": 1,
    "statNote": "Ngựa chín hồng mao: nhanh nhất",
-   "skill": "Phi nước đại: luôn ra đòn đầu tiên trong trận",
+   "skill": "Phi nước đại: luôn ra đòn đầu tiên trong trận. Núi dâng: mỗi lần nhận đòn hệ Nước, +5 Phòng thủ (cộng dồn)",
    "zodiac": "Ngọ",
-   "tier": 5
+   "tier": 5,
+   "story": "Ngựa chín hồng mao – một trong ba lễ vật Vua Hùng đòi làm sính lễ.",
+   "storySrc": [
+    [
+     "Sơn Tinh – Thủy Tinh",
+     "https://vi.wikipedia.org/wiki/S%C6%A1n_Tinh_%E2%80%93_Th%E1%BB%A7y_Tinh"
+    ]
+   ],
+   "storyAccuracy": "Truyện gốc"
   },
   {
    "id": 8,
@@ -867,9 +911,17 @@
    "attackClass": "physical",
    "range": 1,
    "statNote": "Gà chín cựa: cựa sắc, tấn công và tốc độ cao",
-   "skill": "Chín cựa: mỗi đòn đánh trúng 2 lần",
+   "skill": "Chín cựa: mỗi đòn đánh trúng 2 lần. Núi dâng: mỗi lần nhận đòn hệ Nước, +5 Phòng thủ (cộng dồn)",
    "zodiac": "Dậu",
-   "tier": 5
+   "tier": 5,
+   "story": "Gà chín cựa – một trong ba lễ vật Vua Hùng đòi làm sính lễ.",
+   "storySrc": [
+    [
+     "Sơn Tinh – Thủy Tinh",
+     "https://vi.wikipedia.org/wiki/S%C6%A1n_Tinh_%E2%80%93_Th%E1%BB%A7y_Tinh"
+    ]
+   ],
+   "storyAccuracy": "Truyện gốc"
   },
   {
    "id": 12,
@@ -898,8 +950,20 @@
    "attackClass": "special",
    "range": 3,
    "statNote": "Hồ Tinh: yêu thuật = tấn công ĐB rất cao",
-   "skill": "Mê hoặc: khiến 1 kẻ địch tấn công đồng đội của nó trong 2 giây",
-   "tier": 5
+   "skill": "Biến hóa vạn trạng: khi đầy năng lượng, hóa thành bản sao của Vinmon mạnh nhất phe địch (tổng chỉ số cao nhất), giữ nguyên % máu, 1 lần mỗi vòng. Mê hoặc: khiến 1 kẻ địch tấn công đồng đội của nó 2 giây",
+   "tier": 5,
+   "story": "Theo Lĩnh Nam chích quái, Hồ Tinh là cáo chín đuôi sống hơn ngàn năm, 'biến hóa vạn trạng, khi thành người khi thành quỷ'; Lạc Long Quân dâng nước phá hang, chỗ ấy thành Hồ Tây (đầm Xác Cáo).",
+   "storySrc": [
+    [
+     "Hồ Tây (Wikipedia tiếng Việt)",
+     "https://vi.wikipedia.org/wiki/H%E1%BB%93_T%C3%A2y"
+    ],
+    [
+     "Hồ ly tinh",
+     "https://vi.wikipedia.org/wiki/H%E1%BB%93_ly_tinh"
+    ]
+   ],
+   "storyAccuracy": "Truyện gốc"
   },
   {
    "id": 7,
@@ -927,8 +991,16 @@
    "attackClass": "physical",
    "range": 1,
    "statNote": "Thú cỡ lớn: máu, tấn công, phòng thủ cao; chậm",
-   "skill": "Chín ngà: cú húc gây sát thương lan 3 ô phía trước",
-   "tier": 5
+   "skill": "Chín ngà: cú húc gây sát thương lan 3 ô phía trước. Núi dâng: mỗi lần nhận đòn hệ Nước, +5 Phòng thủ (cộng dồn đến hết trận)",
+   "tier": 5,
+   "story": "Sính lễ Sơn Tinh mang đến trước; Thủy Tinh dâng nước đánh, nước dâng cao bao nhiêu thì đồi núi cao lên bấy nhiêu.",
+   "storySrc": [
+    [
+     "Sơn Tinh – Thủy Tinh",
+     "https://vi.wikipedia.org/wiki/S%C6%A1n_Tinh_%E2%80%93_Th%E1%BB%A7y_Tinh"
+    ]
+   ],
+   "storyAccuracy": "Truyện gốc"
   },
   {
    "id": 29,
@@ -1329,9 +1401,21 @@
    "attackClass": "special",
    "range": 3,
    "statNote": "Rồng: hô mưa gọi sấm = tấn công ĐB",
-   "skill": "Hô mưa gọi sấm: mỗi 6 giây giáng sét xuống 3 kẻ địch (sát thương hệ Điện)",
+   "skill": "Hô mưa gọi sấm: mỗi 6 giây giáng sét xuống 3 kẻ địch. Thăng Long: lần đầu máu dưới 30%, bay vút lên 2 giây (không thể bị chọn làm mục tiêu) rồi giáng sét ×2",
    "zodiac": "Thìn",
-   "tier": 5
+   "tier": 5,
+   "story": "Năm 1009–1010, tương truyền vua Lý Công Uẩn dời đô ra Đại La thấy rồng bay lên nên đặt tên kinh đô là Thăng Long ('rồng bay lên'). Lạc Long Quân – thần mình rồng – diệt Ngư Tinh, Hồ Tinh, Mộc Tinh.",
+   "storySrc": [
+    [
+     "Thăng Long",
+     "https://vi.wikipedia.org/wiki/Th%C4%83ng_Long"
+    ],
+    [
+     "Con Rồng cháu Tiên",
+     "https://vi.wikipedia.org/wiki/Con_R%E1%BB%93ng_ch%C3%A1u_Ti%C3%AAn"
+    ]
+   ],
+   "storyAccuracy": "Truyện gốc"
   },
   {
    "id": 14,
@@ -1389,8 +1473,16 @@
    "attackClass": "special",
    "range": 3,
    "statNote": "Phượng Hoàng: lửa thiêng = tấn công ĐB rất cao",
-   "skill": "Tái sinh từ lửa: hồi sinh 1 lần với 50% máu",
-   "tier": 5
+   "skill": "Trứng lửa tái sinh: khi bị hạ, hóa thành trứng lửa 6 giây (máu trứng = 30% máu tối đa, đốt kẻ địch kề bên). Nếu trứng không bị phá, Phượng Hoàng nở lại với 100% máu. 1 lần mỗi trận",
+   "tier": 5,
+   "story": "Ở Việt Nam, phượng hoàng phát triển từ hình tượng chim Lạc, là một trong Tứ Linh, biểu tượng cát tường và nữ tính, thường đi đôi với rồng.",
+   "storySrc": [
+    [
+     "Phượng hoàng (Wikipedia tiếng Việt)",
+     "https://vi.wikipedia.org/wiki/Ph%C6%B0%E1%BB%A3ng_ho%C3%A0ng"
+    ]
+   ],
+   "storyAccuracy": "Sáng tạo cho game: mô-típ 'tái sinh từ lửa' thuộc truyền thuyết phượng hoàng phương Tây (và giống Supernova của Phoenix trong Dota 2), không có trong truyện Việt."
   },
   {
    "id": 32,
@@ -1446,8 +1538,16 @@
    "attackClass": "special",
    "range": 3,
    "statNote": "Cá Ông: khổng lồ, máu rất cao, chậm",
-   "skill": "Cứu nạn: che chắn đồng đội sắp bị hạ, hồi 25% máu (1 lần mỗi đồng đội)",
-   "tier": 5
+   "skill": "Nam Hải cứu nạn: che chắn đồng đội sắp bị hạ, hồi 25% máu (1 lần mỗi đồng đội). Ông Nam Hải: đồng đội hệ Nước +10% Phòng thủ ĐB",
+   "tier": 5,
+   "story": "Ngư dân miền Trung và miền Nam thờ cá voi là thần Nam Hải, tin rằng Ông cứu người gặp nạn trên biển; triều đình sắc phong là Nhân ngư, Đức ngư.",
+   "storySrc": [
+    [
+     "Tục thờ cá Ông (Wikipedia tiếng Việt)",
+     "https://vi.wikipedia.org/wiki/T%E1%BB%A5c_th%E1%BB%9D_c%C3%A1_%C3%94ng"
+    ]
+   ],
+   "storyAccuracy": "Tín ngưỡng gốc"
   },
   {
    "id": 51,
@@ -1662,7 +1762,7 @@
     "Poison"
    ],
    "body": "cat",
-   "skill": "Điềm gở: kẻ địch đánh Mèo Mun có 10% đánh trượt",
+   "skill": "Quỷ nhập tràng: 1 lần mỗi vòng đấu, nhảy qua một đồng đội vừa bị hạ để nó sống dậy 5 giây với 40% máu, rồi ngã xuống lại",
    "zodiac": "Mão",
    "tweak": {
     "spa": 10,
@@ -1681,7 +1781,15 @@
    "attackType": "Ground",
    "attackClass": "physical",
    "range": 1,
-   "dex": 80
+   "dex": 80,
+   "story": "Dân gian tin rằng nếu mèo đen nhảy qua thi thể chưa khâm liệm thì xác sẽ vùng dậy ('quỷ nhập tràng').",
+   "storySrc": [
+    [
+     "Quỷ nhập tràng (Wikipedia tiếng Việt)",
+     "https://vi.wikipedia.org/wiki/Qu%E1%BB%B7_nh%E1%BA%ADp_tr%C3%A0ng"
+    ]
+   ],
+   "storyAccuracy": "Tín ngưỡng dân gian (khoa học không công nhận)"
   },
   {
    "id": 58,
@@ -1893,7 +2001,7 @@
     "Ground"
    ],
    "body": "rodent",
-   "skill": "Lẻn nhanh: 25% né đòn",
+   "skill": "Đám cưới chuột: đầu trận dâng lễ cho Mèo – Mèo phe địch không tấn công Chuột trong 4 giây. Lẻn nhanh: 25% né đòn",
    "zodiac": "Tý",
    "tweak": {
     "spe": 15,
@@ -1912,7 +2020,15 @@
    "attackType": "Ground",
    "attackClass": "physical",
    "range": 1,
-   "dex": 65
+   "dex": 65,
+   "story": "Tranh dân gian Đông Hồ 'Đám cưới chuột': họ chuột rước dâu phải dâng lễ vật cho mèo.",
+   "storySrc": [
+    [
+     "Tranh Đông Hồ (Wikipedia tiếng Việt)",
+     "https://vi.wikipedia.org/wiki/Tranh_%C4%90%C3%B4ng_H%E1%BB%93"
+    ]
+   ],
+   "storyAccuracy": "Tranh dân gian gốc"
   },
   {
    "id": 65,
@@ -1995,7 +2111,7 @@
     "Water"
    ],
    "body": "giant",
-   "skill": "Đầu cơ nghiệp: đồng đội Đồng Quê +10% Phòng thủ",
+   "skill": "Trâu vàng Hồ Tây: lần đầu máu dưới 50%, lao húc xuyên một hàng, ô đi qua bị sụt (kẻ địch đứng trên bị chậm 30% trong 3 giây). Đầu cơ nghiệp: đồng đội Đồng Quê +10% Phòng thủ",
    "zodiac": "Sửu",
    "tweak": {
     "spe": -10,
@@ -2014,7 +2130,15 @@
    "attackType": "Ground",
    "attackClass": "physical",
    "range": 1,
-   "dex": 90
+   "dex": 90,
+   "story": "Truyền thuyết Trâu vàng: nghe tiếng chuông đồng tưởng mẹ gọi, trâu vàng chạy quần quanh chuông khiến đất sụt thành hồ – một tích về Hồ Tây.",
+   "storySrc": [
+    [
+     "Hồ Tây (Wikipedia tiếng Việt)",
+     "https://vi.wikipedia.org/wiki/H%E1%BB%93_T%C3%A2y"
+    ]
+   ],
+   "storyAccuracy": "Truyện gốc (trâu vàng thần, trong game gán cho Trâu)"
   },
   {
    "id": 68,
@@ -2149,7 +2273,7 @@
     "Sky"
    ],
    "body": "smallbird",
-   "skill": "Bầy sẻ: +5% Tốc độ cho mỗi Vinmon hệ Trời trên sân",
+   "skill": "Nhặt thóc giúp Tấm: mỗi 6 giây gỡ 1 hiệu ứng xấu khỏi đồng đội đang yếu nhất. Bầy sẻ: +5% Tốc độ cho mỗi Vinmon hệ Trời trên sân",
    "tier": 1,
    "statNote": "Chim nhỏ: rất nhanh, yếu",
    "stats": {
@@ -2163,7 +2287,15 @@
    "attackType": "Sky",
    "attackClass": "special",
    "range": 3,
-   "dex": 56
+   "dex": 56,
+   "story": "Trong Tấm Cám, Bụt sai đàn chim sẻ xuống nhặt riêng thóc và gạo giúp Tấm để Tấm đi xem hội.",
+   "storySrc": [
+    [
+     "Tấm Cám (Wikipedia tiếng Việt)",
+     "https://vi.wikipedia.org/wiki/T%E1%BA%A5m_C%C3%A1m"
+    ]
+   ],
+   "storyAccuracy": "Truyện gốc"
   },
   {
    "id": 73,
@@ -2241,7 +2373,7 @@
     "Water"
    ],
    "body": "carp",
-   "skill": "Vượt Vũ Môn: sống sót 20 giây thì hóa Rồng (chỉ số ×1,5, thêm hệ Huyền thoại)",
+   "skill": "Cá chép hóa rồng: sống sót 20 giây trên sân thì hóa Rồng Con (thêm hệ Huyền thoại, chỉ số ×1,5, có Bay) đến hết trận",
    "tier": 1,
    "statNote": "Cá chép: dai sức, tiềm năng hóa rồng = tấn công ĐB",
    "stats": {
@@ -2255,7 +2387,15 @@
    "attackType": "Water",
    "attackClass": "special",
    "range": 3,
-   "dex": 52
+   "dex": 52,
+   "story": "Ngày 23 tháng Chạp, người Việt cúng và thả cá chép để 'cá hóa rồng' đưa ông Táo về trời; tích 'cá chép vượt Vũ Môn hóa rồng' tượng trưng cho vượt khó thành công.",
+   "storySrc": [
+    [
+     "Táo quân (Wikipedia tiếng Việt)",
+     "https://vi.wikipedia.org/wiki/T%C3%A1o_qu%C3%A2n"
+    ]
+   ],
+   "storyAccuracy": "Truyện gốc"
   },
   {
    "id": 76,
@@ -2300,7 +2440,7 @@
     "Rock"
    ],
    "body": "crab",
-   "skill": "Càng kẹp: giữ chân mục tiêu 1 giây",
+   "skill": "Dã tràng xe cát: mỗi 8 giây đắp một ụ cát chặn đòn tầm xa cho đồng đội phía sau; ụ cát tự sụp sau 4 giây ('nhọc lòng mà chẳng nên công cán gì'). Càng kẹp: giữ chân mục tiêu 1 giây",
    "tier": 1,
    "statNote": "Cua: mai cứng, càng kẹp mạnh, chậm",
    "stats": {
@@ -2314,7 +2454,15 @@
    "attackType": "Water",
    "attackClass": "physical",
    "range": 1,
-   "dex": 68
+   "dex": 68,
+   "story": "Truyện Dã tràng: chàng Dã Tràng 'xe cát' để lấp biển đòi lại viên ngọc bị Long Vương lấy mất – giải thích việc con dã tràng vê cát.",
+   "storySrc": [
+    [
+     "Dã tràng (Wikipedia tiếng Việt)",
+     "https://vi.wikipedia.org/wiki/D%C3%A3_tr%C3%A0ng"
+    ]
+   ],
+   "storyAccuracy": "Truyện gốc về con dã tràng (một loài cua biển khác); trong game gán cho Cua Đồng"
   },
   {
    "id": 78,
@@ -2422,7 +2570,7 @@
     "Water"
    ],
    "body": "toad",
-   "skill": "Cậu ông Trời: khi bị hạ thì gọi mưa – đòn hệ Nước của đồng đội +20% trong 5 giây",
+   "skill": "Cậu ông Trời: kẻ địch nào đánh Cóc sẽ bị sét đánh (sát thương hệ Điện = 15% máu tối đa của kẻ đó; hồi chiêu 12 giây). Khi Cóc bị hạ, nghiến răng gọi mưa: đòn hệ Nước của đồng đội +20% trong 5 giây",
    "tier": 1,
    "statNote": "Cóc: chậm, nhựa độc = tấn công ĐB",
    "stats": {
@@ -2436,7 +2584,15 @@
    "attackType": "Poison",
    "attackClass": "special",
    "range": 3,
-   "dex": 67
+   "dex": 67,
+   "story": "'Con cóc là cậu ông trời, hễ ai đánh cóc thì trời đánh cho.' Truyện Cóc kiện Trời: Cóc dẫn Cua, Cọp, Gấu, Ong, Cáo lên thiên đình đánh trống kiện Trời đòi mưa; từ đó cóc nghiến răng là trời mưa.",
+   "storySrc": [
+    [
+     "Cóc kiện trời (Wikipedia tiếng Việt)",
+     "https://vi.wikipedia.org/wiki/C%C3%B3c_ki%E1%BB%87n_tr%E1%BB%9Di"
+    ]
+   ],
+   "storyAccuracy": "Truyện gốc + tục ngữ"
   },
   {
    "id": 82,
@@ -2959,7 +3115,7 @@
     "Poison"
    ],
    "body": "snake",
-   "skill": "Nọc thần kinh: gây độc 4% máu/giây trong 3 giây",
+   "skill": "Rồng rắn lên mây: đứng cạnh Rồng (Rồng Lạc Việt hoặc Rồng Con) thì được Bay. Ngọc rắn: né kỹ năng đầu tiên nhắm vào mình. Nọc thần kinh: gây độc 4% máu/giây trong 3 giây",
    "zodiac": "Tỵ",
    "tier": 2,
    "statNote": "Rắn độc: nọc độc = tấn công ĐB",
@@ -2974,7 +3130,19 @@
    "attackType": "Poison",
    "attackClass": "special",
    "range": 3,
-   "dex": 102
+   "dex": 102,
+   "story": "'Rồng rắn lên mây' là trò chơi dân gian của trẻ em Việt. Trong truyện Dã tràng, một con rắn hổ mang tặng viên ngọc giúp nghe hiểu tiếng muôn loài để trả ơn cứu mạng.",
+   "storySrc": [
+    [
+     "Rồng rắn lên mây",
+     "https://vi.wikipedia.org/wiki/R%E1%BB%93ng_r%E1%BA%AFn_l%C3%AAn_m%C3%A2y"
+    ],
+    [
+     "Dã tràng",
+     "https://vi.wikipedia.org/wiki/D%C3%A3_tr%C3%A0ng"
+    ]
+   ],
+   "storyAccuracy": "Trò chơi và truyện gốc; cơ chế Bay là sáng tạo"
   },
   {
    "id": 100,
@@ -2989,7 +3157,7 @@
     "Ground"
    ],
    "body": "python",
-   "skill": "Siết chặt: trói mục tiêu 2 giây, mỗi giây −5% máu",
+   "skill": "Rồng rắn lên mây: đứng cạnh Rồng thì được Bay. Siết chặt: trói mục tiêu 2 giây, mỗi giây −5% máu",
    "zodiac": "Tỵ",
    "tier": 2,
    "statNote": "Trăn: to khỏe, siết mồi, chậm",
@@ -3004,7 +3172,15 @@
    "attackType": "Ground",
    "attackClass": "physical",
    "range": 1,
-   "dex": 106
+   "dex": 106,
+   "story": "Trò chơi dân gian 'Rồng rắn lên mây'.",
+   "storySrc": [
+    [
+     "Rồng rắn lên mây",
+     "https://vi.wikipedia.org/wiki/R%E1%BB%93ng_r%E1%BA%AFn_l%C3%AAn_m%C3%A2y"
+    ]
+   ],
+   "storyAccuracy": "Trò chơi gốc; cơ chế là sáng tạo"
   },
   {
    "id": 101,

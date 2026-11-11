@@ -1,2 +1,4 @@
 *.preview.png
 __pycache__/
+refs/
+build/

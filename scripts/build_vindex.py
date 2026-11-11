@@ -18,6 +18,8 @@ for sp in data["species"]:
 data["vnMeta"] = {k: v for k, v in vn.items() if k != "species"}
 data["synergies"] = json.loads((root / "data/synergies.json").read_text(encoding="utf-8"))["synergies"]
 data["relations"] = json.loads((root / "data/relations.json").read_text(encoding="utf-8"))["relations"]
+data["items"] = json.loads((root / "data/items.json").read_text(encoding="utf-8"))
+data["mechanics"] = json.loads((root / "data/mechanics.json").read_text(encoding="utf-8"))
 tpl = (root / "src/vindex.template.html").read_text(encoding="utf-8")
 out = (tpl.replace("__DATA__", json.dumps(data, ensure_ascii=False).replace("</", "<\\/"))
           .replace("__SPRITES__", json.dumps(sprites)))

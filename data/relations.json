@@ -410,6 +410,52 @@
    "effect": "Cá chép hóa rồng: Cá Chép hóa Rồng sau 10 giây thay vì 20; Rồng +20% Tấn công ĐB",
    "basis": "Tích cá chép vượt Vũ Môn hóa rồng",
    "src": ""
+  },
+  {
+   "kind": "Cộng sinh",
+   "a": [
+    81
+   ],
+   "b": [
+    77,
+    17,
+    47,
+    88
+   ],
+   "mult": 1.15,
+   "effect": "Đoàn quân kiện Trời: khi Cóc nghiến răng (mỗi 8 giây), Cua, Hổ, Gấu, Ong cùng phe lập tức ra đòn; cả nhóm +15% Tấn công",
+   "basis": "Cóc kiện trời: Cóc dẫn Cua, Cọp, Gấu, Ong, Cáo lên kiện Trời; mỗi lần Cóc nghiến răng ra hiệu, một con xông ra",
+   "src": "https://vi.wikipedia.org/wiki/C%C3%B3c_ki%E1%BB%87n_tr%E1%BB%9Di"
+  },
+  {
+   "kind": "Cộng sinh",
+   "a": [
+    99,
+    100
+   ],
+   "b": [
+    1
+   ],
+   "mult": 1.0,
+   "effect": "Rồng rắn lên mây: Rắn đứng cạnh Rồng được Bay; Rồng +10% Tốc độ khi có Rắn kề bên",
+   "basis": "Trò chơi dân gian 'Rồng rắn lên mây'",
+   "src": "https://vi.wikipedia.org/wiki/R%E1%BB%93ng_r%E1%BA%AFn_l%C3%AAn_m%C3%A2y"
+  },
+  {
+   "kind": "Thiên địch",
+   "a": [
+    12
+   ],
+   "b": [
+    59,
+    60,
+    61,
+    8
+   ],
+   "mult": 1.2,
+   "effect": "Ưu tiên tấn công Gà; +20% sát thương",
+   "basis": "Cóc kiện trời: Cáo vồ cắn cổ gà trời; cáo bắt gà là hình ảnh quen thuộc",
+   "src": "https://vi.wikipedia.org/wiki/C%C3%B3c_ki%E1%BB%87n_tr%E1%BB%9Di"
   }
  ]
 }

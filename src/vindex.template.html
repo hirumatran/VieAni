@@ -79,6 +79,7 @@ dd{margin:0}
 .h3{margin:16px 0 6px;font-size:15px;font-weight:800}
 .chartbtn{font:inherit;font-weight:600;padding:9px 14px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
 #chartDlg{max-width:820px}
+#itemDlg{max-width:760px}
 .tscroll{overflow-x:auto;margin:10px 0}
 table.tc{border-collapse:collapse;font-size:12px}
 .tc th,.tc td{border:1px solid var(--line);padding:0;width:44px;height:30px;text-align:center}
@@ -121,6 +122,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:0 16px 30px}
       <option value="5">Bậc 5 – Huyền thoại</option>
     </select>
     <button class="chartbtn" id="chartBtn">Bảng khắc hệ</button>
+    <button class="chartbtn" id="itemBtn">Vật phẩm</button>
     <span class="count" id="count"></span>
   </div>
   <div class="chips" id="chips"></div>
@@ -131,6 +133,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:0 16px 30px}
 
 <dialog id="dlg"></dialog>
 <dialog id="chartDlg"></dialog>
+<dialog id="itemDlg"></dialog>
 
 <script>
 const DATA = __DATA__;
@@ -230,6 +233,8 @@ function gameInfo(s){
       : me?`Thiên địch của ${esc(tgt)}: ${esc(r.effect)}`:`Bị săn bởi ${esc(nameList(r.a))} (${esc(r.effect)})`;
     return `<li>${txt}</li>`;}).join("");
   return `${s.skill?`<div class="h3">Kỹ năng</div><p style="margin:0;line-height:1.5">${esc(s.skill)}</p>`:""}
+    ${s.story?`<div class="h3">Điển tích</div><p style="margin:0;line-height:1.5">${esc(s.story)}</p>
+      <div class="small">${esc(s.storyAccuracy||"")}${(s.storySrc||[]).map(([t,u])=>` · <a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a>`).join("")}</div>`:""}
     ${syn?`<div class="h3">Tộc hệ</div><ul class="help">${syn}</ul>`:""}
     ${s.zodiac?`<div class="small">Thuộc tộc hệ <b>Mười Hai Con Giáp</b> (con giáp ${esc(s.zodiac)}).</div>`:""}
     ${rel?`<div class="h3">Thiên địch & Cộng sinh</div><ul class="help">${rel}</ul>`:""}`;
@@ -295,6 +300,20 @@ document.getElementById("chartBtn").addEventListener("click",()=>{
   chartDlg.showModal();
 });
 chartDlg.addEventListener("click",e=>{ if(e.target===chartDlg||e.target.closest(".close")) chartDlg.close(); });
+const itemDlg=document.getElementById("itemDlg");
+document.getElementById("itemBtn").addEventListener("click",()=>{
+  const I=DATA.items, C=I.categories;
+  const byTier=[1,2,3,4,5].map(t=>`<div class="h3">Bậc ${t}</div><ul class="help">${I.items.filter(x=>x.tier===t).map(x=>
+    `<li><b>${esc(x.name)}</b> <span class="small">[${esc(C[x.cat])}]</span> – ${esc(x.effect)}<br><span class="small">${esc(x.basis)}${x.src?` · <a href="${esc(x.src)}" target="_blank" rel="noopener">nguồn</a>`:""}</span></li>`).join("")}</ul>`).join("");
+  const gl=DATA.mechanics.status.map(m=>`<li><b>${esc(m.name)}</b>: ${esc(m.effect)}</li>`).join("");
+  itemDlg.innerHTML=`<div class="d-body" style="position:relative">
+    <button class="close" aria-label="Đóng" style="background:var(--muted)">✕</button>
+    <h2>Vật phẩm <span style="font-size:14px;color:var(--muted);font-weight:600">bản nháp · ${I.items.length} món</span></h2>
+    <div class="small">${esc(I.note)}</div>${byTier}
+    <div class="h3">Hiệu ứng trong trận</div><div class="small">${esc(DATA.mechanics.energy)}</div><ul class="help">${gl}</ul></div>`;
+  itemDlg.showModal();
+});
+itemDlg.addEventListener("click",e=>{ if(e.target===itemDlg||e.target.closest(".close")) itemDlg.close(); });
 ["q","sort","tierSel"].forEach(id=>document.getElementById(id).addEventListener("input",render));
 render();
 </script>

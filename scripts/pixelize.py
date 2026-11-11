@@ -20,6 +20,11 @@ then run scripts/build_vindex.py. Sprites in assets/sprites/custom/ take
 priority over the drawn ones and are never overwritten by scripts/sprites.py.
 
     python3 scripts/pixelize.py --build-palette   # rebuild palette from current sprites
+    python3 scripts/pixelize.py --batch sketches/ --size 64   # every V001.png, V002.jpg … in a folder
+
+Batch mode: file names start with the Vinmon number from the Google Sheet / Vindex
+(V001 … V108). Each becomes assets/sprites/custom/<id>.png, plus _batch_sheet.png
+showing all results side by side for review.
 """
 import argparse, pathlib, sys
 from collections import deque
@@ -186,6 +191,46 @@ def preview(clean, sprite, path, zoom=8):
     sheet.save(path)
 
 
+def convert(path, size, colors, tolerance, flip, outline_on, pal):
+    img = Image.open(path)
+    img.thumbnail((1024, 1024))
+    if flip:
+        img = img.transpose(Image.FLIP_LEFT_RIGHT)
+    clean = remove_background(img, tolerance)
+    a = tidy(to_palette(fit(clean, size), pal, colors))
+    return clean, (outline(a, pal) if outline_on else a)
+
+
+def run_batch(args):
+    import json, re
+    data = json.loads((ROOT / "data/vindex.json").read_text(encoding="utf-8"))
+    by_dex = {s["dex"]: s for s in data["species"]}
+    if not PALETTE.exists():
+        build_palette()
+    pal = load_palette()
+    CUSTOM.mkdir(parents=True, exist_ok=True)
+    done = []
+    for f in sorted(pathlib.Path(args.batch).iterdir()):
+        m = re.match(r"[Vv]?(\d{1,3})", f.stem)
+        if not m or f.suffix.lower() not in (".png", ".jpg", ".jpeg", ".webp") or int(m.group(1)) not in by_dex:
+            continue
+        s = by_dex[int(m.group(1))]
+        _, a = convert(f, args.size, args.colors, args.tolerance, args.flip, not args.no_outline, pal)
+        out = CUSTOM / f"{s['id']:02d}.png"
+        Image.fromarray(a.astype(np.uint8), "RGBA").save(out)
+        done.append((s, out)); print(f"V{s['dex']:03d} {s['vi']} -> {out.name}")
+    if done:
+        z = 4 if args.size <= 32 else 2
+        cell = args.size * z + 8
+        cols = 10
+        sheet = Image.new("RGBA", (cols * cell, ((len(done) + cols - 1) // cols) * cell), (246, 239, 227, 255))
+        for i, (s, out) in enumerate(done):
+            im = Image.open(out).resize((args.size * z, args.size * z), Image.NEAREST)
+            sheet.alpha_composite(im, ((i % cols) * cell + 4, (i // cols) * cell + 4))
+        sheet.save(CUSTOM / "_batch_sheet.png")
+    print(f"{len(done)} sprites -> {CUSTOM}")
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("image", nargs="?", help="sketch or image file (PNG, JPG, ...)")
@@ -197,7 +242,11 @@ def main():
     ap.add_argument("--flip", action="store_true", help="mirror horizontally (Vinmon face left)")
     ap.add_argument("--no-outline", action="store_true", help="skip the dark outline")
     ap.add_argument("--build-palette", action="store_true", help="rebuild the shared palette from current sprites")
+    ap.add_argument("--batch", help="folder of sketches named V001…V108 (Vinmon number)")
     args = ap.parse_args()
+
+    if args.batch:
+        run_batch(args); return
 
     if args.build_palette:
         build_palette()
