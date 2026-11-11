@@ -90,14 +90,58 @@ BODY = {
 # Species nudges that move points between stats (each sums to 0, so the total
 # is unchanged). Only where biology gives a reason; the rest stay at profile.
 TWEAK = {
-    34: {"spe": 20, "def": -20, "why": "sea turtle: fast open-water swimmer, lighter shell"},
-    33: {"atk": 15, "def": -15, "why": "softshell: leathery shell, fast ambush bite"},
-    19: {"atk": 15, "def": -15, "why": "softshell: leathery shell, fast ambush bite"},
-    36: {"spe": 15, "hp": -15, "why": "spoon-billed sandpiper is tiny (~15 cm) and quick"},
-    35: {"hp": 10, "spe": -10, "why": "giant ibis: largest ibis, heavier"},
-    45: {"hp": 10, "atk": 5, "spe": -15, "why": "sarus crane: tallest flying bird"},
-    40: {"def": 10, "spe": -10, "why": "civet: stockier ground forager than the rabbit or chevrotain"},
-    50: {"spe": 10, "def": -10, "why": "chevrotain: tiny and skittish"},
+    14: {"def": 10, "spe": -10, "why": "Tê giác Java: da dày nhiều nếp gấp như áo giáp"},
+    15: {"atk": 5, "spe": 5, "def": -10, "why": "Bò xám: sừng dài, linh hoạt hơn tê giác"},
+    20: {"def": 10, "atk": -10, "why": "Sao la: tính điềm tĩnh, hai sừng dài thẳng dùng để phòng vệ"},
+    21: {"atk": 10, "spa": -10, "why": "Mang lớn: gạc lớn nhất trong các loài mang"},
+    34: {"spe": 20, "def": -20, "why": "Rùa biển bơi nhanh ngoài khơi, mai nhẹ hơn rùa đầm"},
+    33: {"atk": 15, "def": -15, "why": "Giải: mai mềm như da, rình mồi và cắn rất nhanh"},
+    19: {"atk": 15, "def": -15, "why": "Giải: mai mềm như da, rình mồi và cắn rất nhanh"},
+    36: {"spe": 15, "hp": -15, "why": "Rẽ mỏ thìa rất nhỏ (khoảng 15 cm) và nhanh"},
+    35: {"hp": 10, "spe": -10, "why": "Cò quắm lớn là loài cò quắm lớn nhất, nặng hơn"},
+    45: {"hp": 10, "atk": 5, "spe": -15, "why": "Sếu đầu đỏ là loài chim bay cao nhất thế giới, to và nặng"},
+    40: {"def": 10, "spe": -10, "why": "Cầy vằn chắc nịch, kiếm ăn dưới đất"},
+    50: {"spe": 10, "def": -10, "why": "Cheo cheo rất nhỏ, nhút nhát, chạy nhanh"},
+    22: {"hp": 10, "def": 5, "spe": -15, "why": "Voọc mũi hếch là loài voọc lớn nhất trong nhóm, chịu lạnh vùng núi cao"},
+    23: {"spe": 10, "spa": -10, "why": "Voọc mông trắng leo vách đá vôi dựng đứng rất nhanh"},
+    24: {"spd": 10, "spa": -10, "why": "Voọc Cát Bà bền bỉ, sống sót trên đảo đá vôi biệt lập"},
+    25: {"hp": 5, "spd": 5, "spa": -10, "why": "Chà vá chân nâu sống đàn lớn, thích nghi cả gần thành phố (Sơn Trà)"},
+    26: {"hp": 10, "spe": -10, "why": "Chà vá chân xám sống ở vùng núi cao hơn (Kon Ka Kinh)"},
+    27: {"spe": 10, "def": -10, "why": "Chà vá chân đen sống rừng khô thưa, di chuyển xa"},
+    28: {"def": 10, "spe": -10, "why": "Vượn Cao Vít sống rừng đá vôi, tán rừng thấp và đứt quãng"},
+    29: {"spe": 10, "def": -10, "why": "Vượn đen má trắng chuyền cành trong tán rừng già cao, rất nhanh"},
+}
+PROFILE_VI = {
+    "giant": "Thú cỡ lớn: máu, tấn công, phòng thủ cao; chậm",
+    "predator": "Thú săn mồi: tấn công và tốc độ cao",
+    "bear": "Gấu: khỏe, máu và tấn công khá; trung bình về tốc độ",
+    "small": "Thú nhỏ: rất nhanh nhưng yếu",
+    "deer": "Thú móng guốc rừng: nhanh, khá cân bằng",
+    "armored": "Thân phủ vảy sừng: phòng thủ rất cao",
+    "monkey": "Linh trưởng ăn lá: nhanh nhẹn, đánh tầm xa (tấn công ĐB)",
+    "gibbon": "Vượn: chuyền cành nhanh nhất; tiếng hót = tấn công ĐB",
+    "loris": "Culi: chậm chạp; nọc độc = tấn công ĐB cao",
+    "greatape": "Vượn khổng lồ: to, khỏe, chậm",
+    "turtle": "Rùa: phòng thủ rất cao, rất chậm",
+    "croc": "Cá sấu: lực cắn mạnh, da dày, chậm trên cạn",
+    "bigfish": "Cá cỡ lớn: máu cao, khá cân bằng",
+    "cetacean": "Cá heo: định vị bằng sóng âm = tấn công ĐB",
+    "dugong": "Bò biển: to, hiền, chậm",
+    "wader": "Chim lội nước: nhanh, mổ từ xa",
+    "gamebird": "Chim rừng: nhanh, phô diễn bộ lông = tấn công ĐB",
+    "hornbill": "Hồng hoàng: mỏ và mũ sừng lớn, tấn công mạnh",
+    "dragon": "Rồng: hô mưa gọi sấm = tấn công ĐB",
+    "lacbird": "Chim Lạc: bay nhanh, tấn công ĐB",
+    "kimquy": "Kim Quy: mai thần, phòng thủ rất cao",
+    "lan": "Lân: cân bằng mọi mặt",
+    "phoenix": "Phượng Hoàng: lửa thiêng = tấn công ĐB rất cao",
+    "nghe": "Nghê: linh thú canh giữ bằng đá, phòng thủ rất cao",
+    "rooster": "Gà chín cựa: cựa sắc, tấn công và tốc độ cao",
+    "steed": "Ngựa chín hồng mao: nhanh nhất",
+    "ironhorse": "Ngựa sắt: thân sắt, tấn công và phòng thủ cao",
+    "fishdemon": "Ngư Tinh: thủy quái, tấn công cao",
+    "fox": "Hồ Tinh: yêu thuật = tấn công ĐB rất cao",
+    "whale": "Cá Ông: khổng lồ, máu rất cao, chậm",
 }
 
 
@@ -119,6 +163,10 @@ def draft(s, t):
     for k, v in TWEAK.get(s["id"], {}).items():
         if k != "why":
             stats[k] += v
+    note = PROFILE_VI[BODY[s["id"]]]
+    if s["id"] in TWEAK:
+        note += ". " + TWEAK[s["id"]]["why"]
+    s["statNote"] = note
     physical = stats["atk"] >= stats["spa"]
     attack_type = next(x for x in s["types"] if x != "Legendary")
     rng = 1 if physical else 3

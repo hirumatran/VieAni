@@ -34,7 +34,8 @@
    },
    "attackType": "Grass",
    "attackClass": "physical",
-   "range": 1
+   "range": 1,
+   "statNote": "Thú nhỏ: rất nhanh nhưng yếu"
   },
   {
    "id": 38,
@@ -59,7 +60,8 @@
    },
    "attackType": "Ground",
    "attackClass": "physical",
-   "range": 1
+   "range": 1,
+   "statNote": "Thú cỡ lớn: máu, tấn công, phòng thủ cao; chậm"
   },
   {
    "id": 33,
@@ -84,7 +86,8 @@
    },
    "attackType": "Water",
    "attackClass": "physical",
-   "range": 1
+   "range": 1,
+   "statNote": "Rùa: phòng thủ rất cao, rất chậm. Giải: mai mềm như da, rình mồi và cắn rất nhanh"
   },
   {
    "id": 43,
@@ -110,7 +113,8 @@
    },
    "attackType": "Sky",
    "attackClass": "special",
-   "range": 3
+   "range": 3,
+   "statNote": "Chim lội nước: nhanh, mổ từ xa"
   },
   {
    "id": 27,
@@ -128,14 +132,15 @@
    "stats": {
     "hp": 70,
     "atk": 70,
-    "def": 65,
+    "def": 55,
     "spa": 90,
     "spd": 80,
-    "spe": 105
+    "spe": 115
    },
    "attackType": "Grass",
    "attackClass": "special",
-   "range": 3
+   "range": 3,
+   "statNote": "Linh trưởng ăn lá: nhanh nhẹn, đánh tầm xa (tấn công ĐB). Chà vá chân đen sống rừng khô thưa, di chuyển xa"
   },
   {
    "id": 28,
@@ -154,14 +159,15 @@
    "stats": {
     "hp": 65,
     "atk": 80,
-    "def": 55,
+    "def": 65,
     "spa": 90,
     "spd": 70,
-    "spe": 120
+    "spe": 110
    },
    "attackType": "Rock",
    "attackClass": "special",
-   "range": 3
+   "range": 3,
+   "statNote": "Vượn: chuyền cành nhanh nhất; tiếng hót = tấn công ĐB. Vượn Cao Vít sống rừng đá vôi, tán rừng thấp và đứt quãng"
   },
   {
    "id": 24,
@@ -181,13 +187,14 @@
     "hp": 70,
     "atk": 70,
     "def": 65,
-    "spa": 90,
-    "spd": 80,
+    "spa": 80,
+    "spd": 90,
     "spe": 105
    },
    "attackType": "Rock",
    "attackClass": "special",
-   "range": 3
+   "range": 3,
+   "statNote": "Linh trưởng ăn lá: nhanh nhẹn, đánh tầm xa (tấn công ĐB). Voọc Cát Bà bền bỉ, sống sót trên đảo đá vôi biệt lập"
   },
   {
    "id": 46,
@@ -212,7 +219,8 @@
    },
    "attackType": "Grass",
    "attackClass": "physical",
-   "range": 1
+   "range": 1,
+   "statNote": "Thú săn mồi: tấn công và tốc độ cao"
   },
   {
    "id": 23,
@@ -232,13 +240,14 @@
     "hp": 70,
     "atk": 70,
     "def": 65,
-    "spa": 90,
+    "spa": 80,
     "spd": 80,
-    "spe": 105
+    "spe": 115
    },
    "attackType": "Rock",
    "attackClass": "special",
-   "range": 3
+   "range": 3,
+   "statNote": "Linh trưởng ăn lá: nhanh nhẹn, đánh tầm xa (tấn công ĐB). Voọc mông trắng leo vách đá vôi dựng đứng rất nhanh"
   },
   {
    "id": 49,
@@ -265,7 +274,8 @@
    },
    "attackType": "Water",
    "attackClass": "special",
-   "range": 3
+   "range": 3,
+   "statNote": "Bò biển: to, hiền, chậm"
   },
   {
    "id": 18,
@@ -290,7 +300,8 @@
    },
    "attackType": "Sky",
    "attackClass": "special",
-   "range": 3
+   "range": 3,
+   "statNote": "Chim rừng: nhanh, phô diễn bộ lông = tấn công ĐB"
   },
   {
    "id": 11,
@@ -316,7 +327,8 @@
    },
    "attackType": "Water",
    "attackClass": "physical",
-   "range": 1
+   "range": 1,
+   "statNote": "Ngư Tinh: thủy quái, tấn công cao"
   },
   {
    "id": 35,
@@ -342,7 +354,8 @@
    },
    "attackType": "Sky",
    "attackClass": "special",
-   "range": 3
+   "range": 3,
+   "statNote": "Chim lội nước: nhanh, mổ từ xa. Cò quắm lớn là loài cò quắm lớn nhất, nặng hơn"
   },
   {
    "id": 16,
@@ -368,7 +381,8 @@
    },
    "attackType": "Rock",
    "attackClass": "physical",
-   "range": 1
+   "range": 1,
+   "statNote": "Vượn khổng lồ: to, khỏe, chậm"
   },
   {
    "id": 3,
@@ -394,7 +408,8 @@
    },
    "attackType": "Water",
    "attackClass": "special",
-   "range": 3
+   "range": 3,
+   "statNote": "Kim Quy: mai thần, phòng thủ rất cao"
   },
   {
    "id": 48,
@@ -419,7 +434,8 @@
    },
    "attackType": "Sky",
    "attackClass": "physical",
-   "range": 2
+   "range": 2,
+   "statNote": "Hồng hoàng: mỏ và mũ sừng lớn, tấn công mạnh"
   },
   {
    "id": 42,
@@ -444,7 +460,8 @@
    },
    "attackType": "Sky",
    "attackClass": "special",
-   "range": 3
+   "range": 3,
+   "statNote": "Chim rừng: nhanh, phô diễn bộ lông = tấn công ĐB"
   },
   {
    "id": 26,
@@ -460,16 +477,17 @@
    ],
    "dex": 18,
    "stats": {
-    "hp": 70,
+    "hp": 80,
     "atk": 70,
     "def": 65,
     "spa": 90,
     "spd": 80,
-    "spe": 105
+    "spe": 95
    },
    "attackType": "Grass",
    "attackClass": "special",
-   "range": 3
+   "range": 3,
+   "statNote": "Linh trưởng ăn lá: nhanh nhẹn, đánh tầm xa (tấn công ĐB). Chà vá chân xám sống ở vùng núi cao hơn (Kon Ka Kinh)"
   },
   {
    "id": 34,
@@ -494,7 +512,8 @@
    },
    "attackType": "Water",
    "attackClass": "physical",
-   "range": 1
+   "range": 1,
+   "statNote": "Rùa: phòng thủ rất cao, rất chậm. Rùa biển bơi nhanh ngoài khơi, mai nhẹ hơn rùa đầm"
   },
   {
    "id": 17,
@@ -520,7 +539,8 @@
    },
    "attackType": "Ground",
    "attackClass": "physical",
-   "range": 1
+   "range": 1,
+   "statNote": "Thú săn mồi: tấn công và tốc độ cao"
   },
   {
    "id": 10,
@@ -547,7 +567,8 @@
    },
    "attackType": "Fire",
    "attackClass": "physical",
-   "range": 1
+   "range": 1,
+   "statNote": "Ngựa sắt: thân sắt, tấn công và phòng thủ cao"
   },
   {
    "id": 41,
@@ -572,7 +593,8 @@
    },
    "attackType": "Water",
    "attackClass": "special",
-   "range": 3
+   "range": 3,
+   "statNote": "Cá heo: định vị bằng sóng âm = tấn công ĐB"
   },
   {
    "id": 15,
@@ -591,15 +613,16 @@
    "dex": 23,
    "stats": {
     "hp": 135,
-    "atk": 110,
-    "def": 110,
+    "atk": 115,
+    "def": 100,
     "spa": 40,
     "spd": 75,
-    "spe": 40
+    "spe": 45
    },
    "attackType": "Grass",
    "attackClass": "physical",
-   "range": 1
+   "range": 1,
+   "statNote": "Thú cỡ lớn: máu, tấn công, phòng thủ cao; chậm. Bò xám: sừng dài, linh hoạt hơn tê giác"
   },
   {
    "id": 21,
@@ -616,15 +639,16 @@
    "dex": 24,
    "stats": {
     "hp": 80,
-    "atk": 90,
+    "atk": 100,
     "def": 70,
-    "spa": 55,
+    "spa": 45,
     "spd": 80,
     "spe": 105
    },
    "attackType": "Grass",
    "attackClass": "physical",
-   "range": 1
+   "range": 1,
+   "statNote": "Thú móng guốc rừng: nhanh, khá cân bằng. Mang lớn: gạc lớn nhất trong các loài mang"
   },
   {
    "id": 4,
@@ -650,7 +674,8 @@
    },
    "attackType": "Ground",
    "attackClass": "physical",
-   "range": 1
+   "range": 1,
+   "statNote": "Lân: cân bằng mọi mặt"
   },
   {
    "id": 2,
@@ -676,7 +701,8 @@
    },
    "attackType": "Sky",
    "attackClass": "special",
-   "range": 3
+   "range": 3,
+   "statNote": "Chim Lạc: bay nhanh, tấn công ĐB"
   },
   {
    "id": 37,
@@ -701,7 +727,8 @@
    },
    "attackType": "Water",
    "attackClass": "physical",
-   "range": 1
+   "range": 1,
+   "statNote": "Cá cỡ lớn: máu cao, khá cân bằng"
   },
   {
    "id": 6,
@@ -728,7 +755,8 @@
    },
    "attackType": "Rock",
    "attackClass": "physical",
-   "range": 1
+   "range": 1,
+   "statNote": "Nghê: linh thú canh giữ bằng đá, phòng thủ rất cao"
   },
   {
    "id": 9,
@@ -754,7 +782,8 @@
    },
    "attackType": "Ground",
    "attackClass": "physical",
-   "range": 1
+   "range": 1,
+   "statNote": "Ngựa chín hồng mao: nhanh nhất"
   },
   {
    "id": 8,
@@ -780,7 +809,8 @@
    },
    "attackType": "Ground",
    "attackClass": "physical",
-   "range": 1
+   "range": 1,
+   "statNote": "Gà chín cựa: cựa sắc, tấn công và tốc độ cao"
   },
   {
    "id": 12,
@@ -807,7 +837,8 @@
    },
    "attackType": "Poison",
    "attackClass": "special",
-   "range": 3
+   "range": 3,
+   "statNote": "Hồ Tinh: yêu thuật = tấn công ĐB rất cao"
   },
   {
    "id": 7,
@@ -833,7 +864,8 @@
    },
    "attackType": "Ground",
    "attackClass": "physical",
-   "range": 1
+   "range": 1,
+   "statNote": "Thú cỡ lớn: máu, tấn công, phòng thủ cao; chậm"
   },
   {
    "id": 29,
@@ -851,14 +883,15 @@
    "stats": {
     "hp": 65,
     "atk": 80,
-    "def": 55,
+    "def": 45,
     "spa": 90,
     "spd": 70,
-    "spe": 120
+    "spe": 130
    },
    "attackType": "Grass",
    "attackClass": "special",
-   "range": 3
+   "range": 3,
+   "statNote": "Vượn: chuyền cành nhanh nhất; tiếng hót = tấn công ĐB. Vượn đen má trắng chuyền cành trong tán rừng già cao, rất nhanh"
   },
   {
    "id": 40,
@@ -883,7 +916,8 @@
    },
    "attackType": "Ground",
    "attackClass": "physical",
-   "range": 1
+   "range": 1,
+   "statNote": "Thú nhỏ: rất nhanh nhưng yếu. Cầy vằn chắc nịch, kiếm ăn dưới đất"
   },
   {
    "id": 44,
@@ -910,7 +944,8 @@
    },
    "attackType": "Poison",
    "attackClass": "special",
-   "range": 3
+   "range": 3,
+   "statNote": "Culi: chậm chạp; nọc độc = tấn công ĐB cao"
   },
   {
    "id": 25,
@@ -926,16 +961,17 @@
    ],
    "dex": 36,
    "stats": {
-    "hp": 70,
+    "hp": 75,
     "atk": 70,
     "def": 65,
-    "spa": 90,
-    "spd": 80,
+    "spa": 80,
+    "spd": 85,
     "spe": 105
    },
    "attackType": "Grass",
    "attackClass": "special",
-   "range": 3
+   "range": 3,
+   "statNote": "Linh trưởng ăn lá: nhanh nhẹn, đánh tầm xa (tấn công ĐB). Chà vá chân nâu sống đàn lớn, thích nghi cả gần thành phố (Sơn Trà)"
   },
   {
    "id": 20,
@@ -952,15 +988,16 @@
    "dex": 37,
    "stats": {
     "hp": 80,
-    "atk": 90,
-    "def": 70,
+    "atk": 80,
+    "def": 80,
     "spa": 55,
     "spd": 80,
     "spe": 105
    },
    "attackType": "Grass",
    "attackClass": "physical",
-   "range": 1
+   "range": 1,
+   "statNote": "Thú móng guốc rừng: nhanh, khá cân bằng. Sao la: tính điềm tĩnh, hai sừng dài thẳng dùng để phòng vệ"
   },
   {
    "id": 45,
@@ -986,7 +1023,8 @@
    },
    "attackType": "Sky",
    "attackClass": "physical",
-   "range": 2
+   "range": 2,
+   "statNote": "Chim lội nước: nhanh, mổ từ xa. Sếu đầu đỏ là loài chim bay cao nhất thế giới, to và nặng"
   },
   {
    "id": 31,
@@ -1013,7 +1051,8 @@
    },
    "attackType": "Water",
    "attackClass": "physical",
-   "range": 1
+   "range": 1,
+   "statNote": "Cá sấu: lực cắn mạnh, da dày, chậm trên cạn"
   },
   {
    "id": 50,
@@ -1038,7 +1077,8 @@
    },
    "attackType": "Grass",
    "attackClass": "physical",
-   "range": 1
+   "range": 1,
+   "statNote": "Thú nhỏ: rất nhanh nhưng yếu. Cheo cheo rất nhỏ, nhút nhát, chạy nhanh"
   },
   {
    "id": 36,
@@ -1064,7 +1104,8 @@
    },
    "attackType": "Sky",
    "attackClass": "special",
-   "range": 3
+   "range": 3,
+   "statNote": "Chim lội nước: nhanh, mổ từ xa. Rẽ mỏ thìa rất nhỏ (khoảng 15 cm) và nhanh"
   },
   {
    "id": 47,
@@ -1089,7 +1130,8 @@
    },
    "attackType": "Ground",
    "attackClass": "physical",
-   "range": 1
+   "range": 1,
+   "statNote": "Gấu: khỏe, máu và tấn công khá; trung bình về tốc độ"
   },
   {
    "id": 30,
@@ -1114,7 +1156,8 @@
    },
    "attackType": "Ground",
    "attackClass": "physical",
-   "range": 1
+   "range": 1,
+   "statNote": "Thân phủ vảy sừng: phòng thủ rất cao"
   },
   {
    "id": 19,
@@ -1139,7 +1182,8 @@
    },
    "attackType": "Water",
    "attackClass": "physical",
-   "range": 1
+   "range": 1,
+   "statNote": "Rùa: phòng thủ rất cao, rất chậm. Giải: mai mềm như da, rình mồi và cắn rất nhanh"
   },
   {
    "id": 22,
@@ -1157,16 +1201,17 @@
    "typeNote": "Lives on limestone karst",
    "dex": 45,
    "stats": {
-    "hp": 70,
+    "hp": 80,
     "atk": 70,
-    "def": 65,
+    "def": 70,
     "spa": 90,
     "spd": 80,
-    "spe": 105
+    "spe": 90
    },
    "attackType": "Rock",
    "attackClass": "special",
-   "range": 3
+   "range": 3,
+   "statNote": "Linh trưởng ăn lá: nhanh nhẹn, đánh tầm xa (tấn công ĐB). Voọc mũi hếch là loài voọc lớn nhất trong nhóm, chịu lạnh vùng núi cao"
   },
   {
    "id": 1,
@@ -1193,7 +1238,8 @@
    },
    "attackType": "Electric",
    "attackClass": "special",
-   "range": 3
+   "range": 3,
+   "statNote": "Rồng: hô mưa gọi sấm = tấn công ĐB"
   },
   {
    "id": 14,
@@ -1212,14 +1258,15 @@
    "stats": {
     "hp": 135,
     "atk": 110,
-    "def": 110,
+    "def": 120,
     "spa": 40,
     "spd": 75,
-    "spe": 40
+    "spe": 30
    },
    "attackType": "Ground",
    "attackClass": "physical",
-   "range": 1
+   "range": 1,
+   "statNote": "Thú cỡ lớn: máu, tấn công, phòng thủ cao; chậm. Tê giác Java: da dày nhiều nếp gấp như áo giáp"
   },
   {
    "id": 5,
@@ -1246,7 +1293,8 @@
    },
    "attackType": "Fire",
    "attackClass": "special",
-   "range": 3
+   "range": 3,
+   "statNote": "Phượng Hoàng: lửa thiêng = tấn công ĐB rất cao"
   },
   {
    "id": 32,
@@ -1271,7 +1319,8 @@
    },
    "attackType": "Water",
    "attackClass": "physical",
-   "range": 1
+   "range": 1,
+   "statNote": "Rùa: phòng thủ rất cao, rất chậm"
   },
   {
    "id": 13,
@@ -1297,7 +1346,8 @@
    },
    "attackType": "Water",
    "attackClass": "special",
-   "range": 3
+   "range": 3,
+   "statNote": "Cá Ông: khổng lồ, máu rất cao, chậm"
   }
  ],
  "types": [
