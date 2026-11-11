@@ -1,6 +1,6 @@
 # Vinmon – session notes (handoff)
 
-Last session: 10/11/2026. Branch: `claude/vibrant-feynman-rjzlhw` (not merged to `main` yet).
+Last session: 11/11/2026 (started 10/11/2026). Branch: `claude/vibrant-feynman-rjzlhw` (not merged to `main` yet).
 Start the next session with this repo selected and ask Claude to read this file.
 
 ## What exists
@@ -39,8 +39,12 @@ python3 scripts/draft_stats.py [--force]   # (re)draft stats; --force overwrites
 2. Differentiate identical stats (6 doucs/langurs, 2 gibbons).
 3. Fire (2), Electric (1), Insect (0) are thin – candidates: electric ray, firefly/beetle (check IUCN first).
 4. Optionally translate type badges to Vietnamese (Lửa, Nước, Điện, Cỏ, Đất, Đá, Trời, Côn trùng, Độc, Huyền thoại).
-5. Verify before release: new (post-1/7/2025) province names in `data/vn_info.json`;
-   Xuân Thủy black-faced spoonbill count source; older/unpublished population figures.
+5. ~~Verify province names~~ – done 11/11: all mergers used are confirmed (Res. 202/2025/QH15);
+   Đồng Nai is now **TP. Đồng Nai** (centrally run city from 30/4/2026); Cát Tiên NP managed by
+   TP. Đồng Nai from 10/2026 (Decision 2058/QĐ-TTg) – still partly in Lâm Đồng until a boundary change.
+   Still open: Xuân Thủy spoonbill "36–93/year" original report not reachable (labelled as unverified
+   on the card); older/unpublished population figures are labelled with their survey year.
+   Sites blocked in this cloud session: chinhphu.vn, vietnamnews.vn, mae.gov.vn, wikipedia.org.
 6. Replace draft sprites with real art (sketch → `pixelize.py` → clean up in Aseprite/Pixelorama).
 7. Next game steps: auto-chess board, shop/tiers, synergies (e.g. Sơn Tinh bride-price trio,
    the three doucs "Chà vá" set), damage formula.

@@ -1,36 +1,90 @@
 {
  "updated": "11/2026",
- "disclaimer": "Số lượng là ước tính từ các khảo sát được công bố, phương pháp và năm khảo sát khác nhau nên các nguồn có thể chênh lệch. Tên tỉnh theo địa giới hành chính từ 1/7/2025 (Nghị quyết 202/2025/QH15); tên tỉnh cũ ghi trong ngoặc.",
+ "disclaimer": "Số lượng là ước tính từ các khảo sát được công bố, phương pháp và năm khảo sát khác nhau nên các nguồn có thể chênh lệch. Tên tỉnh, thành theo địa giới hành chính từ 1/7/2025 (Nghị quyết 202/2025/QH15); Đồng Nai là thành phố trực thuộc Trung ương từ 30/4/2026; Vườn quốc gia Cát Tiên do TP. Đồng Nai quản lý từ 10/2026 (Quyết định 2058/QĐ-TTg). Tên tỉnh cũ ghi trong ngoặc.",
  "helpCommon": "Không mua, bán, ăn, nuôi hay sử dụng sản phẩm từ động vật hoang dã. Báo cáo vi phạm qua đường dây nóng miễn phí của ENV (Trung tâm Giáo dục Thiên nhiên): 1800-1522.",
  "labels": {
-  "group": {"Legendary": "Huyền thoại", "Vanished": "Đã mất", "Wild": "Hoang dã"},
-  "habitat": {"Forest": "Rừng", "Wetland": "Đất ngập nước", "River": "Sông", "Sea": "Biển", "Karst": "Núi đá vôi", "Sky": "Bầu trời", "Mythic": "Huyền thoại"},
-  "iucn": {"CR": "Cực kỳ nguy cấp", "EN": "Nguy cấp", "VU": "Sắp nguy cấp", "DD": "Thiếu dữ liệu"}
+  "group": {
+   "Legendary": "Huyền thoại",
+   "Vanished": "Đã mất",
+   "Wild": "Hoang dã"
+  },
+  "habitat": {
+   "Forest": "Rừng",
+   "Wetland": "Đất ngập nước",
+   "River": "Sông",
+   "Sea": "Biển",
+   "Karst": "Núi đá vôi",
+   "Sky": "Bầu trời",
+   "Mythic": "Huyền thoại"
+  },
+  "iucn": {
+   "CR": "Cực kỳ nguy cấp",
+   "EN": "Nguy cấp",
+   "VU": "Sắp nguy cấp",
+   "DD": "Thiếu dữ liệu"
+  }
  },
  "species": {
-  "1": {"note": "Đứng đầu Tứ Linh; Lạc Long Quân – tổ tiên rồng trong truyền thuyết \"Con Rồng cháu Tiên\"."},
-  "2": {"note": "Hình chim mỏ dài trên trống đồng Đông Sơn (như trống Ngọc Lũ); vật tổ của người Lạc Việt."},
-  "3": {"note": "Giúp An Dương Vương xây thành Cổ Loa và trao móng làm nỏ thần; đòi lại gươm của Lê Lợi ở hồ Hoàn Kiếm."},
-  "4": {"note": "Một trong Tứ Linh; linh vật của múa lân dịp Tết và Trung thu."},
-  "5": {"note": "Một trong Tứ Linh; biểu tượng của hoàng gia và nữ tính trong mỹ thuật cung đình."},
-  "6": {"note": "Linh thú hình dáng giống chó, canh giữ đình, đền, chùa – nét riêng của mỹ thuật Việt."},
-  "7": {"note": "Một trong ba lễ vật Vua Hùng đòi làm sính lễ trong truyền thuyết Sơn Tinh – Thủy Tinh."},
-  "8": {"note": "Một trong ba lễ vật Vua Hùng đòi làm sính lễ trong truyền thuyết Sơn Tinh – Thủy Tinh."},
-  "9": {"note": "Một trong ba lễ vật Vua Hùng đòi làm sính lễ trong truyền thuyết Sơn Tinh – Thủy Tinh."},
-  "10": {"note": "Ngựa sắt phun lửa chở Thánh Gióng đánh giặc Ân; tương truyền tre bị lửa ngựa táp hóa vàng thành tre đằng ngà."},
-  "11": {"note": "Thủy quái bị Lạc Long Quân diệt; tương truyền đuôi của nó hóa thành đảo Bạch Long Vĩ."},
-  "12": {"note": "Cáo chín đuôi bị Lạc Long Quân đánh bại; tương truyền hang của nó sụp xuống thành Hồ Tây."},
-  "13": {"note": "Tục thờ cá voi của ngư dân miền Trung và miền Nam; đền Vạn Thủy Tú (Phan Thiết) lưu giữ bộ xương cá voi lớn."},
-
+  "1": {
+   "note": "Đứng đầu Tứ Linh; Lạc Long Quân – tổ tiên rồng trong truyền thuyết \"Con Rồng cháu Tiên\"."
+  },
+  "2": {
+   "note": "Hình chim mỏ dài trên trống đồng Đông Sơn (như trống Ngọc Lũ); vật tổ của người Lạc Việt."
+  },
+  "3": {
+   "note": "Giúp An Dương Vương xây thành Cổ Loa và trao móng làm nỏ thần; đòi lại gươm của Lê Lợi ở hồ Hoàn Kiếm."
+  },
+  "4": {
+   "note": "Một trong Tứ Linh; linh vật của múa lân dịp Tết và Trung thu."
+  },
+  "5": {
+   "note": "Một trong Tứ Linh; biểu tượng của hoàng gia và nữ tính trong mỹ thuật cung đình."
+  },
+  "6": {
+   "note": "Linh thú hình dáng giống chó, canh giữ đình, đền, chùa – nét riêng của mỹ thuật Việt."
+  },
+  "7": {
+   "note": "Một trong ba lễ vật Vua Hùng đòi làm sính lễ trong truyền thuyết Sơn Tinh – Thủy Tinh."
+  },
+  "8": {
+   "note": "Một trong ba lễ vật Vua Hùng đòi làm sính lễ trong truyền thuyết Sơn Tinh – Thủy Tinh."
+  },
+  "9": {
+   "note": "Một trong ba lễ vật Vua Hùng đòi làm sính lễ trong truyền thuyết Sơn Tinh – Thủy Tinh."
+  },
+  "10": {
+   "note": "Ngựa sắt phun lửa chở Thánh Gióng đánh giặc Ân; tương truyền tre bị lửa ngựa táp hóa vàng thành tre đằng ngà."
+  },
+  "11": {
+   "note": "Thủy quái bị Lạc Long Quân diệt; tương truyền đuôi của nó hóa thành đảo Bạch Long Vĩ."
+  },
+  "12": {
+   "note": "Cáo chín đuôi bị Lạc Long Quân đánh bại; tương truyền hang của nó sụp xuống thành Hồ Tây."
+  },
+  "13": {
+   "note": "Tục thờ cá voi của ngư dân miền Trung và miền Nam; đền Vạn Thủy Tú (Phan Thiết) lưu giữ bộ xương cá voi lớn."
+  },
   "14": {
    "iucn": "Cực kỳ nguy cấp (cấp loài); phân loài Việt Nam đã tuyệt chủng",
    "note": "Phân loài tê giác Java của Việt Nam đã tuyệt chủng: cá thể cuối cùng bị săn trộm tại Cát Tiên (4/2010); WWF xác nhận tuyệt chủng năm 2011.",
    "pop": "Việt Nam: 0. Toàn cầu: chỉ còn khoảng 76 con (ước tính 2022), tất cả ở Vườn quốc gia Ujung Kulon, Indonesia; các nhóm săn trộm thú nhận đã giết 26 con trong giai đoạn 2019–2023.",
    "habitat": "Rừng nhiệt đới đất thấp, gần sông suối và vũng bùn.",
-   "where": "Trước đây: Vườn quốc gia Cát Tiên (Đồng Nai – Lâm Đồng).",
+   "where": "Trước đây: Vườn quốc gia Cát Tiên (TP. Đồng Nai – Lâm Đồng).",
    "threat": "Săn trộm lấy sừng.",
-   "help": ["Tuyệt đối không mua, dùng sừng tê giác – sừng tê không có tác dụng chữa bệnh đã được chứng minh.", "Ủng hộ Quỹ Tê giác Quốc tế (International Rhino Foundation) bảo vệ quần thể cuối cùng ở Ujung Kulon."],
-   "src": [["The Star – Javan rhino clings on to survival (2024)", "https://www.thestar.com.my/aseanplus/aseanplus-news/2024/07/16/javan-rhino-clings-on-to-survival"], ["International Rhino Foundation – Javan rhino", "https://rhinos.org/about-rhinos/rhino-species/javan-rhino/"]]
+   "help": [
+    "Tuyệt đối không mua, dùng sừng tê giác – sừng tê không có tác dụng chữa bệnh đã được chứng minh.",
+    "Ủng hộ Quỹ Tê giác Quốc tế (International Rhino Foundation) bảo vệ quần thể cuối cùng ở Ujung Kulon."
+   ],
+   "src": [
+    [
+     "The Star – Javan rhino clings on to survival (2024)",
+     "https://www.thestar.com.my/aseanplus/aseanplus-news/2024/07/16/javan-rhino-clings-on-to-survival"
+    ],
+    [
+     "International Rhino Foundation – Javan rhino",
+     "https://rhinos.org/about-rhinos/rhino-species/javan-rhino/"
+    ]
+   ]
   },
   "15": {
    "iucn": "Cực kỳ nguy cấp (có thể đã tuyệt chủng)",
@@ -39,8 +93,16 @@
    "habitat": "Rừng khộp, rừng thưa và đồng cỏ.",
    "where": "Trước đây: vùng biên giới Tây Nguyên giáp Campuchia và Lào.",
    "threat": "Săn bắn, chiến tranh, mất sinh cảnh.",
-   "help": ["Báo cáo mọi thông tin nghi ngờ thấy bò xám cho kiểm lâm hoặc các tổ chức bảo tồn.", "Theo dõi và ủng hộ các khảo sát tìm bò xám của Re:wild."],
-   "src": [["Dialogue Earth – The kouprey: on the trail of Cambodia's elusive wild cattle", "https://dialogue.earth/en/nature/the-kouprey-on-the-trail-of-cambodias-elusive-wild-cattle/"]]
+   "help": [
+    "Báo cáo mọi thông tin nghi ngờ thấy bò xám cho kiểm lâm hoặc các tổ chức bảo tồn.",
+    "Theo dõi và ủng hộ các khảo sát tìm bò xám của Re:wild."
+   ],
+   "src": [
+    [
+     "Dialogue Earth – The kouprey: on the trail of Cambodia's elusive wild cattle",
+     "https://dialogue.earth/en/nature/the-kouprey-on-the-trail-of-cambodias-elusive-wild-cattle/"
+    ]
+   ]
   },
   "16": {
    "iucn": "Tuyệt chủng (chỉ còn hóa thạch)",
@@ -48,7 +110,9 @@
    "pop": "Đã tuyệt chủng tự nhiên từ thời tiền sử.",
    "habitat": "Rừng nhiệt đới vùng núi đá vôi.",
    "where": "Di chỉ hóa thạch: hang Thẩm Khuyên (Lạng Sơn), hang Lang Trang (Thanh Hóa).",
-   "help": ["Bảo vệ các hang động và di chỉ khảo cổ; không tự ý đào bới, lấy hóa thạch."],
+   "help": [
+    "Bảo vệ các hang động và di chỉ khảo cổ; không tự ý đào bới, lấy hóa thạch."
+   ],
    "src": []
   },
   "17": {
@@ -58,8 +122,20 @@
    "habitat": "Rừng nhiệt đới rộng lớn có nhiều con mồi lớn.",
    "where": "Trước đây: dọc dãy Trường Sơn, như Pù Mát (Nghệ An).",
    "threat": "Săn bắt bằng bẫy, buôn bán xương, da, cao hổ; mất con mồi.",
-   "help": ["Không mua, dùng cao hổ và mọi sản phẩm từ hổ.", "Ủng hộ các chương trình tháo gỡ bẫy thú và phục hồi con mồi trong rừng."],
-   "src": [["Tuổi Trẻ News – Indochinese tigers at Phong Nha-Kẻ Bàng", "https://news.tuoitre.vn/indochinese-tigers-at-vietnams-phong-nha-ke-bang-receive-medical-care-from-intl-local-experts-103260830215718644.htm"], ["VTV – Only 20 Indochinese tigers left in Vietnam (2015)", "https://english.vtv.vn/life-style/only-20-indochinese-tigers-left-in-vietnam-20150919153626634.htm"]]
+   "help": [
+    "Không mua, dùng cao hổ và mọi sản phẩm từ hổ.",
+    "Ủng hộ các chương trình tháo gỡ bẫy thú và phục hồi con mồi trong rừng."
+   ],
+   "src": [
+    [
+     "Tuổi Trẻ News – Indochinese tigers at Phong Nha-Kẻ Bàng",
+     "https://news.tuoitre.vn/indochinese-tigers-at-vietnams-phong-nha-ke-bang-receive-medical-care-from-intl-local-experts-103260830215718644.htm"
+    ],
+    [
+     "VTV – Only 20 Indochinese tigers left in Vietnam (2015)",
+     "https://english.vtv.vn/life-style/only-20-indochinese-tigers-left-in-vietnam-20150919153626634.htm"
+    ]
+   ]
   },
   "18": {
    "iucn": "Cực kỳ nguy cấp (có thể đã tuyệt chủng ngoài tự nhiên)",
@@ -68,8 +144,24 @@
    "habitat": "Rừng thường xanh đất thấp.",
    "where": "Khe Nước Trong, Lệ Thủy (Quảng Trị, Quảng Bình cũ); Phong Điền (Huế).",
    "threat": "Săn bắt bằng bẫy dây, mất rừng đất thấp.",
-   "help": ["Ủng hộ Trung tâm Bảo tồn Thiên nhiên Việt (Viet Nature) và Nhóm công tác Gà lôi lam mào trắng.", "Không đặt bẫy dây trong rừng; báo cáo bẫy cho kiểm lâm."],
-   "src": [["BirdGuides – Plans advance to reintroduce Edwards's Pheasant in Vietnam", "https://www.birdguides.com/news/plans-advance-to-reintroduce-edwardss-pheasant-in-vietnam/"], ["Tierpark Berlin – Edwards's pheasant", "https://www.tierpark-berlin.de/en/species-conservation/worldwide/edwardss-pheasant"], ["Tuổi Trẻ News – 20 Edwards's pheasants return to Vietnam from Germany (2026)", "https://news.tuoitre.vn/20-edwardss-pheasants-return-to-vietnam-from-germany-in-landmark-conservation-effort-103260513114218216.htm"]]
+   "help": [
+    "Ủng hộ Trung tâm Bảo tồn Thiên nhiên Việt (Viet Nature) và Nhóm công tác Gà lôi lam mào trắng.",
+    "Không đặt bẫy dây trong rừng; báo cáo bẫy cho kiểm lâm."
+   ],
+   "src": [
+    [
+     "BirdGuides – Plans advance to reintroduce Edwards's Pheasant in Vietnam",
+     "https://www.birdguides.com/news/plans-advance-to-reintroduce-edwardss-pheasant-in-vietnam/"
+    ],
+    [
+     "Tierpark Berlin – Edwards's pheasant",
+     "https://www.tierpark-berlin.de/en/species-conservation/worldwide/edwardss-pheasant"
+    ],
+    [
+     "Tuổi Trẻ News – 20 Edwards's pheasants return to Vietnam from Germany (2026)",
+     "https://news.tuoitre.vn/20-edwardss-pheasants-return-to-vietnam-from-germany-in-landmark-conservation-effort-103260513114218216.htm"
+    ]
+   ]
   },
   "19": {
    "iucn": "Cực kỳ nguy cấp",
@@ -78,18 +170,41 @@
    "habitat": "Sông lớn, hồ nước ngọt sâu.",
    "where": "Hồ Đồng Mô và hồ Xuân Khanh (Sơn Tây, Hà Nội).",
    "threat": "Săn bắt, ô nhiễm và cải tạo hồ, đập ngăn sông.",
-   "help": ["Ủng hộ Chương trình Bảo tồn Rùa châu Á (Asian Turtle Program).", "Báo cáo mọi trường hợp nhìn thấy hoặc bắt được giải lớn cho kiểm lâm hoặc ATP."],
-   "src": [["Live Science – Last known female dies (2023)", "https://www.livescience.com/animals/turtles/largest-freshwater-turtle-species-doomed-to-extinction-after-last-female-washes-up-dead"], ["Saigoneer – Another Hoàn Kiếm turtle dies in Hanoi", "https://www.saigoneer.com/saigon-environment/26258-another-hoàn-kiếm-turtle-dies-in-hanoi,-setting-back-conservation-efforts"]]
+   "help": [
+    "Ủng hộ Chương trình Bảo tồn Rùa châu Á (Asian Turtle Program).",
+    "Báo cáo mọi trường hợp nhìn thấy hoặc bắt được giải lớn cho kiểm lâm hoặc ATP."
+   ],
+   "src": [
+    [
+     "Live Science – Last known female dies (2023)",
+     "https://www.livescience.com/animals/turtles/largest-freshwater-turtle-species-doomed-to-extinction-after-last-female-washes-up-dead"
+    ],
+    [
+     "Saigoneer – Another Hoàn Kiếm turtle dies in Hanoi",
+     "https://www.saigoneer.com/saigon-environment/26258-another-hoàn-kiếm-turtle-dies-in-hanoi,-setting-back-conservation-efforts"
+    ]
+   ]
   },
-
   "20": {
    "note": "Phát hiện năm 1992 tại Vũ Quang; được mệnh danh \"kỳ lân châu Á\".",
    "pop": "Có thể dưới 100 cá thể (ước tính 2015 của Nhóm công tác Sao la), không thể ước tính chính xác; có thể không còn khu vực nào có quần thể đủ sức tồn tại lâu dài.",
    "habitat": "Rừng thường xanh ẩm vùng núi Trường Sơn.",
    "where": "Dãy Trường Sơn ở Việt Nam và Lào, như Vũ Quang (Hà Tĩnh).",
    "threat": "Bẫy dây đặt hàng loạt để săn thú rừng.",
-   "help": ["Ủng hộ Quỹ Bảo tồn Sao la của Nhóm công tác Sao la (savethesaola.org).", "Ủng hộ các đội tuần tra tháo gỡ bẫy dây trong rừng Trường Sơn."],
-   "src": [["Saola Working Group – Saving the saola from extinction", "https://www.savethesaola.org/?p=1182"], ["Re:wild – Saola", "https://www.rewild.org/wildlife/saola"]]
+   "help": [
+    "Ủng hộ Quỹ Bảo tồn Sao la của Nhóm công tác Sao la (savethesaola.org).",
+    "Ủng hộ các đội tuần tra tháo gỡ bẫy dây trong rừng Trường Sơn."
+   ],
+   "src": [
+    [
+     "Saola Working Group – Saving the saola from extinction",
+     "https://www.savethesaola.org/?p=1182"
+    ],
+    [
+     "Re:wild – Saola",
+     "https://www.rewild.org/wildlife/saola"
+    ]
+   ]
   },
   "21": {
    "note": "Được mô tả năm 1994 từ Vũ Quang; loài đặc hữu Trường Sơn.",
@@ -97,8 +212,20 @@
    "habitat": "Rừng thường xanh vùng đồi núi.",
    "where": "Nam Trường Sơn: Bidoup – Núi Bà (Lâm Đồng), Chư Yang Sin (Đắk Lắk) ghi nhận thường xuyên từ 2019; ghi nhận ở Quảng Nam cũ (Đà Nẵng) năm 2018.",
    "threat": "Bẫy dây (loài này đặc biệt dễ dính bẫy), phá rừng làm nương rẫy.",
-   "help": ["Ủng hộ các chương trình tháo gỡ bẫy dây ở Tây Nguyên.", "Không mua, ăn thịt thú rừng."],
-   "src": [["IUCN SSC – Large-antlered muntjac", "https://www.iucnsos.org/?p=5466"], ["Journal of Threatened Taxa – Chư Yang Sin camera trap study", "https://threatenedtaxa.org/index.php/JoTT/article/view/9807"]]
+   "help": [
+    "Ủng hộ các chương trình tháo gỡ bẫy dây ở Tây Nguyên.",
+    "Không mua, ăn thịt thú rừng."
+   ],
+   "src": [
+    [
+     "IUCN SSC – Large-antlered muntjac",
+     "https://www.iucnsos.org/?p=5466"
+    ],
+    [
+     "Journal of Threatened Taxa – Chư Yang Sin camera trap study",
+     "https://threatenedtaxa.org/index.php/JoTT/article/view/9807"
+    ]
+   ]
   },
   "22": {
    "note": "Loài đặc hữu miền Bắc Việt Nam.",
@@ -106,8 +233,20 @@
    "habitat": "Rừng trên núi đá vôi.",
    "where": "Khu bảo tồn Khau Ca (Tuyên Quang, Hà Giang cũ); Na Hang (Tuyên Quang).",
    "threat": "Săn bắn, mất và chia cắt rừng.",
-   "help": ["Ủng hộ chương trình bảo tồn voọc mũi hếch của Fauna & Flora (fauna-flora.org).", "Du lịch có trách nhiệm, tôn trọng quy định khu bảo tồn."],
-   "src": [["Fauna & Flora – Tonkin snub-nosed monkey", "https://www.fauna-flora.org/species/tonkin-snub-nosed-monkey"], ["VietnamNet – Highest number recorded in Hà Giang survey", "https://vietnamnet.vn/en/highest-number-of-tonkin-snub-nosed-monkeys-recorded-in-ha-giang-survey-E91275.html"]]
+   "help": [
+    "Ủng hộ chương trình bảo tồn voọc mũi hếch của Fauna & Flora (fauna-flora.org).",
+    "Du lịch có trách nhiệm, tôn trọng quy định khu bảo tồn."
+   ],
+   "src": [
+    [
+     "Fauna & Flora – Tonkin snub-nosed monkey",
+     "https://www.fauna-flora.org/species/tonkin-snub-nosed-monkey"
+    ],
+    [
+     "VietnamNet – Highest number recorded in Hà Giang survey",
+     "https://vietnamnet.vn/en/highest-number-of-tonkin-snub-nosed-monkeys-recorded-in-ha-giang-survey-E91275.html"
+    ]
+   ]
   },
   "23": {
    "note": "Loài đặc hữu Việt Nam; quần thể chính ở Vân Long.",
@@ -115,8 +254,20 @@
    "habitat": "Rừng trên núi đá vôi.",
    "where": "Khu bảo tồn Vân Long, Kim Bảng (Hà Nam cũ) và Cúc Phương – đều thuộc Ninh Bình.",
    "threat": "Săn bắn, khai thác đá, mất rừng.",
-   "help": ["Ủng hộ Trung tâm Cứu hộ Thú linh trưởng Nguy cấp (EPRC) tại Cúc Phương.", "Khi tham quan Vân Long, không cho voọc ăn và giữ khoảng cách."],
-   "src": [["Việt Nam News – Ninh Bình, a home for endangered Delacour's langur", "https://vietnamnews.vn/sunday/features/1782777/ninh-binh-a-home-for-endangered-delacour-s-langur.html"], ["Oryx – A second viable population in Viet Nam (2021)", "https://www.cambridge.org/core/product/29A17C9A88BB14EF6A61C90631BBB5E5/core-reader"]]
+   "help": [
+    "Ủng hộ Trung tâm Cứu hộ Thú linh trưởng Nguy cấp (EPRC) tại Cúc Phương.",
+    "Khi tham quan Vân Long, không cho voọc ăn và giữ khoảng cách."
+   ],
+   "src": [
+    [
+     "Việt Nam News – Ninh Bình, a home for endangered Delacour's langur",
+     "https://vietnamnews.vn/sunday/features/1782777/ninh-binh-a-home-for-endangered-delacour-s-langur.html"
+    ],
+    [
+     "Oryx – A second viable population in Viet Nam (2021)",
+     "https://www.cambridge.org/core/product/29A17C9A88BB14EF6A61C90631BBB5E5/core-reader"
+    ]
+   ]
   },
   "24": {
    "note": "Chỉ sống trên đảo Cát Bà; một trong những loài linh trưởng hiếm nhất thế giới.",
@@ -124,8 +275,20 @@
    "habitat": "Rừng trên núi đá vôi ven biển.",
    "where": "Vườn quốc gia Cát Bà (Hải Phòng).",
    "threat": "Quần thể nhỏ bị chia cắt, săn bắn trước đây, phát triển du lịch.",
-   "help": ["Ủng hộ Dự án Bảo tồn Voọc Cát Bà.", "Tuân thủ quy định khi tham quan Vườn quốc gia Cát Bà."],
-   "src": [["Vietnam Agriculture – Cat Ba langur population increases by 15", "https://vietnamagriculture.nongnghiep.vn/cat-ba-langur-population-increases-by-15-individuals-in-10-months-d402539.html"], ["New England Primate Conservancy – Cat Ba langur", "https://neprimateconservancy.org/cat-ba-langur/"]]
+   "help": [
+    "Ủng hộ Dự án Bảo tồn Voọc Cát Bà.",
+    "Tuân thủ quy định khi tham quan Vườn quốc gia Cát Bà."
+   ],
+   "src": [
+    [
+     "Vietnam Agriculture – Cat Ba langur population increases by 15",
+     "https://vietnamagriculture.nongnghiep.vn/cat-ba-langur-population-increases-by-15-individuals-in-10-months-d402539.html"
+    ],
+    [
+     "New England Primate Conservancy – Cat Ba langur",
+     "https://neprimateconservancy.org/cat-ba-langur/"
+    ]
+   ]
   },
   "25": {
    "note": "\"Nữ hoàng linh trưởng\"; quần thể nổi tiếng ở bán đảo Sơn Trà. Bị nâng hạng từ Nguy cấp lên Cực kỳ nguy cấp năm 2020.",
@@ -133,8 +296,20 @@
    "habitat": "Rừng thường xanh và nửa rụng lá.",
    "where": "Bán đảo Sơn Trà (Đà Nẵng) và rừng miền Trung, Bắc Trung Bộ.",
    "threat": "Săn bắn, mất rừng, xây dựng; tai nạn giao thông trên bán đảo.",
-   "help": ["Ủng hộ Trung tâm GreenViet (Đà Nẵng).", "Không cho chà vá ăn; lái xe chậm khi lên Sơn Trà."],
-   "src": [["Tuổi Trẻ News – How many red-shanked doucs are left on Sơn Trà (2017)", "https://tuoitrenews.vn/news/audio/20170615/how-many-red-shanked-doucs-are-left-on-vietnam%E2%80%99s-son-tra-peninsula/40255.html"], ["National Geographic – On Monkey Mountain", "https://www.nationalgeographic.com/animals/article/monkey-mountain-red-shanked-doucs-vietnam"]]
+   "help": [
+    "Ủng hộ Trung tâm GreenViet (Đà Nẵng).",
+    "Không cho chà vá ăn; lái xe chậm khi lên Sơn Trà."
+   ],
+   "src": [
+    [
+     "Tuổi Trẻ News – How many red-shanked doucs are left on Sơn Trà (2017)",
+     "https://tuoitrenews.vn/news/audio/20170615/how-many-red-shanked-doucs-are-left-on-vietnam%E2%80%99s-son-tra-peninsula/40255.html"
+    ],
+    [
+     "National Geographic – On Monkey Mountain",
+     "https://www.nationalgeographic.com/animals/article/monkey-mountain-red-shanked-doucs-vietnam"
+    ]
+   ]
   },
   "26": {
    "note": "Loài đặc hữu miền Trung Việt Nam.",
@@ -142,17 +317,35 @@
    "habitat": "Rừng thường xanh vùng núi.",
    "where": "Kon Ka Kinh (Gia Lai); Kon Plông (Quảng Ngãi, Kon Tum cũ); Ba Tơ (Quảng Ngãi); Quảng Nam cũ (Đà Nẵng).",
    "threat": "Săn bắn, mất và chia cắt rừng.",
-   "help": ["Ủng hộ Fauna & Flora và Trung tâm Cứu hộ Thú linh trưởng Nguy cấp (EPRC)."],
-   "src": [["Species on the Brink – Grey-shanked douc", "https://speciesonthebrink.org/species/grey-shanked-douc-langur/"], ["Mongabay – New population of rare douc langurs found (2025)", "https://news.mongabay.com/2025/06/new-population-of-rare-douc-langurs-found-in-vietnams-highland-forests/"]]
+   "help": [
+    "Ủng hộ Fauna & Flora và Trung tâm Cứu hộ Thú linh trưởng Nguy cấp (EPRC)."
+   ],
+   "src": [
+    [
+     "Species on the Brink – Grey-shanked douc",
+     "https://speciesonthebrink.org/species/grey-shanked-douc-langur/"
+    ],
+    [
+     "Mongabay – New population of rare douc langurs found (2025)",
+     "https://news.mongabay.com/2025/06/new-population-of-rare-douc-langurs-found-in-vietnams-highland-forests/"
+    ]
+   ]
   },
   "27": {
    "note": "Sống ở miền Nam Việt Nam và Campuchia; Cực kỳ nguy cấp từ năm 2015.",
    "pop": "Chưa có số liệu cả nước mới. Theo các khảo sát cũ: Núi Chúa 500–700 cá thể (2005); Cát Tiên khoảng 109 (2005); Bù Gia Mập ước tính khoảng 1.789 (nghiên cứu chưa công bố). Quần thể lớn nhất thế giới ở Campuchia.",
    "habitat": "Rừng khô, rừng nửa rụng lá và thường xanh.",
-   "where": "Núi Chúa (Khánh Hòa, Ninh Thuận cũ); Bù Gia Mập (Đồng Nai, Bình Phước cũ); Cát Tiên (Đồng Nai – Lâm Đồng).",
+   "where": "Núi Chúa (Khánh Hòa, Ninh Thuận cũ); Bù Gia Mập (TP. Đồng Nai, Bình Phước cũ); Cát Tiên (TP. Đồng Nai – Lâm Đồng).",
    "threat": "Săn bắn, mất rừng, buôn bán làm thú cưng.",
-   "help": ["Ủng hộ Trung tâm Cứu hộ Linh trưởng Đảo Tiên (Cát Tiên) và EPRC."],
-   "src": [["Species on the Brink – Black-shanked douc", "https://speciesonthebrink.org/?p=3250"]]
+   "help": [
+    "Ủng hộ Trung tâm Cứu hộ Linh trưởng Đảo Tiên (Cát Tiên) và EPRC."
+   ],
+   "src": [
+    [
+     "Species on the Brink – Black-shanked douc",
+     "https://speciesonthebrink.org/?p=3250"
+    ]
+   ]
   },
   "28": {
    "note": "Ở Trùng Khánh (Cao Bằng) và vùng giáp biên Trung Quốc; một trong những loài vượn hiếm nhất thế giới.",
@@ -160,8 +353,19 @@
    "habitat": "Rừng trên núi đá vôi.",
    "where": "Khu bảo tồn loài và sinh cảnh vượn Cao Vít, Trùng Khánh (Cao Bằng); Khu bảo tồn Bangliang (Quảng Tây, Trung Quốc).",
    "threat": "Mất rừng do khai thác củi, chăn thả, đốt than.",
-   "help": ["Ủng hộ chương trình bảo tồn vượn Cao Vít của Fauna & Flora."],
-   "src": [["Mongabay – Smaller population estimate (2024)", "https://news.mongabay.com/2024/03/smaller-population-estimate-underscores-urgency-of-saving-cao-vit-gibbon/"], ["China Daily – Cao-vit gibbon population rises in Guangxi (2023)", "https://regional.chinadaily.com.cn/guangxi/2023-12/20/c_949317.htm"]]
+   "help": [
+    "Ủng hộ chương trình bảo tồn vượn Cao Vít của Fauna & Flora."
+   ],
+   "src": [
+    [
+     "Mongabay – Smaller population estimate (2024)",
+     "https://news.mongabay.com/2024/03/smaller-population-estimate-underscores-urgency-of-saving-cao-vit-gibbon/"
+    ],
+    [
+     "China Daily – Cao-vit gibbon population rises in Guangxi (2023)",
+     "https://regional.chinadaily.com.cn/guangxi/2023-12/20/c_949317.htm"
+    ]
+   ]
   },
   "29": {
    "note": "Phân bố ở miền Bắc Việt Nam, Lào và Trung Quốc.",
@@ -169,8 +373,20 @@
    "habitat": "Rừng thường xanh nguyên sinh.",
    "where": "Pù Mát (Nghệ An), Vũ Quang (Hà Tĩnh), Xuân Liên (Thanh Hóa).",
    "threat": "Săn bắn, buôn bán làm thú cưng, mất rừng.",
-   "help": ["Ủng hộ các trung tâm cứu hộ linh trưởng (EPRC, Đảo Tiên).", "Không mua vượn làm thú cưng."],
-   "src": [["IUCN A.P.E.S. Portal – Pù Mát National Park", "https://wiki.iucnapesportal.org/index.php/Pu_Mat_National_Park"], ["IUCN A.P.E.S. Portal – Vũ Quang National Park", "https://wiki.iucnapesportal.org/index.php/Vu_Quang_National_Park"]]
+   "help": [
+    "Ủng hộ các trung tâm cứu hộ linh trưởng (EPRC, Đảo Tiên).",
+    "Không mua vượn làm thú cưng."
+   ],
+   "src": [
+    [
+     "IUCN A.P.E.S. Portal – Pù Mát National Park",
+     "https://wiki.iucnapesportal.org/index.php/Pu_Mat_National_Park"
+    ],
+    [
+     "IUCN A.P.E.S. Portal – Vũ Quang National Park",
+     "https://wiki.iucnapesportal.org/index.php/Vu_Quang_National_Park"
+    ]
+   ]
   },
   "30": {
    "note": "Bị buôn bán trái phép nhiều nhất để lấy vảy và thịt.",
@@ -178,17 +394,37 @@
    "habitat": "Rừng các loại, cả rừng thứ sinh và vườn cây.",
    "where": "Rải rác khắp cả nước; tái thả tại Cúc Phương (Ninh Bình), Pù Mát (Nghệ An).",
    "threat": "Săn bắt, buôn bán vảy và thịt.",
-   "help": ["Ủng hộ Save Vietnam's Wildlife (svw.vn) – đơn vị cứu hộ tê tê lớn nhất Việt Nam.", "Không dùng vảy tê tê – thành phần là keratin, giống móng tay người."],
-   "src": [["Dân Trí – Rare Sunda pangolins released into wild (2023)", "https://dtinews.dantri.com.vn/vietnam-today/rare-sunda-pangolins-released-into-wild-20230420165505297.htm"], ["Save Vietnam's Wildlife", "https://svw.vn/?p=36321"]]
+   "help": [
+    "Ủng hộ Save Vietnam's Wildlife (svw.vn) – đơn vị cứu hộ tê tê lớn nhất Việt Nam.",
+    "Không dùng vảy tê tê – thành phần là keratin, giống móng tay người."
+   ],
+   "src": [
+    [
+     "Dân Trí – Rare Sunda pangolins released into wild (2023)",
+     "https://dtinews.dantri.com.vn/vietnam-today/rare-sunda-pangolins-released-into-wild-20230420165505297.htm"
+    ],
+    [
+     "Save Vietnam's Wildlife",
+     "https://svw.vn/?p=36321"
+    ]
+   ]
   },
   "31": {
    "note": "Được tái thả vào Bàu Sấu, Cát Tiên từ đầu những năm 2000; nay đã sinh sản tự nhiên.",
    "pop": "Bàu Sấu: 286 con năm 2019 (58 trưởng thành); giai đoạn 2021–2024 ước tính hơn 500 con. Toàn cầu: dưới 1.000 cá thể trưởng thành.",
    "habitat": "Hồ, đầm lầy, sông chảy chậm.",
-   "where": "Bàu Sấu, Vườn quốc gia Cát Tiên (Đồng Nai – Lâm Đồng).",
+   "where": "Bàu Sấu, Vườn quốc gia Cát Tiên (TP. Đồng Nai – Lâm Đồng).",
    "threat": "Mất đất ngập nước, lai giống với cá sấu nuôi, đánh bắt.",
-   "help": ["Không mua sản phẩm từ cá sấu không rõ nguồn gốc.", "Tham quan Bàu Sấu theo hướng dẫn của Vườn quốc gia Cát Tiên."],
-   "src": [["Tạp chí Khoa học Lâm nghiệp – Hiện trạng quần thể Cá sấu nước ngọt tại VQG Cát Tiên", "https://journal.vnuf.edu.vn/vi/article/view/2070"]]
+   "help": [
+    "Không mua sản phẩm từ cá sấu không rõ nguồn gốc.",
+    "Tham quan Bàu Sấu theo hướng dẫn của Vườn quốc gia Cát Tiên."
+   ],
+   "src": [
+    [
+     "Tạp chí Khoa học Lâm nghiệp – Hiện trạng quần thể Cá sấu nước ngọt tại VQG Cát Tiên",
+     "https://journal.vnuf.edu.vn/vi/article/view/2070"
+    ]
+   ]
   },
   "32": {
    "note": "Loài đặc hữu đồng bằng miền Trung Việt Nam.",
@@ -196,8 +432,20 @@
    "habitat": "Ao, đầm, ruộng và suối vùng đất thấp.",
    "where": "Đồng bằng ven biển miền Trung: Quảng Nam cũ (Đà Nẵng), Quảng Ngãi.",
    "threat": "Bắt để buôn bán làm thú cưng và thực phẩm.",
-   "help": ["Ủng hộ Chương trình Bảo tồn Rùa châu Á và Trung tâm Bảo tồn Rùa Cúc Phương.", "Không mua rùa hoang dã làm cảnh hay để phóng sinh."],
-   "src": [["Asian Turtle Program – Reintroduction preparations", "https://asianturtleprogram.org/?p=3809"], ["Vietnamese pond turtle (Wikipedia)", "https://en.wikipedia.org/wiki/Vietnamese_pond_turtle"]]
+   "help": [
+    "Ủng hộ Chương trình Bảo tồn Rùa châu Á và Trung tâm Bảo tồn Rùa Cúc Phương.",
+    "Không mua rùa hoang dã làm cảnh hay để phóng sinh."
+   ],
+   "src": [
+    [
+     "Asian Turtle Program – Reintroduction preparations",
+     "https://asianturtleprogram.org/?p=3809"
+    ],
+    [
+     "Vietnamese pond turtle (Wikipedia)",
+     "https://en.wikipedia.org/wiki/Vietnamese_pond_turtle"
+    ]
+   ]
   },
   "33": {
    "note": "Loài giải lớn sống ở sông và cửa sông.",
@@ -205,8 +453,16 @@
    "habitat": "Sông lớn, cửa sông nước lợ, đáy cát bùn.",
    "where": "Ghi nhận rải rác ở các sông lớn; chưa xác định được quần thể ổn định.",
    "threat": "Đánh bắt, lấy trứng, khai thác cát.",
-   "help": ["Ủng hộ Chương trình Bảo tồn Rùa châu Á.", "Thả lại giải nếu vô tình mắc lưới và báo cho kiểm lâm."],
-   "src": [["WCS Cambodia – Cantor's giant softshell hatchlings released", "https://cambodia.wcs.org/About-Us/Latest-News/articleType/ArticleView/articleId/12376/200-Cantors-Giant-Softshell-Turtle-Hatchlings-released-into-Mekong-River.aspx"]]
+   "help": [
+    "Ủng hộ Chương trình Bảo tồn Rùa châu Á.",
+    "Thả lại giải nếu vô tình mắc lưới và báo cho kiểm lâm."
+   ],
+   "src": [
+    [
+     "WCS Cambodia – Cantor's giant softshell hatchlings released",
+     "https://cambodia.wcs.org/About-Us/Latest-News/articleType/ArticleView/articleId/12376/200-Cantors-Giant-Softshell-Turtle-Hatchlings-released-into-Mekong-River.aspx"
+    ]
+   ]
   },
   "34": {
    "note": "Mai rùa đẹp khiến loài bị săn bắt mạnh để làm đồ mỹ nghệ.",
@@ -214,8 +470,20 @@
    "habitat": "Rạn san hô.",
    "where": "Côn Đảo (TP. Hồ Chí Minh, Bà Rịa – Vũng Tàu cũ), vịnh Bái Tử Long (Quảng Ninh).",
    "threat": "Săn lấy mai làm đồ đồi mồi, đánh bắt, mất bãi đẻ.",
-   "help": ["Không mua đồ trang sức, kỷ niệm làm từ đồi mồi.", "Tham gia chương trình tình nguyện bảo vệ rùa biển tại Vườn quốc gia Côn Đảo."],
-   "src": [["CMS IOSEA – Viet Nam country report (2014)", "https://www.cms.int/iosea-turtles/sites/default/files/document/VietNam_19_09_2014.pdf"], ["Việt Nam News – Côn Đảo pioneers sea turtle protection", "https://vietnamnews.vn/society/465292/con-dao-island-pioneers-sea-turtle-protection.html"]]
+   "help": [
+    "Không mua đồ trang sức, kỷ niệm làm từ đồi mồi.",
+    "Tham gia chương trình tình nguyện bảo vệ rùa biển tại Vườn quốc gia Côn Đảo."
+   ],
+   "src": [
+    [
+     "CMS IOSEA – Viet Nam country report (2014)",
+     "https://www.cms.int/iosea-turtles/sites/default/files/document/VietNam_19_09_2014.pdf"
+    ],
+    [
+     "Việt Nam News – Côn Đảo pioneers sea turtle protection",
+     "https://vietnamnews.vn/society/465292/con-dao-island-pioneers-sea-turtle-protection.html"
+    ]
+   ]
   },
   "35": {
    "note": "Quốc điểu của Campuchia; ở Việt Nam chỉ có vài ghi nhận tại Yok Đôn.",
@@ -223,8 +491,19 @@
    "habitat": "Rừng khộp có vũng nước theo mùa.",
    "where": "Vườn quốc gia Yok Đôn (Đắk Lắk).",
    "threat": "Săn bắn, mất rừng khộp, làm khô các vũng nước.",
-   "help": ["Báo cáo mọi lần nhìn thấy cho Vườn quốc gia Yok Đôn."],
-   "src": [["BirdLife DataZone – Giant ibis", "https://datazone.birdlife.org/species/factsheet/giant-ibis-thaumatibis-gigantea/text"], ["Giant ibis (Wikipedia)", "https://en.wikipedia.org/wiki/Giant_ibis"]]
+   "help": [
+    "Báo cáo mọi lần nhìn thấy cho Vườn quốc gia Yok Đôn."
+   ],
+   "src": [
+    [
+     "BirdLife DataZone – Giant ibis",
+     "https://datazone.birdlife.org/species/factsheet/giant-ibis-thaumatibis-gigantea/text"
+    ],
+    [
+     "Giant ibis (Wikipedia)",
+     "https://en.wikipedia.org/wiki/Giant_ibis"
+    ]
+   ]
   },
   "36": {
    "note": "Trú đông ở các bãi bồi đồng bằng sông Hồng.",
@@ -232,8 +511,16 @@
    "habitat": "Bãi triều, bãi bồi ven biển.",
    "where": "Mùa đông: bãi bồi ven biển đồng bằng sông Hồng, như Xuân Thủy (Ninh Bình, Nam Định cũ).",
    "threat": "Mất bãi triều do lấn biển, bẫy lưới bắt chim.",
-   "help": ["Không giăng lưới bẫy chim ven biển; báo cáo lưới bẫy cho kiểm lâm.", "Ủng hộ Nhóm công tác bảo tồn Rẽ mỏ thìa của Đối tác Đường bay Đông Á – Úc (EAAFP)."],
-   "src": [["BTO – First formal estimate of the world population", "https://www.bto.org/our-work/science/publications/papers/first-formal-estimate-world-population-critically"]]
+   "help": [
+    "Không giăng lưới bẫy chim ven biển; báo cáo lưới bẫy cho kiểm lâm.",
+    "Ủng hộ Nhóm công tác bảo tồn Rẽ mỏ thìa của Đối tác Đường bay Đông Á – Úc (EAAFP)."
+   ],
+   "src": [
+    [
+     "BTO – First formal estimate of the world population",
+     "https://www.bto.org/our-work/science/publications/papers/first-formal-estimate-world-population-critically"
+    ]
+   ]
   },
   "37": {
    "note": "Một trong những loài cá nước ngọt lớn nhất thế giới; đặc hữu sông Mê Kông.",
@@ -241,17 +528,38 @@
    "habitat": "Dòng chính sông Mê Kông, vực sâu.",
    "where": "Sông Tiền, sông Hậu (An Giang, Đồng Tháp).",
    "threat": "Đánh bắt, đập thủy điện chặn đường di cư.",
-   "help": ["Thả lại cá nếu vô tình bắt được và báo cho cơ quan thủy sản.", "Ủng hộ các chương trình bảo vệ sông Mê Kông của WWF."],
-   "src": [["National Geographic – Giant catfish critically endangered", "https://www.nationalgeographic.com/animals/article/giant-catfish-endangered-mekong-animals"]]
+   "help": [
+    "Thả lại cá nếu vô tình bắt được và báo cho cơ quan thủy sản.",
+    "Ủng hộ các chương trình bảo vệ sông Mê Kông của WWF."
+   ],
+   "src": [
+    [
+     "National Geographic – Giant catfish critically endangered",
+     "https://www.nationalgeographic.com/animals/article/giant-catfish-endangered-mekong-animals"
+    ]
+   ]
   },
   "38": {
    "note": "Chỉ còn một nhóm nhỏ voi hoang dã; văn hóa voi ở Đắk Lắk.",
-   "pop": "Khoảng 91–129 con voi hoang dã (Cục Lâm nghiệp, 2022), giảm từ khoảng 2.000 con năm 1980. Đồng Nai: khoảng 25–27 con. Đàn lớn nhất ở Yok Đôn.",
+   "pop": "Khoảng 91–129 con voi hoang dã (Cục Lâm nghiệp, 2022), giảm từ khoảng 2.000 con năm 1980. TP. Đồng Nai: khoảng 25–27 con. Đàn lớn nhất ở Yok Đôn.",
    "habitat": "Rừng khộp, rừng thường xanh.",
-   "where": "Yok Đôn (Đắk Lắk), Đồng Nai, Nghệ An.",
+   "where": "Yok Đôn (Đắk Lắk), TP. Đồng Nai, Nghệ An.",
    "threat": "Mất rừng, xung đột với người dân, săn trộm ngà.",
-   "help": ["Chọn du lịch thân thiện với voi (không cưỡi voi).", "Không mua đồ làm từ ngà voi.", "Ủng hộ Tổ chức Bảo vệ Động vật Quốc tế (HSI) tại Đồng Nai."],
-   "src": [["Dialogue Earth – Conflict threatens Vietnam's last elephants", "https://dialogue.earth/en/nature/conflict-threatens-vietnams-last-elephants/"], ["Tuổi Trẻ News – Đồng Nai elephant conservation action plan", "https://news.tuoitre.vn/vietnams-dong-nai-launches-elephant-conservation-action-plan-10383176.htm"]]
+   "help": [
+    "Chọn du lịch thân thiện với voi (không cưỡi voi).",
+    "Không mua đồ làm từ ngà voi.",
+    "Ủng hộ Tổ chức Bảo vệ Động vật Quốc tế (HSI) tại TP. Đồng Nai."
+   ],
+   "src": [
+    [
+     "Dialogue Earth – Conflict threatens Vietnam's last elephants",
+     "https://dialogue.earth/en/nature/conflict-threatens-vietnams-last-elephants/"
+    ],
+    [
+     "Tuổi Trẻ News – Đồng Nai elephant conservation action plan",
+     "https://news.tuoitre.vn/vietnams-dong-nai-launches-elephant-conservation-action-plan-10383176.htm"
+    ]
+   ]
   },
   "39": {
    "note": "Được mô tả năm 2000; được đánh giá lại từ Thiếu dữ liệu lên Nguy cấp do bị săn bắt bằng bẫy.",
@@ -259,8 +567,16 @@
    "habitat": "Rừng thường xanh ẩm vùng núi Trường Sơn.",
    "where": "Trường Sơn miền Trung (Việt Nam và Lào).",
    "threat": "Bẫy dây đặt hàng loạt.",
-   "help": ["Ủng hộ các đội tuần tra tháo gỡ bẫy dây.", "Không ăn thịt thú rừng."],
-   "src": [["Oryx – Annamite striped rabbit caught in the extinction crisis (2018)", "https://core-prod.cambridgecore.org/core/services/aop-cambridge-core/content/view/892C0C7A945017D272682F6AB21AC685/S0030605318000534a.pdf/littleknown_endemic_caught_in_the_southeast_asian_extinction_crisis_the_annamite_striped_rabbit_nesolagus_timminsi.pdf"]]
+   "help": [
+    "Ủng hộ các đội tuần tra tháo gỡ bẫy dây.",
+    "Không ăn thịt thú rừng."
+   ],
+   "src": [
+    [
+     "Oryx – Annamite striped rabbit caught in the extinction crisis (2018)",
+     "https://core-prod.cambridgecore.org/core/services/aop-cambridge-core/content/view/892C0C7A945017D272682F6AB21AC685/S0030605318000534a.pdf/littleknown_endemic_caught_in_the_southeast_asian_extinction_crisis_the_annamite_striped_rabbit_nesolagus_timminsi.pdf"
+    ]
+   ]
   },
   "40": {
    "note": "Loài cầy có sọc ở miền Bắc và miền Trung Việt Nam; được nhân nuôi thành công tại Cúc Phương.",
@@ -268,8 +584,20 @@
    "habitat": "Rừng thường xanh, gần suối.",
    "where": "Pù Mát (Nghệ An), Cúc Phương (Ninh Bình).",
    "threat": "Bẫy dây, săn bắt lấy thịt.",
-   "help": ["Ủng hộ Save Vietnam's Wildlife (svw.vn).", "Không ăn thịt cầy hoang dã."],
-   "src": [["Việt Nam News – 10 Owston's palm civets born in captivity (2024)", "https://vietnamnews.vn/environment/1657761/10-owston-s-palm-civets-born-in-captive-environment.html"], ["Small Carnivore Conservation – Owston's civet", "https://smallcarnivore.org/priorities/owstonscivet"]]
+   "help": [
+    "Ủng hộ Save Vietnam's Wildlife (svw.vn).",
+    "Không ăn thịt cầy hoang dã."
+   ],
+   "src": [
+    [
+     "Việt Nam News – 10 Owston's palm civets born in captivity (2024)",
+     "https://vietnamnews.vn/environment/1657761/10-owston-s-palm-civets-born-in-captive-environment.html"
+    ],
+    [
+     "Small Carnivore Conservation – Owston's civet",
+     "https://smallcarnivore.org/priorities/owstonscivet"
+    ]
+   ]
   },
   "41": {
    "note": "Cá heo sống ở cửa sông và ven biển; rất hiếm ở vùng biển Việt Nam.",
@@ -277,26 +605,61 @@
    "habitat": "Cửa sông, vùng ven biển nước lợ.",
    "where": "Quần đảo Bà Lụa (An Giang, Kiên Giang cũ); cửa sông Mê Kông.",
    "threat": "Mắc lưới đánh cá, ô nhiễm.",
-   "help": ["Thả lại cá heo nếu mắc lưới và báo cho cơ quan chức năng.", "Báo cáo mọi lần nhìn thấy cho các nhà nghiên cứu."],
-   "src": [["VietnamPlus – Irrawaddy dolphins sighted in Kiên Giang", "https://en.vietnamplus.vn/irrawaddy-dolphins-sighted-in-kien-giang-post33720.vnp"], ["Dân Trí – Endangered dolphin caught in Bến Tre (2019)", "https://dtinews.dantri.com.vn/vietnam-today/endangered-dolphin-caught-in-ben-tre-20190517113518647.htm"]]
+   "help": [
+    "Thả lại cá heo nếu mắc lưới và báo cho cơ quan chức năng.",
+    "Báo cáo mọi lần nhìn thấy cho các nhà nghiên cứu."
+   ],
+   "src": [
+    [
+     "VietnamPlus – Irrawaddy dolphins sighted in Kiên Giang",
+     "https://en.vietnamplus.vn/irrawaddy-dolphins-sighted-in-kien-giang-post33720.vnp"
+    ],
+    [
+     "Dân Trí – Endangered dolphin caught in Bến Tre (2019)",
+     "https://dtinews.dantri.com.vn/vietnam-today/endangered-dolphin-caught-in-ben-tre-20190517113518647.htm"
+    ]
+   ]
   },
   "42": {
    "note": "Sống ở Cát Tiên và Yok Đôn; hình tượng chim công phổ biến trong mỹ thuật Việt.",
    "pop": "Chưa có số liệu cả nước. Toàn cầu: 10.000–19.999 cá thể trưởng thành (BirdLife).",
    "habitat": "Rừng thưa, rừng khộp gần sông suối.",
-   "where": "Yok Đôn (Đắk Lắk), Cát Tiên (Đồng Nai – Lâm Đồng), Bù Gia Mập (Đồng Nai, Bình Phước cũ).",
+   "where": "Yok Đôn (Đắk Lắk), Cát Tiên (TP. Đồng Nai – Lâm Đồng), Bù Gia Mập (TP. Đồng Nai, Bình Phước cũ).",
    "threat": "Săn bắn, bắt trứng, mất rừng.",
-   "help": ["Không mua công hoang dã hoặc lông công không rõ nguồn gốc."],
-   "src": [["BirdLife DataZone – Green peafowl", "https://datazone.birdlife.org/species/factsheet/green-peafowl-pavo-muticus/details"]]
+   "help": [
+    "Không mua công hoang dã hoặc lông công không rõ nguồn gốc."
+   ],
+   "src": [
+    [
+     "BirdLife DataZone – Green peafowl",
+     "https://datazone.birdlife.org/species/factsheet/green-peafowl-pavo-muticus/details"
+    ]
+   ]
   },
   "43": {
    "note": "Trú đông ở Xuân Thủy.",
-   "pop": "Xuân Thủy: 36–93 cá thể mỗi năm (theo dõi 20 năm của Khu Ramsar Xuân Thủy). Toàn cầu: 7.746 cá thể (điều tra 2026), tăng đều nhờ bảo tồn.",
+   "pop": "Xuân Thủy: khoảng 40 cá thể về trú đông mỗi năm (VietnamPlus); báo chí dẫn số liệu theo dõi dài hạn của Khu Ramsar Xuân Thủy là 36–93 cá thể/năm (chưa đối chiếu được với báo cáo gốc). Toàn cầu: 7.746 cá thể (điều tra 2026), tăng đều nhờ bảo tồn.",
    "habitat": "Bãi bồi, đầm nuôi và rừng ngập mặn ven biển.",
    "where": "Vườn quốc gia Xuân Thủy (Ninh Bình, Nam Định cũ) và ven biển đồng bằng sông Hồng.",
    "threat": "Mất bãi bồi, lưới bẫy chim, ô nhiễm.",
-   "help": ["Ngắm chim có trách nhiệm tại Xuân Thủy; không giăng lưới bẫy chim.", "Ủng hộ Trung tâm Bảo tồn Thiên nhiên Việt (Viet Nature)."],
-   "src": [["Hong Kong Bird Watching Society – BFS census 2026", "https://hkbws.org.hk/cms/en/hkbws/work/endangered-species/bfs-en/bfs-census-en-2026"], ["VietnamPlus – Vườn Quốc gia Xuân Thủy là điểm du lịch", "https://www.vietnamplus.vn/ninh-binh-chinh-thuc-cong-nhan-vuon-quoc-gia-xuan-thuy-la-diem-du-lich-post1139222.vnp"]]
+   "help": [
+    "Ngắm chim có trách nhiệm tại Xuân Thủy; không giăng lưới bẫy chim.",
+    "Ủng hộ Trung tâm Bảo tồn Thiên nhiên Việt (Viet Nature)."
+   ],
+   "src": [
+    [
+     "Hong Kong Bird Watching Society – BFS census 2026",
+     "https://hkbws.org.hk/cms/en/hkbws/work/endangered-species/bfs-en/bfs-census-en-2026"
+    ],
+    [
+     "VietnamPlus – Vườn Quốc gia Xuân Thủy là điểm du lịch",
+     "https://www.vietnamplus.vn/ninh-binh-chinh-thuc-cong-nhan-vuon-quoc-gia-xuan-thuy-la-diem-du-lich-post1139222.vnp"
+    ],
+    [
+     "Bộ Nông nghiệp và Môi trường – Kịp thời hành động bảo vệ các loài chim quý hiếm",
+     "https://mae.gov.vn/bao-ton-thien-nhien-va-da-dang-sinh-hoc/kip-thoi-hanh-dong-bao-ve-cac-loai-chim-quy-hiem-21823.htm"
+    ]
+   ]
   },
   "44": {
    "note": "Sống về đêm, có vết cắn độc; phân bố ở Việt Nam, Lào, Campuchia và Trung Quốc.",
@@ -304,8 +667,20 @@
    "habitat": "Rừng thường xanh, rừng tre nứa, rừng thứ sinh.",
    "where": "Rải rác ở rừng miền Bắc, miền Trung và Tây Nguyên.",
    "threat": "Buôn bán làm thú cưng, làm thuốc; mất rừng.",
-   "help": ["Không mua culi làm thú cưng, không chụp ảnh cùng culi bị nuôi nhốt.", "Ủng hộ Trung tâm Cứu hộ Thú linh trưởng Nguy cấp (EPRC)."],
-   "src": [["EPRC – News", "https://eprc.asia/news"], ["Endangered Primate Rescue Center (Wikipedia)", "https://en.wikipedia.org/wiki/Endangered_Primate_Rescue_Center"]]
+   "help": [
+    "Không mua culi làm thú cưng, không chụp ảnh cùng culi bị nuôi nhốt.",
+    "Ủng hộ Trung tâm Cứu hộ Thú linh trưởng Nguy cấp (EPRC)."
+   ],
+   "src": [
+    [
+     "EPRC – News",
+     "https://eprc.asia/news"
+    ],
+    [
+     "Endangered Primate Rescue Center (Wikipedia)",
+     "https://en.wikipedia.org/wiki/Endangered_Primate_Rescue_Center"
+    ]
+   ]
   },
   "45": {
    "note": "Gắn với Tràm Chim, Đồng Tháp; hình tượng hạc trong đền chùa.",
@@ -313,8 +688,19 @@
    "habitat": "Đồng cỏ ngập nước theo mùa.",
    "where": "Vườn quốc gia Tràm Chim (Đồng Tháp).",
    "threat": "Mất đồng cỏ ngập nước, thay đổi chế độ nước.",
-   "help": ["Ủng hộ dự án tái thả sếu tại Tràm Chim và Quỹ Sếu Quốc tế (savingcranes.org)."],
-   "src": [["International Crane Foundation – Returning sarus cranes to Tràm Chim (2024)", "https://savingcranes.org/2024/05/returning-sarus-cranes-to-tram-chim-national-park"], ["Việt Nam News – Đồng Tháp receives first sarus cranes from Thailand", "https://vietnamnews.vn/environment/1716226/dong-thap-receives-first-sarus-cranes-from-thailand-for-conservation.html"]]
+   "help": [
+    "Ủng hộ dự án tái thả sếu tại Tràm Chim và Quỹ Sếu Quốc tế (savingcranes.org)."
+   ],
+   "src": [
+    [
+     "International Crane Foundation – Returning sarus cranes to Tràm Chim (2024)",
+     "https://savingcranes.org/2024/05/returning-sarus-cranes-to-tram-chim-national-park"
+    ],
+    [
+     "Việt Nam News – Đồng Tháp receives first sarus cranes from Thailand",
+     "https://vietnamnews.vn/environment/1716226/dong-thap-receives-first-sarus-cranes-from-thailand-for-conservation.html"
+    ]
+   ]
   },
   "46": {
    "note": "Loài mèo sống trên cây, rất khó gặp.",
@@ -322,8 +708,16 @@
    "habitat": "Rừng thường xanh nguyên sinh.",
    "where": "Pù Hoạt (Nghệ An) và các khu rừng lớn.",
    "threat": "Săn bắt lấy da, xương; bẫy dây; mất rừng.",
-   "help": ["Không mua da, xương, cao từ thú họ mèo.", "Ủng hộ các chương trình tháo gỡ bẫy dây."],
-   "src": [["Báo Nghệ An – Pù Hoạt camera trap records", "https://baonghean.vn/en/print/10315606.html"]]
+   "help": [
+    "Không mua da, xương, cao từ thú họ mèo.",
+    "Ủng hộ các chương trình tháo gỡ bẫy dây."
+   ],
+   "src": [
+    [
+     "Báo Nghệ An – Pù Hoạt camera trap records",
+     "https://baonghean.vn/en/print/10315606.html"
+    ]
+   ]
   },
   "47": {
    "note": "Nạn nhân của nghề nuôi gấu lấy mật; gấu được cứu hộ tại Tam Đảo và Cát Tiên.",
@@ -331,17 +725,41 @@
    "habitat": "Rừng nhiệt đới đất thấp.",
    "where": "Rừng miền Trung, Tây Nguyên và Đông Nam Bộ; trung tâm cứu hộ tại Tam Đảo (Phú Thọ, Vĩnh Phúc cũ) và Cát Tiên.",
    "threat": "Săn bắt lấy mật, nuôi nhốt, mất rừng.",
-   "help": ["Không mua, dùng mật gấu – đã có thuốc thảo dược và tổng hợp thay thế.", "Ủng hộ Animals Asia và Free the Bears."],
-   "src": [["Audubon – Bears held captive for their bile rescued", "https://audubon.org/news/bears-held-captive-their-bile-rescued"], ["Animals Asia – Urgent sun bear rescue in southern Vietnam", "https://www.animalsasia.org/media/news/news-archive/breaking-news-urgent-sun-bear-rescue-underway-in-southern-vietnam.html"]]
+   "help": [
+    "Không mua, dùng mật gấu – đã có thuốc thảo dược và tổng hợp thay thế.",
+    "Ủng hộ Animals Asia và Free the Bears."
+   ],
+   "src": [
+    [
+     "Audubon – Bears held captive for their bile rescued",
+     "https://audubon.org/news/bears-held-captive-their-bile-rescued"
+    ],
+    [
+     "Animals Asia – Urgent sun bear rescue in southern Vietnam",
+     "https://www.animalsasia.org/media/news/news-archive/breaking-news-urgent-sun-bear-rescue-underway-in-southern-vietnam.html"
+    ]
+   ]
   },
   "48": {
    "note": "Loài hồng hoàng có mũ sừng lớn, sống ở rừng già.",
    "pop": "Chưa có số liệu ở Việt Nam. Toàn cầu: 13.000–27.000 cá thể trưởng thành (BirdLife). Thuộc nhóm IB (nghiêm cấm khai thác) theo pháp luật Việt Nam.",
    "habitat": "Rừng nguyên sinh có cây lớn để làm tổ.",
-   "where": "Bù Gia Mập (Đồng Nai, Bình Phước cũ), Yok Đôn (Đắk Lắk), Kon Chư Răng (Gia Lai), Phong Nha – Kẻ Bàng (Quảng Trị, Quảng Bình cũ).",
+   "where": "Bù Gia Mập (TP. Đồng Nai, Bình Phước cũ), Yok Đôn (Đắk Lắk), Kon Chư Răng (Gia Lai), Phong Nha – Kẻ Bàng (Quảng Trị, Quảng Bình cũ).",
    "threat": "Săn bắt lấy mũ sừng, mất cây làm tổ.",
-   "help": ["Không mua đồ chạm khắc từ mũ sừng chim.", "Báo cáo hành vi săn bắt, buôn bán hồng hoàng qua đường dây nóng ENV."],
-   "src": [["BirdLife DataZone – Great hornbill", "https://datazone.birdlife.org/species/factsheet/great-hornbill-buceros-bicornis/details"], ["VnExpress – Hornbill couple released back into central Vietnam", "https://e.vnexpress.net/news/news/environment/hornbill-couple-released-back-into-central-vietnam-wild-4644785.html"]]
+   "help": [
+    "Không mua đồ chạm khắc từ mũ sừng chim.",
+    "Báo cáo hành vi săn bắt, buôn bán hồng hoàng qua đường dây nóng ENV."
+   ],
+   "src": [
+    [
+     "BirdLife DataZone – Great hornbill",
+     "https://datazone.birdlife.org/species/factsheet/great-hornbill-buceros-bicornis/details"
+    ],
+    [
+     "VnExpress – Hornbill couple released back into central Vietnam",
+     "https://e.vnexpress.net/news/news/environment/hornbill-couple-released-back-into-central-vietnam-wild-4644785.html"
+    ]
+   ]
   },
   "49": {
    "note": "Sống ở các thảm cỏ biển Côn Đảo và Phú Quốc.",
@@ -349,8 +767,20 @@
    "habitat": "Thảm cỏ biển nước nông.",
    "where": "Côn Đảo (TP. Hồ Chí Minh, Bà Rịa – Vũng Tàu cũ), Phú Quốc (An Giang, Kiên Giang cũ).",
    "threat": "Mắc lưới, mất thảm cỏ biển, săn bắt.",
-   "help": ["Bảo vệ thảm cỏ biển: không thả neo, đi lại trên cỏ biển.", "Thả lại bò biển nếu mắc lưới và báo ngay cho Vườn quốc gia Côn Đảo hoặc Phú Quốc."],
-   "src": [["Việt Nam News – Urgent solutions to conserve dugongs in Côn Đảo (2025)", "https://vietnamnews.vn/environment/1724136/hcm-city-eyes-urgent-solutions-to-conserve-endangered-dugong-population-in-con-dao.html"], ["SGGP – Khắc khoải dugong", "https://www.sggp.org.vn/khac-khoai-dugong-post20327.html"]]
+   "help": [
+    "Bảo vệ thảm cỏ biển: không thả neo, đi lại trên cỏ biển.",
+    "Thả lại bò biển nếu mắc lưới và báo ngay cho Vườn quốc gia Côn Đảo hoặc Phú Quốc."
+   ],
+   "src": [
+    [
+     "Việt Nam News – Urgent solutions to conserve dugongs in Côn Đảo (2025)",
+     "https://vietnamnews.vn/environment/1724136/hcm-city-eyes-urgent-solutions-to-conserve-endangered-dugong-population-in-con-dao.html"
+    ],
+    [
+     "SGGP – Khắc khoải dugong",
+     "https://www.sggp.org.vn/khac-khoai-dugong-post20327.html"
+    ]
+   ]
   },
   "50": {
    "note": "\"Hươu chuột\" đặc hữu Việt Nam; được chụp ảnh lại năm 2019 sau gần 30 năm không có ghi nhận.",
@@ -358,8 +788,16 @@
    "habitat": "Rừng khô đất thấp ven biển.",
    "where": "Vùng rừng gần Nha Trang (Khánh Hòa).",
    "threat": "Bẫy dây, mất rừng.",
-   "help": ["Ủng hộ chương trình Tìm kiếm loài thất lạc của Re:wild.", "Không đặt và báo cáo bẫy dây trong rừng."],
-   "src": [["National Geographic – Silver-backed chevrotain reappears in Vietnam (2019)", "https://www.nationalgeographic.com/animals/article/silver-backed-chevrotain-mouse-deer-reappears-vietnam"]]
+   "help": [
+    "Ủng hộ chương trình Tìm kiếm loài thất lạc của Re:wild.",
+    "Không đặt và báo cáo bẫy dây trong rừng."
+   ],
+   "src": [
+    [
+     "National Geographic – Silver-backed chevrotain reappears in Vietnam (2019)",
+     "https://www.nationalgeographic.com/animals/article/silver-backed-chevrotain-mouse-deer-reappears-vietnam"
+    ]
+   ]
   }
  }
 }
