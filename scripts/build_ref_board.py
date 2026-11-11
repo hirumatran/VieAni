@@ -20,10 +20,14 @@ TV = {"Legendary": "Huyền thoại", "Fire": "Lửa", "Water": "Nước", "Elec
 INK, MUTED, LINE, RED = (43, 29, 20), (122, 102, 86), (220, 208, 190), (140, 28, 19)
 
 
+CRED = {}
+
+
 def load():
     L = lambda n: json.loads((ROOT / "data" / n).read_text(encoding="utf-8"))
     d, vn = L("vindex.json"), L("vn_info.json")
     cred = L("ref_credits.json") if (ROOT / "data/ref_credits.json").exists() else {}
+    CRED.update(cred)
     return sorted(d["species"], key=lambda s: s["dex"]), vn, cred
 
 
@@ -79,6 +83,9 @@ def detail_page(chunk, vn, page):
         ph = photo(s, (270, 270))
         if ph:
             im.paste(ph, (x + 12 + (270 - ph.width) // 2, y + 12 + (270 - ph.height) // 2))
+            if CRED.get(str(s["id"]), {}).get("standIn"):
+                d.rectangle((x + 12, y + 12, x + 282, y + 36), fill=(255, 240, 200))
+                d.text((x + 18, y + 16), "Ảnh thay thế: " + CRED[str(s["id"])]["matched"][:24], font=font(13, True), fill=RED)
         else:
             d.rectangle((x + 12, y + 12, x + 282, y + 282), outline=LINE)
             d.text((x + 40, y + 130), "Chưa có ảnh –\nxem tranh/tượng\ntham khảo", font=font(18), fill=MUTED)
@@ -103,7 +110,7 @@ def credit_pages(sp, cred, start):
     for s in sp:
         c = cred.get(str(s["id"]))
         if c:
-            lines.append(f"V{s['dex']:03d} {s['vi']}: {c.get('author') or 'không rõ tác giả'} – {c.get('license')} – "
+            lines.append(f"V{s['dex']:03d} {s['vi']}{' (ảnh thay thế: ' + c.get('matched', '') + ')' if c.get('standIn') else ''}: {c.get('author') or 'không rõ tác giả'} – {c.get('license')} – "
                          f"{c.get('source')} – {c.get('page')}")
         else:
             lines.append(f"V{s['dex']:03d} {s['vi']}: (không có ảnh)")

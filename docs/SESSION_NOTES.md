@@ -35,6 +35,17 @@ Stat totals by tier: 400 / 440 / 480 / 510 / 530. Every Vinmon has a `skill`; zo
 zodiac column); 30 relations, incl. type-wide predators (`bType`: Thạch Sùng/Thằn Lằn hit Côn trùng
 anywhere). `scripts/expand_roster.py` holds the added data; `scripts/export_sheet.py` exports sheet rows.
 
+## Folklore, items, sketch board (11/11, part 3)
+
+- `data/folklore.json`: 20 story-based skills + sources (`story`, `storySrc`, `storyAccuracy` on species);
+  6 new-legendary ideas (Mộc Tinh, Thủy Tinh, Thiên Lôi, Trâu Vàng, Chằn Tinh/Đại Bàng, Rồng Con).
+- `data/items.json`: 50 items, 5 tiers, categories TC/PT/HT/TD/NEM/SAN. `data/mechanics.json`: status glossary.
+- Sheet tabs added: Vật phẩm, Hiệu ứng; Vinmon tab column X = Điển tích.
+- Sketch board: `scripts/fetch_refs.py` (photos → refs/, git-ignored; credits in data/ref_credits.json),
+  `scripts/build_ref_board.py OUT` → 22-page PDF. Workflow in `docs/SPRITE_WORKFLOW.md`;
+  `pixelize.py --batch DIR --size 64` converts V001… sketches.
+- Cloud env "vinmon" allows iNaturalist, Wikimedia (incl. thumb.), vi/en Wikipedia; fandom blocks bots.
+
 ## Design decisions so far
 
 - 10 types: Legendary, Fire, Water, Electric, Grass, Ground, Rock, Sky, Insect, Poison.

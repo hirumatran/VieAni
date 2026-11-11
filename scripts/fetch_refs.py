@@ -7,7 +7,7 @@ art for legendary Vinmon). Only Creative Commons / public-domain images are
 used. Photos are for drawing reference only: draw your own sprite, do not trace
 1:1 if the art will be sold, and keep the credits when sharing the board.
 """
-import json, pathlib, re, time, urllib.parse, urllib.request
+import json, pathlib, re, sys, time, urllib.parse, urllib.request
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 OUT = ROOT / "refs"
@@ -28,6 +28,16 @@ COMMONS = {
 # better iNaturalist names where the data name is a breed / subspecies / genus placeholder
 INAT_NAME = {90: "Oxya chinensis", 14: "Rhinoceros sondaicus", 51: "Canis familiaris", 70: "Anas platyrhynchos domesticus",
              77: "Somanniathelphusa"}
+
+
+# stand-in species photo when Commons has nothing usable (labelled as a stand-in on the board)
+FALLBACK = {12: "Vulpes vulpes", 4: "Panthera leo", 6: "Canis familiaris", 9: "Equus caballus",
+            5: "Argusianus argus", 53: "Canis familiaris", 54: "Canis familiaris", 55: "Canis familiaris",
+            56: "Felis catus", 57: "Felis catus", 58: "Felis catus", 59: "Gallus gallus", 60: "Gallus gallus",
+            61: "Gallus gallus", 62: "Sus scrofa domesticus", 63: "Sus scrofa domesticus", 69: "Equus caballus",
+            1: "Varanus salvator", 2: "Antigone antigone", 3: "Rafetus swinhoei", 7: "Elephas maximus",
+            8: "Gallus gallus", 10: "Equus caballus", 11: "Pangasianodon gigas", 13: "Megaptera novaeangliae",
+            16: "Pongo pygmaeus"}
 
 
 def get(url):
@@ -87,11 +97,15 @@ def main():
             continue
         info = None
         try:
-            if s["id"] in COMMONS:
+            if s["id"] in COMMONS and "--no-commons" not in sys.argv:
                 info = commons(COMMONS[s["id"]]); time.sleep(12)
             if not info and s.get("sci") and s["group"] != "Legendary":
                 name = INAT_NAME.get(s["id"], s["sci"].replace(" sp.", ""))
                 info = inat(name); time.sleep(1.1)
+            if not info and s["id"] in FALLBACK:
+                info = inat(FALLBACK[s["id"]]); time.sleep(1.1)
+                if info:
+                    info["standIn"] = True
             if info:
                 raw = get(info["url"]); time.sleep(8)
                 from PIL import Image
