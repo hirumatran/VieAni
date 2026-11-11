@@ -79,7 +79,7 @@ push to a page set to *Private*; we keep the page as *Draft/Restricted* until al
 | T22 | P2 Game loop | 20 folklore signature skills (Cá Chép hóa rồng, Cóc, Hồ Tinh…) | Claude | 28 Dec 2026 | 06 Jan 2027 | T11 |  |
 | T23 | P2 Game loop | Sketch batch 2: special Legendary/unique designs | You (PO) | 14 Dec 2026 | 03 Jan 2027 | T08 |  |
 | **M2** | **Milestone** | **M2 – full match playable start to finish vs bots** | **Both** | **03 Jan 2027** | **03 Jan 2027** | **T16-T21** |  |
-| T24 | P3 Alpha polish | Vietnamese UI: HUD, shop, synergy panel, tooltips, Vindex inside the game | Claude | 04 Jan 2027 | 10 Jan 2027 | M2 |  |
+| T24 | P3 Alpha polish | Vietnamese UI: HUD, shop, synergy panel, tooltips, VieIndex inside the game | Claude | 04 Jan 2027 | 10 Jan 2027 | M2 |  |
 | T25 | P3 Alpha polish | Audio: CC0/CC-BY SFX and music, with credits | Claude | 06 Jan 2027 | 10 Jan 2027 |  |  |
 | T26 | P3 Alpha polish | First-game tutorial | Claude | 08 Jan 2027 | 12 Jan 2027 | T24 |  |
 | T27 | P3 Alpha polish | Balance pass 1 using the simulator; PO playtests | Both | 06 Jan 2027 | 13 Jan 2027 | T14 |  |
@@ -115,7 +115,7 @@ Parallel community track: T05 → T06 → T07 → T42.
 | R3 | Balance broken at alpha | H | M | Headless simulator from M1; alpha is for feedback |
 | R4 | Too few players at beta | M | H | Start community in Nov (T05), devlogs, Vietnamese gaming/education groups |
 | R5 | Vietnamese regulation (Decree 147/2024/NĐ-CP) | M | H | Offline vs-bots play is closest to type G4 (no player/server interaction); licences/registration apply to *businesses* providing the service. Get a lawyer's opinion before any commercial release in VN |
-| R6 | IP: too close to Pokémon (names, look, UI) | M | H | Renamed to VieAni; own designs and UI; consider renaming "Vindex" too; trademark search (T39) |
+| R6 | IP: too close to Pokémon (names, look, UI) | M | H | Renamed to VieAni, encyclopedia renamed Vindex → VieIndex (a play on VN-Index); own designs and UI; trademark search (T39) |
 | R7 | Phone browsers slow on cheap devices | M | M | Test on a low-end Android early (T29), limit effects |
 | R8 | Holidays (Christmas/New Year, Tết) | H | M | Tết buffer planned; alpha before Tết |
 

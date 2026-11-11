@@ -1,7 +1,7 @@
 """Build the printable sketch board: reference photo + blank 64x64 grid per VieAni.
 
     python3 scripts/fetch_refs.py                 # first, downloads photos into refs/
-    python3 scripts/build_ref_board.py OUT_DIR    # -> Vindex_bang_ve_tham_khao.pdf + overview PNG
+    python3 scripts/build_ref_board.py OUT_DIR    # -> VieIndex_bang_ve_tham_khao.pdf + overview PNG
 
 A4 landscape, 150 dpi. Page 1: overview of all VieAni. Then 6 VieAni per page
 (photo, empty 64x64 grid with 8px guides, name, types, tier, key features,
@@ -55,7 +55,7 @@ def header(d, title, page):
 
 def overview(sp, cred, page):
     im = Image.new("RGB", (W, H), "white"); d = ImageDraw.Draw(im)
-    header(d, "Vindex – bảng tham khảo 108 VieAni", page)
+    header(d, "VieIndex – bảng tham khảo 108 VieAni", page)
     cw, ch = (W - 40) // 12, (H - 90) // 9
     for i, s in enumerate(sp):
         x, y = 20 + (i % 12) * cw, 85 + (i // 12) * ch
@@ -75,7 +75,7 @@ def grid(d, x, y, n=64, cell=4):
 
 def detail_page(chunk, vn, page):
     im = Image.new("RGB", (W, H), "white"); d = ImageDraw.Draw(im)
-    header(d, "Vindex – vẽ phác thảo 64×64 (nhìn nghiêng 3/4, quay sang trái)", page)
+    header(d, "VieIndex – vẽ phác thảo 64×64 (nhìn nghiêng 3/4, quay sang trái)", page)
     cw, ch = (W - 60) // 3, (H - 100) // 2
     for i, s in enumerate(chunk):
         x, y = 30 + (i % 3) * cw, 90 + (i // 3) * ch
@@ -133,9 +133,9 @@ def main(out):
     for i in range(0, len(sp), 6):
         pages.append(detail_page(sp[i:i + 6], vn, len(pages) + 1))
     pages += credit_pages(sp, cred, len(pages) + 1)
-    pdf = out / "Vindex_bang_ve_tham_khao.pdf"
+    pdf = out / "VieIndex_bang_ve_tham_khao.pdf"
     pages[0].save(pdf, save_all=True, append_images=pages[1:], resolution=150)
-    pages[0].save(out / "Vindex_tong_quan.png")
+    pages[0].save(out / "VieIndex_tong_quan.png")
     print("pages:", len(pages), "photos:", len(cred), "->", pdf)
 
 

@@ -1,4 +1,4 @@
-"""Export the Vindex data as row arrays for the Google Sheet "VieAni – Dữ liệu game".
+"""Export the VieIndex data as row arrays for the Google Sheet "VieAni – Dữ liệu game".
 
     python3 scripts/export_sheet.py OUT_DIR
 

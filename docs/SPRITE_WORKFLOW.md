@@ -37,7 +37,7 @@ base per family, then recolour and change the markings:
 That turns 108 drawings into roughly 30 originals plus quick variants.
 
 ## Steps
-1. **Print** `Vindex_bang_ve_tham_khao.pdf` (photo + empty 64×64 grid per VieAni), or open
+1. **Print** `VieIndex_bang_ve_tham_khao.pdf` (photo + empty 64×64 grid per VieAni), or open
    it on a tablet. Sketch the silhouette in the grid, or draw on a tablet (Procreate,
    Krita, Ibis Paint) with the photo on a layer at 30% opacity.
 2. **Name each scan/export by VieAni number**: `V001.png`, `V002.jpg`, … (same numbers as the
@@ -46,7 +46,7 @@ That turns 108 drawings into roughly 30 originals plus quick variants.
    `python3 scripts/pixelize.py --batch sketches/ --size 64`
    → `assets/sprites/custom/<id>.png` + `_batch_sheet.png` to review all at once.
 4. **Clean up** in Aseprite or Pixelorama (palette loaded): fix outline, eyes, key markings.
-5. `python3 scripts/build_vindex.py` – the Vindex page uses your sprites automatically.
+5. `python3 scripts/build_vindex.py` – the VieIndex page uses your sprites automatically.
 
 ## Licences
 Reference photos come from iNaturalist and Wikimedia Commons under Creative Commons or

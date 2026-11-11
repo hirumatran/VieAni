@@ -11,7 +11,7 @@ Start the next session with this repo selected and ask Claude to read this file.
 | `data/synergies.json` | 17 Tộc hệ (synergies): members by id, activation levels, effects, basis |
 | `data/relations.json` | Thiên địch (predator → prey) and Cộng sinh (symbiosis) pairs with multiplier, effect, basis |
 | `data/vn_info.json` | Vietnamese info-card text: notes for all 50; population, habitat, location, threats, how to help and sources for the 37 real species |
-| `src/vindex.template.html` | Vindex page template (search, type filters, sort, popup, type chart dialog) |
+| `src/vindex.template.html` | VieIndex page template (search, type filters, sort, popup, type chart dialog) |
 | `vindex.html` | Built page – open in a browser. Rebuild after any data change |
 | `assets/sprites/<id>.png` | Draft 32×32 sprites drawn by `scripts/sprites.py` |
 | `assets/sprites/custom/<id>.png` | Your own sprites; override the drawn ones and are never overwritten |
@@ -57,7 +57,7 @@ anywhere). `scripts/expand_roster.py` holds the added data; `scripts/export_shee
 
 ## Google Sheet (design master for editing)
 
-"Vindex – Dữ liệu VieAni" in the user's Google Drive (created 11/11/2026), 4 tabs:
+"VieAni – Dữ liệu game" (formerly "Vindex – Dữ liệu Vinmon") in the user's Google Drive (created 11/11/2026), 4 tabs:
 VieAni (auto ID V001…, Vietnamese types, tier, 2 synergy columns, stats, auto total, stat basis),
 Bảng khắc hệ (editable type matrix + Legendary ×1.25/×0.75 + quick lookup),
 Thiên địch & Cộng sinh, Tộc hệ (member list/count auto-updates).
@@ -88,6 +88,6 @@ back into `data/*.json` before rebuilding the page.
 - Full plan: `docs/PROJECT_PLAN.md` (milestones, scope, stack, budget, 43 tasks, risks).
 - Tracker: Google Sheet tab "Kế hoạch dự án" (status dropdown; overdue rows turn red).
 - Targets: Alpha Fri 15 Jan 2027 and public Beta Fri 26 Feb 2027 – both web-only on itch.io; native apps after beta. Tết buffer 4–14 Feb.
-- T01 done 11 Nov: project renamed Vinmon → VieAni; TypeScript + Phaser; private repo → itch.io (butler); store accounts skipped.
+- T01 done 11 Nov: project renamed Vinmon → VieAni, encyclopedia Vindex → VieIndex; TypeScript + Phaser; private repo → itch.io (butler); store accounts skipped.
 - Next: T02 GDD + T03 game skeleton, then T04 itch.io deploy (PO: itch.io account + BUTLER_API_KEY secret).
 - PO is sketching sprites on iPad directly in the board PDF.

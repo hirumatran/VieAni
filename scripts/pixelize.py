@@ -22,7 +22,7 @@ priority over the drawn ones and are never overwritten by scripts/sprites.py.
     python3 scripts/pixelize.py --build-palette   # rebuild palette from current sprites
     python3 scripts/pixelize.py --batch sketches/ --size 64   # every V001.png, V002.jpg … in a folder
 
-Batch mode: file names start with the VieAni number from the Google Sheet / Vindex
+Batch mode: file names start with the VieAni number from the Google Sheet / VieIndex
 (V001 … V108). Each becomes assets/sprites/custom/<id>.png, plus _batch_sheet.png
 showing all results side by side for review.
 """
