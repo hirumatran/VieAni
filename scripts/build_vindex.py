@@ -16,6 +16,8 @@ vn = json.loads((root / "data/vn_info.json").read_text(encoding="utf-8"))  # Vie
 for sp in data["species"]:
     sp["vn"] = vn["species"].get(str(sp["id"]), {})
 data["vnMeta"] = {k: v for k, v in vn.items() if k != "species"}
+data["synergies"] = json.loads((root / "data/synergies.json").read_text(encoding="utf-8"))["synergies"]
+data["relations"] = json.loads((root / "data/relations.json").read_text(encoding="utf-8"))["relations"]
 tpl = (root / "src/vindex.template.html").read_text(encoding="utf-8")
 out = (tpl.replace("__DATA__", json.dumps(data, ensure_ascii=False).replace("</", "<\\/"))
           .replace("__SPRITES__", json.dumps(sprites)))

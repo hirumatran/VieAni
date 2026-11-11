@@ -1,16 +1,415 @@
 {
- "note": "Thiên địch: A ưu tiên tấn công B khi B có trên sân và gây thêm sát thương. Cộng sinh: khi cả A và B cùng trên sân, cả hai nhận hiệu ứng. Bản nháp.",
+ "note": "Thiên địch: A ưu tiên tấn công B khi B có trên sân và gây thêm sát thương. Cộng sinh: khi cả A và B cùng trên sân, cả hai nhận hiệu ứng. Bản nháp. 'bType' = áp dụng cho mọi Vinmon thuộc hệ đó; 'range' = tầm đánh đặc biệt với mục tiêu đó.",
  "relations": [
-  {"kind": "Thiên địch", "a": 17, "b": 21, "mult": 1.3, "effect": "Ưu tiên tấn công Mang lớn; +30% sát thương lên Mang lớn", "basis": "Hổ săn các loài hươu, nai, mang", "src": ""},
-  {"kind": "Thiên địch", "a": 17, "b": 15, "mult": 1.3, "effect": "Ưu tiên tấn công Bò xám; +30% sát thương lên Bò xám", "basis": "Hổ săn các loài bò rừng lớn", "src": ""},
-  {"kind": "Thiên địch", "a": 46, "b": 44, "mult": 1.3, "effect": "Ưu tiên tấn công Cu li nhỏ; +30% sát thương lên Cu li nhỏ", "basis": "Báo gấm đã được chụp ảnh khi săn culi (culi lớn, Ấn Độ, 2025)", "src": "https://india.mongabay.com/2025/05/first-photographic-record-of-a-clouded-leopard-predating-on-a-bengal-slow-loris/"},
-  {"kind": "Thiên địch", "a": 46, "b": 50, "mult": 1.3, "effect": "Ưu tiên tấn công Cheo cheo; +30% sát thương lên Cheo cheo", "basis": "Báo gấm săn thú nhỏ trên mặt đất, gồm cả cheo cheo", "src": ""},
-  {"kind": "Thiên địch", "a": 46, "b": 25, "mult": 1.3, "effect": "Ưu tiên tấn công Chà vá chân nâu; +30% sát thương", "basis": "Báo gấm leo cây giỏi, săn cả linh trưởng", "src": ""},
-  {"kind": "Thiên địch", "a": 31, "b": 37, "mult": 1.3, "effect": "Ưu tiên tấn công Cá tra dầu; +30% sát thương", "basis": "Cá sấu nước ngọt ăn cá", "src": ""},
-  {"kind": "Thiên địch", "a": 1, "b": 11, "mult": 1.5, "effect": "Ưu tiên tấn công Ngư Tinh; +50% sát thương", "basis": "Truyền thuyết: Lạc Long Quân (dòng dõi Rồng) diệt Ngư Tinh", "src": ""},
-  {"kind": "Thiên địch", "a": 1, "b": 12, "mult": 1.5, "effect": "Ưu tiên tấn công Hồ Tinh; +50% sát thương", "basis": "Truyền thuyết: Lạc Long Quân diệt Hồ Tinh, hang sụp thành Hồ Tây", "src": ""},
-  {"kind": "Cộng sinh", "a": 1, "b": 5, "mult": 1.15, "effect": "Long Phụng: cả hai +15% Tấn công ĐB", "basis": "Rồng – Phượng (long phụng) là biểu tượng hòa hợp trong văn hóa Việt", "src": ""},
-  {"kind": "Cộng sinh", "a": 3, "b": 19, "mult": 1.2, "effect": "Hồ Gươm: cả hai +20% Phòng thủ", "basis": "Truyền thuyết Kim Quy đòi gươm ở hồ Hoàn Kiếm; cụ Rùa được coi là hiện thân", "src": ""},
-  {"kind": "Cộng sinh", "a": 38, "b": 7, "mult": 1.1, "effect": "Bầy voi: cả hai +10% Máu", "basis": "Thiết kế game: voi sống theo đàn", "src": ""}
+  {
+   "kind": "Thiên địch",
+   "a": [
+    17
+   ],
+   "b": [
+    21
+   ],
+   "mult": 1.3,
+   "effect": "Ưu tiên tấn công Mang lớn; +30% sát thương lên Mang lớn",
+   "basis": "Hổ săn các loài hươu, nai, mang",
+   "src": ""
+  },
+  {
+   "kind": "Thiên địch",
+   "a": [
+    17
+   ],
+   "b": [
+    15
+   ],
+   "mult": 1.3,
+   "effect": "Ưu tiên tấn công Bò xám; +30% sát thương lên Bò xám",
+   "basis": "Hổ săn các loài bò rừng lớn",
+   "src": ""
+  },
+  {
+   "kind": "Thiên địch",
+   "a": [
+    46
+   ],
+   "b": [
+    44
+   ],
+   "mult": 1.3,
+   "effect": "Ưu tiên tấn công Cu li nhỏ; +30% sát thương lên Cu li nhỏ",
+   "basis": "Báo gấm đã được chụp ảnh khi săn culi (culi lớn, Ấn Độ, 2025)",
+   "src": "https://india.mongabay.com/2025/05/first-photographic-record-of-a-clouded-leopard-predating-on-a-bengal-slow-loris/"
+  },
+  {
+   "kind": "Thiên địch",
+   "a": [
+    46
+   ],
+   "b": [
+    50
+   ],
+   "mult": 1.3,
+   "effect": "Ưu tiên tấn công Cheo cheo; +30% sát thương lên Cheo cheo",
+   "basis": "Báo gấm săn thú nhỏ trên mặt đất, gồm cả cheo cheo",
+   "src": ""
+  },
+  {
+   "kind": "Thiên địch",
+   "a": [
+    46
+   ],
+   "b": [
+    25
+   ],
+   "mult": 1.3,
+   "effect": "Ưu tiên tấn công Chà vá chân nâu; +30% sát thương",
+   "basis": "Báo gấm leo cây giỏi, săn cả linh trưởng",
+   "src": ""
+  },
+  {
+   "kind": "Thiên địch",
+   "a": [
+    31
+   ],
+   "b": [
+    37
+   ],
+   "mult": 1.3,
+   "effect": "Ưu tiên tấn công Cá tra dầu; +30% sát thương",
+   "basis": "Cá sấu nước ngọt ăn cá",
+   "src": ""
+  },
+  {
+   "kind": "Thiên địch",
+   "a": [
+    1
+   ],
+   "b": [
+    11
+   ],
+   "mult": 1.5,
+   "effect": "Ưu tiên tấn công Ngư Tinh; +50% sát thương",
+   "basis": "Truyền thuyết: Lạc Long Quân (dòng dõi Rồng) diệt Ngư Tinh",
+   "src": ""
+  },
+  {
+   "kind": "Thiên địch",
+   "a": [
+    1
+   ],
+   "b": [
+    12
+   ],
+   "mult": 1.5,
+   "effect": "Ưu tiên tấn công Hồ Tinh; +50% sát thương",
+   "basis": "Truyền thuyết: Lạc Long Quân diệt Hồ Tinh, hang sụp thành Hồ Tây",
+   "src": ""
+  },
+  {
+   "kind": "Cộng sinh",
+   "a": [
+    1
+   ],
+   "b": [
+    5
+   ],
+   "mult": 1.15,
+   "effect": "Long Phụng: cả hai +15% Tấn công ĐB",
+   "basis": "Rồng – Phượng (long phụng) là biểu tượng hòa hợp trong văn hóa Việt",
+   "src": ""
+  },
+  {
+   "kind": "Cộng sinh",
+   "a": [
+    3
+   ],
+   "b": [
+    19
+   ],
+   "mult": 1.2,
+   "effect": "Hồ Gươm: cả hai +20% Phòng thủ",
+   "basis": "Truyền thuyết Kim Quy đòi gươm ở hồ Hoàn Kiếm; cụ Rùa được coi là hiện thân",
+   "src": ""
+  },
+  {
+   "kind": "Cộng sinh",
+   "a": [
+    38
+   ],
+   "b": [
+    7
+   ],
+   "mult": 1.1,
+   "effect": "Bầy voi: cả hai +10% Máu",
+   "basis": "Thiết kế game: voi sống theo đàn",
+   "src": ""
+  },
+  {
+   "kind": "Thiên địch",
+   "a": [
+    79
+   ],
+   "bType": "Insect",
+   "mult": 1.5,
+   "range": "vô hạn",
+   "effect": "Tầm đánh vô hạn với mọi Vinmon hệ Côn trùng; luôn ưu tiên bắt Côn trùng; +50% sát thương",
+   "basis": "Thạch sùng bắt muỗi, côn trùng trên tường nhà",
+   "b": [],
+   "src": ""
+  },
+  {
+   "kind": "Thiên địch",
+   "a": [
+    80
+   ],
+   "bType": "Insect",
+   "mult": 1.3,
+   "range": "vô hạn",
+   "effect": "Tầm đánh vô hạn với hệ Côn trùng; +30% sát thương",
+   "basis": "Thằn lằn ăn côn trùng",
+   "b": [],
+   "src": ""
+  },
+  {
+   "kind": "Thiên địch",
+   "a": [
+    98,
+    81,
+    82
+   ],
+   "bType": "Insect",
+   "mult": 1.3,
+   "effect": "Ưu tiên tấn công Côn trùng; +30% sát thương",
+   "basis": "Tắc kè, cóc, ếch ăn côn trùng",
+   "b": [],
+   "src": ""
+  },
+  {
+   "kind": "Thiên địch",
+   "a": [
+    92
+   ],
+   "bType": "Insect",
+   "mult": 1.3,
+   "effect": "Ưu tiên tấn công Côn trùng khác; +30% sát thương",
+   "basis": "Bọ ngựa săn côn trùng",
+   "b": [],
+   "src": ""
+  },
+  {
+   "kind": "Thiên địch",
+   "a": [
+    91
+   ],
+   "b": [
+    84
+   ],
+   "mult": 1.5,
+   "effect": "Ưu tiên tấn công Muỗi Vằn; +50% sát thương",
+   "basis": "Chuồn chuồn (và ấu trùng) ăn muỗi",
+   "src": ""
+  },
+  {
+   "kind": "Thiên địch",
+   "a": [
+    87
+   ],
+   "b": [
+    90
+   ],
+   "mult": 1.3,
+   "effect": "Ưu tiên tấn công Châu Chấu; +30% sát thương",
+   "basis": "Kiến vàng bắt sâu bọ hại cây",
+   "src": ""
+  },
+  {
+   "kind": "Thiên địch",
+   "a": [
+    56,
+    57,
+    58,
+    94
+   ],
+   "b": [
+    64,
+    65,
+    66
+   ],
+   "mult": 1.4,
+   "effect": "Ưu tiên tấn công Chuột; +40% sát thương",
+   "basis": "Mèo bắt chuột",
+   "src": ""
+  },
+  {
+   "kind": "Thiên địch",
+   "a": [
+    99,
+    104
+   ],
+   "b": [
+    64,
+    65,
+    66
+   ],
+   "mult": 1.3,
+   "effect": "Ưu tiên tấn công Chuột; +30% sát thương",
+   "basis": "Rắn và cú săn chuột",
+   "src": ""
+  },
+  {
+   "kind": "Thiên địch",
+   "a": [
+    99
+   ],
+   "b": [
+    82
+   ],
+   "mult": 1.3,
+   "effect": "Ưu tiên tấn công Ếch Đồng; +30% sát thương",
+   "basis": "Rắn ăn ếch",
+   "src": ""
+  },
+  {
+   "kind": "Thiên địch",
+   "a": [
+    105,
+    106
+   ],
+   "b": [
+    59,
+    60,
+    61
+   ],
+   "mult": 1.3,
+   "range": "vô hạn (Diều Hâu)",
+   "effect": "Ưu tiên tấn công Gà; +30% sát thương",
+   "basis": "Diều hâu rình bắt gà con; kỳ đà ăn trộm gà và trứng",
+   "src": ""
+  },
+  {
+   "kind": "Thiên địch",
+   "a": [
+    71
+   ],
+   "b": [
+    74,
+    82
+   ],
+   "mult": 1.3,
+   "effect": "Ưu tiên tấn công Cá Rô Đồng và Ếch Đồng; +30% sát thương",
+   "basis": "Cò mổ cá, ếch ngoài ruộng",
+   "src": ""
+  },
+  {
+   "kind": "Thiên địch",
+   "a": [
+    76
+   ],
+   "b": [
+    74
+   ],
+   "mult": 1.3,
+   "effect": "Ưu tiên tấn công Cá Rô Đồng; +30% sát thương",
+   "basis": "Cá lóc ăn cá nhỏ",
+   "src": ""
+  },
+  {
+   "kind": "Thiên địch",
+   "a": [
+    100
+   ],
+   "b": [
+    93
+   ],
+   "mult": 1.3,
+   "effect": "Ưu tiên tấn công Heo Rừng; +30% sát thương",
+   "basis": "Trăn lớn săn lợn rừng",
+   "src": ""
+  },
+  {
+   "kind": "Thiên địch",
+   "a": [
+    107
+   ],
+   "b": [
+    97,
+    39
+   ],
+   "mult": 1.3,
+   "effect": "Ưu tiên tấn công Hoẵng và Thỏ vằn Trường Sơn; +30% sát thương",
+   "basis": "Sói đỏ săn thú móng guốc như mang; với thỏ là ý tưởng thiết kế game",
+   "src": ""
+  },
+  {
+   "kind": "Thiên địch",
+   "a": [
+    47
+   ],
+   "b": [
+    88
+   ],
+   "mult": 1.3,
+   "effect": "Ưu tiên tấn công Ong Mật; +30% sát thương",
+   "basis": "Gấu chó phá tổ ong ăn mật và ấu trùng",
+   "src": ""
+  },
+  {
+   "kind": "Thiên địch",
+   "a": [
+    70
+   ],
+   "b": [
+    78
+   ],
+   "mult": 1.5,
+   "effect": "Ưu tiên tấn công Ốc Bươu Vàng; +50% sát thương",
+   "basis": "Nông dân thả vịt ăn ốc bươu vàng hại lúa",
+   "src": ""
+  },
+  {
+   "kind": "Thiên địch",
+   "a": [
+    51,
+    52,
+    53,
+    54,
+    55
+   ],
+   "b": [
+    56,
+    57,
+    58
+   ],
+   "mult": 1.15,
+   "effect": "Ưu tiên tấn công Mèo; +15% sát thương",
+   "basis": "Thành ngữ 'như chó với mèo'",
+   "src": ""
+  },
+  {
+   "kind": "Cộng sinh",
+   "a": [
+    67
+   ],
+   "b": [
+    71
+   ],
+   "mult": 1.15,
+   "effect": "Cò theo trâu: cả hai +15% Tốc độ",
+   "basis": "Hình ảnh cò đi theo trâu bắt côn trùng trên đồng (loài hay theo trâu nhất là cò ruồi)",
+   "src": ""
+  },
+  {
+   "kind": "Cộng sinh",
+   "a": [
+    75
+   ],
+   "b": [
+    1
+   ],
+   "mult": 1.2,
+   "effect": "Cá chép hóa rồng: Cá Chép hóa Rồng sau 10 giây thay vì 20; Rồng +20% Tấn công ĐB",
+   "basis": "Tích cá chép vượt Vũ Môn hóa rồng",
+   "src": ""
+  }
  ]
 }

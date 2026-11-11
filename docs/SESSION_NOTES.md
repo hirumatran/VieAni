@@ -26,13 +26,22 @@ python3 scripts/sprites.py                 # redraw the built-in sprites
 python3 scripts/draft_stats.py [--force]   # (re)draft stats; --force overwrites hand edits
 ```
 
+## Roster expansion (11/11)
+
+108 Vinmon (was 50). Tier now follows the group: 1 Thân thuộc (everyday/pets/insects, 42),
+2 Hoang dã (wild, not threatened, 14), 3 Nguy cấp (threatened, 33), 4 Đã mất (6), 5 Huyền thoại (13).
+Stat totals by tier: 400 / 440 / 480 / 510 / 530. Every Vinmon has a `skill`; zodiac animals have `zodiac`.
+31 synergies (incl. Bầy Chó rabies 15%, Bầy Mèo grooming heal + attack speed, Mười Hai Con Giáp by
+zodiac column); 30 relations, incl. type-wide predators (`bType`: Thạch Sùng/Thằn Lằn hit Côn trùng
+anywhere). `scripts/expand_roster.py` holds the added data; `scripts/export_sheet.py` exports sheet rows.
+
 ## Design decisions so far
 
 - 10 types: Legendary, Fire, Water, Electric, Grass, Ground, Rock, Sky, Insect, Poison.
 - Type chart = Pokémon Gen 6+ (Sky = Flying, Insect = Bug); Pokémon's 0× immunities
   (Electric→Ground, Ground→Sky) softened to 0.5× for auto-battle.
 - Legendary: deals ×1.25 and takes ×0.75 against every type.
-- Stats: Pokémon-style six stats; total by tier 420 / 450 / 480 / 510 / 530 (Legendary).
+- Stats: Pokémon-style six stats; total by tier 400 / 440 / 480 / 510 / 530 (Legendary).
 - Dex numbers are temporary (A–Z by English name). Cards show Vietnamese name first.
 
 ## Google Sheet (design master for editing)
@@ -49,8 +58,8 @@ back into `data/*.json` before rebuilding the page.
 1. Decide: keep immunities at 0.5× or use 0× like Pokémon.
 2. ~~Differentiate identical stats~~ – done 11/11: every Vinmon now has a unique stat line with a
    biology note (`statNote`); totals still fixed by tier.
-3. Fire (2), Electric (1), Insect (0) are thin – candidates: electric ray, firefly/beetle (check IUCN first).
-4. Optionally translate type badges to Vietnamese (Lửa, Nước, Điện, Cỏ, Đất, Đá, Trời, Côn trùng, Độc, Huyền thoại).
+3. ~~Thin types~~ – now Fire 4, Electric 2, Insect 11 (added Kiến Lửa, Đom Đóm, Cá Đuối Điện, insects).
+4. ~~Vietnamese type badges~~ – done on page and sheet.
 5. ~~Verify province names~~ – done 11/11: all mergers used are confirmed (Res. 202/2025/QH15);
    Đồng Nai is now **TP. Đồng Nai** (centrally run city from 30/4/2026); Cát Tiên NP managed by
    TP. Đồng Nai from 10/2026 (Decision 2058/QĐ-TTg) – still partly in Lâm Đồng until a boundary change.
@@ -61,3 +70,5 @@ back into `data/*.json` before rebuilding the page.
 7. Next game steps: auto-chess board, shop/tiers, synergies (e.g. Sơn Tinh bride-price trio,
    the three doucs "Chà vá" set), damage formula.
 8. Merge the branch into `main` (open a pull request) when ready.
+9. New sprites (ids 51–108) are rough drafts – crab and insect legs especially.
+10. Balance pass: T1 swarms (Côn Trùng 11 members, Đồng Quê 11) may be too strong at high counts.

@@ -36,7 +36,7 @@ SOFTENED = [["Electric", "Ground"], ["Ground", "Sky"]]
 # are mostly ~450-540, pseudo-legendaries 600, most legendaries 570-680.
 # Legendary Vinmon stay at 530 because their type rule (+25% damage dealt,
 # -25% taken) already makes them trade about 1.67x better in a fight.
-BST = {1: 420, 2: 450, 3: 480, 4: 510, 5: 530}
+BST = {1: 400, 2: 440, 3: 480, 4: 510, 5: 530}
 
 # Body-plan profiles: relative weights for hp, atk, def, spa, spd, spe
 PROFILE = {
@@ -71,6 +71,43 @@ PROFILE = {
     "fishdemon": (1.2, 1.4, 1.0, 1.0, .9, .9),
     "fox":       (.8, .8, .7, 1.5, 1.1, 1.4),
     "whale":     (1.7, 1.0, 1.0, 1.1, 1.1, .4),
+    # everyday animals, insects and common wildlife (11/2026)
+    "dog":       (1.0, 1.3, .8, .6, .8, 1.5),
+    "cat":       (.8, 1.2, .7, .8, .9, 1.6),
+    "fowl":      (.9, 1.2, .9, .6, .8, 1.2),
+    "pig":       (1.5, 1.1, 1.1, .5, .9, .7),
+    "rodent":    (.7, 1.0, .6, .7, .8, 1.8),
+    "goat":      (1.0, 1.0, 1.1, .6, 1.0, 1.1),
+    "duck":      (1.0, .9, .9, .9, 1.0, 1.0),
+    "smallbird": (.7, .9, .6, 1.1, .9, 1.6),
+    "smallfish": (1.0, 1.0, 1.0, .8, 1.0, .9),
+    "carp":      (1.1, .9, 1.0, 1.1, 1.1, .8),
+    "predfish":  (1.0, 1.4, .9, .6, .8, 1.2),
+    "crab":      (.9, 1.2, 1.6, .4, .9, .6),
+    "snail":     (1.1, .6, 1.7, .6, 1.3, .3),
+    "gecko":     (.8, 1.0, .8, 1.0, .9, 1.4),
+    "toad":      (1.1, .8, 1.0, 1.3, 1.1, .7),
+    "frog":      (.9, 1.1, .8, .9, .9, 1.4),
+    "roach":     (.7, .8, .8, .5, .8, 2.0),
+    "mosquito":  (.5, .9, .5, 1.3, .7, 1.8),
+    "firefly":   (.7, .6, .7, 1.5, 1.0, 1.3),
+    "ant":       (.7, 1.4, 1.1, .6, .8, 1.2),
+    "bee":       (.6, 1.5, .6, 1.0, .7, 1.5),
+    "cicada":    (.9, .7, 1.0, 1.4, 1.1, .8),
+    "grasshopper": (.8, 1.2, .8, .6, .8, 1.6),
+    "dragonfly": (.7, 1.2, .6, .8, .8, 1.8),
+    "mantis":    (.8, 1.6, .8, .6, .8, 1.2),
+    "waterbug":  (.9, 1.3, 1.0, .7, .9, 1.0),
+    "snake":     (.9, 1.0, .8, 1.4, 1.0, 1.1),
+    "python":    (1.4, 1.4, 1.1, .5, .9, .6),
+    "ray":       (1.0, .8, 1.0, 1.4, 1.1, .8),
+    "jelly":     (1.0, .6, .8, 1.4, 1.3, .6),
+    "squid":     (.9, .9, .8, 1.3, 1.0, 1.2),
+    "owl":       (.8, 1.2, .8, 1.0, 1.0, 1.3),
+    "raptor":    (.8, 1.4, .7, .8, .8, 1.5),
+    "monitor":   (1.2, 1.3, 1.1, .5, .9, .9),
+    "horse":     (.9, 1.2, .8, .8, .9, 1.6),
+    "macaque":   (.9, .9, .8, 1.1, 1.0, 1.3),
 }
 
 # species id -> profile
@@ -142,28 +179,62 @@ PROFILE_VI = {
     "fishdemon": "Ngư Tinh: thủy quái, tấn công cao",
     "fox": "Hồ Tinh: yêu thuật = tấn công ĐB rất cao",
     "whale": "Cá Ông: khổng lồ, máu rất cao, chậm",
+    "dog": "Chó: cắn mạnh, chạy nhanh",
+    "cat": "Mèo: nhanh nhẹn, vồ mồi chính xác",
+    "fowl": "Gà: mổ và đá cựa, khá cân bằng",
+    "pig": "Heo: máu rất dày, khỏe, chậm",
+    "rodent": "Chuột: nhỏ, cực nhanh, yếu",
+    "goat": "Dê: cứng cáp, leo trèo giỏi",
+    "duck": "Vịt: cân bằng, lội nước giỏi",
+    "smallbird": "Chim nhỏ: rất nhanh, yếu",
+    "smallfish": "Cá nhỏ: dai sức, cân bằng",
+    "carp": "Cá chép: dai sức, tiềm năng hóa rồng = tấn công ĐB",
+    "predfish": "Cá săn mồi: tấn công mạnh, nhanh",
+    "crab": "Cua: mai cứng, càng kẹp mạnh, chậm",
+    "snail": "Ốc: vỏ rất cứng, rất chậm",
+    "gecko": "Bò sát nhỏ: nhanh, phóng lưỡi/ngoạm bắt mồi",
+    "toad": "Cóc: chậm, nhựa độc = tấn công ĐB",
+    "frog": "Ếch: nhảy xa, nhanh",
+    "roach": "Gián: nhanh nhất, rất khó bị đánh trúng",
+    "mosquito": "Muỗi: mong manh, rất nhanh, hút máu = tấn công ĐB",
+    "firefly": "Đom đóm: ánh sáng = tấn công ĐB",
+    "ant": "Kiến: khỏe so với thân hình, vỏ cứng",
+    "bee": "Ong: ngòi đốt mạnh, mong manh",
+    "cicada": "Ve sầu: tiếng kêu = tấn công ĐB, vỏ cứng",
+    "grasshopper": "Châu chấu: nhảy xa, đá mạnh",
+    "dragonfly": "Chuồn chuồn: bay cực nhanh, săn mồi trên không",
+    "mantis": "Bọ ngựa: chân lưỡi hái, tấn công rất mạnh",
+    "waterbug": "Cà cuống: thợ săn dưới nước, kìm mạnh",
+    "snake": "Rắn độc: nọc độc = tấn công ĐB",
+    "python": "Trăn: to khỏe, siết mồi, chậm",
+    "ray": "Cá đuối điện: phóng điện = tấn công ĐB",
+    "jelly": "Sứa: xúc tu độc = tấn công ĐB, chậm",
+    "squid": "Mực: phun mực = tấn công ĐB, nhanh",
+    "owl": "Cú: săn đêm, nhanh và chính xác",
+    "raptor": "Chim săn mồi: móng vuốt mạnh, bay nhanh",
+    "monitor": "Kỳ đà: to khỏe, quất đuôi",
+    "horse": "Ngựa: bền sức, chạy nhanh",
+    "macaque": "Khỉ: nhanh nhẹn, tinh khôn, ăn tạp = tấn công ĐB",
 }
 
 
-def tier(s, rule):
-    if s["group"] == "Legendary":
-        return 5
-    if s["group"] == "Vanished":
-        return 4
-    return rule.get((s.get("iucn") or "").split(" ")[0], 1)
+def tier(s, rule=None):
+    """Tier comes from the group: 1 everyday, 2 wild, 3 threatened, 4 extinct, 5 legendary."""
+    return s["tier"]
 
 
 def draft(s, t):
-    w = PROFILE[BODY[s["id"]]]
+    body = s.get("body") or BODY[s["id"]]
+    w = PROFILE[body]
     total = BST[t]
     raw = [total * x / sum(w) for x in w]
     st = [max(20, 5 * round(v / 5)) for v in raw]  # round to 5s like hand-made tables
     st[0] += total - sum(st)  # put rounding remainder into HP so the total is exact
     stats = dict(zip(STATS, st))
-    for k, v in TWEAK.get(s["id"], {}).items():
+    for k, v in {**TWEAK.get(s["id"], {}), **(s.get("tweak") or {})}.items():
         if k != "why":
             stats[k] += v
-    note = PROFILE_VI[BODY[s["id"]]]
+    note = PROFILE_VI[body]
     if s["id"] in TWEAK:
         note += ". " + TWEAK[s["id"]]["why"]
     s["statNote"] = note

@@ -1,22 +1,468 @@
 {
  "note": "Tộc hệ (synergies). Bản nháp – số liệu hiệu ứng chưa cân bằng. Mỗi Vinmon thuộc tối đa 2 tộc hệ.",
  "synergies": [
-  {"name": "Sơn Tinh", "members": [7, 8, 9], "tiers": {"2": "Giảm 50% sát thương nhận từ đòn hệ Nước", "3": "Miễn nhiễm sát thương từ đòn hệ Nước"}, "basis": "Ba lễ vật sính lễ (voi chín ngà, gà chín cựa, ngựa chín hồng mao) giúp Sơn Tinh cưới Mỵ Nương và thắng Thủy Tinh"},
-  {"name": "Tứ Linh", "members": [1, 4, 3, 5], "tiers": {"2": "Thành viên Tứ Linh +10% mọi chỉ số", "4": "Cả đội +20% mọi chỉ số"}, "basis": "Tứ Linh: Long, Lân, Quy, Phụng"},
-  {"name": "Hộ Quốc", "members": [3, 6, 10, 13], "tiers": {"2": "Cả đội +15 Phòng thủ và Phòng thủ ĐB", "4": "Cả đội +30 Phòng thủ và Phòng thủ ĐB; mỗi đồng đội hồi 20% máu một lần khi máu dưới 30%"}, "basis": "Linh vật giữ nước: Kim Quy (Cổ Loa, Hồ Gươm), Nghê canh giữ đình đền, Ngựa sắt Thánh Gióng, Cá Ông cứu ngư dân"},
-  {"name": "Yêu Tinh", "members": [11, 12], "tiers": {"2": "Hút máu 20% sát thương gây ra"}, "basis": "Hai yêu quái bị Lạc Long Quân trừ diệt"},
-  {"name": "Chà Vá", "members": [25, 26, 27], "tiers": {"2": "+15% Tốc độ", "3": "+30% Tốc độ và 10% né đòn"}, "basis": "Ba loài chà vá (Pygathrix) của Việt Nam"},
-  {"name": "Voọc Đá Vôi", "members": [22, 23, 24], "tiers": {"2": "15% né đòn", "3": "30% né đòn"}, "basis": "Các loài voọc sống và leo vách núi đá vôi"},
-  {"name": "Vượn Hú", "members": [28, 29], "tiers": {"2": "Mỗi 6 giây, tiếng hót làm chậm kẻ địch 20% trong 2 giây"}, "basis": "Vượn hót song ca mỗi sáng để giữ lãnh thổ"},
-  {"name": "Mai Rùa", "members": [33, 34, 32, 19], "tiers": {"2": "+20 Phòng thủ", "4": "+40 Phòng thủ và phản 10% sát thương vật lý"}, "basis": "Các loài rùa, giải có mai che chở"},
-  {"name": "Đất Ngập Nước", "members": [43, 36, 35, 45, 31], "tiers": {"2": "Hồi 1% máu mỗi giây", "4": "Hồi 2% máu mỗi giây"}, "basis": "Loài sống ở bãi bồi, đầm lầy, đồng cỏ ngập nước"},
-  {"name": "Biển Đông", "members": [34, 49, 41, 13, 11], "tiers": {"2": "+15 Phòng thủ ĐB", "4": "+30 Phòng thủ ĐB; đòn hệ Nước +15% sát thương"}, "basis": "Loài và linh vật của biển"},
-  {"name": "Cửu Long", "members": [37, 33, 41, 45], "tiers": {"2": "+10% Tấn công và Tấn công ĐB", "4": "+25% Tấn công và Tấn công ĐB"}, "basis": "Loài gắn với sông Mê Kông và đồng bằng (cá tra dầu, giải, cá heo Irrawaddy, sếu Tràm Chim)"},
-  {"name": "Trường Sơn", "members": [20, 21, 39, 18, 26], "tiers": {"2": "Ẩn mình: không bị chọn làm mục tiêu trong 2 giây đầu trận", "4": "Ẩn mình 4 giây đầu trận"}, "basis": "Loài đặc hữu dãy Trường Sơn, rất khó gặp"},
-  {"name": "Cự Thú", "members": [38, 14, 15, 7, 16], "tiers": {"2": "+15% Máu", "4": "+30% Máu và miễn choáng"}, "basis": "Các loài thú cỡ lớn"},
-  {"name": "Săn Mồi", "members": [17, 46, 31, 47], "tiers": {"2": "+15% tỉ lệ chí mạng", "4": "+30% tỉ lệ chí mạng; chí mạng gây ×1,75 sát thương"}, "basis": "Thú ăn thịt, săn mồi"},
-  {"name": "Dạ Hành", "members": [44, 30, 40, 39, 50], "tiers": {"2": "15% né đòn", "4": "30% né đòn; đòn đầu tiên luôn chí mạng"}, "basis": "Loài hoạt động chủ yếu về đêm"},
-  {"name": "Lông Vũ", "members": [2, 5, 8, 42, 48], "tiers": {"2": "+10% Tốc độ", "4": "+20% Tốc độ và +1 tầm đánh"}, "basis": "Chim rừng và chim thiêng"},
-  {"name": "Bóng Ma", "members": [14, 15, 16, 17, 18, 19], "tiers": {"2": "Khi một thành viên bị hạ, đồng đội hồi 10% máu", "4": "Hồi 20% máu", "6": "Hồi 30% máu; thành viên đầu tiên bị hạ hồi sinh với 30% máu"}, "basis": "Những loài đã mất hoặc gần như đã mất ở Việt Nam – ký ức để nhắc nhở bảo tồn"}
+  {
+   "name": "Sơn Tinh",
+   "members": [
+    7,
+    8,
+    9
+   ],
+   "tiers": {
+    "2": "Giảm 50% sát thương nhận từ đòn hệ Nước",
+    "3": "Miễn nhiễm sát thương từ đòn hệ Nước"
+   },
+   "basis": "Ba lễ vật sính lễ (voi chín ngà, gà chín cựa, ngựa chín hồng mao) giúp Sơn Tinh cưới Mỵ Nương và thắng Thủy Tinh"
+  },
+  {
+   "name": "Tứ Linh",
+   "members": [
+    1,
+    4,
+    3,
+    5
+   ],
+   "tiers": {
+    "2": "Thành viên Tứ Linh +10% mọi chỉ số",
+    "4": "Cả đội +20% mọi chỉ số"
+   },
+   "basis": "Tứ Linh: Long, Lân, Quy, Phụng"
+  },
+  {
+   "name": "Hộ Quốc",
+   "members": [
+    3,
+    6,
+    10,
+    13
+   ],
+   "tiers": {
+    "2": "Cả đội +15 Phòng thủ và Phòng thủ ĐB",
+    "4": "Cả đội +30 Phòng thủ và Phòng thủ ĐB; mỗi đồng đội hồi 20% máu một lần khi máu dưới 30%"
+   },
+   "basis": "Linh vật giữ nước: Kim Quy (Cổ Loa, Hồ Gươm), Nghê canh giữ đình đền, Ngựa sắt Thánh Gióng, Cá Ông cứu ngư dân"
+  },
+  {
+   "name": "Yêu Tinh",
+   "members": [
+    11,
+    12
+   ],
+   "tiers": {
+    "2": "Hút máu 20% sát thương gây ra"
+   },
+   "basis": "Hai yêu quái bị Lạc Long Quân trừ diệt"
+  },
+  {
+   "name": "Chà Vá",
+   "members": [
+    25,
+    26,
+    27
+   ],
+   "tiers": {
+    "2": "+15% Tốc độ",
+    "3": "+30% Tốc độ và 10% né đòn"
+   },
+   "basis": "Ba loài chà vá (Pygathrix) của Việt Nam"
+  },
+  {
+   "name": "Voọc Đá Vôi",
+   "members": [
+    22,
+    23,
+    24
+   ],
+   "tiers": {
+    "2": "15% né đòn",
+    "3": "30% né đòn"
+   },
+   "basis": "Các loài voọc sống và leo vách núi đá vôi"
+  },
+  {
+   "name": "Vượn Hú",
+   "members": [
+    28,
+    29
+   ],
+   "tiers": {
+    "2": "Mỗi 6 giây, tiếng hót làm chậm kẻ địch 20% trong 2 giây"
+   },
+   "basis": "Vượn hót song ca mỗi sáng để giữ lãnh thổ"
+  },
+  {
+   "name": "Mai Rùa",
+   "members": [
+    33,
+    34,
+    32,
+    19
+   ],
+   "tiers": {
+    "2": "+20 Phòng thủ",
+    "4": "+40 Phòng thủ và phản 10% sát thương vật lý"
+   },
+   "basis": "Các loài rùa, giải có mai che chở"
+  },
+  {
+   "name": "Đất Ngập Nước",
+   "members": [
+    43,
+    36,
+    35,
+    45,
+    31,
+    71
+   ],
+   "tiers": {
+    "2": "Hồi 1% máu mỗi giây",
+    "4": "Hồi 2% máu mỗi giây"
+   },
+   "basis": "Loài sống ở bãi bồi, đầm lầy, đồng cỏ ngập nước"
+  },
+  {
+   "name": "Biển Đông",
+   "members": [
+    34,
+    49,
+    41,
+    13,
+    11,
+    101,
+    102,
+    103
+   ],
+   "tiers": {
+    "2": "+15 Phòng thủ ĐB",
+    "4": "+30 Phòng thủ ĐB; đòn hệ Nước +15% sát thương",
+    "6": "+40 Phòng thủ ĐB; đòn hệ Nước +25% sát thương"
+   },
+   "basis": "Loài và linh vật của biển"
+  },
+  {
+   "name": "Cửu Long",
+   "members": [
+    37,
+    33,
+    41,
+    45
+   ],
+   "tiers": {
+    "2": "+10% Tấn công và Tấn công ĐB",
+    "4": "+25% Tấn công và Tấn công ĐB"
+   },
+   "basis": "Loài gắn với sông Mê Kông và đồng bằng (cá tra dầu, giải, cá heo Irrawaddy, sếu Tràm Chim)"
+  },
+  {
+   "name": "Trường Sơn",
+   "members": [
+    20,
+    21,
+    39,
+    18,
+    26
+   ],
+   "tiers": {
+    "2": "Ẩn mình: không bị chọn làm mục tiêu trong 2 giây đầu trận",
+    "4": "Ẩn mình 4 giây đầu trận"
+   },
+   "basis": "Loài đặc hữu dãy Trường Sơn, rất khó gặp"
+  },
+  {
+   "name": "Cự Thú",
+   "members": [
+    38,
+    14,
+    15,
+    7,
+    16
+   ],
+   "tiers": {
+    "2": "+15% Máu",
+    "4": "+30% Máu và miễn choáng"
+   },
+   "basis": "Các loài thú cỡ lớn"
+  },
+  {
+   "name": "Săn Mồi",
+   "members": [
+    17,
+    46,
+    31,
+    47,
+    76,
+    94,
+    100,
+    105,
+    106,
+    107
+   ],
+   "tiers": {
+    "2": "+15% tỉ lệ chí mạng",
+    "4": "+30% tỉ lệ chí mạng; chí mạng gây ×1,75 sát thương",
+    "6": "+40% chí mạng; chí mạng gây ×2 sát thương"
+   },
+   "basis": "Thú ăn thịt, săn mồi"
+  },
+  {
+   "name": "Dạ Hành",
+   "members": [
+    44,
+    30,
+    40,
+    39,
+    50,
+    83,
+    85,
+    94,
+    104
+   ],
+   "tiers": {
+    "2": "15% né đòn",
+    "4": "30% né đòn; đòn đầu tiên luôn chí mạng",
+    "6": "40% né đòn; đòn đầu tiên luôn chí mạng"
+   },
+   "basis": "Loài hoạt động chủ yếu về đêm"
+  },
+  {
+   "name": "Lông Vũ",
+   "members": [
+    2,
+    5,
+    8,
+    42,
+    48,
+    72,
+    73
+   ],
+   "tiers": {
+    "2": "+10% Tốc độ",
+    "4": "+20% Tốc độ và +1 tầm đánh",
+    "6": "+30% Tốc độ và +1 tầm đánh"
+   },
+   "basis": "Chim rừng và chim thiêng"
+  },
+  {
+   "name": "Bóng Ma",
+   "members": [
+    14,
+    15,
+    16,
+    17,
+    18,
+    19
+   ],
+   "tiers": {
+    "2": "Khi một thành viên bị hạ, đồng đội hồi 10% máu",
+    "4": "Hồi 20% máu",
+    "6": "Hồi 30% máu; thành viên đầu tiên bị hạ hồi sinh với 30% máu"
+   },
+   "basis": "Những loài đã mất hoặc gần như đã mất ở Việt Nam – ký ức để nhắc nhở bảo tồn"
+  },
+  {
+   "name": "Bầy Chó",
+   "members": [
+    51,
+    52,
+    53,
+    54,
+    55
+   ],
+   "tiers": {
+    "3": "Đòn đánh của Chó có 15% gây Dại: mục tiêu nổi điên, tấn công đồng đội của nó trong 3 giây",
+    "5": "25% gây Dại, kéo dài 4 giây"
+   },
+   "basis": "Ý tưởng game: bệnh dại lây qua vết cắn của chó. Ngoài đời, hãy tiêm phòng dại cho chó mèo."
+  },
+  {
+   "name": "Tứ Quốc Khuyển",
+   "members": [
+    52,
+    53,
+    54,
+    55
+   ],
+   "tiers": {
+    "2": "Chó +15% Tấn công",
+    "4": "Trung thành: khi một đồng đội bị hạ, mọi Chó +30% Tấn công và Tốc độ đến hết trận"
+   },
+   "basis": "'Tứ đại quốc khuyển' Việt Nam: Phú Quốc, H'Mông cộc đuôi, Bắc Hà, Lài"
+  },
+  {
+   "name": "Bầy Mèo",
+   "members": [
+    56,
+    57,
+    58
+   ],
+   "tiers": {
+    "2": "Liếm lông: mỗi 4 giây, mỗi Mèo hồi 5% máu cho Mèo gần nhất; cả hai +15% tốc độ đánh trong 3 giây",
+    "3": "Hồi 8% máu, +30% tốc độ đánh"
+   },
+   "basis": "Mèo liếm lông cho nhau để gắn kết bầy"
+  },
+  {
+   "name": "Đàn Gà",
+   "members": [
+    59,
+    60,
+    61
+   ],
+   "tiers": {
+    "2": "Gáy sáng: đầu trận cả đội +10% Tốc độ trong 5 giây",
+    "3": "+20% Tốc độ trong 5 giây; Gà +15% chí mạng"
+   },
+   "basis": "Gà gáy báo sáng ở làng quê"
+  },
+  {
+   "name": "Ủn Ỉn",
+   "members": [
+    62,
+    63,
+    93
+   ],
+   "tiers": {
+    "2": "Heo +20% Máu",
+    "3": "Ăn tạp: mỗi khi Heo hạ một kẻ địch, hồi 20% máu"
+   },
+   "basis": "Lợn nhà và lợn rừng"
+  },
+  {
+   "name": "Bầy Chuột",
+   "members": [
+    64,
+    65,
+    66
+   ],
+   "tiers": {
+    "2": "Gặm nhấm: mỗi đòn giảm 3 Phòng thủ của mục tiêu (cộng dồn tối đa 10 lần)",
+    "3": "Sinh sôi: Chuột đầu tiên bị hạ để lại 2 chuột con (mỗi con 20% chỉ số)"
+   },
+   "basis": "Chuột gặm nhấm và sinh sản rất nhanh"
+  },
+  {
+   "name": "Đồng Quê",
+   "members": [
+    66,
+    67,
+    70,
+    71,
+    74,
+    75,
+    77,
+    78,
+    82,
+    90,
+    108
+   ],
+   "tiers": {
+    "2": "+10 Phòng thủ",
+    "4": "+10 Phòng thủ; hồi 1% máu mỗi giây",
+    "6": "+10% mọi chỉ số; hồi 2% máu mỗi giây"
+   },
+   "basis": "Hệ sinh thái đồng ruộng, ao làng"
+  },
+  {
+   "name": "Gia Súc",
+   "members": [
+    62,
+    63,
+    67,
+    68,
+    69
+   ],
+   "tiers": {
+    "2": "+10% Máu",
+    "4": "+20% Máu và miễn nhiễm Dại"
+   },
+   "basis": "Vật nuôi lớn của nhà nông"
+  },
+  {
+   "name": "Săn Côn Trùng",
+   "members": [
+    79,
+    80,
+    81,
+    82,
+    98
+   ],
+   "tiers": {
+    "2": "+25% sát thương lên hệ Côn trùng",
+    "4": "+50% sát thương lên hệ Côn trùng; hồi 10% máu mỗi khi hạ một Côn trùng"
+   },
+   "basis": "Thạch sùng, thằn lằn, cóc, ếch, tắc kè ăn côn trùng"
+  },
+  {
+   "name": "Côn Trùng",
+   "members": [
+    83,
+    84,
+    85,
+    86,
+    87,
+    88,
+    89,
+    90,
+    91,
+    92,
+    108
+   ],
+   "tiers": {
+    "3": "Côn trùng +15% Tốc độ",
+    "6": "+15% Tốc độ và 15% né đòn",
+    "9": "Sức sống: Côn trùng bị hạ có 30% hồi sinh với 30% máu"
+   },
+   "basis": "Côn trùng nhỏ, nhanh và cực kỳ đông đúc"
+  },
+  {
+   "name": "Tổ Đàn",
+   "members": [
+    86,
+    87,
+    88
+   ],
+   "tiers": {
+    "2": "Bầy đàn: mỗi 3 giây +5% Tấn công (cộng dồn tối đa 6 lần)",
+    "3": "Đòn đánh lan sang 1 kẻ địch kề bên"
+   },
+   "basis": "Kiến và ong sống thành tổ, phối hợp cả đàn"
+  },
+  {
+   "name": "Rừng Xanh",
+   "members": [
+    95,
+    96,
+    97,
+    98,
+    104
+   ],
+   "tiers": {
+    "2": "+10% né đòn",
+    "4": "+10% né đòn; ẩn mình 2 giây đầu trận"
+   },
+   "basis": "Loài rừng phổ biến"
+  },
+  {
+   "name": "Mãng Xà",
+   "members": [
+    99,
+    100
+   ],
+   "tiers": {
+    "2": "Đòn đánh gây độc 2% máu/giây và làm chậm 15%"
+   },
+   "basis": "Rắn và trăn"
+  },
+  {
+   "name": "Mười Hai Con Giáp",
+   "members": [],
+   "byZodiac": true,
+   "tiers": {
+    "3": "Có 3 con giáp khác nhau: các con giáp +5% mọi chỉ số",
+    "6": "6 con giáp: +10% mọi chỉ số",
+    "12": "Đủ 12 con giáp: +25% mọi chỉ số; con giáp đầu tiên bị hạ hồi sinh với 50% máu"
+   },
+   "basis": "12 con giáp Việt Nam: Tý (chuột), Sửu (trâu), Dần (hổ), Mão (mèo), Thìn (rồng), Tỵ (rắn), Ngọ (ngựa), Mùi (dê), Thân (khỉ), Dậu (gà), Tuất (chó), Hợi (lợn). Tính theo cột Con giáp, không chiếm ô tộc hệ."
+  }
  ]
 }

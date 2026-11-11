@@ -4,9 +4,11 @@
  "helpCommon": "Không mua, bán, ăn, nuôi hay sử dụng sản phẩm từ động vật hoang dã. Báo cáo vi phạm qua đường dây nóng miễn phí của ENV (Trung tâm Giáo dục Thiên nhiên): 1800-1522.",
  "labels": {
   "group": {
-   "Legendary": "Huyền thoại",
+   "Common": "Thân thuộc",
+   "Wild": "Hoang dã",
+   "Endangered": "Nguy cấp",
    "Vanished": "Đã mất",
-   "Wild": "Hoang dã"
+   "Legendary": "Huyền thoại"
   },
   "habitat": {
    "Forest": "Rừng",
@@ -15,14 +17,27 @@
    "Sea": "Biển",
    "Karst": "Núi đá vôi",
    "Sky": "Bầu trời",
-   "Mythic": "Huyền thoại"
+   "Mythic": "Huyền thoại",
+   "Village": "Làng quê",
+   "Mountain": "Miền núi",
+   "Island": "Hải đảo",
+   "Field": "Đồng ruộng",
+   "Home": "Nhà ở"
   },
   "iucn": {
    "CR": "Cực kỳ nguy cấp",
    "EN": "Nguy cấp",
    "VU": "Sắp nguy cấp",
    "DD": "Thiếu dữ liệu"
-  }
+  },
+  "tier": {
+   "1": "Thân thuộc – gặp hằng ngày",
+   "2": "Hoang dã – rừng, núi, biển; ít gặp",
+   "3": "Nguy cấp – loài bị đe dọa",
+   "4": "Đã mất – tuyệt chủng hoặc đã mất ở Việt Nam",
+   "5": "Huyền thoại"
+  },
+  "zodiacNote": "12 con giáp Việt Nam dùng Mèo (Mão) thay Thỏ và Trâu (Sửu) thay Bò."
  },
  "species": {
   "1": {
@@ -796,6 +811,317 @@
     [
      "National Geographic – Silver-backed chevrotain reappears in Vietnam (2019)",
      "https://www.nationalgeographic.com/animals/article/silver-backed-chevrotain-mouse-deer-reappears-vietnam"
+    ]
+   ]
+  },
+  "51": {
+   "note": "Giống chó bản địa có mặt khắp làng quê Việt Nam; khỏe, dễ nuôi, trung thành.",
+   "help": [
+    "Tiêm phòng dại cho chó, mèo định kỳ; khi bị chó mèo cắn cần đi tiêm vắc-xin phòng dại ngay."
+   ]
+  },
+  "52": {
+   "note": "Giống chó spitz cổ của người H'Mông miền núi phía Bắc, đuôi cộc bẩm sinh, dùng để săn và canh gác; một trong 'tứ đại quốc khuyển'.",
+   "help": [
+    "Tiêm phòng dại cho chó, mèo định kỳ; khi bị chó mèo cắn cần đi tiêm vắc-xin phòng dại ngay."
+   ],
+   "src": [
+    [
+     "Đại Đoàn Kết – Tứ đại danh khuyển đất Việt",
+     "https://daidoanket.vn/nam-tuat-tim-hieu-ve-tu-dai-danh-khuyen-dat-viet-10095952.html"
+    ]
+   ]
+  },
+  "53": {
+   "note": "Giống chó có dải lông xoáy dọc sống lưng ở đảo Phú Quốc, nhanh nhẹn, được người dân đảo dùng để săn từ hàng trăm năm; một trong 'tứ đại quốc khuyển'.",
+   "help": [
+    "Tiêm phòng dại cho chó, mèo định kỳ; khi bị chó mèo cắn cần đi tiêm vắc-xin phòng dại ngay."
+   ],
+   "src": [
+    [
+     "Đại Đoàn Kết – Tứ đại danh khuyển đất Việt",
+     "https://daidoanket.vn/nam-tuat-tim-hieu-ve-tu-dai-danh-khuyen-dat-viet-10095952.html"
+    ]
+   ]
+  },
+  "54": {
+   "note": "Giống spitz cỡ vừa, lông dày ở vùng Bắc Hà (Lào Cai), do người H'Mông nuôi để săn, canh gác và chăn gia súc; một trong 'tứ đại quốc khuyển'.",
+   "help": [
+    "Tiêm phòng dại cho chó, mèo định kỳ; khi bị chó mèo cắn cần đi tiêm vắc-xin phòng dại ngay."
+   ],
+   "src": [
+    [
+     "Đại Đoàn Kết – Tứ đại danh khuyển đất Việt",
+     "https://daidoanket.vn/nam-tuat-tim-hieu-ve-tu-dai-danh-khuyen-dat-viet-10095952.html"
+    ]
+   ]
+  },
+  "55": {
+   "note": "Giống chó nguyên thủy vùng trung du, miền núi, còn gọi 'Dingo Đông Dương'; nguồn gốc còn tranh luận. Một trong 'tứ đại quốc khuyển'.",
+   "help": [
+    "Tiêm phòng dại cho chó, mèo định kỳ; khi bị chó mèo cắn cần đi tiêm vắc-xin phòng dại ngay."
+   ],
+   "src": [
+    [
+     "Đại Đoàn Kết – Tứ đại danh khuyển đất Việt",
+     "https://daidoanket.vn/nam-tuat-tim-hieu-ve-tu-dai-danh-khuyen-dat-viet-10095952.html"
+    ]
+   ]
+  },
+  "56": {
+   "note": "Mèo nhà lông vằn phổ biến nhất ở Việt Nam. Người Việt chọn con Mèo (không phải con Thỏ) làm con giáp Mão.",
+   "help": [
+    "Tiêm phòng dại cho chó, mèo định kỳ; khi bị chó mèo cắn cần đi tiêm vắc-xin phòng dại ngay."
+   ],
+   "src": [
+    [
+     "SCMP – Why Vietnam celebrates the Year of the Cat",
+     "https://www.scmp.com/news/asia/southeast-asia/article/3207357/why-vietnam-celebrating-year-cat-not-rabbit"
+    ]
+   ]
+  },
+  "57": {
+   "note": "Mèo lông đen tuyền; tín ngưỡng dân gian kiêng để mèo đen nhảy qua thi hài.",
+   "help": [
+    "Tiêm phòng dại cho chó, mèo định kỳ; khi bị chó mèo cắn cần đi tiêm vắc-xin phòng dại ngay."
+   ]
+  },
+  "58": {
+   "note": "Lông ba màu trắng, cam, đen; gần như luôn là mèo cái vì gen màu cam nằm trên nhiễm sắc thể X.",
+   "help": [
+    "Tiêm phòng dại cho chó, mèo định kỳ; khi bị chó mèo cắn cần đi tiêm vắc-xin phòng dại ngay."
+   ]
+  },
+  "59": {
+   "note": "Giống gà ta nhỏ con, đẻ khỏe, nuôi thả phổ biến ở làng quê miền Bắc."
+  },
+  "60": {
+   "note": "Giống gà quý ở xã Đông Tảo (Khoái Châu, Hưng Yên), nổi tiếng với đôi chân rất to; thuộc danh mục nguồn gen vật nuôi cần bảo tồn.",
+   "src": [
+    [
+     "VnEconomy – Bảo tồn thương hiệu gà Đông Tảo",
+     "https://vneconomy.vn/day-manh-so-hoa-de-phat-trien-bao-ton-thuong-hieu-ga-dong-tao.htm"
+    ]
+   ]
+  },
+  "61": {
+   "note": "Gà chọi gắn với hội chọi gà truyền thống ở nhiều làng quê."
+  },
+  "62": {
+   "note": "Giống lợn nội miền Bắc, lưng võng, bụng xệ, da đen; có nguy cơ tuyệt chủng nên đang được giữ giống để bảo tồn.",
+   "src": [
+    [
+     "Nông nghiệp & Môi trường – 22 giống lợn bản địa",
+     "https://nongnghiepmoitruong.vn/22-giong-lon-ban-dia-cua-viet-nam-d277106.html"
+    ]
+   ]
+  },
+  "63": {
+   "note": "Giống lợn lang đen trắng vùng Móng Cái (Quảng Ninh), một dòng của lợn Ỉ; đàn thuần bị ảnh hưởng nặng bởi dịch tả lợn châu Phi năm 2019.",
+   "src": [
+    [
+     "Tạp chí Công Thương – Lợn Ỉ Móng Cái",
+     "https://tapchicongthuong.vn/magazine/lon-i-mong-cai--nguon-gien-quy-cua-dat-bien-vien-100837.htm"
+    ]
+   ]
+  },
+  "64": {
+   "note": "Loài chuột nhỏ sống quanh nhà ở khắp thế giới."
+  },
+  "65": {
+   "note": "Chuột lớn sống ở cống rãnh; có thể mang mầm bệnh như xoắn khuẩn Leptospira."
+  },
+  "66": {
+   "note": "Loài gây hại lúa chính ở Đông Nam Á; thịt chuột đồng là món quen thuộc ở miền Tây."
+  },
+  "67": {
+   "note": "'Con trâu là đầu cơ nghiệp' – sức kéo chính của nhà nông; người Việt lấy con Trâu làm con giáp Sửu."
+  },
+  "68": {
+   "note": "Dê được nuôi nhiều ở vùng núi đá vôi (như Ninh Bình); con giáp Mùi."
+  },
+  "69": {
+   "note": "Ngựa nội nhỏ con, bền sức, dùng thồ hàng ở vùng núi phía Bắc; con giáp Ngọ."
+  },
+  "70": {
+   "note": "Giống vịt nội nhỏ con, nuôi chạy đồng; nông dân thả vịt để ăn ốc bươu vàng hại lúa."
+  },
+  "71": {
+   "note": "'Con cò bay lả bay la' – hình ảnh quen thuộc trong ca dao và đồng ruộng Việt."
+  },
+  "72": {
+   "note": "Loài chim nhỏ quen thuộc nhất ở mái nhà, sân phơi."
+  },
+  "73": {
+   "note": "Loài sáo phổ biến ở đồng ruộng, hay được nuôi vì giọng hót và khả năng bắt chước âm thanh."
+  },
+  "74": {
+   "note": "Có cơ quan hô hấp phụ giúp thở khí trời, sống được ở nước thiếu oxy và trườn được quãng ngắn trên đất ẩm."
+  },
+  "75": {
+   "note": "Ngày 23 tháng Chạp, người Việt thả cá chép với ý 'cá hóa rồng' đưa ông Táo về trời.",
+   "src": [
+    [
+     "VOH – Vì sao cúng ông Công ông Táo phải có cá chép",
+     "https://voh.com.vn/thuong-thuc/ca-chep-cung-ong-cong-ong-tao-514448.html"
+    ]
+   ]
+  },
+  "76": {
+   "note": "Loài cá săn mồi quen thuộc ở ao, ruộng; món cá lóc nướng trui của miền Tây."
+  },
+  "77": {
+   "note": "Sống trong hang ở bờ ruộng; món canh cua rau đay quen thuộc."
+  },
+  "78": {
+   "note": "Loài ngoại lai xâm hại gốc Nam Mỹ, phá hại lúa nghiêm trọng ở Việt Nam.",
+   "help": [
+    "Không nuôi, không thả ốc bươu vàng ra ao hồ, kênh rạch; thu gom ốc và trứng ốc trên ruộng."
+   ]
+  },
+  "79": {
+   "note": "Bò trên tường, trần nhà bắt muỗi và côn trùng; tiếng 'tặc lưỡi' gắn với thành ngữ 'Thạch Sùng còn thiếu mẻ kho'."
+  },
+  "80": {
+   "note": "Thằn lằn thân bóng hay phơi nắng ở vườn; có thể tự cắt đuôi để thoát thân."
+  },
+  "81": {
+   "note": "Tuyến sau mắt tiết nhựa độc. Truyện 'Cóc kiện Trời' kể cóc lên kiện Trời đòi mưa, nên dân gian gọi 'con cóc là cậu ông Trời'.",
+   "src": [
+    [
+     "Loigiaihay – Sự tích con cóc",
+     "https://mytour.vn/vi/blog/bai-viet/top-10-su-tich-ve-the-gioi-dong-vat.html"
+    ]
+   ]
+  },
+  "82": {
+   "note": "Loài ếch lớn của đồng ruộng, ăn nhiều côn trùng hại lúa."
+  },
+  "83": {
+   "note": "Côn trùng sống dai, chạy rất nhanh, hoạt động về đêm trong nhà bếp, cống rãnh."
+  },
+  "84": {
+   "note": "Muỗi truyền bệnh sốt xuất huyết; lăng quăng (bọ gậy) sống trong nước đọng.",
+   "help": [
+    "Diệt lăng quăng (bọ gậy): đậy kín, thay nước dụng cụ chứa nước hằng tuần; ngủ màn để phòng sốt xuất huyết."
+   ]
+  },
+  "85": {
+   "note": "Phát sáng bằng phản ứng sinh hóa (ánh sáng lạnh) – trong game xếp hệ Lửa."
+  },
+  "86": {
+   "note": "Vết đốt nóng rát như lửa; sống thành tổ lớn dưới đất."
+  },
+  "87": {
+   "note": "Nông dân miền Tây nuôi kiến vàng trong vườn cam quýt để diệt sâu hại, giảm thuốc trừ sâu.",
+   "help": [
+    "Giữ tổ kiến vàng trong vườn cây ăn trái để giảm thuốc trừ sâu."
+   ],
+   "src": [
+    [
+     "Van Mele et al. – Weaver ant in citrus, Mekong Delta",
+     "https://research.wur.nl/en/publications/direct-and-indirect-influences-of-the-weaver-ant-oecophylla-smara"
+    ]
+   ]
+  },
+  "88": {
+   "note": "Ong thợ có ngòi răng cưa; khi đốt động vật có vú, ngòi mắc lại và ong chết."
+  },
+  "89": {
+   "note": "Tiếng ve báo hiệu mùa hè; ấu trùng sống nhiều năm dưới đất rồi lột xác."
+  },
+  "90": {
+   "note": "Côn trùng hại lúa; thành ngữ 'châu chấu đá xe' nói kẻ yếu dám chống kẻ mạnh."
+  },
+  "91": {
+   "note": "Thợ săn muỗi trên không; tục ngữ 'chuồn chuồn bay thấp thì mưa, bay cao thì nắng, bay vừa thì râm'."
+  },
+  "92": {
+   "note": "Côn trùng săn mồi với đôi chân trước hình lưỡi hái, ăn nhiều sâu bọ hại."
+  },
+  "93": {
+   "note": "Tổ tiên của lợn nhà; sống ở rừng khắp Việt Nam."
+  },
+  "94": {
+   "note": "Loài mèo hoang nhỏ có đốm, phổ biến nhất trong rừng Việt Nam, săn chuột về đêm."
+  },
+  "95": {
+   "note": "Loài khỉ phổ biến ở rừng và núi đá miền Bắc; con giáp Thân."
+  },
+  "96": {
+   "note": "Loài sóc leo cây phổ biến, bụng màu nâu đỏ."
+  },
+  "97": {
+   "note": "Còn gọi mang thường hay 'hươu sủa' vì tiếng kêu như chó sủa."
+  },
+  "98": {
+   "note": "Tiếng kêu 'tắc kè' đặc trưng; thường bị săn bắt làm thuốc."
+  },
+  "99": {
+   "note": "Rắn độc bành mang khi bị đe dọa; ăn nhiều chuột đồng. Con giáp Tỵ."
+  },
+  "100": {
+   "note": "Loài trăn dài nhất thế giới; siết mồi đến chết rồi nuốt chửng."
+  },
+  "101": {
+   "note": "Vùng biển Việt Nam có một số loài cá đuối điện như cá đuối điện chấm trắng (Narke dipterygia); chúng phát điện để tự vệ và bắt mồi.",
+   "src": [
+    [
+     "GBIF – Narke dipterygia",
+     "https://gbif.org/pt/species/2419760"
+    ]
+   ]
+  },
+  "102": {
+   "note": "Trôi theo dòng nước, xúc tu có tế bào châm độc."
+  },
+  "103": {
+   "note": "Phun mực đen để thoát thân, đổi màu da để ngụy trang."
+  },
+  "104": {
+   "note": "Loài cú nhỏ có túm lông tai, săn chuột và côn trùng về đêm."
+  },
+  "105": {
+   "note": "Loài chim săn mồi hay lượn trên làng quê; dân gian gắn diều hâu với cảnh rình bắt gà con."
+  },
+  "106": {
+   "note": "Loài thằn lằn lớn bơi giỏi, ăn cá, trứng và xác động vật."
+  },
+  "107": {
+   "note": "Loài chó hoang săn theo bầy, còn gọi chó sói lửa; vẫn được ghi nhận ở một số rừng Việt Nam như Pù Hoạt (Nghệ An).",
+   "pop": "Toàn cầu: dưới 2.500 cá thể trưởng thành (IUCN), đang giảm; thiếu số liệu ở Đông Nam Á. Ở Việt Nam chưa có ước tính số lượng; vẫn có ghi nhận ở Pù Hoạt (Nghệ An).",
+   "habitat": "Rừng thường xanh và rừng thưa có nhiều thú móng guốc.",
+   "where": "Pù Hoạt (Nghệ An) và một số khu rừng lớn.",
+   "threat": "Mất con mồi do săn bắt, bẫy dây, mất rừng, bệnh lây từ chó nhà.",
+   "help": [
+    "Không đặt bẫy dây; báo cáo bẫy cho kiểm lâm.",
+    "Tiêm phòng cho chó nhà ở vùng giáp rừng để tránh lây bệnh sang thú hoang."
+   ],
+   "src": [
+    [
+     "ESABII – Cuon alpinus",
+     "https://www.esabii.biodic.go.jp/database/mammal/carnivora/cuon_alpinus.html"
+    ],
+    [
+     "VietnamNet – Rare wild dog rediscovered in Pù Hoạt",
+     "https://vietnamnet.vn/en/rare-wild-dog-species-rediscovered-in-vietnam-s-pu-hoat-forest-2515771.html"
+    ]
+   ]
+  },
+  "108": {
+   "note": "Tinh dầu cà cuống từng là gia vị đặc sản (bánh cuốn, nước chấm); nay rất hiếm.",
+   "pop": "Chưa có ước tính số lượng; quần thể tự nhiên suy giảm nghiêm trọng. Có trong Sách Đỏ Việt Nam (1992).",
+   "habitat": "Ao, ruộng, đầm nước ngọt sạch.",
+   "where": "Đồng bằng và trung du cả nước (nay rất hiếm).",
+   "threat": "Thuốc trừ sâu, ô nhiễm nước, mất ao đầm.",
+   "help": [
+    "Giảm dùng thuốc trừ sâu, giữ ao đầm sạch.",
+    "Không săn bắt cà cuống ngoài tự nhiên."
+   ],
+   "src": [
+    [
+     "Lethocerus indicus (Wikipedia)",
+     "https://Www.Wikipedia.org/wiki/Lethocerus_indicus"
     ]
    ]
   }

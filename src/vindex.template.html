@@ -100,34 +100,46 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:0 16px 30px}
 <body>
 <header><div class="wrap">
   <h1>Vin<span>dex</span></h1>
-  <p class="sub">Linh vật Việt Nam: sinh vật huyền thoại, loài đã mất và loài nguy cấp · Legendary, vanished &amp; endangered creatures of Vietnam</p>
+  <p class="sub">Linh vật Việt Nam: từ con vật quanh nhà đến loài hoang dã, loài nguy cấp, loài đã mất và sinh vật huyền thoại</p>
 </div></header>
 
 <div class="controls"><div class="wrap">
   <div class="row">
-    <input type="search" id="q" placeholder="Search name, Vietnamese name, scientific name or #number…" aria-label="Search">
+    <input type="search" id="q" placeholder="Tìm tên tiếng Việt, tiếng Anh, tên khoa học hoặc #số…" aria-label="Tìm kiếm">
     <select id="sort" aria-label="Sort">
-      <option value="dex">Sort: Number</option>
-      <option value="en">Sort: A–Z (English)</option>
-      <option value="vi">Sort: A–Z (Tiếng Việt)</option>
-      <option value="tier">Sort: Tier (high → low)</option>
+      <option value="dex">Sắp xếp: Số thứ tự</option>
+      <option value="vi">Sắp xếp: A–Z (Tiếng Việt)</option>
+      <option value="en">Sắp xếp: A–Z (English)</option>
+      <option value="tier">Sắp xếp: Bậc (cao → thấp)</option>
     </select>
-    <button class="chartbtn" id="chartBtn">Type chart</button>
+    <select id="tierSel" aria-label="Bậc">
+      <option value="">Mọi bậc</option>
+      <option value="1">Bậc 1 – Thân thuộc</option>
+      <option value="2">Bậc 2 – Hoang dã</option>
+      <option value="3">Bậc 3 – Nguy cấp</option>
+      <option value="4">Bậc 4 – Đã mất</option>
+      <option value="5">Bậc 5 – Huyền thoại</option>
+    </select>
+    <button class="chartbtn" id="chartBtn">Bảng khắc hệ</button>
     <span class="count" id="count"></span>
   </div>
   <div class="chips" id="chips"></div>
 </div></div>
 
-<main><div class="wrap"><div class="grid" id="grid"></div><p class="empty" id="empty" hidden>No Vinmon match.</p></div></main>
-<footer>Draft data and balance — IUCN categories to be re-checked on iucnredlist.org before release. Sprites are draft pixel art drawn from each species' known markings.</footer>
+<main><div class="wrap"><div class="grid" id="grid"></div><p class="empty" id="empty" hidden>Không có Vinmon phù hợp.</p></div></main>
+<footer>Dữ liệu và cân bằng là bản nháp – cần đối chiếu lại tình trạng IUCN trên iucnredlist.org trước khi phát hành. Hình pixel là bản vẽ nháp theo đặc điểm của từng loài.</footer>
 
 <dialog id="dlg"></dialog>
 <dialog id="chartDlg"></dialog>
 
 <script>
 const DATA = __DATA__;
-const TIER = DATA.tierRule;
-const STATUS_TIER = s => s.group==="Legendary"?5 : s.group==="Vanished"?4 : (TIER[(s.iucn||"").split(" ")[0]]||1);
+const STATUS_TIER = s => s.tier;
+const TYPE_VI = {Legendary:"Huyền thoại",Fire:"Lửa",Water:"Nước",Electric:"Điện",Grass:"Cỏ",Ground:"Đất",Rock:"Đá",Sky:"Trời",Insect:"Côn trùng",Poison:"Độc"};
+const tv = t => TYPE_VI[t]||t;
+const BYID = Object.fromEntries(DATA.species.map(s=>[s.id,s]));
+const SYN_OF = {};
+DATA.synergies.forEach(g=>g.members.forEach(i=>(SYN_OF[i]??=[]).push(g)));
 const color = t => `var(--t-${t})`;
 const ink = t => t==="Electric" ? "#2b1d14" : "#fff";
 const SPRITES = __SPRITES__;
@@ -139,14 +151,15 @@ const bg = s => s.types.length>1
   : color(s.types[0]);
 const pad = n => "#"+String(n).padStart(3,"0");
 const stars = n => "★".repeat(n);
-const statusLabel = s => s.group==="Legendary" ? "MYTH" : (s.iucn||"").split(" ")[0];
+const statusLabel = s => s.tier===5 ? "Huyền thoại" : s.tier===4 ? "Đã mất" : s.tier===1 ? "Thân thuộc" : s.tier===2 ? "Hoang dã"
+  : (/^(CR|EN|VU|DD)\b/.test(s.iucn||"") ? s.iucn.split(" ")[0] : "Nguy cấp");
 
 const CHART = DATA.typeChart, LEG = DATA.legendaryRule;
 const ATK_TYPES = Object.keys(CHART);
 const vs = (atk, def) => (CHART[atk]?.[def]) ?? 1;
 const taken = (atk, s) => s.types.reduce((m,t)=>m*vs(atk,t),1) * (s.types.includes("Legendary") ? LEG.taken : 1);
 const fmt = m => "×" + (+m.toFixed(4)).toString();
-const badge = t => `<span class="type" style="background:${color(t)};color:${ink(t)}">${t}</span>`;
+const badge = t => `<span class="type" style="background:${color(t)};color:${ink(t)}">${tv(t)}</span>`;
 const STAT_LABEL = {hp:"Máu (HP)",atk:"Tấn công",def:"Phòng thủ",spa:"Tấn công ĐB",spd:"Phòng thủ ĐB",spe:"Tốc độ"};
 function statBars(s){
   const st=s.stats; if(!st) return "";
@@ -166,8 +179,8 @@ function matchups(s){
 let active = new Set();
 const chips = document.getElementById("chips");
 const counts = Object.fromEntries(DATA.types.map(t=>[t,DATA.species.filter(s=>s.types.includes(t)).length]));
-chips.innerHTML = `<button class="chip all on" data-t="">All</button>` +
-  DATA.types.map(t=>`<button class="chip" data-t="${t}" style="background:${color(t)};color:${ink(t)}">${t} ${counts[t]}</button>`).join("");
+chips.innerHTML = `<button class="chip all on" data-t="">Tất cả</button>` +
+  DATA.types.map(t=>`<button class="chip" data-t="${t}" style="background:${color(t)};color:${ink(t)}">${tv(t)} ${counts[t]}</button>`).join("");
 chips.addEventListener("click",e=>{
   const b=e.target.closest(".chip"); if(!b) return;
   const t=b.dataset.t;
@@ -179,8 +192,10 @@ chips.addEventListener("click",e=>{
 function render(){
   const q=document.getElementById("q").value.trim().toLowerCase();
   const sort=document.getElementById("sort").value;
+  const tierF=document.getElementById("tierSel").value;
   let list=DATA.species.filter(s=>{
     if(active.size && !s.types.some(t=>active.has(t))) return false;
+    if(tierF && String(s.tier)!==tierF) return false;
     if(!q) return true;
     return [s.en,s.vi,s.sci,pad(s.dex),String(s.dex)].some(v=>v&&v.toLowerCase().includes(q.replace(/^#0*/,"")||q));
   });
@@ -191,26 +206,41 @@ function render(){
     <button class="card" data-id="${s.id}">
       <div class="art" style="background:${bg(s)}">
         <span class="status">${esc(statusLabel(s))}</span>
-        <span class="tier" title="Tier ${STATUS_TIER(s)}">${stars(STATUS_TIER(s))}</span>
+        <span class="tier" title="Bậc ${STATUS_TIER(s)}">${stars(STATUS_TIER(s))}</span>
         <div class="glyph">${sprite(s)}</div>
       </div>
       <div class="info">
         <div class="no">${pad(s.dex)}</div>
         <div class="name">${esc(s.vi)}</div>
         <div class="vi">${esc(s.en)}</div>
-        <div class="types">${s.types.map(t=>`<span class="type" style="background:${color(t)};color:${ink(t)}">${t}</span>`).join("")}</div>
+        <div class="types">${s.types.map(badge).join("")}</div>
       </div>
     </button>`).join("");
   document.getElementById("empty").hidden=list.length>0;
   document.getElementById("count").textContent=`${list.length} / ${DATA.species.length} Vinmon`;
 }
 
+const nameList = ids => ids.map(i=>BYID[i]?.vi).filter(Boolean).join(", ");
+function gameInfo(s){
+  const syn=(SYN_OF[s.id]||[]).map(g=>`<li><b>${esc(g.name)}</b> (${g.members.length} thành viên) – ${Object.entries(g.tiers).map(([k,v])=>`(${k}) ${esc(v)}`).join("; ")}</li>`).join("");
+  const rel=DATA.relations.filter(r=>r.a.includes(s.id)||r.b.includes(s.id)||(r.bType&&s.types.includes(r.bType))).map(r=>{
+    const me=r.a.includes(s.id);
+    const tgt=r.bType?`mọi Vinmon hệ ${tv(r.bType)}`:nameList(r.b);
+    const txt=r.kind==="Cộng sinh"?`Cộng sinh với ${esc(me?nameList(r.b):nameList(r.a))}: ${esc(r.effect)}`
+      : me?`Thiên địch của ${esc(tgt)}: ${esc(r.effect)}`:`Bị săn bởi ${esc(nameList(r.a))} (${esc(r.effect)})`;
+    return `<li>${txt}</li>`;}).join("");
+  return `${s.skill?`<div class="h3">Kỹ năng</div><p style="margin:0;line-height:1.5">${esc(s.skill)}</p>`:""}
+    ${syn?`<div class="h3">Tộc hệ</div><ul class="help">${syn}</ul>`:""}
+    ${s.zodiac?`<div class="small">Thuộc tộc hệ <b>Mười Hai Con Giáp</b> (con giáp ${esc(s.zodiac)}).</div>`:""}
+    ${rel?`<div class="h3">Thiên địch & Cộng sinh</div><ul class="help">${rel}</ul>`:""}`;
+}
 const dlg=document.getElementById("dlg");
 document.getElementById("grid").addEventListener("click",e=>{
   const c=e.target.closest(".card"); if(!c) return;
   const s=DATA.species.find(x=>x.id==c.dataset.id);
   const V=s.vn||{}, M=DATA.vnMeta, L=M.labels;
-  const iucnVi = V.iucn || (s.iucn ? `${L.iucn[s.iucn.split(" ")[0]]||s.iucn} (${s.iucn.split(" ")[0]})` : "");
+  const code=(s.iucn||"").split(" ")[0];
+  const iucnVi = V.iucn || (!s.iucn ? "" : L.iucn[code] ? `${L.iucn[code]} (${code})${s.iucn.length>code.length?" "+s.iucn.slice(code.length).trim():""}` : s.iucn);
   const row=(k,v)=>v?`<dt>${k}</dt><dd>${esc(v)}</dd>`:"";
   dlg.innerHTML=`
     <div class="d-art" style="background:${bg(s)}">
@@ -225,16 +255,18 @@ document.getElementById("grid").addEventListener("click",e=>{
       ${s.sci?`<div class="sci">${esc(s.sci)}</div>`:""}
       <div class="types">${s.types.map(badge).join("")}</div>
       <dl>
-        ${row("Nhóm",L.group[s.group])}
+        ${row("Bậc",`${s.tier} – ${L.tier[s.tier]}`)}
         ${row("Sách Đỏ IUCN",iucnVi)}
+        ${row("Con giáp",s.zodiac)}
         ${row("Sinh cảnh",V.habitat||L.habitat[s.habitat])}
         ${row("Số lượng",V.pop)}
         ${row("Phân bố",V.where)}
         ${row("Mối đe dọa",V.threat)}
       </dl>
       <p style="margin:0;line-height:1.5">${esc(V.note||s.note)}</p>
-      ${V.help?`<div class="h3">Chung tay bảo tồn</div>
-      <ul class="help">${V.help.map(h=>`<li>${esc(h)}</li>`).join("")}<li>${esc(M.helpCommon)}</li></ul>`:""}
+      ${gameInfo(s)}
+      ${V.help?`<div class="h3">${s.tier>=3?"Chung tay bảo tồn":"Lời khuyên"}</div>
+      <ul class="help">${V.help.map(h=>`<li>${esc(h)}</li>`).join("")}${s.tier>=2?`<li>${esc(M.helpCommon)}</li>`:""}</ul>`:""}
       ${V.src&&V.src.length?`<div class="h3">Nguồn</div><ul class="src">${V.src.map(([t,u])=>`<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a></li>`).join("")}</ul>
       <div class="small">${esc(M.disclaimer)} Cập nhật ${esc(M.updated)}.</div>`:""}
       ${s.stats?`<div class="h3">Chiến đấu (bản nháp)</div>
@@ -253,9 +285,9 @@ document.getElementById("chartBtn").addEventListener("click",()=>{
   const soft=DATA.typeChartSoftened.map(([a,d])=>`${a} → ${d}`).join(", ");
   chartDlg.innerHTML=`<div class="d-body" style="position:relative">
     <button class="close" aria-label="Close" style="background:var(--muted)">✕</button>
-    <h2>Type chart <span style="font-size:14px;color:var(--muted);font-weight:600">draft</span></h2>
-    <div class="small">Rows attack, columns defend. <b style="color:#3a9a4f">2</b> = ×2 super effective, <b style="color:#c0452f">½</b> = ×0.5 not very effective, blank = ×1. Against two types the multipliers multiply.</div>
-    <div class="tscroll"><table class="tc"><tr><th class="row">ATK ↓ / DEF →</th>${DEF.map(t=>`<th class="rot" style="color:${color(t)}"><div>${t}</div></th>`).join("")}</tr>
+    <h2>Bảng khắc hệ <span style="font-size:14px;color:var(--muted);font-weight:600">bản nháp</span></h2>
+    <div class="small">Hàng = hệ tấn công, cột = hệ phòng thủ. Rows attack, columns defend. <b style="color:#3a9a4f">2</b> = ×2 super effective, <b style="color:#c0452f">½</b> = ×0.5 not very effective, blank = ×1. Against two types the multipliers multiply.</div>
+    <div class="tscroll"><table class="tc"><tr><th class="row">ATK ↓ / DEF →</th>${DEF.map(t=>`<th class="rot" style="color:${color(t)}"><div>${tv(t)}</div></th>`).join("")}</tr>
     ${ATK_TYPES.map(a=>`<tr><th class="row">${badge(a)}</th>${DEF.map(d=>cell(a,d)).join("")}</tr>`).join("")}
     <tr><th class="row">${badge("Legendary")}</th><td colspan="${DEF.length}" class="lg">×${LEG.dealt} to every type (on top of its other type's matchup)</td></tr></table></div>
     <div class="small">Based on Pokémon's chart from Generation 6 on (Sky = Flying, Insect = Bug). Changed for auto-battle: Pokémon's immunities ${soft} are ×0.5 here instead of ×0. Legendary: deals ×${LEG.dealt}, takes ×${LEG.taken}; Legendary vs Legendary nets ×${LEG.dealt*LEG.taken}.</div>
@@ -263,7 +295,7 @@ document.getElementById("chartBtn").addEventListener("click",()=>{
   chartDlg.showModal();
 });
 chartDlg.addEventListener("click",e=>{ if(e.target===chartDlg||e.target.closest(".close")) chartDlg.close(); });
-["q","sort"].forEach(id=>document.getElementById(id).addEventListener("input",render));
+["q","sort","tierSel"].forEach(id=>document.getElementById(id).addEventListener("input",render));
 render();
 </script>
 </body>
