@@ -101,5 +101,6 @@ back into `data/*.json` before rebuilding the page.
 - Board overlay: transparent cells, bigger board (corners 352/928 top y58, 256/1024 bottom y604; bench y632–706), sprites ×1.3 cell.
 - T04 done 11 Nov: first successful butler upload (run 3). PO to tick "played in the browser" + embed 720×800 on itch edit page.
 - v0.2.0 (11 Nov): game switched to landscape 16:9 (1280×720). `game/src/core/layout.ts` = board/bench corners + homography (perspective grid); BoardScene draws the painted background, transparent cells and bench. itch embed must be 1280×720.
+- v0.3.0 (11 Nov): start screen `TitleScene` – Hạ Long background (slow drift), logo "VieAni – Huyền Thoại Dã Thú" (Google Fonts Baloo 2 + Be Vietnam Pro), buttons Bắt Đầu / Luyện Tập (both → board for now) / VieIndex (opens vieindex.html in an overlay; shipped in the build by a Vite plugin) / Cài Đặt (sound, speed ×1/×2, relaxed mode – stored in localStorage) / Đăng Nhập (toast "after beta"). VI/EN switch (`src/core/i18n.ts`). Board scene has "← Menu".
 - Next: T09 board drag-drop + T10 combat sim.
 - PO is sketching sprites on iPad directly in the board PDF.

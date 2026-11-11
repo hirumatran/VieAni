@@ -164,6 +164,9 @@ Stage damage: rounds 1–10 → 1, 11–20 → 3, 21–30 → 5, 31+ → 8.
 Difficulty (Dễ / Thường / Khó) changes how well bots place units and use items.
 
 ## 9. Screens (alpha)
+**Start screen** (PO, 11 Nov): Hạ Long background, logo **VieAni – Huyền Thoại Dã Thú**, buttons
+Bắt Đầu · Luyện Tập · VieIndex · Cài Đặt · Đăng Nhập, VI/EN language switch.
+Đăng Nhập is a placeholder until after the beta (accounts need a server – out of scope for alpha/beta).
 Title → Match (board, bench, shop, synergy list, player list with HP, inventory) → Result/ranking.
 Plus: VieIndex (encyclopedia) and Settings (sound, speed ×1/×2, language later).
 UI language: Vietnamese (English toggle in beta).

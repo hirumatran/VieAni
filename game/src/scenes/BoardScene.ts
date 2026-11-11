@@ -1,6 +1,8 @@
 import Phaser from "phaser";
 import { BENCH_SLOTS, BOARD_COLS, BOARD_ROWS, HALF_ROWS, VERSION } from "../core/config";
 import type { GameData, Species } from "../core/data";
+import { t } from "../core/i18n";
+import { button, coverImage } from "../ui/widgets";
 import { BACKGROUNDS, BENCH_CORNERS, BOARD_CORNERS, Grid, SCREEN_H, SCREEN_W, type Pt } from "../core/layout";
 
 const ENEMY_TINT = 0x96e6dc;
@@ -30,9 +32,7 @@ export class BoardScene extends Phaser.Scene {
   }
 
   create() {
-    const bg = this.add.image(SCREEN_W / 2, SCREEN_H / 2, this.bgKey);
-    bg.setScale(Math.max(SCREEN_W / bg.width, SCREEN_H / bg.height)); // cover the screen
-    bg.texture.setFilter(Phaser.Textures.FilterMode.LINEAR); // painted background: smooth scaling
+    coverImage(this, this.bgKey);
 
     const g = this.add.graphics();
     for (let r = 0; r < BOARD_ROWS; r++)
@@ -51,10 +51,10 @@ export class BoardScene extends Phaser.Scene {
       this.add.image(x, y + w * 0.05, `sp${s.id}`).setOrigin(0.5, 0.95).setDisplaySize(w, w);
     });
 
-    this.add.text(16, 12, "VieAni", { fontFamily: "sans-serif", fontSize: "26px", color: TEXT, fontStyle: "bold" }).setShadow(2, 2, "#000", 4);
+    button(this, 78, 34, 130, 44, "← " + t("back"), () => this.scene.start("title"));
     this.add.text(SCREEN_W - 12, 10, `v${VERSION}`, { fontFamily: "sans-serif", fontSize: "13px", color: TEXT }).setOrigin(1, 0).setShadow(1, 1, "#000", 2);
     this.add
-      .text(16, SCREEN_H - 14, `${this.data_.species.length} VieAni · ${this.data_.synergies.length} tộc hệ · ${this.data_.items.length} vật phẩm`, {
+      .text(16, SCREEN_H - 14, t("stats")(this.data_.species.length, this.data_.synergies.length, this.data_.items.length), {
         fontFamily: "sans-serif",
         fontSize: "14px",
         color: TEXT,
