@@ -96,5 +96,6 @@ back into `data/*.json` before rebuilding the page.
   Phone portrait is small – landscape/phone layout is T33.
 - T44 started (11 Nov): procedural pixel-art drafts of the 8 backgrounds – `scripts/draft_backgrounds.py` → `assets/backgrounds/<id>.png` (180×200, game scales ×4) + own palette `assets/palette/backgrounds.hex`. Not yet shown in the game. Hạ Long v2 wide pixel version: `scripts/draft_bg_wide.py`.
 - Art direction decided: painted backgrounds (Gemini, by PO) + pixel sprites. Prompts: `docs/BACKGROUND_PROMPTS.md`. Pixel drafts = placeholders. Landscape 16:9 layout still to be confirmed by PO.
+- First Gemini background from PO: `assets/backgrounds/painted/bg_ha_long.webp` (1365×768, has Gemini ✦ mark bottom-right). Board on it, Underlords-style camera: `scripts/board_overlay.py BG OUT --units` (board corners + bench in 1280×720 screen px = numbers for the game).
 - Next: T04 itch.io deploy (PO: create game page as HTML/Draft + API key → GitHub secret BUTLER_API_KEY), then T09 board drag-drop + T10 combat sim.
 - PO is sketching sprites on iPad directly in the board PDF.
