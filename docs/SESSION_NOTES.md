@@ -110,3 +110,13 @@ back into `data/*.json` before rebuilding the page.
   - 29 unit tests.
 - Next: T11 skill templates + T12 status effects (→ M1), T13 Cộng sinh, T14 balance report.
 - PO is sketching sprites on iPad directly in the board PDF.
+
+## End of day 11 Nov 2026 – where we are
+- Google Sheet renamed **"VieIndex – Dữ liệu VieAni"** (https://docs.google.com/spreadsheets/d/1VaVYNbxFFHY_s3qoXF0eDwNFNCJEpNgc2Es8LBGtsGU/edit).
+  New tabs: **Luật chơi** (all GDD numbers, XP table, shop odds with sum check, pool copies) and **Bối cảnh** (8 backgrounds + image status).
+  VieAni tab: new formula columns Y "Máu trong trận (★1)" = 200+10·HP and Z "Giây giữa 2 đòn" = clamp(200/(Tốc độ+50), 0.6–2.5).
+- The game reads `data/*.json` + `game/src/core/config.ts`, NOT the sheet. When the PO edits the sheet (lineup, types,
+  synergies, rules), the next session must pull the sheet back into the repo (sheet → data/*.json + config.ts),
+  check it with `npm test` (data validation), and push. Ask the PO which tabs changed.
+- PO will work on: VieAni line-up, types, synergies; more Gemini backgrounds (prompts in docs/BACKGROUND_PROMPTS.md).
+- Next dev tasks: T11 skills + T12 status effects (→ M1), T13, T14.
