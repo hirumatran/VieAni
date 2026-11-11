@@ -83,3 +83,10 @@ back into `data/*.json` before rebuilding the page.
 8. Merge the branch into `main` (open a pull request) when ready.
 9. New sprites (ids 51–108) are rough drafts – crab and insect legs especially.
 10. Balance pass: T1 swarms (Côn Trùng 11 members, Đồng Quê 11) may be too strong at high counts.
+
+## Project plan (added 11 Nov 2026)
+- Full plan: `docs/PROJECT_PLAN.md` (milestones, scope, stack, budget, 43 tasks, risks).
+- Tracker: Google Sheet tab "Kế hoạch dự án" (status dropdown; overdue rows turn red).
+- Targets: Alpha (web) Fri 15 Jan 2027; Beta Android/iOS/PC Fri 26 Feb 2027; Tết buffer 4–14 Feb.
+- Next task: T01 (PO confirms stack/scope) → T02 GDD + T03 game skeleton.
+- PO is sketching sprites on iPad directly in the board PDF.
