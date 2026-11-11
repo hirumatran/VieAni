@@ -64,10 +64,10 @@ push to a page set to *Private*; we keep the page as *Draft/Restricted* until al
 | **M0** | **Milestone** | **M0 – empty board online** | **Both** | **22 Nov 2026** | **22 Nov 2026** | **T04** |  |
 | T09 | P1 Battle core | Board 8×8 + bench, drag-drop with mouse and touch | Claude | 23 Nov 2026 | 29 Nov 2026 | T03 | Units placed and saved per round |
 | T10 | P1 Battle core | Deterministic combat sim: move, target, attack speed, range, damage = stats × type chart × Legendary rule | Claude | 23 Nov 2026 | 04 Dec 2026 | T02 | Same seed → same result; unit tests |
-| T11 | P1 Battle core | Energy + skill framework: ~12 skill templates (damage, AoE, heal, buff, debuff, stun, summon, revive, transform…) | Claude | 01 Dec 2026 | 09 Dec 2026 | T10 | All 108 Vinmon cast a skill |
+| T11 | P1 Battle core | Energy + skill framework: ~12 skill templates (damage, AoE, heal, buff, debuff, stun, summon, revive, transform…) | Claude | 01 Dec 2026 | 09 Dec 2026 | T10 | All 108 VieAni cast a skill |
 | T12 | P1 Battle core | Status effects from mechanics.json (Dại, Độc, Bỏng, Choáng, Trói, Bay…) | Claude | 03 Dec 2026 | 09 Dec 2026 | T10 | Each effect has a test |
 | T13 | P1 Battle core | Thiên địch target priority and Cộng sinh bonuses (relations.json) | Claude | 07 Dec 2026 | 11 Dec 2026 | T10 |  |
-| T14 | P1 Battle core | Headless simulator + balance report (1,000s of fights → win rate per Vinmon) | Claude | 07 Dec 2026 | 13 Dec 2026 | T11 | Report CSV/HTML |
+| T14 | P1 Battle core | Headless simulator + balance report (1,000s of fights → win rate per VieAni) | Claude | 07 Dec 2026 | 13 Dec 2026 | T11 | Report CSV/HTML |
 | **M1** | **Milestone** | **M1 – two teams fight in the browser with skills** | **Both** | **13 Dec 2026** | **13 Dec 2026** | **T11,T12** |  |
 | T15 | P2 Game loop | Pixelize sketch batch 1 → sprites in game; PO clean-up | Both | 14 Dec 2026 | 20 Dec 2026 | T08 |  |
 | T16 | P2 Game loop | Economy: gold, interest, streaks, XP/levels, shop 5 slots with tier odds, roll/lock | Claude | 14 Dec 2026 | 20 Dec 2026 | T02 |  |

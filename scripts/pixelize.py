@@ -9,7 +9,7 @@ Steps:
   2. Crop to the subject and fit it, bottom-centred, inside the sprite with a
      1px margin for the outline.
   3. Shrink with area averaging (keeps thin pencil lines better than nearest).
-  4. Map every pixel to the shared palette (assets/palette/vinmon.hex) and keep
+  4. Map every pixel to the shared palette (assets/palette/vieani.hex) and keep
      only the --colors most used palette colours.
   5. Remove stray single pixels and fill pinholes.
   6. Add the dark 1px outline used by all VieAni sprites.
@@ -32,7 +32,7 @@ import numpy as np
 from PIL import Image
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-PALETTE = ROOT / "assets/palette/vinmon.hex"
+PALETTE = ROOT / "assets/palette/vieani.hex"
 CUSTOM = ROOT / "assets/sprites/custom"
 
 

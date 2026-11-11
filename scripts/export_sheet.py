@@ -2,7 +2,7 @@
 
     python3 scripts/export_sheet.py OUT_DIR
 
-Writes vinmon.json (tab VieAni, B1:W), toc_he.json (tab Tộc hệ, A1:E) and
+Writes vieani.json (tab VieAni, B1:W), toc_he.json (tab Tộc hệ, A1:E) and
 quan_he.json (tab Thiên địch & Cộng sinh, A1:G). Column A (ID) and Q (Tổng)
 are formulas in the sheet, so they are left out (Q is null = skipped).
 """
@@ -45,7 +45,7 @@ def main(out):
         b = f"Mọi VieAni hệ {TV[r['bType']]}" if r.get("bType") else names(r["b"])
         eff = r["effect"] + (f" (tầm đánh: {r['range']})" if r.get("range") and "vô hạn" not in r["effect"] else "")
         qh.append([r["kind"], names(r["a"]), b, r["mult"], eff, r["basis"], r.get("src", "")])
-    for n, obj in (("vinmon.json", rows), ("toc_he.json", toc), ("quan_he.json", qh)):
+    for n, obj in (("vieani.json", rows), ("toc_he.json", toc), ("quan_he.json", qh)):
         (out / n).write_text(json.dumps(obj, ensure_ascii=False), encoding="utf-8")
     print("rows:", len(rows), "synergies:", len(toc) - 1, "relations:", len(qh) - 1)
 

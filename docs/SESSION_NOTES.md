@@ -15,7 +15,7 @@ Start the next session with this repo selected and ask Claude to read this file.
 | `vieindex.html` | Built page – open in a browser. Rebuild after any data change |
 | `assets/sprites/<id>.png` | Draft 32×32 sprites drawn by `scripts/sprites.py` |
 | `assets/sprites/custom/<id>.png` | Your own sprites; override the drawn ones and are never overwritten |
-| `assets/palette/vinmon.{gpl,hex,png}` | Shared 32-colour palette (load `.gpl` in Aseprite / Pixelorama) |
+| `assets/palette/vieani.{gpl,hex,png}` | Shared 32-colour palette (load `.gpl` in Aseprite / Pixelorama) |
 
 ## Commands
 
@@ -57,7 +57,7 @@ anywhere). `scripts/expand_roster.py` holds the added data; `scripts/export_shee
 
 ## Google Sheet (design master for editing)
 
-"VieAni – Dữ liệu game" (formerly "Vindex – Dữ liệu Vinmon") in the user's Google Drive (created 11/11/2026), 4 tabs:
+"VieIndex – Dữ liệu VieAni" in the user's Google Drive (created 11/11/2026), 4 tabs:
 VieAni (auto ID V001…, Vietnamese types, tier, 2 synergy columns, stats, auto total, stat basis),
 Bảng khắc hệ (editable type matrix + Legendary ×1.25/×0.75 + quick lookup),
 Thiên địch & Cộng sinh, Tộc hệ (member list/count auto-updates).
@@ -110,6 +110,9 @@ back into `data/*.json` before rebuilding the page.
   - 29 unit tests.
 - Next: T11 skill templates + T12 status effects (→ M1), T13 Cộng sinh, T14 balance report.
 - PO is sketching sprites on iPad directly in the board PDF.
+
+## Naming rule (PO, 11 Nov 2026)
+- Always **VieAni** (never Vinmon) and **VieIndex** (never Vindex) – in code, data, file names, docs, sheet and Drive. Only the rename-history notes keep the old names. The local checkout folder and the cloud environment are still called "vinmon" (outside the repo).
 
 ## Branch rule (PO, 11 Nov 2026)
 - **All work happens on `main`** (repo hirumatran/VieAni). The old branch `claude/vibrant-feynman-rjzlhw` was merged into main and is no longer used. Pushes to main auto-publish to itch.io.

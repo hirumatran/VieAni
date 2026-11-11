@@ -5,7 +5,7 @@
 - **Pose:** 3/4 front view facing left (like Pokémon Gen 4–5 battle sprites). Keep the
   same pose and ground line for every VieAni so the roster looks like one set.
 - **1px dark outline**, light from top-left, max ~16 colours per sprite from the shared
-  palette `assets/palette/vinmon.gpl`.
+  palette `assets/palette/vieani.gpl`.
 - **Read at 1×:** if you cannot recognise it at 64×64, simplify (silhouette + 2–3 key marks).
 
 ## Fastest route: draw ~30 base bodies, not 108 sprites
