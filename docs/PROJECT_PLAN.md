@@ -81,6 +81,7 @@ push to a page set to *Private*; we keep the page as *Draft/Restricted* until al
 | **M2** | **Milestone** | **M2 – full match playable start to finish vs bots** | **Both** | **03 Jan 2027** | **03 Jan 2027** | **T16-T21** |  |
 | T24 | P3 Alpha polish | Vietnamese UI: HUD, shop, synergy panel, tooltips, VieIndex inside the game | Claude | 04 Jan 2027 | 10 Jan 2027 | M2 |  |
 | T25 | P3 Alpha polish | Audio: CC0/CC-BY SFX and music, with credits | Claude | 06 Jan 2027 | 10 Jan 2027 |  |  |
+| T44 | P3 Alpha polish | 8 battle backgrounds (Vietnamese landscapes, pixel art, `data/backgrounds.json`) | Both | 04 Jan 2027 | 12 Jan 2027 |  | Random background each battle |
 | T26 | P3 Alpha polish | First-game tutorial | Claude | 08 Jan 2027 | 12 Jan 2027 | T24 |  |
 | T27 | P3 Alpha polish | Balance pass 1 using the simulator; PO playtests | Both | 06 Jan 2027 | 13 Jan 2027 | T14 |  |
 | T28 | P3 Alpha polish | Import sketch batch 2 sprites | Both | 04 Jan 2027 | 10 Jan 2027 | T23 |  |

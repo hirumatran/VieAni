@@ -1,0 +1,68 @@
+{
+ "note": "Battle backgrounds (GDD §9). Drawn from scratch as pixel art; one picked at random per battle. 'vieani' = VieAni linked to the place (for flavour text / future bonuses).",
+ "backgrounds": [
+  {
+   "id": "ha_long",
+   "vi": "Vịnh Hạ Long",
+   "feature": "Biển với hàng nghìn đảo đá vôi; Di sản thiên nhiên thế giới UNESCO (1994). Tên gọi gắn với truyền thuyết rồng hạ xuống giữ nước.",
+   "vieani": [
+    1
+   ]
+  },
+  {
+   "id": "phong_nha",
+   "vi": "Phong Nha – Kẻ Bàng",
+   "feature": "Vùng núi đá vôi với hệ thống hang động lớn, trong đó có hang Sơn Đoòng; Di sản thiên nhiên thế giới UNESCO (2003).",
+   "vieani": []
+  },
+  {
+   "id": "nam_cat_tien",
+   "vi": "Vườn quốc gia Nam Cát Tiên",
+   "feature": "Rừng nhiệt đới đất thấp; nơi cá thể tê giác Java cuối cùng của Việt Nam bị giết năm 2010; đầm Bàu Sấu có cá sấu Xiêm được tái thả.",
+   "vieani": [
+    14,
+    31
+   ]
+  },
+  {
+   "id": "mu_cang_chai",
+   "vi": "Ruộng bậc thang Mù Cang Chải",
+   "feature": "Ruộng lúa bậc thang của đồng bào H'Mông trên sườn núi Tây Bắc.",
+   "vieani": [
+    67
+   ]
+  },
+  {
+   "id": "hoan_kiem",
+   "vi": "Hồ Hoàn Kiếm",
+   "feature": "Hồ giữa Hà Nội gắn với truyền thuyết trả gươm cho Rùa Vàng; nơi sống của cá thể rùa Hồ Gươm cuối cùng (mất năm 2016).",
+   "vieani": [
+    19,
+    3
+   ]
+  },
+  {
+   "id": "trang_an",
+   "vi": "Tràng An",
+   "feature": "Quần thể núi đá vôi, sông và hang động ở Ninh Bình; Di sản hỗn hợp văn hóa và thiên nhiên UNESCO (2014).",
+   "vieani": []
+  },
+  {
+   "id": "tram_chim",
+   "vi": "Tràm Chim (Đồng Tháp)",
+   "feature": "Vùng đất ngập nước Đồng Tháp Mười; nơi sếu đầu đỏ về trú đông.",
+   "vieani": [
+    45
+   ]
+  },
+  {
+   "id": "con_dao",
+   "vi": "Côn Đảo",
+   "feature": "Quần đảo có bãi đẻ của rùa biển và thảm cỏ biển – nơi hiếm hoi ở Việt Nam còn bò biển.",
+   "vieani": [
+    49,
+    34
+   ]
+  }
+ ]
+}

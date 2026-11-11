@@ -19,3 +19,15 @@ describe("game data", () => {
     expect(typeMultiplier(d, "Fire", ["Legendary"], ["Legendary"])).toBeCloseTo(0.9375);
   });
 });
+
+import backgrounds from "../../data/backgrounds.json";
+describe("backgrounds", () => {
+  it("has 8 battle backgrounds linked to existing VieAni", () => {
+    expect(backgrounds.backgrounds.length).toBe(8);
+    for (const b of backgrounds.backgrounds) for (const id of b.vieani) expect(d.byId.has(id)).toBe(true);
+  });
+  it("every zodiac sign has at least one VieAni (level 12 = full Con Giáp)", () => {
+    const signs = new Set(d.species.map((s) => s.zodiac).filter(Boolean));
+    expect(signs.size).toBe(12);
+  });
+});

@@ -1,6 +1,6 @@
 # VieAni – Game Design Document v1 (draft for PO review)
 
-Status: **draft v1, 11 Nov 2026** – every number below is a starting value for balancing. They
+Status: **v1.1, 11 Nov 2026 – PO review applied** – every number below is a starting value for balancing. They
 all live in one file, `game/src/core/config.ts`, so changing a number never needs code changes.
 Data (VieAni, types, synergies, items, relations, effects) comes from `data/*.json` and the Google Sheet.
 
@@ -13,10 +13,10 @@ board, and watch them fight. Win by being the last of 8 players standing.
 |---|---|
 | Players | 8: you + 7 AI opponents (bots) – alpha and beta are single player |
 | Player HP | 100; reach 0 = eliminated; last one alive wins (rank 1–8) |
-| Typical length | ~30–35 rounds, 15-20 minutes |
+| Typical length | **15–20 minutes** (~25–30 rounds; tuned with the balance simulator, see §6.5) |
 | Board | Battle grid 8 columns × 8 rows; each player owns their half (8 × 4) |
 | Bench | 8 slots (units waiting, do not fight) |
-| Units on board | = player level (1–10) |
+| Units on board | = player level (**1–12**; level 12 allows a full 12 Con Giáp team) |
 
 ### Round flow
 1. **Prep phase – 15 s** (single player: can also press "Sẵn sàng" to start early).
@@ -40,9 +40,9 @@ Item tier by round: R1–3 → tier 1, R9 → tier 2, R15 → tier 3, R21 → ti
 ## 3. Economy
 | Rule | Value |
 |---|---|
-| Starting gold | 5 |
+| Starting gold | **5** |
 | Base income after each round | R1: +2, R2: +3, R3: +4, R4 and later: +5 |
-| Interest | +1 gold per 10 gold you have at end of round, max +3 |
+| Interest | +1 gold per 10 gold you have at end of round, **max +3** (reached at 30 gold) |
 | PvP win bonus | +1 |
 | Streak bonus (win or loss streak) | 2–3 in a row: +1; 4–5: +2; 6+: +3 |
 | Reroll shop | 2 gold |
@@ -53,10 +53,13 @@ Item tier by round: R1–3 → tier 1, R9 → tier 2, R15 → tier 3, R21 → ti
 | Sell | full refund of the gold spent on it (★2 of a tier-1 = 3 gold) |
 
 ### Levels (XP needed to reach the next level)
-| Level | 1→2 | 2→3 | 3→4 | 4→5 | 5→6 | 6→7 | 7→8 | 8→9 | 9→10 |
-|---|---|---|---|---|---|---|---|---|---|
-| XP | 1 | 2 | 6 | 10 | 20 | 36 | 56 | 80 | 100 |
-### Make it upto level 12, I want it so we can have a full set of zodiac on board
+| Level | 1→2 | 2→3 | 3→4 | 4→5 | 5→6 | 6→7 | 7→8 | 8→9 | 9→10 | 10→11 | 11→12 |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| XP | 1 | 2 | 6 | 10 | 20 | 36 | 56 | 80 | 100 | 130 | 160 |
+
+**Max level 12** so a player can field all 12 Con Giáp at once (PO decision). Every zodiac sign has
+at least one VieAni in the data; the rarest are Dần (only Hổ Đông Dương, tier 4) and Thìn (only
+Rồng Lạc Việt, tier 5), so the full set is a late-game goal.
 
 ## 4. Shop
 - 5 slots, refreshed for free every round (unless locked).
@@ -82,6 +85,8 @@ Item tier by round: R1–3 → tier 1, R9 → tier 2, R15 → tier 3, R21 → ti
 | 8 | 12 | 20 | 35 | 25 | 8 |
 | 9 | 8 | 15 | 30 | 32 | 15 |
 | 10 | 5 | 10 | 25 | 35 | 25 |
+| 11 | 3 | 8 | 22 | 37 | 30 |
+| 12 | 2 | 6 | 20 | 37 | 35 |
 
 Note for PO: tier 2 has only 14 species but tier 3 has 33, so a given tier-2 VieAni turns up
 more often than a given tier-3 one. That is fine (tier 2 = easy early ★2), but keep it in mind
@@ -149,7 +154,7 @@ Stage damage: rounds 1–10 → 1, 11–20 → 3, 21–30 → 5, 31+ → 8.
 | Bot | Style |
 |---|---|
 | Thợ Săn | Picks one synergy early and commits to it |
-| Nhà Buôn | Saves gold for maximum interest, levels late build up with multiple 3 stars low tier |
+| Nhà Buôn | Saves gold for maximum interest, levels late; builds a team of several ★3 low-tier VieAni |
 | Liều Lĩnh | Rerolls a lot to get ★2/★3 early |
 | Huyền Thoại | Levels fast, aims for tier-5 Legendary units |
 | Bầy Đàn | Plays the pet packs (Chó, Mèo, Gà) |
@@ -161,12 +166,30 @@ Difficulty (Dễ / Thường / Khó) changes how well bots place units and use i
 Title → Match (board, bench, shop, synergy list, player list with HP, inventory) → Result/ranking.
 Plus: VieIndex (encyclopedia) and Settings (sound, speed ×1/×2, language later).
 UI language: Vietnamese (English toggle in beta).
-Background for battle ground: famous scenes of Vietnam like: Vịnh Hạ Long, Phong Nha Kẻ Bàng, Rừng Quốc Gia Nam Cát Tiên, etc... randomly upto 8 backgrounds
+
+### Battle backgrounds (PO request)
+Each battle picks one of **8 famous Vietnamese landscapes** at random, drawn as pixel art in the
+same palette as the sprites (list and notes in `data/backgrounds.json`):
+Vịnh Hạ Long, Phong Nha – Kẻ Bàng, Vườn quốc gia Nam Cát Tiên, Ruộng bậc thang Mù Cang Chải,
+Hồ Hoàn Kiếm, Tràng An, Tràm Chim (Đồng Tháp), Côn Đảo.
+Backgrounds are drawn from scratch (photos only as reference), so there are no licence limits.
 
 ## 10. Out of scope for alpha/beta
 Online multiplayer, accounts, payments, ads, leaderboards, native store apps.
 
-## 11. Questions for the PO
-1. Board 8 × 8 with 8 players (like Underlords/TFT) – OK, or smaller (6 players) for shorter games? 8x8 with 8 players are okay
-2. 1 item per unit (simple) – OK? Underlords also uses 1. 1 item per unit is okay
-4. Should the time limit (45 s draw) instead give the win to the side with more total HP left? Draw is okay
+## 11. PO decisions (review 11 Nov 2026)
+| Question | Decision |
+|---|---|
+| Board size / players | 8 × 8 board, 8 players |
+| Items per unit | 1 item per VieAni |
+| Battle time limit | 45 s, then **draw**: both players take damage |
+| Prep time | 15 s |
+| Starting gold / interest cap | 5 gold / max +3 |
+| Max level | 12 (full 12 Con Giáp) |
+| Match length | 15–20 minutes |
+
+### Open points (Claude suggestions – reply if you agree)
+1. **15 s prep is short for new players**, especially on a phone. Suggest a setting "Thư thả"
+   (relaxed: no prep timer, the round starts when you press Sẵn sàng), on by default for the first match.
+2. **15–20 minute matches:** 15 s prep + ~20 s battle + 3 s result ≈ 38 s per round, so ~25–30
+   rounds. If the simulator shows longer games, raise the stage damage in §6.5 rather than shorten battles.
