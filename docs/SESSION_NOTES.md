@@ -99,5 +99,6 @@ back into `data/*.json` before rebuilding the page.
 - First Gemini background from PO: `assets/backgrounds/painted/bg_ha_long.webp` (1365×768, has Gemini ✦ mark bottom-right). Board on it, Underlords-style camera: `scripts/board_overlay.py BG OUT --units` (board corners + bench in 1280×720 screen px = numbers for the game).
 - T04 (11 Nov): itch.io page https://hirumatran.itch.io/vieani (PO created, HTML/Draft). Workflow `.github/workflows/itch.yml` builds `game/` and pushes `game/dist` with butler to `hirumatran/vieani:html5` on every push to main or this branch (needs secret BUTLER_API_KEY).
 - Board overlay: transparent cells, bigger board (corners 352/928 top y58, 256/1024 bottom y604; bench y632–706), sprites ×1.3 cell.
-- Next (old line kept for history): T04 itch.io deploy (PO: create game page as HTML/Draft + API key → GitHub secret BUTLER_API_KEY), then T09 board drag-drop + T10 combat sim.
+- T04 done 11 Nov: first successful butler upload (run 3). PO to tick "played in the browser" + embed 720×800 on itch edit page.
+- Next: T09 board drag-drop + T10 combat sim; decide landscape 16:9 switch (PO leaning yes).
 - PO is sketching sprites on iPad directly in the board PDF.
