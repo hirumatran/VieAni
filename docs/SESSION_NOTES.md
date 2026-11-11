@@ -100,5 +100,6 @@ back into `data/*.json` before rebuilding the page.
 - T04 (11 Nov): itch.io page https://hirumatran.itch.io/vieani (PO created, HTML/Draft). Workflow `.github/workflows/itch.yml` builds `game/` and pushes `game/dist` with butler to `hirumatran/vieani:html5` on every push to main or this branch (needs secret BUTLER_API_KEY).
 - Board overlay: transparent cells, bigger board (corners 352/928 top y58, 256/1024 bottom y604; bench y632–706), sprites ×1.3 cell.
 - T04 done 11 Nov: first successful butler upload (run 3). PO to tick "played in the browser" + embed 720×800 on itch edit page.
-- Next: T09 board drag-drop + T10 combat sim; decide landscape 16:9 switch (PO leaning yes).
+- v0.2.0 (11 Nov): game switched to landscape 16:9 (1280×720). `game/src/core/layout.ts` = board/bench corners + homography (perspective grid); BoardScene draws the painted background, transparent cells and bench. itch embed must be 1280×720.
+- Next: T09 board drag-drop + T10 combat sim.
 - PO is sketching sprites on iPad directly in the board PDF.

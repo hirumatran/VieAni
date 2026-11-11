@@ -15,6 +15,7 @@ board, and watch them fight. Win by being the last of 8 players standing.
 | Player HP | 100; reach 0 = eliminated; last one alive wins (rank 1–8) |
 | Typical length | **15–20 minutes** (~25–30 rounds; tuned with the balance simulator, see §6.5) |
 | Board | Battle grid 8 columns × 8 rows; each player owns their half (8 × 4) |
+| Screen | **Landscape 16:9, 1280 × 720** (PO decision 11 Nov). Underlords-style camera: high angle, mild perspective, transparent cells over a painted background; scales to any screen |
 | Bench | 8 slots (units waiting, do not fight) |
 | Units on board | = player level (**1–12**; level 12 allows a full 12 Con Giáp team) |
 

@@ -1,24 +1,26 @@
 import Phaser from "phaser";
 import { BENCH_SLOTS, BOARD_COLS, BOARD_ROWS, HALF_ROWS, VERSION } from "../core/config";
 import type { GameData, Species } from "../core/data";
+import { BACKGROUNDS, BENCH_CORNERS, BOARD_CORNERS, Grid, SCREEN_H, SCREEN_W, type Pt } from "../core/layout";
 
-const CELL = 64;
-const COLORS = {
-  bg: 0x1b120c,
-  enemyCell: [0x3a2a1f, 0x33251b],
-  ownCell: [0x5b7a3a, 0x52703a],
-  bench: 0x2c1f16,
-  line: 0x8c1c13,
-  text: "#fbe9c4",
-};
+const ENEMY_TINT = 0x96e6dc;
+const OWN_TINT = 0xffd68c;
+const TEXT = "#fbe9c4";
 
-/** M0 scene: empty 8×8 battle board, bench, title. Shows a few VieAni on the bench to prove sprites load. */
+/** Battle screen (landscape 16:9): painted background, transparent perspective board, bench. */
 export class BoardScene extends Phaser.Scene {
+  private board = new Grid(BOARD_CORNERS, BOARD_COLS, BOARD_ROWS);
+  private bench = new Grid(BENCH_CORNERS, BENCH_SLOTS, 1);
+  private bgKey = "";
+
   constructor(private data_: GameData) {
     super("board");
   }
 
   preload() {
+    const bg = BACKGROUNDS[Math.floor(Math.random() * BACKGROUNDS.length)];
+    this.bgKey = "bg:" + bg;
+    this.load.image(this.bgKey, bg);
     for (const s of this.sample()) this.load.image(`sp${s.id}`, `sprites/${String(s.id).padStart(2, "0")}.png`);
   }
 
@@ -28,35 +30,42 @@ export class BoardScene extends Phaser.Scene {
   }
 
   create() {
-    const w = BOARD_COLS * CELL;
-    const x0 = (this.scale.width - w) / 2;
-    const y0 = 70;
-    this.add.text(this.scale.width / 2, 24, "VieAni", { fontFamily: "sans-serif", fontSize: "32px", color: COLORS.text, fontStyle: "bold" }).setOrigin(0.5);
-    this.add.text(this.scale.width - 8, 8, `v${VERSION}`, { fontFamily: "sans-serif", fontSize: "12px", color: COLORS.text }).setOrigin(1, 0);
+    const bg = this.add.image(SCREEN_W / 2, SCREEN_H / 2, this.bgKey);
+    bg.setScale(Math.max(SCREEN_W / bg.width, SCREEN_H / bg.height)); // cover the screen
+    bg.texture.setFilter(Phaser.Textures.FilterMode.LINEAR); // painted background: smooth scaling
 
-    for (let r = 0; r < BOARD_ROWS; r++) {
-      const own = r >= BOARD_ROWS - HALF_ROWS;
+    const g = this.add.graphics();
+    for (let r = 0; r < BOARD_ROWS; r++)
       for (let c = 0; c < BOARD_COLS; c++) {
-        const col = (own ? COLORS.ownCell : COLORS.enemyCell)[(r + c) % 2];
-        this.add.rectangle(x0 + c * CELL + CELL / 2, y0 + r * CELL + CELL / 2, CELL, CELL, col);
+        const own = r >= BOARD_ROWS - HALF_ROWS;
+        const tint = own ? OWN_TINT : ENEMY_TINT;
+        this.cell(g, this.board.cellQuad(r, c), tint, (r + c) % 2 === 0 ? 0.24 : 0.13);
       }
-    }
-    this.add.rectangle(x0 + w / 2, y0 + HALF_ROWS * CELL, w, 3, COLORS.line);
+    for (let i = 0; i < BENCH_SLOTS; i++) this.cell(g, this.bench.cellQuad(0, i, 0.04), OWN_TINT, 0.16);
 
-    const by = y0 + BOARD_ROWS * CELL + 16;
-    this.add.text(x0, by, "Hàng chờ", { fontFamily: "sans-serif", fontSize: "14px", color: COLORS.text });
-    for (let i = 0; i < BENCH_SLOTS; i++)
-      this.add.rectangle(x0 + i * CELL + CELL / 2, by + 20 + CELL / 2, CELL - 4, CELL - 4, COLORS.bench).setStrokeStyle(1, 0x7a6656);
-
+    // sample VieAni on the bench (pixel sprites stay crisp)
     this.sample().forEach((s, i) => {
-      this.add.image(x0 + i * CELL + CELL / 2, by + 20 + CELL / 2, `sp${s.id}`).setDisplaySize(CELL - 8, CELL - 8);
+      const [x, y] = this.bench.foot(0, i);
+      const w = this.bench.cellWidth(0, i) * 1.15;
+      this.add.ellipse(x, y, w * 0.6, w * 0.16, 0x281e14, 0.45);
+      this.add.image(x, y + w * 0.05, `sp${s.id}`).setOrigin(0.5, 0.95).setDisplaySize(w, w);
     });
+
+    this.add.text(16, 12, "VieAni", { fontFamily: "sans-serif", fontSize: "26px", color: TEXT, fontStyle: "bold" }).setShadow(2, 2, "#000", 4);
+    this.add.text(SCREEN_W - 12, 10, `v${VERSION}`, { fontFamily: "sans-serif", fontSize: "13px", color: TEXT }).setOrigin(1, 0).setShadow(1, 1, "#000", 2);
     this.add
-      .text(this.scale.width / 2, by + CELL + 40, `${this.data_.species.length} VieAni · ${this.data_.synergies.length} tộc hệ · ${this.data_.items.length} vật phẩm`, {
+      .text(16, SCREEN_H - 14, `${this.data_.species.length} VieAni · ${this.data_.synergies.length} tộc hệ · ${this.data_.items.length} vật phẩm`, {
         fontFamily: "sans-serif",
         fontSize: "14px",
-        color: COLORS.text,
+        color: TEXT,
       })
-      .setOrigin(0.5);
+      .setOrigin(0, 1)
+      .setShadow(1, 1, "#000", 3);
+  }
+
+  private cell(g: Phaser.GameObjects.Graphics, quad: Pt[], tint: number, alpha: number) {
+    const pts = quad.map(([x, y]) => new Phaser.Math.Vector2(x, y));
+    g.fillStyle(tint, alpha).fillPoints(pts, true);
+    g.lineStyle(2, tint, 0.8).strokePoints(pts, true);
   }
 }

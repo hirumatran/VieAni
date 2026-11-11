@@ -1,6 +1,7 @@
 import Phaser from "phaser";
 import { loadData, validate } from "./core/data";
 import { BoardScene } from "./scenes/BoardScene";
+import { SCREEN_H, SCREEN_W } from "./core/layout";
 
 const data = loadData();
 const problems = validate(data);
@@ -11,7 +12,7 @@ const game = new Phaser.Game({
   parent: "game",
   backgroundColor: "#1b120c",
   pixelArt: true,
-  scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH, width: 720, height: 800 },
+  scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH, width: SCREEN_W, height: SCREEN_H },
   scene: [new BoardScene(data)],
 });
 (window as unknown as { __game: Phaser.Game }).__game = game;
