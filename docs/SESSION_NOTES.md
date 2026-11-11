@@ -94,5 +94,6 @@ back into `data/*.json` before rebuilding the page.
 - T03 done (11 Nov): `game/` = Vite + TypeScript + Phaser 4.2.1, Vitest (9 tests pass), `npm run build` OK.
   Board scene shows the 8×8 board + bench + 5 sprites. Assets served from `../assets` (publicDir), base "./" for itch.io.
   Phone portrait is small – landscape/phone layout is T33.
+- T44 started (11 Nov): procedural pixel-art drafts of the 8 backgrounds – `scripts/draft_backgrounds.py` → `assets/backgrounds/<id>.png` (180×200, game scales ×4) + own palette `assets/palette/backgrounds.hex`. Not yet shown in the game.
 - Next: T04 itch.io deploy (PO: create game page as HTML/Draft + API key → GitHub secret BUTLER_API_KEY), then T09 board drag-drop + T10 combat sim.
 - PO is sketching sprites on iPad directly in the board PDF.
