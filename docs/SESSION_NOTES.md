@@ -111,6 +111,9 @@ back into `data/*.json` before rebuilding the page.
 - Next: T11 skill templates + T12 status effects (→ M1), T13 Cộng sinh, T14 balance report.
 - PO is sketching sprites on iPad directly in the board PDF.
 
+## Branch rule (PO, 11 Nov 2026)
+- **All work happens on `main`** (repo hirumatran/VieAni). The old branch `claude/vibrant-feynman-rjzlhw` was merged into main and is no longer used. Pushes to main auto-publish to itch.io.
+
 ## End of day 11 Nov 2026 – where we are
 - Google Sheet renamed **"VieIndex – Dữ liệu VieAni"** (https://docs.google.com/spreadsheets/d/1VaVYNbxFFHY_s3qoXF0eDwNFNCJEpNgc2Es8LBGtsGU/edit).
   New tabs: **Luật chơi** (all GDD numbers, XP table, shop odds with sum check, pool copies) and **Bối cảnh** (8 backgrounds + image status).

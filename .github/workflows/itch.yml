@@ -4,7 +4,7 @@ name: Publish to itch.io
 
 on:
   push:
-    branches: [main, claude/vibrant-feynman-rjzlhw]
+    branches: [main]
     paths: ["game/**", "data/**", "assets/**", ".github/workflows/itch.yml"]
   workflow_dispatch:
 
