@@ -13,13 +13,13 @@ board, and watch them fight. Win by being the last of 8 players standing.
 |---|---|
 | Players | 8: you + 7 AI opponents (bots) – alpha and beta are single player |
 | Player HP | 100; reach 0 = eliminated; last one alive wins (rank 1–8) |
-| Typical length | ~30–35 rounds, 20–30 minutes |
+| Typical length | ~30–35 rounds, 15-20 minutes |
 | Board | Battle grid 8 columns × 8 rows; each player owns their half (8 × 4) |
 | Bench | 8 slots (units waiting, do not fight) |
 | Units on board | = player level (1–10) |
 
 ### Round flow
-1. **Prep phase – 30 s** (single player: can also press "Sẵn sàng" to start early).
+1. **Prep phase – 15 s** (single player: can also press "Sẵn sàng" to start early).
    Buy/sell VieAni, reroll the shop, buy XP, place units, equip items.
 2. **Battle phase – max 45 s.** Fully automatic. The opponent's team is mirrored onto the top half.
 3. **Result – 3 s.** Loser takes damage; gold is paid; next round.
@@ -40,9 +40,9 @@ Item tier by round: R1–3 → tier 1, R9 → tier 2, R15 → tier 3, R21 → ti
 ## 3. Economy
 | Rule | Value |
 |---|---|
-| Starting gold | 2 |
+| Starting gold | 5 |
 | Base income after each round | R1: +2, R2: +3, R3: +4, R4 and later: +5 |
-| Interest | +1 gold per 10 gold you have at end of round, max +5 |
+| Interest | +1 gold per 10 gold you have at end of round, max +3 |
 | PvP win bonus | +1 |
 | Streak bonus (win or loss streak) | 2–3 in a row: +1; 4–5: +2; 6+: +3 |
 | Reroll shop | 2 gold |
@@ -56,6 +56,7 @@ Item tier by round: R1–3 → tier 1, R9 → tier 2, R15 → tier 3, R21 → ti
 | Level | 1→2 | 2→3 | 3→4 | 4→5 | 5→6 | 6→7 | 7→8 | 8→9 | 9→10 |
 |---|---|---|---|---|---|---|---|---|---|
 | XP | 1 | 2 | 6 | 10 | 20 | 36 | 56 | 80 | 100 |
+### Make it upto level 12, I want it so we can have a full set of zodiac on board
 
 ## 4. Shop
 - 5 slots, refreshed for free every round (unless locked).
@@ -148,7 +149,7 @@ Stage damage: rounds 1–10 → 1, 11–20 → 3, 21–30 → 5, 31+ → 8.
 | Bot | Style |
 |---|---|
 | Thợ Săn | Picks one synergy early and commits to it |
-| Nhà Buôn | Saves gold for maximum interest, levels late |
+| Nhà Buôn | Saves gold for maximum interest, levels late build up with multiple 3 stars low tier |
 | Liều Lĩnh | Rerolls a lot to get ★2/★3 early |
 | Huyền Thoại | Levels fast, aims for tier-5 Legendary units |
 | Bầy Đàn | Plays the pet packs (Chó, Mèo, Gà) |
@@ -160,11 +161,12 @@ Difficulty (Dễ / Thường / Khó) changes how well bots place units and use i
 Title → Match (board, bench, shop, synergy list, player list with HP, inventory) → Result/ranking.
 Plus: VieIndex (encyclopedia) and Settings (sound, speed ×1/×2, language later).
 UI language: Vietnamese (English toggle in beta).
+Background for battle ground: famous scenes of Vietnam like: Vịnh Hạ Long, Phong Nha Kẻ Bàng, Rừng Quốc Gia Nam Cát Tiên, etc... randomly upto 8 backgrounds
 
 ## 10. Out of scope for alpha/beta
 Online multiplayer, accounts, payments, ads, leaderboards, native store apps.
 
 ## 11. Questions for the PO
-1. Board 8 × 8 with 8 players (like Underlords/TFT) – OK, or smaller (6 players) for shorter games?
-2. 1 item per unit (simple) – OK? Underlords also uses 1.
-3. Should the time limit (45 s draw) instead give the win to the side with more total HP left?
+1. Board 8 × 8 with 8 players (like Underlords/TFT) – OK, or smaller (6 players) for shorter games? 8x8 with 8 players are okay
+2. 1 item per unit (simple) – OK? Underlords also uses 1. 1 item per unit is okay
+4. Should the time limit (45 s draw) instead give the win to the side with more total HP left? Draw is okay
