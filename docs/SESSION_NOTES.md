@@ -97,5 +97,7 @@ back into `data/*.json` before rebuilding the page.
 - T44 started (11 Nov): procedural pixel-art drafts of the 8 backgrounds – `scripts/draft_backgrounds.py` → `assets/backgrounds/<id>.png` (180×200, game scales ×4) + own palette `assets/palette/backgrounds.hex`. Not yet shown in the game. Hạ Long v2 wide pixel version: `scripts/draft_bg_wide.py`.
 - Art direction decided: painted backgrounds (Gemini, by PO) + pixel sprites. Prompts: `docs/BACKGROUND_PROMPTS.md`. Pixel drafts = placeholders. Landscape 16:9 layout still to be confirmed by PO.
 - First Gemini background from PO: `assets/backgrounds/painted/bg_ha_long.webp` (1365×768, has Gemini ✦ mark bottom-right). Board on it, Underlords-style camera: `scripts/board_overlay.py BG OUT --units` (board corners + bench in 1280×720 screen px = numbers for the game).
-- Next: T04 itch.io deploy (PO: create game page as HTML/Draft + API key → GitHub secret BUTLER_API_KEY), then T09 board drag-drop + T10 combat sim.
+- T04 (11 Nov): itch.io page https://hirumatran.itch.io/vieani (PO created, HTML/Draft). Workflow `.github/workflows/itch.yml` builds `game/` and pushes `game/dist` with butler to `hirumatran/vieani:html5` on every push to main or this branch (needs secret BUTLER_API_KEY).
+- Board overlay: transparent cells, bigger board (corners 352/928 top y58, 256/1024 bottom y604; bench y632–706), sprites ×1.3 cell.
+- Next (old line kept for history): T04 itch.io deploy (PO: create game page as HTML/Draft + API key → GitHub secret BUTLER_API_KEY), then T09 board drag-drop + T10 combat sim.
 - PO is sketching sprites on iPad directly in the board PDF.

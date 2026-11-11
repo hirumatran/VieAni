@@ -14,9 +14,9 @@ from PIL import Image, ImageDraw, ImageFilter
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SW, SH = 1280, 720
 # board corners on screen: top-left, top-right, bottom-right, bottom-left (Underlords-like camera)
-CORNERS = [(420, 92), (860, 92), (932, 548), (348, 548)]
+CORNERS = [(352, 58), (928, 58), (1024, 604), (256, 604)]
 # bench: 8 slots on a plank in front of the board (screen coords, simple trapezoid)
-BENCH = [(352, 592), (928, 592), (944, 648), (336, 648)]
+BENCH = [(256, 632), (1024, 632), (1044, 706), (236, 706)]
 TEX = 1024  # flat board texture size (8 cells × 128 px)
 RIM = 40    # wooden rim width in the flat texture
 
@@ -98,7 +98,7 @@ def compose(bg_path, out, units=False, seed=3):
             u = RIM + (col + 0.5) * cell; v = RIM + (r + 0.62) * cell
             x, y = to_screen(u, v)
             x2, _ = to_screen(u + cell, v)
-            size = int((x2 - x) * 1.05)
+            size = int((x2 - x) * 1.3)
             sp = Image.open(ROOT / f"assets/sprites/{species[name]:02d}.png").convert("RGBA").resize((size, size), Image.NEAREST)
             if r < 4:
                 sp = sp.transpose(Image.FLIP_LEFT_RIGHT)
