@@ -950,7 +950,7 @@
    "attackClass": "special",
    "range": 3,
    "statNote": "Hồ Tinh: yêu thuật = tấn công ĐB rất cao",
-   "skill": "Biến hóa vạn trạng: khi đầy năng lượng, hóa thành bản sao của Vinmon mạnh nhất phe địch (tổng chỉ số cao nhất), giữ nguyên % máu, 1 lần mỗi vòng. Mê hoặc: khiến 1 kẻ địch tấn công đồng đội của nó 2 giây",
+   "skill": "Biến hóa vạn trạng: khi đầy năng lượng, hóa thành bản sao của VieAni mạnh nhất phe địch (tổng chỉ số cao nhất), giữ nguyên % máu, 1 lần mỗi vòng. Mê hoặc: khiến 1 kẻ địch tấn công đồng đội của nó 2 giây",
    "tier": 5,
    "story": "Theo Lĩnh Nam chích quái, Hồ Tinh là cáo chín đuôi sống hơn ngàn năm, 'biến hóa vạn trạng, khi thành người khi thành quỷ'; Lạc Long Quân dâng nước phá hang, chỗ ấy thành Hồ Tây (đầm Xác Cáo).",
    "storySrc": [
@@ -2273,7 +2273,7 @@
     "Sky"
    ],
    "body": "smallbird",
-   "skill": "Nhặt thóc giúp Tấm: mỗi 6 giây gỡ 1 hiệu ứng xấu khỏi đồng đội đang yếu nhất. Bầy sẻ: +5% Tốc độ cho mỗi Vinmon hệ Trời trên sân",
+   "skill": "Nhặt thóc giúp Tấm: mỗi 6 giây gỡ 1 hiệu ứng xấu khỏi đồng đội đang yếu nhất. Bầy sẻ: +5% Tốc độ cho mỗi VieAni hệ Trời trên sân",
    "tier": 1,
    "statNote": "Chim nhỏ: rất nhanh, yếu",
    "stats": {
@@ -3284,7 +3284,7 @@
     "Sky"
    ],
    "body": "owl",
-   "skill": "Mắt đêm: không thể bị né đòn bởi Vinmon Dạ Hành",
+   "skill": "Mắt đêm: không thể bị né đòn bởi VieAni Dạ Hành",
    "tier": 2,
    "statNote": "Cú: săn đêm, nhanh và chính xác",
    "stats": {
@@ -3372,7 +3372,7 @@
     "Ground"
    ],
    "body": "predator",
-   "skill": "Săn bầy: +10% sát thương cho mỗi Vinmon Săn Mồi khác trên sân",
+   "skill": "Săn bầy: +10% sát thương cho mỗi VieAni Săn Mồi khác trên sân",
    "tier": 3,
    "statNote": "Thú săn mồi: tấn công và tốc độ cao",
    "stats": {
@@ -3436,7 +3436,7 @@
   "Poison"
  ],
  "typeRule": "Legendary=myth; Fire=fire-breathing or fire-symbol creatures; Water=lives in rivers/sea/wetland water; Electric=thunder, storm and lightning powers; Ground=heavy land animals, diggers; Rock=karst/cave/stone; Grass=forest plant-eaters & tree-dwellers; Sky=birds & flyers; Insect=bugs; Poison=venomous/poisonous",
- "sortNote": "dex = số thứ tự trong Google Sheet (V001…): 50 Vinmon đầu theo A–Z tiếng Việt, Vinmon mới nối tiếp theo bậc rồi tên",
+ "sortNote": "dex = số thứ tự trong Google Sheet (V001…): 50 VieAni đầu theo A–Z tiếng Việt, VieAni mới nối tiếp theo bậc rồi tên",
  "typeChart": {
   "Fire": {
    "Grass": 2,

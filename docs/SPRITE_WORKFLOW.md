@@ -1,18 +1,18 @@
-# Vinmon sprite workflow (108 species, Pokémon-inspired 2D pixel art)
+# VieAni sprite workflow (108 species, Pokémon-inspired 2D pixel art)
 
 ## Target style
 - **Canvas 64×64**, transparent background, creature fills ~80% of the canvas.
 - **Pose:** 3/4 front view facing left (like Pokémon Gen 4–5 battle sprites). Keep the
-  same pose and ground line for every Vinmon so the roster looks like one set.
+  same pose and ground line for every VieAni so the roster looks like one set.
 - **1px dark outline**, light from top-left, max ~16 colours per sprite from the shared
   palette `assets/palette/vinmon.gpl`.
 - **Read at 1×:** if you cannot recognise it at 64×64, simplify (silhouette + 2–3 key marks).
 
 ## Fastest route: draw ~30 base bodies, not 108 sprites
-Most Vinmon share a body plan (see `body` / profile in `data/vindex.json`). Draw one
+Most VieAni share a body plan (see `body` / profile in `data/vindex.json`). Draw one
 base per family, then recolour and change the markings:
 
-| Base body | Vinmon that reuse it |
+| Base body | VieAni that reuse it |
 |---|---|
 | Dog | Chó Cỏ, H'Mông, Phú Quốc, Bắc Hà, Lài, Sói Đỏ |
 | Cat | Mèo Mướp, Mèo Mun, Mèo Tam Thể, Mèo Rừng (+ Báo gấm, Hổ as bigger variants) |
@@ -37,10 +37,10 @@ base per family, then recolour and change the markings:
 That turns 108 drawings into roughly 30 originals plus quick variants.
 
 ## Steps
-1. **Print** `Vindex_bang_ve_tham_khao.pdf` (photo + empty 64×64 grid per Vinmon), or open
+1. **Print** `Vindex_bang_ve_tham_khao.pdf` (photo + empty 64×64 grid per VieAni), or open
    it on a tablet. Sketch the silhouette in the grid, or draw on a tablet (Procreate,
    Krita, Ibis Paint) with the photo on a layer at 30% opacity.
-2. **Name each scan/export by Vinmon number**: `V001.png`, `V002.jpg`, … (same numbers as the
+2. **Name each scan/export by VieAni number**: `V001.png`, `V002.jpg`, … (same numbers as the
    Google Sheet). Put them in one folder (Google Drive is fine – share it with me).
 3. **I batch-convert** them:
    `python3 scripts/pixelize.py --batch sketches/ --size 64`

@@ -1,5 +1,5 @@
 {
- "note": "Kỹ năng dựa trên truyền thuyết, cổ tích, tục ngữ Việt Nam. 'skill' thay cho kỹ năng cũ của Vinmon. 'accuracy' ghi rõ phần nào là truyện gốc, phần nào là sáng tạo cho game.",
+ "note": "Kỹ năng dựa trên truyền thuyết, cổ tích, tục ngữ Việt Nam. 'skill' thay cho kỹ năng cũ của VieAni. 'accuracy' ghi rõ phần nào là truyện gốc, phần nào là sáng tạo cho game.",
  "species": {
   "75": {"skill": "Cá chép hóa rồng: sống sót 20 giây trên sân thì hóa Rồng Con (thêm hệ Huyền thoại, chỉ số ×1,5, có Bay) đến hết trận",
          "story": "Ngày 23 tháng Chạp, người Việt cúng và thả cá chép để 'cá hóa rồng' đưa ông Táo về trời; tích 'cá chép vượt Vũ Môn hóa rồng' tượng trưng cho vượt khó thành công.",
@@ -20,7 +20,7 @@
   "100": {"skill": "Rồng rắn lên mây: đứng cạnh Rồng thì được Bay. Siết chặt: trói mục tiêu 2 giây, mỗi giây −5% máu",
          "story": "Trò chơi dân gian 'Rồng rắn lên mây'.",
          "src": [["Rồng rắn lên mây", "https://vi.wikipedia.org/wiki/R%E1%BB%93ng_r%E1%BA%AFn_l%C3%AAn_m%C3%A2y"]], "accuracy": "Trò chơi gốc; cơ chế là sáng tạo"},
-  "12": {"skill": "Biến hóa vạn trạng: khi đầy năng lượng, hóa thành bản sao của Vinmon mạnh nhất phe địch (tổng chỉ số cao nhất), giữ nguyên % máu, 1 lần mỗi vòng. Mê hoặc: khiến 1 kẻ địch tấn công đồng đội của nó 2 giây",
+  "12": {"skill": "Biến hóa vạn trạng: khi đầy năng lượng, hóa thành bản sao của VieAni mạnh nhất phe địch (tổng chỉ số cao nhất), giữ nguyên % máu, 1 lần mỗi vòng. Mê hoặc: khiến 1 kẻ địch tấn công đồng đội của nó 2 giây",
          "story": "Theo Lĩnh Nam chích quái, Hồ Tinh là cáo chín đuôi sống hơn ngàn năm, 'biến hóa vạn trạng, khi thành người khi thành quỷ'; Lạc Long Quân dâng nước phá hang, chỗ ấy thành Hồ Tây (đầm Xác Cáo).",
          "src": [["Hồ Tây (Wikipedia tiếng Việt)", "https://vi.wikipedia.org/wiki/H%E1%BB%93_T%C3%A2y"], ["Hồ ly tinh", "https://vi.wikipedia.org/wiki/H%E1%BB%93_ly_tinh"]], "accuracy": "Truyện gốc"},
   "10": {"skill": "Phun lửa: đốt cả một hàng kẻ địch, để lại ô 'Làng Cháy' bỏng 4 giây. Nhổ tre đánh giặc: khi máu dưới 50% (gươm gãy), đòn đánh quét cả hàng ngang và +1 tầm",
@@ -41,7 +41,7 @@
   "38": {"skill": "Voi chiến Bà Triệu: khi Voi còn trên sân, cả đội +10% Tấn công. Dậm đất: mỗi 8 giây làm choáng kẻ địch kề bên 1 giây",
          "story": "Bà Triệu ra trận mặc áo giáp vàng, đi guốc ngà, cưỡi voi trắng một ngà.",
          "src": [["Bà Triệu (Wikipedia tiếng Việt)", "https://vi.wikipedia.org/wiki/B%C3%A0_Tri%E1%BB%87u"]], "accuracy": "Truyền thuyết lịch sử"},
-  "72": {"skill": "Nhặt thóc giúp Tấm: mỗi 6 giây gỡ 1 hiệu ứng xấu khỏi đồng đội đang yếu nhất. Bầy sẻ: +5% Tốc độ cho mỗi Vinmon hệ Trời trên sân",
+  "72": {"skill": "Nhặt thóc giúp Tấm: mỗi 6 giây gỡ 1 hiệu ứng xấu khỏi đồng đội đang yếu nhất. Bầy sẻ: +5% Tốc độ cho mỗi VieAni hệ Trời trên sân",
          "story": "Trong Tấm Cám, Bụt sai đàn chim sẻ xuống nhặt riêng thóc và gạo giúp Tấm để Tấm đi xem hội.",
          "src": [["Tấm Cám (Wikipedia tiếng Việt)", "https://vi.wikipedia.org/wiki/T%E1%BA%A5m_C%C3%A1m"]], "accuracy": "Truyện gốc"},
   "77": {"skill": "Dã tràng xe cát: mỗi 8 giây đắp một ụ cát chặn đòn tầm xa cho đồng đội phía sau; ụ cát tự sụp sau 4 giây ('nhọc lòng mà chẳng nên công cán gì'). Càng kẹp: giữ chân mục tiêu 1 giây",

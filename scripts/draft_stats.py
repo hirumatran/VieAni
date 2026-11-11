@@ -5,7 +5,7 @@
 
 Stats follow Pokemon's six base stats (HP, Attack, Defense, Sp. Atk, Sp. Def,
 Speed). Each species gets a body-plan profile (how its points are split) and a
-total set by its tier, so rarer Vinmon are stronger. Edit the numbers in
+total set by its tier, so rarer VieAni are stronger. Edit the numbers in
 data/vindex.json by hand after drafting; this script won't touch them again
 without --force.
 """
@@ -34,7 +34,7 @@ SOFTENED = [["Electric", "Ground"], ["Ground", "Sky"]]
 
 # Base stat total by tier. For scale: Pokemon's fully evolved non-legendaries
 # are mostly ~450-540, pseudo-legendaries 600, most legendaries 570-680.
-# Legendary Vinmon stay at 530 because their type rule (+25% damage dealt,
+# Legendary VieAni stay at 530 because their type rule (+25% damage dealt,
 # -25% taken) already makes them trade about 1.67x better in a fight.
 BST = {1: 400, 2: 440, 3: 480, 4: 510, 5: 530}
 

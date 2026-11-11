@@ -1,9 +1,9 @@
-"""Download one reference photo per Vinmon for sketching, with license + author.
+"""Download one reference photo per VieAni for sketching, with license + author.
 
     python3 scripts/fetch_refs.py            # photos -> refs/ (git-ignored), credits -> data/ref_credits.json
 
 Sources: iNaturalist (species photos) and Wikimedia Commons (breeds, cultural
-art for legendary Vinmon). Only Creative Commons / public-domain images are
+art for legendary VieAni). Only Creative Commons / public-domain images are
 used. Photos are for drawing reference only: draw your own sprite, do not trace
 1:1 if the art will be sold, and keep the credits when sharing the board.
 """
@@ -11,7 +11,7 @@ import json, pathlib, re, sys, time, urllib.parse, urllib.request
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 OUT = ROOT / "refs"
-UA = {"User-Agent": "VinmonRefBoard/0.1 (educational game project)"}
+UA = {"User-Agent": "VieAniRefBoard/0.1 (educational game project)"}
 OK_LIC = re.compile(r"^(cc0|cc-by(-sa)?(-nc)?(-nd)?|cc-by-nc(-sa|-nd)?|pd|public domain|cc by|cc-by-sa)", re.I)
 
 # id -> ("commons", search) for breeds, cultural art and species iNaturalist lacks

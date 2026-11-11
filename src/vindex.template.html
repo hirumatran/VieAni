@@ -128,7 +128,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:0 16px 30px}
   <div class="chips" id="chips"></div>
 </div></div>
 
-<main><div class="wrap"><div class="grid" id="grid"></div><p class="empty" id="empty" hidden>Không có Vinmon phù hợp.</p></div></main>
+<main><div class="wrap"><div class="grid" id="grid"></div><p class="empty" id="empty" hidden>Không có VieAni phù hợp.</p></div></main>
 <footer>Dữ liệu và cân bằng là bản nháp – cần đối chiếu lại tình trạng IUCN trên iucnredlist.org trước khi phát hành. Hình pixel là bản vẽ nháp theo đặc điểm của từng loài.</footer>
 
 <dialog id="dlg"></dialog>
@@ -220,7 +220,7 @@ function render(){
       </div>
     </button>`).join("");
   document.getElementById("empty").hidden=list.length>0;
-  document.getElementById("count").textContent=`${list.length} / ${DATA.species.length} Vinmon`;
+  document.getElementById("count").textContent=`${list.length} / ${DATA.species.length} VieAni`;
 }
 
 const nameList = ids => ids.map(i=>BYID[i]?.vi).filter(Boolean).join(", ");
@@ -228,7 +228,7 @@ function gameInfo(s){
   const syn=(SYN_OF[s.id]||[]).map(g=>`<li><b>${esc(g.name)}</b> (${g.members.length} thành viên) – ${Object.entries(g.tiers).map(([k,v])=>`(${k}) ${esc(v)}`).join("; ")}</li>`).join("");
   const rel=DATA.relations.filter(r=>r.a.includes(s.id)||r.b.includes(s.id)||(r.bType&&s.types.includes(r.bType))).map(r=>{
     const me=r.a.includes(s.id);
-    const tgt=r.bType?`mọi Vinmon hệ ${tv(r.bType)}`:nameList(r.b);
+    const tgt=r.bType?`mọi VieAni hệ ${tv(r.bType)}`:nameList(r.b);
     const txt=r.kind==="Cộng sinh"?`Cộng sinh với ${esc(me?nameList(r.b):nameList(r.a))}: ${esc(r.effect)}`
       : me?`Thiên địch của ${esc(tgt)}: ${esc(r.effect)}`:`Bị săn bởi ${esc(nameList(r.a))} (${esc(r.effect)})`;
     return `<li>${txt}</li>`;}).join("");

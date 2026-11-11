@@ -1,4 +1,4 @@
-"""Draw 32x32 pixel sprites for every Vinmon -> assets/sprites/<id>.png
+"""Draw 32x32 pixel sprites for every VieAni -> assets/sprites/<id>.png
 
 Each sprite is drawn from the species' known look (colours, horns, crests,
 markings), side view facing left. Run: python3 scripts/sprites.py

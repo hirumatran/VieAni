@@ -1,5 +1,5 @@
 {
- "note": "Thiên địch: A ưu tiên tấn công B khi B có trên sân và gây thêm sát thương. Cộng sinh: khi cả A và B cùng trên sân, cả hai nhận hiệu ứng. Bản nháp. 'bType' = áp dụng cho mọi Vinmon thuộc hệ đó; 'range' = tầm đánh đặc biệt với mục tiêu đó.",
+ "note": "Thiên địch: A ưu tiên tấn công B khi B có trên sân và gây thêm sát thương. Cộng sinh: khi cả A và B cùng trên sân, cả hai nhận hiệu ứng. Bản nháp. 'bType' = áp dụng cho mọi VieAni thuộc hệ đó; 'range' = tầm đánh đặc biệt với mục tiêu đó.",
  "relations": [
   {
    "kind": "Thiên địch",
@@ -152,7 +152,7 @@
    "bType": "Insect",
    "mult": 1.5,
    "range": "vô hạn",
-   "effect": "Tầm đánh vô hạn với mọi Vinmon hệ Côn trùng; luôn ưu tiên bắt Côn trùng; +50% sát thương",
+   "effect": "Tầm đánh vô hạn với mọi VieAni hệ Côn trùng; luôn ưu tiên bắt Côn trùng; +50% sát thương",
    "basis": "Thạch sùng bắt muỗi, côn trùng trên tường nhà",
    "b": [],
    "src": ""

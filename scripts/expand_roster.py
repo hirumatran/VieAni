@@ -62,7 +62,7 @@ NEW = [
  (71, "Cò Trắng", "Little Egret", "Egretta garzetta", "Common", ["Sky", "Water"], "Field", "wader", None, ["Đồng Quê", "Đất Ngập Nước"], "Ít quan tâm (LC)",
   "Mổ chính xác: +30% sát thương lên cá và ếch", "'Con cò bay lả bay la' – hình ảnh quen thuộc trong ca dao và đồng ruộng Việt.", None),
  (72, "Chim Sẻ", "Eurasian Tree Sparrow", "Passer montanus", "Common", ["Sky"], "Village", "smallbird", None, ["Lông Vũ"], "Ít quan tâm (LC)",
-  "Bầy sẻ: +5% Tốc độ cho mỗi Vinmon hệ Trời trên sân", "Loài chim nhỏ quen thuộc nhất ở mái nhà, sân phơi.", None),
+  "Bầy sẻ: +5% Tốc độ cho mỗi VieAni hệ Trời trên sân", "Loài chim nhỏ quen thuộc nhất ở mái nhà, sân phơi.", None),
  (73, "Sáo Sậu", "Black-collared Starling", "Gracupica nigricollis", "Common", ["Sky"], "Field", "smallbird", None, ["Lông Vũ"], "Ít quan tâm (LC)",
   "Bắt chước: sao chép kỹ năng của kẻ địch gần nhất (1 lần mỗi trận)", "Loài sáo phổ biến ở đồng ruộng, hay được nuôi vì giọng hót và khả năng bắt chước âm thanh.", {"spa": 10, "spe": -10}),
  (74, "Cá Rô Đồng", "Climbing Perch", "Anabas testudineus", "Common", ["Water", "Ground"], "Field", "smallfish", None, ["Đồng Quê"], None,
@@ -127,14 +127,14 @@ NEW = [
  (103, "Mực", "Cuttlefish", "Sepiida", "Wild", ["Water"], "Sea", "squid", None, ["Biển Đông"], "Nhiều loài – không xếp hạng chung",
   "Phun mực: làm mù kẻ địch xung quanh 2 giây", "Phun mực đen để thoát thân, đổi màu da để ngụy trang.", None),
  (104, "Cú Mèo", "Collared Scops Owl", "Otus lettia", "Wild", ["Sky"], "Forest", "owl", None, ["Dạ Hành", "Rừng Xanh"], "Ít quan tâm (LC)",
-  "Mắt đêm: không thể bị né đòn bởi Vinmon Dạ Hành", "Loài cú nhỏ có túm lông tai, săn chuột và côn trùng về đêm.", None),
+  "Mắt đêm: không thể bị né đòn bởi VieAni Dạ Hành", "Loài cú nhỏ có túm lông tai, săn chuột và côn trùng về đêm.", None),
  (105, "Diều Hâu", "Black Kite", "Milvus migrans", "Wild", ["Sky"], "Village", "raptor", None, ["Săn Mồi"], "Ít quan tâm (LC)",
   "Sà xuống: tầm đánh vô hạn với nhóm Gà", "Loài chim săn mồi hay lượn trên làng quê; dân gian gắn diều hâu với cảnh rình bắt gà con.", None),
  (106, "Kỳ Đà", "Asian Water Monitor", "Varanus salvator", "Wild", ["Ground", "Water"], "Wetland", "monitor", None, ["Săn Mồi"], "Ít quan tâm (LC)",
   "Quất đuôi: đánh lan sang kẻ địch kề bên", "Loài thằn lằn lớn bơi giỏi, ăn cá, trứng và xác động vật.", None),
  # ---- Tier 3: threatened ----
  (107, "Sói Đỏ", "Dhole", "Cuon alpinus", "Endangered", ["Ground"], "Forest", "predator", None, ["Săn Mồi"], "Nguy cấp (EN)",
-  "Săn bầy: +10% sát thương cho mỗi Vinmon Săn Mồi khác trên sân", "Loài chó hoang săn theo bầy, còn gọi chó sói lửa; vẫn được ghi nhận ở một số rừng Việt Nam như Pù Hoạt (Nghệ An).", {"spe": 10, "hp": -10}),
+  "Săn bầy: +10% sát thương cho mỗi VieAni Săn Mồi khác trên sân", "Loài chó hoang săn theo bầy, còn gọi chó sói lửa; vẫn được ghi nhận ở một số rừng Việt Nam như Pù Hoạt (Nghệ An).", {"spe": 10, "hp": -10}),
  (108, "Cà Cuống", "Giant Water Bug", "Lethocerus indicus", "Endangered", ["Insect", "Water"], "Field", "waterbug", None, ["Côn Trùng", "Đồng Quê"], "Sách Đỏ Việt Nam (1992)",
   "Tinh dầu cà cuống: mùi hương khiến đồng đội +10% Tấn công", "Tinh dầu cà cuống từng là gia vị đặc sản (bánh cuốn, nước chấm); nay rất hiếm.", None),
 ]
@@ -218,7 +218,7 @@ EXTEND = {"Dạ Hành": ([83, 85, 94, 104], {"6": "40% né đòn; đòn đầu t
 
 MEOW = [56, 57, 58]; RATS = [64, 65, 66]; HENS = [59, 60, 61]; DOGS = [51, 52, 53, 54, 55]
 NEW_REL = [
- {"kind": "Thiên địch", "a": [79], "bType": "Insect", "mult": 1.5, "range": "vô hạn", "effect": "Tầm đánh vô hạn với mọi Vinmon hệ Côn trùng; luôn ưu tiên bắt Côn trùng; +50% sát thương", "basis": "Thạch sùng bắt muỗi, côn trùng trên tường nhà"},
+ {"kind": "Thiên địch", "a": [79], "bType": "Insect", "mult": 1.5, "range": "vô hạn", "effect": "Tầm đánh vô hạn với mọi VieAni hệ Côn trùng; luôn ưu tiên bắt Côn trùng; +50% sát thương", "basis": "Thạch sùng bắt muỗi, côn trùng trên tường nhà"},
  {"kind": "Thiên địch", "a": [80], "bType": "Insect", "mult": 1.3, "range": "vô hạn", "effect": "Tầm đánh vô hạn với hệ Côn trùng; +30% sát thương", "basis": "Thằn lằn ăn côn trùng"},
  {"kind": "Thiên địch", "a": [98, 81, 82], "bType": "Insect", "mult": 1.3, "effect": "Ưu tiên tấn công Côn trùng; +30% sát thương", "basis": "Tắc kè, cóc, ếch ăn côn trùng"},
  {"kind": "Thiên địch", "a": [92], "bType": "Insect", "mult": 1.3, "effect": "Ưu tiên tấn công Côn trùng khác; +30% sát thương", "basis": "Bọ ngựa săn côn trùng"},
@@ -278,9 +278,9 @@ def main():
     for r in NEW_REL:
         r.setdefault("b", []); r.setdefault("src", "")
     rel["relations"] += NEW_REL
-    rel["note"] += " 'bType' = áp dụng cho mọi Vinmon thuộc hệ đó; 'range' = tầm đánh đặc biệt với mục tiêu đó."
+    rel["note"] += " 'bType' = áp dụng cho mọi VieAni thuộc hệ đó; 'range' = tầm đánh đặc biệt với mục tiêu đó."
     save("relations.json", rel)
-    print("added", len(NEW), "Vinmon,", len(NEW_SYN), "synergies,", len(NEW_REL), "relations")
+    print("added", len(NEW), "VieAni,", len(NEW_SYN), "synergies,", len(NEW_REL), "relations")
 
 
 if __name__ == "__main__":

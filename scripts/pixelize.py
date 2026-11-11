@@ -1,4 +1,4 @@
-"""Turn a sketch or image into a draft 32x32 Vinmon sprite.
+"""Turn a sketch or image into a draft 32x32 VieAni sprite.
 
     python3 scripts/pixelize.py sketch.jpg --id 20            # -> assets/sprites/custom/20.png
     python3 scripts/pixelize.py sketch.png --out my.png --flip --colors 10
@@ -12,7 +12,7 @@ Steps:
   4. Map every pixel to the shared palette (assets/palette/vinmon.hex) and keep
      only the --colors most used palette colours.
   5. Remove stray single pixels and fill pinholes.
-  6. Add the dark 1px outline used by all Vinmon sprites.
+  6. Add the dark 1px outline used by all VieAni sprites.
 
 It also saves a side-by-side preview (<out>.preview.png) of the cleaned input
 and the 8x enlarged sprite. Finish the sprite by hand in Aseprite or Pixelorama,
@@ -22,7 +22,7 @@ priority over the drawn ones and are never overwritten by scripts/sprites.py.
     python3 scripts/pixelize.py --build-palette   # rebuild palette from current sprites
     python3 scripts/pixelize.py --batch sketches/ --size 64   # every V001.png, V002.jpg … in a folder
 
-Batch mode: file names start with the Vinmon number from the Google Sheet / Vindex
+Batch mode: file names start with the VieAni number from the Google Sheet / Vindex
 (V001 … V108). Each becomes assets/sprites/custom/<id>.png, plus _batch_sheet.png
 showing all results side by side for review.
 """
@@ -57,7 +57,7 @@ def build_palette(n=32):
     PALETTE.parent.mkdir(parents=True, exist_ok=True)
     hexes = ["%02x%02x%02x" % tuple(c) for c in pal]
     PALETTE.write_text("\n".join(hexes) + "\n")
-    gpl = ["GIMP Palette", "Name: Vinmon", "Columns: 8", "#"]
+    gpl = ["GIMP Palette", "Name: VieAni", "Columns: 8", "#"]
     gpl += ["%3d %3d %3d\t#%s" % (*c, h) for c, h in zip(pal, hexes)]
     PALETTE.with_suffix(".gpl").write_text("\n".join(gpl) + "\n")
     swatch = Image.fromarray(np.repeat(np.repeat(pal.reshape(1, -1, 3), 16, 0), 16, 1).astype(np.uint8))
@@ -234,15 +234,15 @@ def run_batch(args):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("image", nargs="?", help="sketch or image file (PNG, JPG, ...)")
-    ap.add_argument("--id", type=int, help="Vinmon id from data/vindex.json; saves assets/sprites/custom/<id>.png")
+    ap.add_argument("--id", type=int, help="VieAni id from data/vindex.json; saves assets/sprites/custom/<id>.png")
     ap.add_argument("--out", help="output PNG path (instead of --id)")
     ap.add_argument("--size", type=int, default=32, help="sprite size in pixels (default 32)")
     ap.add_argument("--colors", type=int, default=12, help="max palette colours in this sprite (default 12)")
     ap.add_argument("--tolerance", type=float, default=40, help="background colour tolerance 0-255 (default 40)")
-    ap.add_argument("--flip", action="store_true", help="mirror horizontally (Vinmon face left)")
+    ap.add_argument("--flip", action="store_true", help="mirror horizontally (VieAni face left)")
     ap.add_argument("--no-outline", action="store_true", help="skip the dark outline")
     ap.add_argument("--build-palette", action="store_true", help="rebuild the shared palette from current sprites")
-    ap.add_argument("--batch", help="folder of sketches named V001…V108 (Vinmon number)")
+    ap.add_argument("--batch", help="folder of sketches named V001…V108 (VieAni number)")
     args = ap.parse_args()
 
     if args.batch:

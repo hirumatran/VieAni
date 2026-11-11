@@ -1,8 +1,8 @@
-"""Export the Vindex data as row arrays for the Google Sheet "Vindex – Dữ liệu Vinmon".
+"""Export the Vindex data as row arrays for the Google Sheet "VieAni – Dữ liệu game".
 
     python3 scripts/export_sheet.py OUT_DIR
 
-Writes vinmon.json (tab Vinmon, B1:W), toc_he.json (tab Tộc hệ, A1:E) and
+Writes vinmon.json (tab VieAni, B1:W), toc_he.json (tab Tộc hệ, A1:E) and
 quan_he.json (tab Thiên địch & Cộng sinh, A1:G). Column A (ID) and Q (Tổng)
 are formulas in the sheet, so they are left out (Q is null = skipped).
 """
@@ -23,7 +23,7 @@ def main(out):
         for m in g["members"]:
             syn.setdefault(m, []).append(g["name"])
     byid = {s["id"]: s for s in d["species"]}
-    rows = [["Tên Vinmon", "Tên tiếng Anh", "Tên khoa học", "Nhóm", "Hệ 1", "Hệ 2", "Bậc (1–5)", "Tộc hệ 1", "Tộc hệ 2",
+    rows = [["Tên VieAni", "Tên tiếng Anh", "Tên khoa học", "Nhóm", "Hệ 1", "Hệ 2", "Bậc (1–5)", "Tộc hệ 1", "Tộc hệ 2",
              "Máu (HP)", "Tấn công", "Phòng thủ", "Tấn công ĐB", "Phòng thủ ĐB", "Tốc độ", None, "Kiểu đòn", "Tầm đánh",
              "Sách Đỏ IUCN", "Cơ sở chỉ số (sinh học / truyền thuyết)", "Kỹ năng đặc biệt", "Con giáp"]]
     for s in sorted(d["species"], key=lambda s: s["dex"]):
@@ -40,9 +40,9 @@ def main(out):
     toc = [["Tên tộc hệ", "Số thành viên", "Thành viên (tự cập nhật)", "Mốc kích hoạt & hiệu ứng", "Cơ sở"]]
     toc += [[g["name"], None, None, "\n".join(f"({k}) {v}" for k, v in g["tiers"].items()), g["basis"]] for g in sy]
     names = lambda ids: ", ".join(byid[i]["vi"] for i in ids)
-    qh = [["Quan hệ", "Vinmon A", "Vinmon B", "Hệ số", "Hiệu ứng trong trận", "Cơ sở", "Nguồn"]]
+    qh = [["Quan hệ", "VieAni A", "VieAni B", "Hệ số", "Hiệu ứng trong trận", "Cơ sở", "Nguồn"]]
     for r in rel:
-        b = f"Mọi Vinmon hệ {TV[r['bType']]}" if r.get("bType") else names(r["b"])
+        b = f"Mọi VieAni hệ {TV[r['bType']]}" if r.get("bType") else names(r["b"])
         eff = r["effect"] + (f" (tầm đánh: {r['range']})" if r.get("range") and "vô hạn" not in r["effect"] else "")
         qh.append([r["kind"], names(r["a"]), b, r["mult"], eff, r["basis"], r.get("src", "")])
     for n, obj in (("vinmon.json", rows), ("toc_he.json", toc), ("quan_he.json", qh)):

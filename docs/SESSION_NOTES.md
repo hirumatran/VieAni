@@ -1,4 +1,4 @@
-# Vinmon – session notes (handoff)
+# VieAni – session notes (handoff)
 
 Last session: 11/11/2026 (started 10/11/2026). Branch: `claude/vibrant-feynman-rjzlhw` (not merged to `main` yet).
 Start the next session with this repo selected and ask Claude to read this file.
@@ -7,7 +7,7 @@ Start the next session with this repo selected and ask Claude to read this file.
 
 | Path | What it is |
 |---|---|
-| `data/vindex.json` | Game data for 50 Vinmon: names, IUCN, habitat, types, `typeChart`, `legendaryRule`, stats, attack type/class, range |
+| `data/vindex.json` | Game data for 50 VieAni: names, IUCN, habitat, types, `typeChart`, `legendaryRule`, stats, attack type/class, range |
 | `data/synergies.json` | 17 Tộc hệ (synergies): members by id, activation levels, effects, basis |
 | `data/relations.json` | Thiên địch (predator → prey) and Cộng sinh (symbiosis) pairs with multiplier, effect, basis |
 | `data/vn_info.json` | Vietnamese info-card text: notes for all 50; population, habitat, location, threats, how to help and sources for the 37 real species |
@@ -28,9 +28,9 @@ python3 scripts/draft_stats.py [--force]   # (re)draft stats; --force overwrites
 
 ## Roster expansion (11/11)
 
-108 Vinmon (was 50). Tier now follows the group: 1 Thân thuộc (everyday/pets/insects, 42),
+108 VieAni (was 50). Tier now follows the group: 1 Thân thuộc (everyday/pets/insects, 42),
 2 Hoang dã (wild, not threatened, 14), 3 Nguy cấp (threatened, 33), 4 Đã mất (6), 5 Huyền thoại (13).
-Stat totals by tier: 400 / 440 / 480 / 510 / 530. Every Vinmon has a `skill`; zodiac animals have `zodiac`.
+Stat totals by tier: 400 / 440 / 480 / 510 / 530. Every VieAni has a `skill`; zodiac animals have `zodiac`.
 31 synergies (incl. Bầy Chó rabies 15%, Bầy Mèo grooming heal + attack speed, Mười Hai Con Giáp by
 zodiac column); 30 relations, incl. type-wide predators (`bType`: Thạch Sùng/Thằn Lằn hit Côn trùng
 anywhere). `scripts/expand_roster.py` holds the added data; `scripts/export_sheet.py` exports sheet rows.
@@ -40,7 +40,7 @@ anywhere). `scripts/expand_roster.py` holds the added data; `scripts/export_shee
 - `data/folklore.json`: 20 story-based skills + sources (`story`, `storySrc`, `storyAccuracy` on species);
   6 new-legendary ideas (Mộc Tinh, Thủy Tinh, Thiên Lôi, Trâu Vàng, Chằn Tinh/Đại Bàng, Rồng Con).
 - `data/items.json`: 50 items, 5 tiers, categories TC/PT/HT/TD/NEM/SAN. `data/mechanics.json`: status glossary.
-- Sheet tabs added: Vật phẩm, Hiệu ứng; Vinmon tab column X = Điển tích.
+- Sheet tabs added: Vật phẩm, Hiệu ứng; VieAni tab column X = Điển tích.
 - Sketch board: `scripts/fetch_refs.py` (photos → refs/, git-ignored; credits in data/ref_credits.json),
   `scripts/build_ref_board.py OUT` → 22-page PDF. Workflow in `docs/SPRITE_WORKFLOW.md`;
   `pixelize.py --batch DIR --size 64` converts V001… sketches.
@@ -57,8 +57,8 @@ anywhere). `scripts/expand_roster.py` holds the added data; `scripts/export_shee
 
 ## Google Sheet (design master for editing)
 
-"Vindex – Dữ liệu Vinmon" in the user's Google Drive (created 11/11/2026), 4 tabs:
-Vinmon (auto ID V001…, Vietnamese types, tier, 2 synergy columns, stats, auto total, stat basis),
+"Vindex – Dữ liệu VieAni" in the user's Google Drive (created 11/11/2026), 4 tabs:
+VieAni (auto ID V001…, Vietnamese types, tier, 2 synergy columns, stats, auto total, stat basis),
 Bảng khắc hệ (editable type matrix + Legendary ×1.25/×0.75 + quick lookup),
 Thiên địch & Cộng sinh, Tộc hệ (member list/count auto-updates).
 Sheet locale is en_US so formulas work (numbers show 1.25). If the sheet is edited, sync changes
@@ -67,7 +67,7 @@ back into `data/*.json` before rebuilding the page.
 ## Open items / ideas for next time
 
 1. Decide: keep immunities at 0.5× or use 0× like Pokémon.
-2. ~~Differentiate identical stats~~ – done 11/11: every Vinmon now has a unique stat line with a
+2. ~~Differentiate identical stats~~ – done 11/11: every VieAni now has a unique stat line with a
    biology note (`statNote`); totals still fixed by tier.
 3. ~~Thin types~~ – now Fire 4, Electric 2, Insect 11 (added Kiến Lửa, Đom Đóm, Cá Đuối Điện, insects).
 4. ~~Vietnamese type badges~~ – done on page and sheet.
@@ -87,6 +87,7 @@ back into `data/*.json` before rebuilding the page.
 ## Project plan (added 11 Nov 2026)
 - Full plan: `docs/PROJECT_PLAN.md` (milestones, scope, stack, budget, 43 tasks, risks).
 - Tracker: Google Sheet tab "Kế hoạch dự án" (status dropdown; overdue rows turn red).
-- Targets: Alpha (web) Fri 15 Jan 2027; Beta Android/iOS/PC Fri 26 Feb 2027; Tết buffer 4–14 Feb.
-- Next task: T01 (PO confirms stack/scope) → T02 GDD + T03 game skeleton.
+- Targets: Alpha Fri 15 Jan 2027 and public Beta Fri 26 Feb 2027 – both web-only on itch.io; native apps after beta. Tết buffer 4–14 Feb.
+- T01 done 11 Nov: project renamed Vinmon → VieAni; TypeScript + Phaser; private repo → itch.io (butler); store accounts skipped.
+- Next: T02 GDD + T03 game skeleton, then T04 itch.io deploy (PO: itch.io account + BUTLER_API_KEY secret).
 - PO is sketching sprites on iPad directly in the board PDF.

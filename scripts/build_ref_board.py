@@ -1,9 +1,9 @@
-"""Build the printable sketch board: reference photo + blank 64x64 grid per Vinmon.
+"""Build the printable sketch board: reference photo + blank 64x64 grid per VieAni.
 
     python3 scripts/fetch_refs.py                 # first, downloads photos into refs/
     python3 scripts/build_ref_board.py OUT_DIR    # -> Vindex_bang_ve_tham_khao.pdf + overview PNG
 
-A4 landscape, 150 dpi. Page 1: overview of all Vinmon. Then 6 Vinmon per page
+A4 landscape, 150 dpi. Page 1: overview of all VieAni. Then 6 VieAni per page
 (photo, empty 64x64 grid with 8px guides, name, types, tier, key features,
 current draft sprite). Last pages: photo credits (required by the CC licenses).
 """
@@ -55,7 +55,7 @@ def header(d, title, page):
 
 def overview(sp, cred, page):
     im = Image.new("RGB", (W, H), "white"); d = ImageDraw.Draw(im)
-    header(d, "Vindex – bảng tham khảo 108 Vinmon", page)
+    header(d, "Vindex – bảng tham khảo 108 VieAni", page)
     cw, ch = (W - 40) // 12, (H - 90) // 9
     for i, s in enumerate(sp):
         x, y = 20 + (i % 12) * cw, 85 + (i // 12) * ch
