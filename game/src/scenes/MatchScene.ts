@@ -17,6 +17,8 @@ const STRIP_CY = MATCH_SHOP_TOP + STRIP_H / 2;
 const BTN_CX = 100, BTN_W = 172;
 const CARD_W = 168, CARD_H = 136, CARD_X0 = 196, CARD_STEP = 178;
 const READY_CX = 1176, READY_W = 176;
+const LOCK = { x: 160, y: MATCH_SHOP_TOP + 16, w: 46, h: 26 };
+const RING = { x: 58, y: 248, r: 30 };
 const TIER_COL: Record<number, number> = { 1: 0x9aa0a8, 2: 0x4caf6a, 3: 0x3c84d6, 4: 0xa35ad8, 5: 0xe8b13c };
 const shortName = (vi: string) => vi.replace(/\s*\(.*\)\s*/, "");
 
@@ -69,7 +71,7 @@ export class MatchScene extends BoardScene {
 
     // left: round, HP, level, gold
     const g = this.add.graphics().setDepth(top - 1);
-    g.fillStyle(WOOD, 0.86).fillRoundedRect(10, 66, 234, 330, 14).lineStyle(2, GOLD, 0.8).strokeRoundedRect(10, 66, 234, 330, 14);
+    g.fillStyle(WOOD, 0.86).fillRoundedRect(10, 66, 234, 344, 14).lineStyle(2, GOLD, 0.8).strokeRoundedRect(10, 66, 234, 344, 14);
     // bottom: shop strip
     g.fillStyle(WOOD, 0.9).fillRoundedRect(STRIP_X, MATCH_SHOP_TOP, STRIP_W, STRIP_H, 14).lineStyle(2, GOLD, 0.8)
       .strokeRoundedRect(STRIP_X, MATCH_SHOP_TOP, STRIP_W, STRIP_H, 14);
@@ -81,12 +83,16 @@ export class MatchScene extends BoardScene {
     text("youHp", 228, 122, 16).setOrigin(1, 0);
     text("bot", 26, 172, 16);
     text("botHp", 228, 172, 16).setOrigin(1, 0);
-    text("level", 26, 224, 22, "#ffe6a3");
-    text("xp", 228, 230, 15).setOrigin(1, 0);
-    text("gold", 26, 282, 20, "#ffd84a");
-    text("timer", 26, 352, 18, "#ffb3a3");
-    this.counter = text("count", 26, 318, 17);
-    this.add.text(BTN_CX, MATCH_SHOP_TOP + 14, t("shop").toUpperCase(), { fontFamily: FONT_LOGO, fontSize: "17px", color: "#ffe6a3", fontStyle: "800" }).setOrigin(0.5).setShadow(1, 1, "#000", 3).setDepth(top);
+    // level: circular XP ring with the level number inside (PO request)
+    text("lvlCap", RING.x, RING.y - 15, 10, "#cdbb98").setOrigin(0.5).setText(t("levelShort"));
+    text("level", RING.x, RING.y + 4, 28, "#ffe6a3", FONT_LOGO).setOrigin(0.5);
+    text("xp", 104, 228, 17);
+    text("xpNext", 104, 252, 12, "#cdbb98");
+    text("gold", 26, 300, 20, "#ffd84a");
+    text("timer", 26, 372, 18, "#ffb3a3");
+    this.counter = text("count", 26, 338, 17);
+    this.add.text(24, MATCH_SHOP_TOP + 16, t("shop").toUpperCase(), { fontFamily: FONT_LOGO, fontSize: "17px", color: "#ffe6a3", fontStyle: "800" }).setOrigin(0, 0.5).setShadow(1, 1, "#000", 3).setDepth(top);
+    this.buildLock(top);
 
     button(this, BTN_CX, MATCH_SHOP_TOP + 56, BTN_W, 44, t("reroll")(C.REROLL_COST), () => this.reroll()).setDepth(top);
     button(this, BTN_CX, MATCH_SHOP_TOP + 110, BTN_W, 44, t("buyXp")(C.XP_BUY_COST), () => this.buyXp()).setDepth(top);
@@ -118,9 +124,10 @@ export class MatchScene extends BoardScene {
     this.txt.youHp.setText(`${h.hp}/${maxHpOf(m)}`);
     this.txt.bot.setText("❤ " + t("opponent"));
     this.txt.botHp.setText(`${b.hp}/${maxHpOf(m)}`);
-    this.txt.level.setText(t("level")(h.level));
+    this.txt.level.setText(String(h.level));
     const need = m.xpNeeded(h);
     this.txt.xp.setText(t("xp")(h.xp, need));
+    this.txt.xpNext.setText(need ? t("xpToGo")(need - h.xp, h.level + 1) : "");
     this.txt.gold.setText("● " + t("gold")(h.gold, m.interest(h)));
     const g = this.hudG.clear();
     const bar = (y: number, frac: number, col: number) => {
@@ -129,7 +136,12 @@ export class MatchScene extends BoardScene {
     };
     bar(146, h.hp / maxHpOf(m), 0x5bd36b);
     bar(196, b.hp / maxHpOf(m), 0xe0533d);
-    bar(256, need ? h.xp / need : 1, 0x6fb6ff);
+    // XP ring: dark track, blue progress clockwise from the top
+    const frac = need ? h.xp / need : 1;
+    g.lineStyle(9, 0x000000, 0.55).beginPath().arc(RING.x, RING.y, RING.r, 0, Math.PI * 2).strokePath();
+    if (frac > 0) g.lineStyle(9, need ? 0x6fb6ff : 0xffcc3c, 1).beginPath().arc(RING.x, RING.y, RING.r, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * frac).strokePath();
+    g.lineStyle(2, GOLD, 0.8).strokeCircle(RING.x, RING.y, RING.r + 6);
+    this.drawLock();
     this.updateCounter();
   }
 
@@ -209,6 +221,45 @@ export class MatchScene extends BoardScene {
     super.hoverAt(x, y);
   }
 
+  // ------------------------------------------------------------------ shop lock (PO request)
+  private lockBtn!: Phaser.GameObjects.Container;
+  private lockG!: Phaser.GameObjects.Graphics;
+  private lockFrame!: Phaser.GameObjects.Graphics;
+
+  private buildLock(depth: number) {
+    this.lockG = this.add.graphics();
+    const hit = this.add.zone(0, 0, LOCK.w, LOCK.h).setInteractive({ useHandCursor: true });
+    hit.on("pointerup", () => this.toggleLock());
+    this.lockBtn = this.add.container(LOCK.x, LOCK.y, [this.lockG, hit]).setDepth(depth + 2);
+    this.lockFrame = this.add.graphics().setDepth(depth + 2);
+  }
+
+  private toggleLock() {
+    if (this.fighting) return;
+    const p = this.match.human;
+    p.locked = !p.locked;
+    toast(this, p.locked ? t("lockedOn") : t("lockedOff"));
+    this.drawLock();
+  }
+
+  /** padlock button (closed + blue when locked) and a blue frame around the locked offers */
+  private drawLock() {
+    if (!this.lockG) return;
+    const on = this.match.human.locked, g = this.lockG.clear();
+    g.fillStyle(on ? 0x2f74c8 : 0x1b120c, 1).fillRoundedRect(-LOCK.w / 2, -LOCK.h / 2, LOCK.w, LOCK.h, 8);
+    g.lineStyle(2, on ? 0xbfe0ff : GOLD, 1).strokeRoundedRect(-LOCK.w / 2, -LOCK.h / 2, LOCK.w, LOCK.h, 8);
+    const col = on ? 0xffffff : 0xe7c05f;
+    g.fillStyle(col, 1).fillRoundedRect(-8, -2, 16, 11, 2);
+    g.lineStyle(2.5, col, 1).beginPath();
+    if (on) g.arc(0, -2, 5, Math.PI, 0); else g.arc(6, -5, 5, Math.PI * 1.05, Math.PI * 0.05);
+    g.strokePath();
+    this.lockFrame.clear();
+    if (on) {
+      const x0 = CARD_X0 - 6, x1 = CARD_X0 + 4 * CARD_STEP + CARD_W + 6;
+      this.lockFrame.lineStyle(3, 0x6fb6ff, 1).strokeRoundedRect(x0, MATCH_SHOP_TOP + 3, x1 - x0, STRIP_H - 6, 12);
+    }
+  }
+
   private refreshAll() {
     this.drawCards();
     this.refreshHud();
@@ -238,8 +289,11 @@ export class MatchScene extends BoardScene {
     if (p.level >= C.MAX_LEVEL) return toast(this, t("maxLevel"));
     const before = p.level;
     if (!this.match.buyXp(p)) return toast(this, t("noGold"));
-    if (p.level > before) toast(this, t("levelUp")(p.level));
     this.refreshAll();
+    if (p.level > before) {
+      toast(this, t("levelUp")(p.level));
+      this.tweens.add({ targets: this.txt.level, scale: { from: 1.7, to: 1 }, duration: 450, ease: "Back.easeOut" });
+    }
   }
 
   /** make the views match the team after buying / merging; `upgraded` units celebrate */

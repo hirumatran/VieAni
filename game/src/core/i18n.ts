@@ -61,6 +61,10 @@ const STRINGS = {
     matchHint: "Bấm thẻ để mua · kéo lên sân · 3 con giống nhau = ★2 · kéo vào cửa hàng để bán",
     testNote: "Bản thử: cửa hàng chỉ có V001–V004",
     owned: (n: number) => `có ${n}`,
+    levelShort: "CẤP",
+    xpToGo: (n: number, l: number) => `còn ${n} XP lên cấp ${l}`,
+    lockedOn: "Đã khóa cửa hàng – giữ nguyên sang vòng sau",
+    lockedOff: "Đã mở khóa cửa hàng",
   },
   en: {
     tagline: "Legends of the Wild",
@@ -120,6 +124,10 @@ const STRINGS = {
     matchHint: "Tap a card to buy · drag onto the board · 3 of a kind = ★2 · drag to the shop to sell",
     testNote: "Test build: shop has V001–V004 only",
     owned: (n: number) => `own ${n}`,
+    levelShort: "LEVEL",
+    xpToGo: (n: number, l: number) => `${n} XP to level ${l}`,
+    lockedOn: "Shop locked – kept for next round",
+    lockedOff: "Shop unlocked",
   },
 };
 

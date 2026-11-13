@@ -199,3 +199,15 @@ back into `data/*.json` before rebuilding the page.
   (e.g. the bot's Bò Xám ★2 + ★1 + ★1 looked like three ★1).
 - Fix: every VieAni now shows its ★ level above the head (★ bronze, ★★ silver, ★★★ gold), on the board, the bench and in battle,
   for both sides.
+
+## Shop lock, level ring, species brief on the card (13 Nov, v0.6.4)
+- **Shop lock** (padlock button next to "CỬA HÀNG"): locked offers are kept for the next round (bought slots stay empty);
+  the lock stays on until clicked again, or until a paid reroll (which replaces the offers and releases the lock). Locked =
+  blue button + blue frame around the cards. Rule in `Match.finishRound` / `Match.reroll`, test in `match.test.ts`.
+- **Level + XP**: circular XP ring with the level number inside, "XP n/m" and "còn k XP lên cấp L" beside it; the number pops
+  on level-up.
+- **Info card**: the name now sits on the picture, and right under it comes the species brief (PO): conservation pills
+  (IUCN category in Vietnamese + "Có thể đã tuyệt chủng" / "Đã mất ở Việt Nam" for tier-4; "Linh vật huyền thoại" for legends;
+  "Đã tuyệt chủng (hóa thạch)" for Gigantopithecus), then the VieIndex note, population (first sentence, tier 3–4) and threats,
+  from `data/vn_info.json` (sources listed in VieIndex). Stats moved to two columns so the card still fits the screen.
+- IUCN wording: CR Cực kỳ nguy cấp · EN Nguy cấp · VU Sắp nguy cấp · NT Sắp bị đe dọa · LC Ít quan tâm (as in VieIndex) · DD Thiếu dữ liệu.

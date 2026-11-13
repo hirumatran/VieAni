@@ -69,6 +69,21 @@ describe("Test match (V001–V004)", () => {
     expect(p.team.units().filter((u) => u.speciesId === a).map((u) => u.star)).toEqual([2]);
   });
 
+  it("a locked shop keeps its offers for the next round; reroll releases the lock", () => {
+    const m = testMatch(d, 7);
+    const p = m.human;
+    m.buy(p, 0);
+    const before = [...p.shop];
+    p.locked = true;
+    m.finishRound({ winner: "A", ticks: 0, events: [], survivors: [] });
+    expect(p.shop).toEqual(before); // bought slot stays empty, the rest unchanged
+    expect(p.locked).toBe(true);
+    p.gold = 10;
+    m.reroll(p);
+    expect(p.locked).toBe(false);
+    expect(p.shop.every((id) => id != null)).toBe(true);
+  });
+
   it("levels up with XP (board limit = level)", () => {
     const m = testMatch(d, 5);
     const p = m.human;

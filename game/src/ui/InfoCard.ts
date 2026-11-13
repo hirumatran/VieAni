@@ -3,6 +3,7 @@ import * as C from "../core/config";
 import type { Species } from "../core/data";
 import { SCREEN_H, SCREEN_W } from "../core/layout";
 import { FONT_UI } from "./widgets";
+import VN from "../../../data/vn_info.json";
 
 // Same look as the VieIndex card (src/vieindex.template.html, dark theme): type-coloured art band,
 // status + tier, #dex, names, type badges, stat bars – plus live battle values.
@@ -18,13 +19,37 @@ const STAT_LABEL: [keyof Species["stats"], string][] = [
   ["hp", "Máu (HP)"], ["atk", "Tấn công"], ["def", "Phòng thủ"], ["spa", "Tấn công ĐB"], ["spd", "Phòng thủ ĐB"], ["spe", "Tốc độ"],
 ];
 const CARD = 0x241b14, LINE = 0x3a2c21, INK = "#f3e9db", MUTED = "#b39f8b", GOLD_TXT = "#e7c05f";
-const W = 300, PAD = 14;
+const W = 320, PAD = 14;
 
 const statusLabel = (s: Species) => {
   const iucn = (s as Species & { iucn?: string }).iucn ?? "";
   return s.tier === 5 ? "Huyền thoại" : s.tier === 4 ? "Đã mất" : s.tier === 1 ? "Thân thuộc" : s.tier === 2 ? "Hoang dã"
     : /^(CR|EN|VU|DD)\b/.test(iucn) ? iucn.split(" ")[0] : "Nguy cấp";
 };
+const IUCN_VI: Record<string, string> = {
+  CR: "Cực kỳ nguy cấp", EN: "Nguy cấp", VU: "Sắp nguy cấp", NT: "Sắp bị đe dọa", LC: "Ít quan tâm", DD: "Thiếu dữ liệu",
+  EW: "Tuyệt chủng ngoài tự nhiên", EX: "Tuyệt chủng",
+};
+const IUCN_COL: Record<string, number> = { CR: 0xc0392b, EN: 0xe0702a, VU: 0xc9a227, NT: 0x7a9a3a, LC: 0x3a9a4f, DD: 0x7b6f5e, EW: 0x4a3a5e, EX: 0x3a3a3a };
+/** conservation pills for the card: IUCN status (Vietnamese) + "lost in Vietnam" for tier-4 VieAni */
+function conservation(s: Species): [string, number][] {
+  const iucn = (s as Species & { iucn?: string }).iucn ?? "";
+  if (s.tier === 5) return [["Linh vật huyền thoại", 0xc9972b]];
+  if (/fossil/i.test(iucn)) return [["Đã tuyệt chủng (hóa thạch)", 0x3a3a3a]];
+  const out: [string, number][] = [];
+  const code = iucn.match(/\b(CR|EN|VU|NT|LC|DD|EW|EX)\b/)?.[1];
+  if (code) {
+    let label = `IUCN: ${IUCN_VI[code]} (${code})`;
+    if (/\(species\)/.test(iucn)) label += " – cả loài";
+    out.push([label, IUCN_COL[code]]);
+    if (/Possibly Extinct in the Wild/.test(iucn)) out.push(["Có thể đã tuyệt chủng ngoài tự nhiên", 0x3a3a3a]);
+    else if (/Possibly Extinct/.test(iucn)) out.push(["Có thể đã tuyệt chủng", 0x3a3a3a]);
+  } else if (iucn) out.push([iucn, 0x7b6f5e]);
+  else out.push([s.tier === 1 ? "Loài thân thuộc" : "Loài hoang dã", s.tier === 1 ? 0x5a7a4a : 0x4a6a5a]);
+  if (s.tier === 4) out.push(["Đã mất ở Việt Nam", 0x5a4a6e]);
+  return out;
+}
+const firstSentence = (t: string) => { const m = t.match(/^.*?[.;](\s|$)/); return (m ? m[0] : t).trim(); };
 const num = (x: number) => (+x.toFixed(2)).toString().replace(".", ",");
 
 /** what the card shows about one VieAni (built by the scene) */
@@ -83,13 +108,13 @@ export class InfoCard {
     const sp = s.sp;
     const main = TYPE_HEX[sp.types.find((t) => t !== "Legendary") ?? sp.types[0]] ?? 0x888888;
 
-    // art band (two types: second colour in the lower-right corner, like the VieIndex gradient)
-    const ART = 124;
+    // art band (two types: second colour in the lower-right corner, like the VieIndex gradient) + name on a dark strip
+    const ART = 118;
     g.fillStyle(TYPE_HEX[sp.types[0]] ?? 0x888888, 1).fillRoundedRect(0, 0, W, ART, { tl: 14, tr: 14, bl: 0, br: 0 });
     if (sp.types[1]) g.fillStyle(TYPE_HEX[sp.types[1]], 1).fillTriangle(W, ART * 0.15, W, ART, W * 0.45, ART);
     if (s.tex) {
       const img = add(sc.add.image(W / 2, ART + 4, s.tex).setOrigin(0.5, 1));
-      img.setScale((ART + 10) / img.height);
+      img.setScale((ART + 6) / img.height);
     }
     const pill = (x: number, str: string, right = false) => {
       const tx = text(x, 9, str, 11, "#ffffff", true);
@@ -99,54 +124,80 @@ export class InfoCard {
     };
     pill(14, statusLabel(sp));
     pill(W - 14, `Bậc ${sp.tier} ${"★".repeat(sp.tier)}`, true);
+    const strip = add(sc.add.graphics());
+    const name = text(PAD, ART - 4, sp.vi, 18, "#ffffff", true, W - 2 * PAD - 54).setOrigin(0, 1);
+    strip.fillStyle(0x000000, 0.5).fillRect(0, ART - name.height - 8, W, name.height + 8);
+    this.c.bringToTop(name);
+    text(W - PAD, ART - 5, "★".repeat(s.star), 17, s.star === 3 ? "#ffcc3c" : s.star === 2 ? "#e4ecf6" : "#d9a066", true).setOrigin(1, 1);
 
-    // header
-    let y = ART + 10;
-    text(PAD, y, `#${String(sp.dex).padStart(3, "0")}${s.code ? " · " + s.code : ""} · ${sp.role ?? ""}`, 12, MUTED, true);
-    y += 17;
-    const name = text(PAD, y, sp.vi, 19, INK, true, W - 2 * PAD - 60);
-    text(W - PAD, y + 2, "★".repeat(s.star), 18, s.star === 3 ? "#ffcc3c" : s.star === 2 ? "#dfe6f0" : GOLD_TXT, true).setOrigin(1, 0);
-    y += name.height + 1;
-    text(PAD, y, sp.en, 12, MUTED);
-    y += 19;
-    let bx = PAD;
+    // brief species info right under the picture (PO): conservation status first, then the VieIndex note,
+    // population and main threats (data/vn_info.json, sourced in VieIndex)
+    let y = ART + 8;
+    text(PAD, y, `#${String(sp.dex).padStart(3, "0")}${s.code ? " · " + s.code : ""} · ${sp.en}`, 12, MUTED, true, W - 2 * PAD);
+    y += 20;
+    const blockTop = y;
+    const cons = conservation(sp);
+    let bx = PAD + 8;
+    for (const [label, col] of cons) {
+      const tx = text(bx + 7, y + 3, label, 11, "#ffffff", true);
+      if (bx + tx.width + 14 > W - PAD && bx > PAD + 8) { bx = PAD + 8; y += 23; tx.setPosition(bx + 7, y + 3); }
+      g.fillStyle(col, 1).fillRoundedRect(bx, y, tx.width + 14, 19, 9);
+      bx += tx.width + 20;
+    }
+    y += 24;
+    const info = ((VN.species as Record<string, { note?: string; pop?: string; threat?: string }>)[String(sp.id)] ?? {});
+    const lines: [string, string][] = [];
+    if (info.note) lines.push([info.note, INK]);
+    if (info.pop && sp.tier >= 3) lines.push(["Số lượng: " + firstSentence(info.pop), MUTED]);
+    if (info.threat) lines.push(["Đe dọa: " + info.threat, MUTED]);
+    for (const [str, col] of lines) {
+      const tx = text(PAD + 8, y, str, 11.5, col, false, W - 2 * PAD - 8);
+      y += tx.height + 3;
+    }
+    g.fillStyle(cons[0]?.[1] ?? LINE, 1).fillRoundedRect(PAD, blockTop, 3, y - blockTop - 3, 1);
+    y += 6;
+
+    // role, types and attack
+    bx = PAD;
     for (const tp of sp.types) {
       const tx = text(bx + 8, y + 4, TYPE_VI[tp] ?? tp, 11, tp === "Electric" ? "#2b1d14" : "#ffffff", true);
       g.fillStyle(TYPE_HEX[tp] ?? 0x888888, 1).fillRoundedRect(bx, y, tx.width + 16, 20, 6);
       bx += tx.width + 22;
     }
-    text(bx + 2, y + 3, `${TYPE_VI[sp.attackType] ?? sp.attackType} · ${sp.attackClass === "physical" ? "vật lý" : "đặc biệt"} · tầm ${sp.range}`, 12, MUTED);
-    y += 30;
+    text(bx + 2, y + 3, `${sp.role ?? ""} · ${sp.attackClass === "physical" ? "vật lý" : "đặc biệt"} · tầm ${sp.range}`, 12, MUTED, false, W - bx - PAD);
+    y += 28;
 
     // live HP / energy
     const bar = (label: string, val: string, frac: number, col: number) => {
       text(PAD, y, label, 12, MUTED, true);
       text(W - PAD, y, val, 12, INK, true).setOrigin(1, 0);
-      y += 17;
-      g.fillStyle(LINE, 1).fillRoundedRect(PAD, y, W - 2 * PAD, 9, 4);
-      if (frac > 0) g.fillStyle(col, 1).fillRoundedRect(PAD, y, Math.max(6, (W - 2 * PAD) * Math.min(1, frac)), 9, 4);
-      y += 15;
+      y += 16;
+      g.fillStyle(LINE, 1).fillRoundedRect(PAD, y, W - 2 * PAD, 8, 4);
+      if (frac > 0) g.fillStyle(col, 1).fillRoundedRect(PAD, y, Math.max(6, (W - 2 * PAD) * Math.min(1, frac)), 8, 4);
+      y += 13;
     };
     const full = s.where !== "shop"; // shop offers: no live bars / status (shorter card)
     const hp = s.hp ?? s.maxHp;
     if (full) {
-    bar("Máu", `${Math.max(0, Math.round(hp))} / ${s.maxHp}`, hp / s.maxHp, s.side === "A" ? 0x5bd36b : 0xe0533d);
-    bar("Năng lượng", `${Math.round(s.energy)} / ${C.ENERGY_MAX}`, s.energy / C.ENERGY_MAX, 0x5aa9ff);
+      bar("Máu", `${Math.max(0, Math.round(hp))} / ${s.maxHp}`, hp / s.maxHp, s.side === "A" ? 0x5bd36b : 0xe0533d);
+      bar("Năng lượng", `${Math.round(s.energy)} / ${C.ENERGY_MAX}`, s.energy / C.ENERGY_MAX, 0x5aa9ff);
     } else {
       text(PAD, y, `Máu ★1: ${s.maxHp}   ·   giá ${sp.tier} vàng`, 12, MUTED, true);
       y += 20;
     }
 
-    // base stats (VieIndex bars, 150 = full)
-    y += 2;
-    for (const [k, label] of STAT_LABEL) {
+    // base stats in two columns (VieIndex bars, 150 = full)
+    y += 3;
+    const colW = (W - 2 * PAD - 12) / 2;
+    STAT_LABEL.forEach(([k, label], i) => {
       const v = sp.stats[k];
-      text(PAD, y, label, 12, MUTED, true);
-      text(PAD + 118, y, String(v), 12, INK, true).setOrigin(1, 0);
-      g.fillStyle(LINE, 1).fillRoundedRect(PAD + 128, y + 4, W - 2 * PAD - 128, 7, 3);
-      g.fillStyle(main, 1).fillRoundedRect(PAD + 128, y + 4, Math.max(4, (W - 2 * PAD - 128) * Math.min(1, v / 150)), 7, 3);
-      y += 16;
-    }
+      const x0 = PAD + (i % 2) * (colW + 12), yy = y + Math.floor(i / 2) * 16;
+      text(x0, yy, label.replace(" (HP)", ""), 11, MUTED, true);
+      text(x0 + 108, yy, String(v), 11.5, INK, true).setOrigin(1, 0);
+      g.fillStyle(LINE, 1).fillRoundedRect(x0 + 113, yy + 4, colW - 113, 6, 3);
+      g.fillStyle(main, 1).fillRoundedRect(x0 + 113, yy + 4, Math.max(4, (colW - 113) * Math.min(1, v / 150)), 6, 3);
+    });
+    y += 48;
 
     // skills
     const k = sp.skills;

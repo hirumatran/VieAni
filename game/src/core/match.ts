@@ -21,6 +21,8 @@ export interface PlayerState {
   team: Team;
   /** species id per shop slot; null = bought */
   shop: (number | null)[];
+  /** shop locked: the same offers stay for the next round (until unlocked or rerolled) */
+  locked: boolean;
 }
 
 export interface RoundReport {
@@ -51,7 +53,7 @@ export class Match {
     this.species = species;
     this.rng = new Rng(seed);
     for (const s of species) this.pool.set(s.id, C.POOL_COPIES[s.tier] ?? 10);
-    const mk = (): PlayerState => ({ hp: startHp, gold: C.START_GOLD, level: 1, xp: 0, streak: 0, team: new Team(1), shop: [] });
+    const mk = (): PlayerState => ({ hp: startHp, gold: C.START_GOLD, level: 1, xp: 0, streak: 0, team: new Team(1), shop: [], locked: false });
     this.players = [mk(), mk()];
     for (const p of this.players) this.rollShop(p);
   }
@@ -83,6 +85,7 @@ export class Match {
   reroll(p: PlayerState): boolean {
     if (p.gold < C.REROLL_COST) return false;
     p.gold -= C.REROLL_COST;
+    p.locked = false; // a paid reroll replaces the locked offers, so the lock is released
     this.rollShop(p);
     return true;
   }
@@ -243,7 +246,7 @@ export class Match {
     });
     const report: RoundReport = { round: this.round, winner: res.winner, damage, income, levelUp };
     this.round++;
-    for (const p of this.players) this.rollShop(p);
+    for (const p of this.players) if (!p.locked) this.rollShop(p);
     return report;
   }
 }
