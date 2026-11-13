@@ -191,3 +191,11 @@ back into `data/*.json` before rebuilding the page.
 3. **Shop moved to the bottom:** strip under the bench – [Làm mới / Mua XP] [5 portrait cards] [Sẵn sàng]. To make room, the
    match board + bench are scaled to ~79 % and moved up (`MATCH_BOARD_CORNERS`, `MATCH_BENCH_CORNERS` in layout.ts); practice
    mode keeps the full-size board. Sell = drag a VieAni down onto the shop strip.
+
+## ★ marks above every VieAni (13 Nov, v0.6.3)
+- PO report: "opponent has 3 ★1 of the same VieAni on the board, not merged". Checked with a new test
+  (`game/test/merge_invariant.test.ts`: 200 simulated matches, human + bot checked after every round): merging never fails.
+  The real problem: on the smaller match board the ★2 silver outline is < 1 px wide, so a ★2 looks like a ★1
+  (e.g. the bot's Bò Xám ★2 + ★1 + ★1 looked like three ★1).
+- Fix: every VieAni now shows its ★ level above the head (★ bronze, ★★ silver, ★★★ gold), on the board, the bench and in battle,
+  for both sides.

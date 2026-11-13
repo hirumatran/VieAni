@@ -30,6 +30,8 @@ export interface View {
   anim: VieAniView;
   illustrated: boolean;
   hpBar: Phaser.GameObjects.Graphics;
+  /** ★ marks above the head – the ★2 / ★3 outline alone is too thin to read on the board */
+  stars: Phaser.GameObjects.Text;
   maxHp: number;
   hp: number;
   row: number;
@@ -138,9 +140,10 @@ export class BoardScene extends Phaser.Scene {
     const anim = new VieAniView(this, 0, 0, tex, side === "A" ? 1 : -1, typeColour(sp.attackType), !illustrated && side === "B");
     anim.setStar(u.star);
     const hpBar = this.add.graphics().setVisible(false);
-    anim.c.add(hpBar);
+    const stars = this.add.text(0, 0, "", { fontFamily: FONT_UI, fontSize: "15px", fontStyle: "bold" }).setOrigin(0.5, 1).setStroke("#1b120c", 4);
+    anim.c.add([hpBar, stars]);
     const maxHp = battleMaxHp(sp, u.star);
-    const v: View = { uid: u.uid, speciesId: u.speciesId, side, c: anim.c, sprite: anim.body, anim, illustrated, hpBar, maxHp, hp: maxHp, row: 0, col: 0, energy: 0 };
+    const v: View = { uid: u.uid, speciesId: u.speciesId, side, c: anim.c, sprite: anim.body, anim, illustrated, hpBar, stars, maxHp, hp: maxHp, row: 0, col: 0, energy: 0 };
     this.views.set(u.uid, v);
     if (side === "A") anim.body.setInteractive({ draggable: true, useHandCursor: true, pixelPerfect: false });
     anim.body.setData("uid", u.uid);
@@ -182,6 +185,10 @@ export class BoardScene extends Phaser.Scene {
     v.hpBar.clear();
     v.hpBar.fillStyle(0x000000, 0.6).fillRect(-bw / 2 - 1, y - 1, bw + 2, bh + 2);
     v.hpBar.fillStyle(v.side === "A" ? 0x5bd36b : 0xe0533d, 1).fillRect(-bw / 2, y, bw * Math.max(0, v.hp / v.maxHp), bh);
+    // ★ level: ★1 bronze, ★2 silver, ★3 gold (always shown, on board and bench)
+    const n = v.anim.star;
+    v.stars.setText("★".repeat(n)).setColor(n === 3 ? "#ffcc3c" : n === 2 ? "#e4ecf6" : "#d9a066")
+      .setFontSize(n === 1 ? 13 : 16).setPosition(0, y - 1);
   }
 
   protected updateCounter() {
