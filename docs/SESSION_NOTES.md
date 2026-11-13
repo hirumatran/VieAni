@@ -241,10 +241,13 @@ back into `data/*.json` before rebuilding the page.
 2. Ask Claude to "update the illustrations": it runs `python3 scripts/cutout.py V0xx …` (also rebuilds VieIndex), checks the
    cut-outs, commits and pushes → the game shop + VieIndex pick them up automatically, itch.io redeploys.
 
-**Open points for the PO**
-- Keep the win/loss streak bonus (+1/+2/+3)? Starting gold 5 or 7?
-- V010 Cheo cheo: green-teal throat mark in the art (real animal: white throat stripes) – regenerate?
-- Match board is ~79 % size to fit the bottom shop: VieAni size OK?
+**PO decisions (13 Nov, after wrap-up)**
+- Win/loss streak bonus (+1/+2/+3 at 2/4/6 in a row): **keep**. Starting gold: **5** (unchanged).
+- Match board at ~79 % size: **OK**.
+- V010 Cheo cheo throat stripes **must be white**. They were white in the PO's art: the cut-out had punched them out as
+  "background holes" so the background showed through (looked green-teal). Fixed in `scripts/cutout.py`: an enclosed pure-white
+  area is only removed when ≥ 8 % of the pixels around it are dark line art (real holes 15–49 %, white fur 0 %, measured on
+  V001–V010). Re-cut V001–V010: only V010_front changed.
 
 **Next development tasks**
 - T11 real skills in battle (per-skill energy cost + effects) and status effects (stun, slow, …) so the info card can show them.

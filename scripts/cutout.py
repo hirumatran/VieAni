@@ -54,7 +54,19 @@ def background_mask(im: Image.Image) -> Image.Image:
                 for nx, ny in ((x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)):
                     if 0 <= nx < w and 0 <= ny < h and not sp[nx, ny] and not bp[nx, ny] and paper(px[nx, ny]):
                         sp[nx, ny] = 1; q.append((nx, ny))
-            if len(comp) >= 600:
+            if len(comp) < 600:
+                continue
+            # a real hole (e.g. inside a tail loop) is ringed by the dark outline; a white fur patch / stripe blends into
+            # coloured fur instead (V010's white throat stripes were wrongly punched out). Measured on V001–V010: holes have
+            # 15–49 % dark line-art pixels around them, white fur 0 % -> treat as a hole from 8 %
+            inside = set(comp); ring = dark = 0
+            for x, y in comp:
+                for nx, ny in ((x + 3, y), (x - 3, y), (x, y + 3), (x, y - 3)):
+                    if 0 <= nx < w and 0 <= ny < h and (nx, ny) not in inside and not paper(px[nx, ny]):
+                        ring += 1
+                        c = px[nx, ny]
+                        if 0.299 * c[0] + 0.587 * c[1] + 0.114 * c[2] < 90: dark += 1
+            if ring and dark / ring >= 0.08:
                 for x, y in comp: bp[x, y] = 255
     return bg
 
