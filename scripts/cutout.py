@@ -39,6 +39,23 @@ def background_mask(im: Image.Image) -> Image.Image:
         for nx, ny in ((x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)):
             if 0 <= nx < w and 0 <= ny < h and not bp[nx, ny] and white(px[nx, ny]):
                 q.append((nx, ny))
+    # pass 2: pure-white holes enclosed by the drawing (e.g. inside a tail loop or fin) are background too,
+    # but only clean paper-white areas of a decent size – creamy white fur/bellies are kept
+    def paper(c):
+        return min(c) >= 247 and max(c) - min(c) <= 6
+    seen = Image.new("L", (w, h), 0); sp = seen.load()
+    for y0 in range(0, h, 2):
+        for x0 in range(0, w, 2):
+            if bp[x0, y0] or sp[x0, y0] or not paper(px[x0, y0]):
+                continue
+            comp, q = [], deque([(x0, y0)]); sp[x0, y0] = 1
+            while q:
+                x, y = q.popleft(); comp.append((x, y))
+                for nx, ny in ((x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)):
+                    if 0 <= nx < w and 0 <= ny < h and not sp[nx, ny] and not bp[nx, ny] and paper(px[nx, ny]):
+                        sp[nx, ny] = 1; q.append((nx, ny))
+            if len(comp) >= 600:
+                for x, y in comp: bp[x, y] = 255
     return bg
 
 
