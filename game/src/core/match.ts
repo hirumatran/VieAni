@@ -28,7 +28,7 @@ export interface RoundReport {
   winner: "A" | "B" | "draw";
   damage: { A: number; B: number };
   /** gold the human gets for the next round, split up for the result panel */
-  income: { base: number; interest: number; streak: number; win: number };
+  income: { base: number; interest: number; streak: number; result: number };
   levelUp: boolean;
 }
 
@@ -225,19 +225,19 @@ export class Match {
     const [h, b] = this.players;
     h.hp = Math.max(0, h.hp - damage.A);
     b.hp = Math.max(0, b.hp - damage.B);
-    let income = { base: 0, interest: 0, streak: 0, win: 0 };
+    let income = { base: 0, interest: 0, streak: 0, result: 0 };
     let levelUp = false;
     this.players.forEach((p, i) => {
       const won = res.winner === (i === 0 ? "A" : "B");
       const lost = res.winner === (i === 0 ? "B" : "A");
       p.streak = won ? Math.max(1, p.streak + 1) : lost ? Math.min(-1, p.streak - 1) : 0;
       const inc = {
-        base: C.BASE_INCOME[this.round - 1] ?? C.BASE_INCOME_LATER,
+        base: C.BASE_INCOME,
         interest: this.interest(p),
         streak: C.STREAK_BONUS.filter(([n]) => Math.abs(p.streak) >= n).reduce((m, [, g]) => Math.max(m, g), 0),
-        win: won ? C.WIN_BONUS : 0,
+        result: won ? C.WIN_BONUS : C.LOSS_BONUS,
       };
-      p.gold += inc.base + inc.interest + inc.streak + inc.win;
+      p.gold += inc.base + inc.interest + inc.streak + inc.result;
       const up = this.addXp(p, C.XP_PER_ROUND);
       if (i === 0) { income = inc; levelUp = up; }
     });

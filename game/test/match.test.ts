@@ -92,7 +92,10 @@ describe("Test match (V001–V004)", () => {
       const goldBefore = p.gold;
       const r = m.finishRound(res);
       reports++;
-      expect(p.gold - goldBefore).toBe(r.income.base + r.income.interest + r.income.streak + r.income.win);
+      expect(r.income.base).toBe(7);
+      expect(r.income.result).toBe(r.winner === "A" ? 3 : 1);
+      expect(r.income.interest).toBe(Math.min(5, Math.floor(goldBefore / 10)));
+      expect(p.gold - goldBefore).toBe(r.income.base + r.income.interest + r.income.streak + r.income.result);
       for (const q of m.players) for (const u of q.team.units()) expect(ids()).toContain(u.speciesId);
       const pool = [...m.pool.values()];
       expect(pool.every((n) => n >= 0)).toBe(true);

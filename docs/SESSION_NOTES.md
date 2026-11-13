@@ -181,3 +181,13 @@ back into `data/*.json` before rebuilding the page.
   buffs/debuffs in the simulation yet, so the status list only shows what the simulation really does. Touch screens: hover needs a
   mouse; tap-to-inspect is a later task.
 - Prompt pack for V006–V087 (82 VieAni, batches A–H): `docs/SPRITE_PROMPTS_V006-V087.md`. ⚠ lines: V008 Owston's civet tail, V040 Gigantopithecus (reconstruction), V047 Chó Lài (no breed standard).
+
+## PO test feedback (13 Nov, v0.6.2)
+1. **Gold:** base income **+7 every round** (was 2/3/4 then 5); **+3 for a win, +1 for a loss** (draw = loss); **interest +1 per 10 gold,
+   max +5** (at 50 gold). Win/loss streak bonus (+1/+2/+3 at 2/4/6 in a row) is kept – not in the PO's list, remove if not wanted.
+   Starting gold stays 5. Config: `BASE_INCOME`, `WIN_BONUS`, `LOSS_BONUS`, `INTEREST_MAX`; GDD §economy updated.
+2. **Shop hover:** the VieAni on a shop card wiggles on its feet while the mouse is over the card; its info card (short shop
+   version: ★1 HP, price, stats, skills, tộc hệ) opens in the empty space right of the board.
+3. **Shop moved to the bottom:** strip under the bench – [Làm mới / Mua XP] [5 portrait cards] [Sẵn sàng]. To make room, the
+   match board + bench are scaled to ~79 % and moved up (`MATCH_BOARD_CORNERS`, `MATCH_BENCH_CORNERS` in layout.ts); practice
+   mode keeps the full-size board. Sell = drag a VieAni down onto the shop strip.

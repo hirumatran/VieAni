@@ -10,7 +10,8 @@ describe("rules config", () => {
     expect(C.XP_TO_NEXT.length).toBe(C.MAX_LEVEL - 1);
   });
   it("PO decisions: 15 s prep, 5 start gold, interest max 3, max level 10, +2 XP per round", () => {
-    expect([C.PREP_SECONDS, C.START_GOLD, C.INTEREST_MAX, C.MAX_LEVEL, C.XP_PER_ROUND]).toEqual([15, 5, 3, 10, 2]);
+    expect([C.PREP_SECONDS, C.START_GOLD, C.INTEREST_MAX, C.MAX_LEVEL, C.XP_PER_ROUND]).toEqual([15, 5, 5, 10, 2]);
+    expect([C.BASE_INCOME, C.WIN_BONUS, C.LOSS_BONUS]).toEqual([7, 3, 1]);
   });
   it("Linh Vật windows: Bắc ≤10, Trung 11–20, Nam 21–30, each containing a PvE round", () => {
     for (const [lo, hi] of Object.values(C.CHARM_ROUND_WINDOWS)) {

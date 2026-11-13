@@ -11,6 +11,12 @@ export const BOARD_CORNERS: Pt[] = [[352, 58], [928, 58], [1024, 604], [256, 604
 /** bench (8 slots) corners on screen, same order */
 export const BENCH_CORNERS: Pt[] = [[256, 632], [1024, 632], [1044, 706], [236, 706]];
 
+/** match screen (PO, 13 Nov 2026): shop strip along the bottom, so board + bench are scaled to ~79 % and moved up */
+export const MATCH_BOARD_CORNERS: Pt[] = [[413, 50], [867, 50], [943, 480], [337, 480]];
+export const MATCH_BENCH_CORNERS: Pt[] = [[337, 494], [943, 494], [958, 552], [322, 552]];
+/** the shop strip: everything below this line (drop a VieAni here to sell it) */
+export const MATCH_SHOP_TOP = 562;
+
 /** painted battle backgrounds (one picked at random per battle) */
 export const BACKGROUNDS = ["backgrounds/painted/bg_ha_long.webp"];
 

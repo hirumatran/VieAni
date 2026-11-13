@@ -42,8 +42,8 @@ export interface View {
 
 /** Battle screen: drag VieAni between bench and board (task T09), then replay a simulated fight (T10). */
 export class BoardScene extends Phaser.Scene {
-  protected board = new Grid(BOARD_CORNERS, BOARD_COLS, BOARD_ROWS);
-  protected bench = new Grid(BENCH_CORNERS, BENCH_SLOTS, 1);
+  protected board: Grid;
+  protected bench: Grid;
   protected bgKey = "";
   protected team!: Team;
   protected views = new Map<number, View>();
@@ -54,8 +54,10 @@ export class BoardScene extends Phaser.Scene {
   protected card!: InfoCard;
   private hoverUid: number | null = null;
 
-  constructor(protected data_: GameData, key = "board") {
+  constructor(protected data_: GameData, key = "board", boardCorners: Pt[] = BOARD_CORNERS, benchCorners: Pt[] = BENCH_CORNERS) {
     super(key);
+    this.board = new Grid(boardCorners, BOARD_COLS, BOARD_ROWS);
+    this.bench = new Grid(benchCorners, BENCH_SLOTS, 1);
   }
 
   preload() {

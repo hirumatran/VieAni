@@ -1,6 +1,6 @@
 // All game-rule numbers in one place (see docs/GDD.md). Balance by editing this file.
 
-export const VERSION = "0.6.1";
+export const VERSION = "0.6.2";
 
 export const PLAYERS = 8;
 export const PLAYER_HP = 100;
@@ -16,12 +16,14 @@ export const TICKS_PER_SECOND = 10;
 
 // --- economy ---
 export const START_GOLD = 5;
-/** income after round r (1-based); index 0 = round 1 */
-export const BASE_INCOME = [2, 3, 4];
-export const BASE_INCOME_LATER = 5;
+/** gold every round (PO test feedback 13 Nov 2026: was 2/3/4 then 5) */
+export const BASE_INCOME = 7;
+/** +1 gold per INTEREST_PER gold held, at most INTEREST_MAX (PO: +1…+5) */
 export const INTEREST_PER = 10;
-export const INTEREST_MAX = 3;
-export const WIN_BONUS = 1;
+export const INTEREST_MAX = 5;
+/** round result bonus (PO: +3 win, +1 loss; a draw counts as a loss) */
+export const WIN_BONUS = 3;
+export const LOSS_BONUS = 1;
 /** [minStreak, bonus] – highest matching row wins */
 export const STREAK_BONUS: [number, number][] = [[2, 1], [4, 2], [6, 3]];
 export const REROLL_COST = 2;

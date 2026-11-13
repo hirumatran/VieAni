@@ -54,6 +54,14 @@ export class InfoCard {
     this.c = scene.add.container(0, 0).setDepth(9800).setVisible(false);
   }
 
+  /** height of the card as last drawn */
+  h = 0;
+
+  /** move the card so its bottom-right corner is at (right, bottom) */
+  placeBottomRight(right: number, bottom: number) {
+    this.c.setPosition(right - W, Math.max(6, bottom - this.h));
+  }
+
   get visible() {
     return this.c.visible;
   }
@@ -63,7 +71,7 @@ export class InfoCard {
   }
 
   /** (re)draw the card next to the point (ax, ay) */
-  show(s: CardSubject, ax: number, ay: number) {
+  show(s: CardSubject, ax: number, ay: number, gap = 60) {
     const sc = this.scene;
     this.c.removeAll(true);
     const bg = sc.add.graphics();
@@ -119,9 +127,15 @@ export class InfoCard {
       if (frac > 0) g.fillStyle(col, 1).fillRoundedRect(PAD, y, Math.max(6, (W - 2 * PAD) * Math.min(1, frac)), 9, 4);
       y += 15;
     };
+    const full = s.where !== "shop"; // shop offers: no live bars / status (shorter card)
     const hp = s.hp ?? s.maxHp;
+    if (full) {
     bar("Máu", `${Math.max(0, Math.round(hp))} / ${s.maxHp}`, hp / s.maxHp, s.side === "A" ? 0x5bd36b : 0xe0533d);
     bar("Năng lượng", `${Math.round(s.energy)} / ${C.ENERGY_MAX}`, s.energy / C.ENERGY_MAX, 0x5aa9ff);
+    } else {
+      text(PAD, y, `Máu ★1: ${s.maxHp}   ·   giá ${sp.tier} vàng`, 12, MUTED, true);
+      y += 20;
+    }
 
     // base stats (VieIndex bars, 150 = full)
     y += 2;
@@ -172,6 +186,7 @@ export class InfoCard {
       st.push([s.lastMult > 1 ? `Đòn khắc ×${num(s.lastMult)} (hệ / thiên địch)` : `Đòn bị kháng ×${num(s.lastMult)}`, s.lastMult > 1 ? 0x3a9a4f : 0x7b6f5e]);
     if (!s.dead && s.energy >= C.ENERGY_MAX) st.push(["Năng lượng đầy – tung kỹ năng", 0x2f74c8]);
     if (s.where === "board" && !s.fighting) st.push(["Sẵn sàng vào trận", 0x3a9a4f]);
+    if (full) {
     y += 3;
     text(PAD, y, "Trạng thái", 12, MUTED, true);
     y += 18;
@@ -185,13 +200,15 @@ export class InfoCard {
     y += 26;
     const foot = text(PAD, y, "Bản thử: khi đầy năng lượng tung đòn ×2 (kỹ năng riêng & tộc hệ chưa áp dụng trong trận).", 10.5, MUTED, false, W - 2 * PAD);
     y += foot.height + PAD - 4;
+    } else y += PAD - 6;
+    this.h = y;
 
     bg.fillStyle(0x000000, 0.45).fillRoundedRect(4, 6, W, y, 14);
     bg.fillStyle(CARD, 0.97).fillRoundedRect(0, 0, W, y, 14);
     g.lineStyle(2, 0xc9972b, 0.9).strokeRoundedRect(0, 0, W, y, 14);
 
     // place beside the unit, inside the screen
-    const x = ax < SCREEN_W / 2 ? ax + 60 : ax - 60 - W;
+    const x = ax < SCREEN_W / 2 ? ax + gap : ax - gap - W;
     this.c.setPosition(Phaser.Math.Clamp(x, 6, SCREEN_W - W - 6), Phaser.Math.Clamp(ay - y / 2, 6, Math.max(6, SCREEN_H - y - 6)));
     this.c.setVisible(true);
   }

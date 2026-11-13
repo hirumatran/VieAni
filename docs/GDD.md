@@ -44,9 +44,9 @@ Item tier by round: R1–3 → tier 1, R9 → tier 2, R15 → tier 3, R21 → ti
 | Rule | Value |
 |---|---|
 | Starting gold | **5** |
-| Base income after each round | R1: +2, R2: +3, R3: +4, R4 and later: +5 |
-| Interest | +1 gold per 10 gold you have at end of round, **max +3** (reached at 30 gold) |
-| PvP win bonus | +1 |
+| Base income after each round | +7 every round (PO test feedback 13 Nov 2026; was R1 +2, R2 +3, R3 +4, then +5) |
+| Interest | +1 gold per 10 gold you have at end of round, **max +5** (reached at 50 gold) |
+| Round result bonus | **+3 win, +1 loss** (a draw counts as a loss) |
 | Streak bonus (win or loss streak) | 2–3 in a row: +1; 4–5: +2; 6+: +3 |
 | Reroll shop | 2 gold |
 | Lock shop | free (shop is kept for next round) |
@@ -196,7 +196,7 @@ Online multiplayer, accounts, payments, ads, leaderboards, native store apps.
 | Items per unit | 1 item per VieAni |
 | Battle time limit | 45 s, then **draw**: both players take damage |
 | Prep time | 15 s |
-| Starting gold / interest cap | 5 gold / max +3 |
+| Starting gold / interest cap | 5 gold / max +5 |
 | Max level | 12 (full 12 Con Giáp) |
 | Match length | 15–20 minutes |
 

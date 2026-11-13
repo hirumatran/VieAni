@@ -3,7 +3,7 @@ import { maxHp as battleMaxHp, type BattleResult } from "../core/battle";
 import * as C from "../core/config";
 import type { GameData } from "../core/data";
 import { settings, t } from "../core/i18n";
-import { SCREEN_H, SCREEN_W } from "../core/layout";
+import { MATCH_BENCH_CORNERS, MATCH_BOARD_CORNERS, MATCH_SHOP_TOP, SCREEN_H, SCREEN_W } from "../core/layout";
 import { testMatch, type Match, type RoundReport } from "../core/match";
 import type { Team } from "../core/team";
 import { texturesFor, vcode } from "../anim/illustrations";
@@ -11,9 +11,12 @@ import { button, CREAM, FONT_LOGO, FONT_UI, GOLD, toast, WOOD } from "../ui/widg
 import { BoardScene, type View } from "./BoardScene";
 import type { CardSubject } from "../ui/InfoCard";
 
-const PANEL_X = 1048; // shop panel (right) – drop a VieAni here to sell it
-const PANEL_CX = (PANEL_X + SCREEN_W) / 2;
-const CARD_W = 214, CARD_H = 84, CARD_Y0 = 64, CARD_STEP = 92;
+// shop strip along the bottom (PO, 13 Nov 2026): [Làm mới / Mua XP] [5 cards] [Sẵn sàng]; drop a VieAni on it to sell
+const STRIP_X = 10, STRIP_W = SCREEN_W - 20, STRIP_H = SCREEN_H - MATCH_SHOP_TOP - 6;
+const STRIP_CY = MATCH_SHOP_TOP + STRIP_H / 2;
+const BTN_CX = 100, BTN_W = 172;
+const CARD_W = 168, CARD_H = 136, CARD_X0 = 196, CARD_STEP = 178;
+const READY_CX = 1176, READY_W = 176;
 const TIER_COL: Record<number, number> = { 1: 0x9aa0a8, 2: 0x4caf6a, 3: 0x3c84d6, 4: 0xa35ad8, 5: 0xe8b13c };
 const shortName = (vi: string) => vi.replace(/\s*\(.*\)\s*/, "");
 
@@ -34,7 +37,7 @@ export class MatchScene extends BoardScene {
   private hint!: Phaser.GameObjects.Text;
 
   constructor(d: GameData) {
-    super(d, "match");
+    super(d, "match", MATCH_BOARD_CORNERS, MATCH_BENCH_CORNERS);
   }
 
   init(data?: { fresh?: boolean }) {
@@ -67,9 +70,9 @@ export class MatchScene extends BoardScene {
     // left: round, HP, level, gold
     const g = this.add.graphics().setDepth(top - 1);
     g.fillStyle(WOOD, 0.86).fillRoundedRect(10, 66, 234, 330, 14).lineStyle(2, GOLD, 0.8).strokeRoundedRect(10, 66, 234, 330, 14);
-    // right: shop
-    g.fillStyle(WOOD, 0.86).fillRoundedRect(PANEL_X - 2, 8, SCREEN_W - PANEL_X - 4, SCREEN_H - 16, 14).lineStyle(2, GOLD, 0.8)
-      .strokeRoundedRect(PANEL_X - 2, 8, SCREEN_W - PANEL_X - 4, SCREEN_H - 16, 14);
+    // bottom: shop strip
+    g.fillStyle(WOOD, 0.9).fillRoundedRect(STRIP_X, MATCH_SHOP_TOP, STRIP_W, STRIP_H, 14).lineStyle(2, GOLD, 0.8)
+      .strokeRoundedRect(STRIP_X, MATCH_SHOP_TOP, STRIP_W, STRIP_H, 14);
     this.hudG = this.add.graphics().setDepth(top);
     const text = (key: string, x: number, y: number, size: number, color = CREAM, font = FONT_UI) =>
       (this.txt[key] = this.add.text(x, y, "", { fontFamily: font, fontSize: `${size}px`, color, fontStyle: "bold" }).setShadow(1, 1, "#000", 3).setDepth(top));
@@ -83,17 +86,17 @@ export class MatchScene extends BoardScene {
     text("gold", 26, 282, 20, "#ffd84a");
     text("timer", 26, 352, 18, "#ffb3a3");
     this.counter = text("count", 26, 318, 17);
-    this.add.text(PANEL_CX, 34, t("shop"), { fontFamily: FONT_LOGO, fontSize: "26px", color: "#ffe6a3", fontStyle: "800" }).setOrigin(0.5).setShadow(1, 1, "#000", 3).setDepth(top);
+    this.add.text(BTN_CX, MATCH_SHOP_TOP + 14, t("shop").toUpperCase(), { fontFamily: FONT_LOGO, fontSize: "17px", color: "#ffe6a3", fontStyle: "800" }).setOrigin(0.5).setShadow(1, 1, "#000", 3).setDepth(top);
 
-    button(this, PANEL_CX, 556, CARD_W, 46, t("reroll")(C.REROLL_COST), () => this.reroll()).setDepth(top);
-    button(this, PANEL_CX, 610, CARD_W, 46, t("buyXp")(C.XP_BUY_COST), () => this.buyXp()).setDepth(top);
-    button(this, PANEL_CX, 672, CARD_W, 56, t("ready"), () => this.fight(), true).setDepth(top);
+    button(this, BTN_CX, MATCH_SHOP_TOP + 56, BTN_W, 44, t("reroll")(C.REROLL_COST), () => this.reroll()).setDepth(top);
+    button(this, BTN_CX, MATCH_SHOP_TOP + 110, BTN_W, 44, t("buyXp")(C.XP_BUY_COST), () => this.buyXp()).setDepth(top);
+    button(this, READY_CX, STRIP_CY, READY_W, STRIP_H - 24, t("ready"), () => this.fight(), true).setDepth(top);
 
     // sell zone (shown while dragging one of our VieAni)
     const zg = this.add.graphics();
-    zg.fillStyle(0x8a1f12, 0.88).fillRoundedRect(PANEL_X - 2, 8, SCREEN_W - PANEL_X - 4, SCREEN_H - 16, 14)
-      .lineStyle(4, 0xffd84a, 1).strokeRoundedRect(PANEL_X - 2, 8, SCREEN_W - PANEL_X - 4, SCREEN_H - 16, 14);
-    this.sellText = this.add.text(PANEL_CX, SCREEN_H / 2, "", { fontFamily: FONT_LOGO, fontSize: "26px", color: "#fff3c4", fontStyle: "800", align: "center" })
+    zg.fillStyle(0x8a1f12, 0.9).fillRoundedRect(STRIP_X, MATCH_SHOP_TOP, STRIP_W, STRIP_H, 14)
+      .lineStyle(4, 0xffd84a, 1).strokeRoundedRect(STRIP_X, MATCH_SHOP_TOP, STRIP_W, STRIP_H, 14);
+    this.sellText = this.add.text(SCREEN_W / 2, STRIP_CY, "", { fontFamily: FONT_LOGO, fontSize: "26px", color: "#fff3c4", fontStyle: "800", align: "center" })
       .setOrigin(0.5).setShadow(1, 2, "#000", 4);
     this.sellZone = this.add.container(0, 0, [zg, this.sellText]).setDepth(top + 10).setVisible(false);
 
@@ -135,8 +138,8 @@ export class MatchScene extends BoardScene {
     this.cards = [];
     const m = this.match, p = m.human;
     p.shop.forEach((id, slot) => {
-      const y = CARD_Y0 + slot * CARD_STEP + CARD_H / 2;
-      const c = this.add.container(PANEL_CX, y).setDepth(5001);
+      const x = CARD_X0 + CARD_W / 2 + slot * CARD_STEP, y = STRIP_CY;
+      const c = this.add.container(x, y).setDepth(5001);
       const g = this.add.graphics();
       c.add(g);
       this.cards.push(c);
@@ -147,23 +150,41 @@ export class MatchScene extends BoardScene {
       const sp = m.sp(id);
       const col = TIER_COL[sp.tier] ?? 0xffffff;
       const ok = m.canBuy(p, slot);
-      g.fillStyle(0x1b120c, 0.95).fillRoundedRect(-CARD_W / 2, -CARD_H / 2, CARD_W, CARD_H, 10);
-      g.fillStyle(col, 0.28).fillRoundedRect(-CARD_W / 2, -CARD_H / 2, 84, CARD_H, { tl: 10, bl: 10, tr: 0, br: 0 });
+      // portrait card: tier-coloured art area on top, name + code/role below
+      const ART_H = 90;
+      g.fillStyle(0x1b120c, 0.96).fillRoundedRect(-CARD_W / 2, -CARD_H / 2, CARD_W, CARD_H, 10);
+      g.fillStyle(col, 0.3).fillRoundedRect(-CARD_W / 2, -CARD_H / 2, CARD_W, ART_H, { tl: 10, tr: 10, bl: 0, br: 0 });
       g.lineStyle(3, col, 1).strokeRoundedRect(-CARD_W / 2, -CARD_H / 2, CARD_W, CARD_H, 10);
       const { tex } = texturesFor(this, this.data_, sp, "front");
-      const img = this.add.image(-CARD_W / 2 + 42, CARD_H / 2 - 2, tex.body).setOrigin(0.5, 1);
-      img.setScale(Math.min(96 / img.width, 96 / img.height));
+      const feetY = -CARD_H / 2 + ART_H + 4;
+      const img = this.add.image(0, feetY, tex.body).setOrigin(0.5, 1);
+      const base = Math.min(108 / img.width, 108 / img.height);
+      img.setScale(base);
       const code = vcode(this.data_, sp) ?? "";
-      const name = this.add.text(-CARD_W / 2 + 92, -CARD_H / 2 + 8, shortName(sp.vi), { fontFamily: FONT_UI, fontSize: "16px", color: CREAM, fontStyle: "bold", wordWrap: { width: 118 } });
-      const sub = this.add.text(-CARD_W / 2 + 92, CARD_H / 2 - 24, `${code} · ${sp.role ?? ""}`, { fontFamily: FONT_UI, fontSize: "12px", color: "#d8cbb0" });
-      const cost = this.add.text(CARD_W / 2 - 8, -CARD_H / 2 + 6, `● ${sp.tier}`, { fontFamily: FONT_LOGO, fontSize: "20px", color: "#ffd84a", fontStyle: "800" }).setOrigin(1, 0);
+      const name = this.add.text(0, -CARD_H / 2 + ART_H + 3, shortName(sp.vi), { fontFamily: FONT_UI, fontSize: "16px", color: CREAM, fontStyle: "bold" }).setOrigin(0.5, 0);
+      const sub = this.add.text(0, CARD_H / 2 - 20, `${code} · ${sp.role ?? ""}`, { fontFamily: FONT_UI, fontSize: "11.5px", color: "#d8cbb0" }).setOrigin(0.5, 0);
+      const cost = this.add.text(CARD_W / 2 - 7, -CARD_H / 2 + 4, `● ${sp.tier}`, { fontFamily: FONT_LOGO, fontSize: "20px", color: "#ffd84a", fontStyle: "800" }).setOrigin(1, 0).setShadow(1, 1, "#000", 3);
       const have = p.team.units().filter((u) => u.speciesId === id).reduce((n, u) => n + 3 ** (u.star - 1), 0);
       c.add([img, name, sub, cost]);
-      if (have) c.add(this.add.text(CARD_W / 2 - 8, -CARD_H / 2 + 32, t("owned")(have), { fontFamily: FONT_UI, fontSize: "12px", color: "#9df0a8", fontStyle: "bold" }).setOrigin(1, 0));
+      if (have) c.add(this.add.text(-CARD_W / 2 + 7, -CARD_H / 2 + 6, t("owned")(have), { fontFamily: FONT_UI, fontSize: "12px", color: "#9df0a8", fontStyle: "bold", backgroundColor: "#1b120cc0", padding: { x: 4, y: 1 } }));
       c.setAlpha(ok ? 1 : 0.45);
       const hit = this.add.zone(0, 0, CARD_W, CARD_H).setInteractive({ useHandCursor: true });
-      hit.on("pointerover", () => { c.setScale(1.03); this.card.show(this.shopSubject(id), PANEL_X + 50, y); });
-      hit.on("pointerout", () => { c.setScale(1); this.card.hide(); });
+      // hover: the VieAni wiggles on its feet (PO request) and the info card opens beside the shop card
+      let wiggle: Phaser.Tweens.Tween | null = null;
+      hit.on("pointerover", () => {
+        c.setScale(1.04);
+        wiggle?.stop();
+        img.setAngle(-6);
+        wiggle = this.tweens.add({ targets: img, angle: 6, scaleX: base * 1.06, scaleY: base * 0.95, duration: 140, yoyo: true, repeat: -1, ease: "Sine.easeInOut" });
+        this.card.show(this.shopSubject(id), x, y);
+        this.card.placeBottomRight(SCREEN_W - 10, MATCH_SHOP_TOP - 6); // empty space right of the board
+      });
+      hit.on("pointerout", () => {
+        c.setScale(1);
+        wiggle?.stop(); wiggle = null;
+        img.setAngle(0).setScale(base);
+        this.card.hide();
+      });
       hit.on("pointerup", () => this.buy(slot));
       c.add(hit);
     });
@@ -182,9 +203,9 @@ export class MatchScene extends BoardScene {
     };
   }
 
-  /** the shop panel handles its own hover (cards) */
+  /** the shop strip handles its own hover (cards) */
   protected hoverAt(x: number, y: number) {
-    if (x >= PANEL_X) return;
+    if (y >= MATCH_SHOP_TOP) return;
     super.hoverAt(x, y);
   }
 
@@ -247,13 +268,13 @@ export class MatchScene extends BoardScene {
     const u = this.team.units().find((x) => x.uid === v.uid);
     if (!u) return;
     this.sellText.setText(t("sellHere")(this.match.sellValue(u)));
-    this.sellZone.setVisible(true).setAlpha(p.x >= PANEL_X ? 1 : 0.55);
+    this.sellZone.setVisible(true).setAlpha(p.y >= MATCH_SHOP_TOP ? 1 : 0.55);
     v.c.setDepth(5200); // keep the dragged VieAni above the sell zone
   }
 
   protected onDrop(p: Phaser.Input.Pointer, v: View): boolean {
     this.sellZone.setVisible(false);
-    if (p.x < PANEL_X) return false;
+    if (p.y < MATCH_SHOP_TOP) return false;
     const gold = this.match.sell(this.match.human, v.uid);
     v.anim.destroy();
     this.views.delete(v.uid);
@@ -316,10 +337,10 @@ export class MatchScene extends BoardScene {
   private showRoundPanel(rep: RoundReport) {
     const title = rep.winner === "A" ? t("win") : rep.winner === "B" ? t("lose") : t("draw");
     const color = rep.winner === "A" ? "#ffe6a3" : rep.winner === "B" ? "#ff8a7a" : "#e6e0d4";
-    const { base, interest, streak, win } = rep.income;
+    const { base, interest, streak, result } = rep.income;
     const layer = this.panel(title, color, [
       [rep.damage.A ? t("hpLost")(rep.damage.A) : "", rep.damage.B ? t("enemyHpLost")(rep.damage.B) : ""].filter(Boolean).join("   ·   "),
-      t("income")(base, interest, streak, win),
+      t("income")(base, interest, streak, result, rep.winner === "A"),
       `❤ ${t("you")} ${this.match.human.hp}   ·   ❤ ${t("opponent")} ${this.match.bot.hp}`,
     ]);
     if (rep.levelUp) this.pendingToast = t("levelUp")(this.match.human.level);

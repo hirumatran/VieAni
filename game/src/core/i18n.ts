@@ -51,8 +51,8 @@ const STRINGS = {
     maxLevel: "Đã đạt cấp tối đa",
     merged: (name: string, star: number) => `${name} lên ★${star}!`,
     levelUp: (l: number) => `Lên cấp ${l}! Thêm 1 chỗ trên sân`,
-    income: (b: number, i: number, s: number, w: number) =>
-      `Vàng vòng tới: +${b + i + s + w}  (cơ bản ${b} · lãi ${i} · chuỗi ${s} · thắng ${w})`,
+    income: (b: number, i: number, s: number, r: number, won: boolean) =>
+      `Vàng vòng tới: +${b + i + s + r}  (cơ bản ${b} · lãi ${i} · chuỗi ${s} · ${won ? "thắng" : "thua"} ${r})`,
     nextRound: "Vòng tiếp ▶",
     champion: "VÔ ĐỊCH!",
     eliminated: "BỊ LOẠI",
@@ -110,8 +110,8 @@ const STRINGS = {
     maxLevel: "Already at max level",
     merged: (name: string, star: number) => `${name} is now ★${star}!`,
     levelUp: (l: number) => `Level ${l}! One more board slot`,
-    income: (b: number, i: number, s: number, w: number) =>
-      `Gold next round: +${b + i + s + w}  (base ${b} · interest ${i} · streak ${s} · win ${w})`,
+    income: (b: number, i: number, s: number, r: number, won: boolean) =>
+      `Gold next round: +${b + i + s + r}  (base ${b} · interest ${i} · streak ${s} · ${won ? "win" : "loss"} ${r})`,
     nextRound: "Next round ▶",
     champion: "CHAMPION!",
     eliminated: "ELIMINATED",
