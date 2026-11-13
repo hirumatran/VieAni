@@ -8,7 +8,8 @@ import { Rng } from "../core/rng";
 import { Team, type OwnedUnit, type Spot } from "../core/team";
 import { button, coverImage, CREAM, FONT_LOGO, FONT_UI, toast } from "../ui/widgets";
 import { typeColour, VieAniView } from "../anim/VieAniView";
-import { preloadIllustrations, texturesFor } from "../anim/illustrations";
+import { preloadIllustrations, texturesFor, vcode } from "../anim/illustrations";
+import { InfoCard, type CardSubject } from "../ui/InfoCard";
 
 const ENEMY_TINT = 0x96e6dc;
 const OWN_TINT = 0xffd68c;
@@ -33,6 +34,10 @@ export interface View {
   hp: number;
   row: number;
   col: number;
+  /** live battle values for the info card */
+  energy: number;
+  target?: number;
+  lastMult?: number;
 }
 
 /** Battle screen: drag VieAni between bench and board (task T09), then replay a simulated fight (T10). */
@@ -45,6 +50,9 @@ export class BoardScene extends Phaser.Scene {
   protected highlight!: Phaser.GameObjects.Graphics;
   protected counter!: Phaser.GameObjects.Text;
   protected fighting = false;
+  protected dragging = false;
+  protected card!: InfoCard;
+  private hoverUid: number | null = null;
 
   constructor(protected data_: GameData, key = "board") {
     super(key);
@@ -78,6 +86,7 @@ export class BoardScene extends Phaser.Scene {
 
     this.buildHud();
     this.setupDrag();
+    this.setupHover();
   }
 
   /** practice HUD (the match scene replaces it) */
@@ -129,7 +138,7 @@ export class BoardScene extends Phaser.Scene {
     const hpBar = this.add.graphics().setVisible(false);
     anim.c.add(hpBar);
     const maxHp = battleMaxHp(sp, u.star);
-    const v: View = { uid: u.uid, speciesId: u.speciesId, side, c: anim.c, sprite: anim.body, anim, illustrated, hpBar, maxHp, hp: maxHp, row: 0, col: 0 };
+    const v: View = { uid: u.uid, speciesId: u.speciesId, side, c: anim.c, sprite: anim.body, anim, illustrated, hpBar, maxHp, hp: maxHp, row: 0, col: 0, energy: 0 };
     this.views.set(u.uid, v);
     if (side === "A") anim.body.setInteractive({ draggable: true, useHandCursor: true, pixelPerfect: false });
     anim.body.setData("uid", u.uid);
@@ -191,6 +200,8 @@ export class BoardScene extends Phaser.Scene {
       if (this.fighting) return;
       const v = this.views.get(obj.getData("uid"));
       if (!v) return;
+      this.dragging = true;
+      this.hideCard();
       v.c.setDepth(4000);
       this.tweens.add({ targets: v.c, scale: 1.12, duration: 100 });
     });
@@ -209,6 +220,7 @@ export class BoardScene extends Phaser.Scene {
       }
     });
     this.input.on("dragend", (p: Phaser.Input.Pointer, obj: Phaser.GameObjects.Image) => {
+      this.dragging = false;
       this.highlight.clear();
       const v = this.views.get(obj.getData("uid"));
       if (!v || this.fighting) return;
@@ -224,6 +236,72 @@ export class BoardScene extends Phaser.Scene {
       this.layout();
       this.updateCounter();
     });
+  }
+
+  // ------------------------------------------------------------------ hover info card
+  protected setupHover() {
+    this.card = new InfoCard(this);
+    this.hoverUid = null;
+    this.input.on("pointermove", (p: Phaser.Input.Pointer) => this.hoverAt(p.x, p.y));
+    this.input.on("gameout", () => this.hideCard());
+    // keep HP / energy / status live while the card is open
+    this.time.addEvent({ delay: 150, loop: true, callback: () => this.refreshCard() });
+  }
+
+  /** the VieAni drawn under (x, y), front-most first; uses the creature's body, not the empty art margins */
+  protected viewAt(x: number, y: number): View | null {
+    let best: View | null = null;
+    for (const v of this.views.values()) {
+      if (!v.c.visible || !v.c.active) continue;
+      const b = v.sprite.getBounds();
+      const inner = v.illustrated
+        ? new Phaser.Geom.Rectangle(b.x + b.width * 0.12, b.y + b.height * 0.2, b.width * 0.76, b.height * 0.76)
+        : new Phaser.Geom.Rectangle(b.x + b.width * 0.15, b.y + b.height * 0.15, b.width * 0.7, b.height * 0.85);
+      if (inner.contains(x, y) && (!best || v.c.depth > best.c.depth)) best = v;
+    }
+    return best;
+  }
+
+  protected hoverAt(x: number, y: number) {
+    if (this.dragging) return this.hideCard();
+    const v = this.viewAt(x, y);
+    if (!v) return this.hideCard();
+    this.hoverUid = v.uid;
+    this.card.show(this.subjectOf(v), v.c.x, v.c.y - v.sprite.displayHeight * 0.5);
+  }
+
+  protected hideCard() {
+    if (this.hoverUid == null && !this.card?.visible) return;
+    this.hoverUid = null;
+    this.card?.hide();
+  }
+
+  private refreshCard() {
+    if (this.hoverUid == null) return;
+    const v = this.views.get(this.hoverUid);
+    if (!v || !v.c.active || !v.c.visible) return this.hideCard();
+    this.card.show(this.subjectOf(v), v.c.x, v.c.y - v.sprite.displayHeight * 0.5);
+  }
+
+  /** where a view stands: our units via the team, opponents are always on the board */
+  protected whereOf(v: View): "board" | "bench" {
+    return v.side === "A" && this.team.locate(v.uid)?.where === "bench" ? "bench" : "board";
+  }
+
+  protected subjectOf(v: View): CardSubject {
+    const sp = this.data_.byId.get(v.speciesId)!;
+    const mates = [...this.views.values()].filter((o) => o.side === v.side && o.c.active && !o.anim.dead && this.whereOf(o) === "board" && (o.c.visible || o.side === "A"));
+    const ids = new Set(mates.map((o) => o.speciesId));
+    const synergies = this.data_.synergies
+      .filter((g) => g.members.includes(sp.id))
+      .map((g) => [g.name, g.members.filter((m) => ids.has(m)).length, Object.keys(g.tiers).map(Number).sort((a, b) => a - b)] as [string, number, number[]]);
+    const tgt = v.target != null ? this.views.get(v.target) : undefined;
+    return {
+      sp, code: vcode(this.data_, sp), tex: texturesFor(this, this.data_, sp, "front").tex.body, star: v.anim.star as 1 | 2 | 3, side: v.side,
+      hp: v.hp, maxHp: v.maxHp, energy: v.energy, where: this.whereOf(v), fighting: this.fighting, dead: v.anim.dead,
+      targetName: tgt && !tgt.anim.dead ? this.data_.byId.get(tgt.speciesId)!.vi.replace(/\s*\(.*\)\s*/, "") : undefined,
+      lastMult: v.lastMult, synergies,
+    };
   }
 
   /** hooks for the match scene (sell zone) */
@@ -283,8 +361,12 @@ export class BoardScene extends Phaser.Scene {
       const speed = settings.speed;
       const sp = this.data_.byId.get(v.speciesId)!;
       const cast = e.type === "cast";
+      v.energy = e.en;
+      v.target = e.target;
+      if (e.type === "attack") v.lastMult = e.mult;
       const land = () => {
         tv.hp -= e.dmg;
+        tv.energy = e.tEn;
         this.drawHp(tv);
         if (tv.hp > 0) void tv.anim.hit(v.c.x, v.c.y, speed);
         const strong = e.type === "attack" && e.mult > 1, weak = e.type === "attack" && e.mult < 1;

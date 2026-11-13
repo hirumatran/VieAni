@@ -31,8 +31,9 @@ export interface Fighter extends Placed {
 
 export type BattleEvent =
   | { t: number; type: "move"; uid: number; row: number; col: number }
-  | { t: number; type: "attack"; uid: number; target: number; dmg: number; mult: number }
-  | { t: number; type: "cast"; uid: number; target: number; dmg: number }
+  // en / tEn = energy (mana) of the attacker / target right after the hit, for the info card
+  | { t: number; type: "attack"; uid: number; target: number; dmg: number; mult: number; en: number; tEn: number }
+  | { t: number; type: "cast"; uid: number; target: number; dmg: number; en: number; tEn: number }
   | { t: number; type: "death"; uid: number };
 
 export interface BattleResult {
@@ -162,7 +163,10 @@ export function simulate(d: GameData, units: Placed[], seed: number): BattleResu
     const dmg = Math.max(1, Math.round(C.DAMAGE_BASE * (A / D) * typeM * preyM * roll * C.STAR_MULT[f.star - 1] * power));
     target.hp -= dmg;
     target.energy = Math.min(C.ENERGY_MAX, target.energy + C.ENERGY_PER_HIT);
-    events.push(kind === "attack" ? { t, type: "attack", uid: f.uid, target: target.uid, dmg, mult: typeM * preyM } : { t, type: "cast", uid: f.uid, target: target.uid, dmg });
+    const en = f.energy; // a full bar shows for a moment, then the cast event that follows reports 0
+    events.push(kind === "attack"
+      ? { t, type: "attack", uid: f.uid, target: target.uid, dmg, mult: typeM * preyM, en, tEn: target.energy }
+      : { t, type: "cast", uid: f.uid, target: target.uid, dmg, en, tEn: target.energy });
     if (target.hp <= 0 && target.alive) {
       target.alive = false;
       occ.delete(key(target.row, target.col));

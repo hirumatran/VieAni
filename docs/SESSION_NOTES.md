@@ -166,3 +166,17 @@ back into `data/*.json` before rebuilding the page.
   - bot uses the same rules: buys copies it owns first, keeps 10 gold for interest from round 5, buys XP from round 3, places tanks front / mages back;
   - **test HP 40** (not 100) so one match is ~10 rounds; damage = stage damage + tiers of surviving enemies.
   - Not in the test yet: PvE rounds, items, synergies/tộc hệ bonuses, 8 players.
+
+## Hover info card (13 Nov, v0.6.1)
+- PO: hovering a VieAni shows its info card, same layout as the VieIndex card (`game/src/ui/InfoCard.ts`). Works for our units
+  (board + bench), the opponent's units, during prep and during the battle, and on shop cards. Practice mode has it too.
+- Shows: type-coloured art band with the front illustration, IUCN/status label, tier, #dex · V-code · role, name + English
+  name, ★ level, type badges, attack type/class/range, **live HP and energy (mana)**, the 6 base stats as bars, active skill
+  (name, energy cost, effect, damage ★1/★2/★3) and passive, tộc hệ chips (different members on that side's board / next threshold;
+  gold = threshold reached), and **status** chips: ★ multiplier, bench, current target, last hit multiplier (type advantage /
+  Thiên địch), full energy, knocked out.
+- Battle events now carry the attacker's and target's energy (`en`, `tEn`) so the card's mana bar matches the simulation.
+- Honest limits (shown in small print on the card): the test battle still uses the placeholder skill (×2 strike at 100 energy,
+  task T11) – the per-skill energy cost (e.g. 90 NL) and the tộc hệ bonuses are not applied in battle yet, and there are no
+  buffs/debuffs in the simulation yet, so the status list only shows what the simulation really does. Touch screens: hover needs a
+  mouse; tap-to-inspect is a later task.

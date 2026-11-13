@@ -9,6 +9,7 @@ import type { Team } from "../core/team";
 import { texturesFor, vcode } from "../anim/illustrations";
 import { button, CREAM, FONT_LOGO, FONT_UI, GOLD, toast, WOOD } from "../ui/widgets";
 import { BoardScene, type View } from "./BoardScene";
+import type { CardSubject } from "../ui/InfoCard";
 
 const PANEL_X = 1048; // shop panel (right) – drop a VieAni here to sell it
 const PANEL_CX = (PANEL_X + SCREEN_W) / 2;
@@ -161,11 +162,30 @@ export class MatchScene extends BoardScene {
       if (have) c.add(this.add.text(CARD_W / 2 - 8, -CARD_H / 2 + 32, t("owned")(have), { fontFamily: FONT_UI, fontSize: "12px", color: "#9df0a8", fontStyle: "bold" }).setOrigin(1, 0));
       c.setAlpha(ok ? 1 : 0.45);
       const hit = this.add.zone(0, 0, CARD_W, CARD_H).setInteractive({ useHandCursor: true });
-      hit.on("pointerover", () => c.setScale(1.03));
-      hit.on("pointerout", () => c.setScale(1));
+      hit.on("pointerover", () => { c.setScale(1.03); this.card.show(this.shopSubject(id), PANEL_X + 50, y); });
+      hit.on("pointerout", () => { c.setScale(1); this.card.hide(); });
       hit.on("pointerup", () => this.buy(slot));
       c.add(hit);
     });
+  }
+
+  /** info card for a shop offer: ★1 values, synergy counts with our current board */
+  private shopSubject(id: number): CardSubject {
+    const sp = this.data_.byId.get(id)!;
+    const onBoard = new Set(this.team.toPlaced().map((u) => u.speciesId));
+    onBoard.add(id);
+    const synergies = this.data_.synergies.filter((g) => g.members.includes(id))
+      .map((g) => [g.name, g.members.filter((m) => onBoard.has(m)).length, Object.keys(g.tiers).map(Number).sort((a, b) => a - b)] as [string, number, number[]]);
+    return {
+      sp, code: vcode(this.data_, sp), tex: texturesFor(this, this.data_, sp, "front").tex.body, star: 1, side: "A",
+      hp: null, maxHp: battleMaxHp(sp, 1), energy: 0, where: "shop", fighting: false, dead: false, synergies,
+    };
+  }
+
+  /** the shop panel handles its own hover (cards) */
+  protected hoverAt(x: number, y: number) {
+    if (x >= PANEL_X) return;
+    super.hoverAt(x, y);
   }
 
   private refreshAll() {
