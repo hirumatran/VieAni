@@ -46,7 +46,7 @@ export class TitleScene extends Phaser.Scene {
     // menu
     const x = SCREEN_W / 2;
     let y = 316;
-    button(this, x, y, 320, 64, t("start"), () => this.scene.start("board", { mode: "match" }), true);
+    button(this, x, y, 320, 64, t("start"), () => this.scene.start("match", { fresh: true }), true);
     y += 78;
     const items: [string, () => void][] = [
       [t("practice"), () => this.scene.start("board", { mode: "practice" })],

@@ -41,7 +41,7 @@ export class AnimLabScene extends Phaser.Scene {
       const [x, y] = this.board.foot(row, colIdx);
       const { tex, illustrated } = texturesFor(this, this.data_, this.sp, view);
       const v = new VieAniView(this, x, y, tex, view === "back" ? 1 : -1, col, !illustrated && view === "front");
-      v.setSize(this.board.cellWidth(row, colIdx) * (illustrated ? 1.9 : 1.3));
+      v.setSize(this.board.cellWidth(row, colIdx) * (illustrated ? 1.33 : 1.3));
       v.c.setDepth(y); v.idle();
       return v;
     };

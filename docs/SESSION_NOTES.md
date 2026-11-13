@@ -151,3 +151,18 @@ back into `data/*.json` before rebuilding the page.
   `game/src/anim/illustrations.ts` picks the illustration (back view on our side, front view for the opponent) or falls back to the pixel sprite.
 - Title screen → "🎬 Xưởng hoạt ảnh" (AnimLabScene) previews every animation for V001 on both sides. Practice battles now use VieAniView;
   Báo Gấm is in the demo roster (save key bumped to vieani.practice.team.v2).
+
+## Test match V001–V004 (13 Nov, v0.6.0)
+- PO: V001 too big on the board → illustration size 1.9 → **1.33 × cell width** (70 %), bench 1.45 → 1.0; same in the animation lab.
+- V002–V004 cut out (`scripts/cutout.py` now also removes pure-white holes enclosed by the drawing, e.g. inside the dugong's tail).
+- **Bắt Đầu** on the title screen opens the test match (`MatchScene` + pure logic in `game/src/core/match.ts`, 7 tests):
+  - you vs one bot; shop shows **only V001–V004**; shared pool (T3 = 12 copies, Bò Xám T4 = 10), 5 slots weighted by copies left
+    (tier odds by level are ignored here because there is no tier 1–2 VieAni in the test set);
+  - real config rules: start 5 gold, cost = tier, reroll 2, buy 4 XP for 4, +2 XP and income per round
+    (base 2/3/4 then 5, interest 1 per 10 gold max 3, streak bonus, +1 per win), board limit = level, max level 10;
+  - 3 identical VieAni of the same ★ merge automatically (★2 silver outline, ★3 golden glow); full bench may still buy a copy that completes a ★2;
+  - sell = drag a VieAni onto the shop panel (refund tier × copies);
+  - prep timer 15 s (off in Settings → relaxed mode); free board slots are auto-filled from the bench at the fight;
+  - bot uses the same rules: buys copies it owns first, keeps 10 gold for interest from round 5, buys XP from round 3, places tanks front / mages back;
+  - **test HP 40** (not 100) so one match is ~10 rounds; damage = stage damage + tiers of surviving enemies.
+  - Not in the test yet: PvE rounds, items, synergies/tộc hệ bonuses, 8 players.

@@ -16,10 +16,11 @@ const SAVE_KEY = "vieani.practice.team.v2";
 const DEMO_LEVEL = 5; // board limit for practice until levels exist (task T16)
 const DEMO_ROSTER = ["Báo Gấm", "Hổ Đông Dương", "Voi châu Á", "Gấu chó", "Chó Phú Quốc", "Mèo Mun", "Rắn Hổ Mang", "Sếu đầu đỏ", "Trâu"];
 const SPRITE_SCALE = 1.3; // pixel sprite size relative to the cell width
-const ILLU_SCALE = 1.9; // illustration size relative to the cell width (the art has margins)
+const ILLU_SCALE = 1.33; // illustration size relative to the cell width (the art has margins); PO: 70% of the first 1.9
+const ILLU_BENCH_SCALE = 1.0;
 
 /** one VieAni on screen: shadow + sprite + HP bar */
-interface View {
+export interface View {
   uid: number;
   speciesId: number;
   side: "A" | "B";
@@ -36,17 +37,17 @@ interface View {
 
 /** Battle screen: drag VieAni between bench and board (task T09), then replay a simulated fight (T10). */
 export class BoardScene extends Phaser.Scene {
-  private board = new Grid(BOARD_CORNERS, BOARD_COLS, BOARD_ROWS);
-  private bench = new Grid(BENCH_CORNERS, BENCH_SLOTS, 1);
-  private bgKey = "";
-  private team!: Team;
-  private views = new Map<number, View>();
-  private highlight!: Phaser.GameObjects.Graphics;
-  private counter!: Phaser.GameObjects.Text;
-  private fighting = false;
+  protected board = new Grid(BOARD_CORNERS, BOARD_COLS, BOARD_ROWS);
+  protected bench = new Grid(BENCH_CORNERS, BENCH_SLOTS, 1);
+  protected bgKey = "";
+  protected team!: Team;
+  protected views = new Map<number, View>();
+  protected highlight!: Phaser.GameObjects.Graphics;
+  protected counter!: Phaser.GameObjects.Text;
+  protected fighting = false;
 
-  constructor(private data_: GameData) {
-    super("board");
+  constructor(protected data_: GameData, key = "board") {
+    super(key);
   }
 
   preload() {
@@ -75,7 +76,12 @@ export class BoardScene extends Phaser.Scene {
     for (const u of this.team.units()) this.spawn(u, "A");
     this.layout(false);
 
-    // HUD
+    this.buildHud();
+    this.setupDrag();
+  }
+
+  /** practice HUD (the match scene replaces it) */
+  protected buildHud() {
     button(this, 78, 34, 130, 44, "← " + t("back"), () => this.scene.start("title")).setDepth(5000);
     button(this, SCREEN_W - 110, SCREEN_H - 48, 190, 56, t("fight"), () => this.fight(), true).setDepth(5000);
     this.counter = this.add.text(SCREEN_W - 110, SCREEN_H - 92, "", { fontFamily: FONT_UI, fontSize: "18px", color: CREAM, fontStyle: "bold" })
@@ -84,11 +90,10 @@ export class BoardScene extends Phaser.Scene {
       .setOrigin(0.5, 0).setDepth(5000);
     this.add.text(SCREEN_W - 12, 10, `v${VERSION}`, { fontFamily: FONT_UI, fontSize: "13px", color: CREAM }).setOrigin(1, 0).setShadow(1, 1, "#000", 2).setDepth(5000);
     this.updateCounter();
-    this.setupDrag();
   }
 
   // ------------------------------------------------------------------ team state
-  private loadTeam(): Team {
+  protected loadTeam(): Team {
     try {
       const saved = localStorage.getItem(SAVE_KEY);
       if (saved) {
@@ -106,7 +111,7 @@ export class BoardScene extends Phaser.Scene {
     return tm;
   }
 
-  private saveTeam() {
+  protected saveTeam() {
     try {
       localStorage.setItem(SAVE_KEY, this.team.serialize());
     } catch {
@@ -115,7 +120,7 @@ export class BoardScene extends Phaser.Scene {
   }
 
   // ------------------------------------------------------------------ views
-  private spawn(u: OwnedUnit | Placed, side: "A" | "B") {
+  protected spawn(u: OwnedUnit | Placed, side: "A" | "B") {
     const sp = this.data_.byId.get(u.speciesId)!;
     // our side is seen from behind (back view), the opponent from the front
     const { tex, illustrated } = texturesFor(this, this.data_, sp, side === "A" ? "back" : "front");
@@ -133,7 +138,7 @@ export class BoardScene extends Phaser.Scene {
   }
 
   /** screen position + size for a spot */
-  private spotPos(s: Spot): { x: number; y: number; w: number } {
+  protected spotPos(s: Spot): { x: number; y: number; w: number } {
     if (s.where === "bench") {
       const [x, y] = this.bench.foot(0, s.slot);
       return { x, y, w: this.bench.cellWidth(0, s.slot) * 1.1 };
@@ -142,9 +147,9 @@ export class BoardScene extends Phaser.Scene {
     return { x, y, w: this.board.cellWidth(s.row, s.col) };
   }
 
-  private place(v: View, s: Spot, animate: boolean, ms = 160) {
+  protected place(v: View, s: Spot, animate: boolean, ms = 160) {
     const { x, y, w: cell } = this.spotPos(s);
-    const w = s.where === "bench" ? cell * (v.illustrated ? 1.45 : 1) : cell * (v.illustrated ? ILLU_SCALE : SPRITE_SCALE);
+    const w = s.where === "bench" ? cell * (v.illustrated ? ILLU_BENCH_SCALE : 1) : cell * (v.illustrated ? ILLU_SCALE : SPRITE_SCALE);
     if (s.where === "board") { v.row = s.row; v.col = s.col; }
     v.anim.setSize(w);
     v.c.setDepth(y);
@@ -153,7 +158,7 @@ export class BoardScene extends Phaser.Scene {
     this.drawHp(v, w);
   }
 
-  private layout(animate = true) {
+  protected layout(animate = true) {
     for (const u of this.team.units()) {
       const v = this.views.get(u.uid);
       const s = this.team.locate(u.uid);
@@ -161,19 +166,19 @@ export class BoardScene extends Phaser.Scene {
     }
   }
 
-  private drawHp(v: View, w = v.sprite.displayWidth) {
+  protected drawHp(v: View, w = v.sprite.displayWidth) {
     const bw = Math.min(w * (v.illustrated ? 0.5 : 0.7), 70), bh = 6, y = -v.sprite.displayHeight * (v.illustrated ? 0.88 : 0.98);
     v.hpBar.clear();
     v.hpBar.fillStyle(0x000000, 0.6).fillRect(-bw / 2 - 1, y - 1, bw + 2, bh + 2);
     v.hpBar.fillStyle(v.side === "A" ? 0x5bd36b : 0xe0533d, 1).fillRect(-bw / 2, y, bw * Math.max(0, v.hp / v.maxHp), bh);
   }
 
-  private updateCounter() {
+  protected updateCounter() {
     this.counter.setText(t("onBoard")(this.team.boardCount, this.team.maxOnBoard));
   }
 
   // ------------------------------------------------------------------ drag & drop (mouse + touch)
-  private spotUnder(x: number, y: number): Spot | null {
+  protected spotUnder(x: number, y: number): Spot | null {
     const b = this.board.cellAt(x, y);
     if (b) return { where: "board", row: b[0], col: b[1] };
     const s = this.bench.cellAt(x, y);
@@ -181,7 +186,7 @@ export class BoardScene extends Phaser.Scene {
     return null;
   }
 
-  private setupDrag() {
+  protected setupDrag() {
     this.input.on("dragstart", (_p: Phaser.Input.Pointer, obj: Phaser.GameObjects.Image) => {
       if (this.fighting) return;
       const v = this.views.get(obj.getData("uid"));
@@ -196,6 +201,7 @@ export class BoardScene extends Phaser.Scene {
       v.c.setPosition(p.x, p.y + v.sprite.displayHeight * 0.35);
       const s = this.spotUnder(p.x, p.y);
       this.highlight.clear();
+      this.onDragMove(p, v);
       if (s && Team.valid(s)) {
         const quad = s.where === "board" ? this.board.cellQuad(s.row, s.col) : this.bench.cellQuad(0, s.slot, 0.04);
         const pts = quad.map(([x, y]) => new Phaser.Math.Vector2(x, y));
@@ -207,6 +213,7 @@ export class BoardScene extends Phaser.Scene {
       const v = this.views.get(obj.getData("uid"));
       if (!v || this.fighting) return;
       this.tweens.add({ targets: v.c, scale: 1, duration: 100 });
+      if (this.onDrop(p, v)) return;
       const s = this.spotUnder(p.x, p.y);
       if (s && Team.valid(s)) {
         const wasFull = this.team.boardCount >= this.team.maxOnBoard;
@@ -219,43 +226,53 @@ export class BoardScene extends Phaser.Scene {
     });
   }
 
+  /** hooks for the match scene (sell zone) */
+  protected onDragMove(_p: Phaser.Input.Pointer, _v: View) {}
+  /** return true if the drop was handled (the unit is not put back on a spot) */
+  protected onDrop(_p: Phaser.Input.Pointer, _v: View): boolean { return false; }
+
   // ------------------------------------------------------------------ battle
-  private fight() {
+  protected fight() {
     if (this.fighting) return;
     const mine = this.team.toPlaced("A");
     if (!mine.length) return toast(this, t("needUnits"));
-    this.fighting = true;
-    for (const v of this.views.values()) v.sprite.disableInteractive();
-    // hide the bench during the fight
-    for (const u of this.team.bench) if (u) this.views.get(u.uid)!.c.setVisible(false);
-
-    // practice opponent: random VieAni (tier ≤ 3), same count, random spots on their half
     const seed = Math.floor(Math.random() * 1e9);
-    const rng = new Rng(seed);
+    const enemy = this.makeEnemy(mine, new Rng(seed));
+    this.startBattle(mine, enemy, seed);
+  }
+
+  /** practice opponent: random VieAni (tier ≤ 3), same count, random spots on their half */
+  protected makeEnemy(mine: Placed[], rng: Rng): Placed[] {
     const pool = this.data_.roster.filter((s) => s.tier <= 3);
     const used = new Set<string>();
-    const enemy: Placed[] = mine.map((_, i) => {
+    return mine.map((_, i) => {
       let r: number, c: number;
       do { r = rng.int(4, 7); c = rng.int(0, 7); } while (used.has(`${r},${c}`));
       used.add(`${r},${c}`);
       const [row, col] = mirror(r, c);
       return { uid: 1000 + i, speciesId: rng.pick(pool).id, star: 1, row, col, side: "B" as const };
     });
+  }
+
+  /** show the enemy, then replay the fight (simulated here unless a result is given) */
+  protected startBattle(mine: Placed[], enemy: Placed[], seed: number, res?: BattleResult) {
+    this.fighting = true;
+    for (const v of this.views.values()) v.sprite.disableInteractive();
+    for (const u of this.team.bench) if (u) this.views.get(u.uid)?.c.setVisible(false); // bench hidden during the fight
     for (const e of enemy) this.place(this.spawn(e, "B"), { where: "board", row: e.row, col: e.col }, false);
     for (const v of this.views.values()) if (v.c.visible) { v.hpBar.setVisible(true); this.drawHp(v); }
 
-    const res = simulate(this.data_, [...mine, ...enemy], seed);
-    this.replay(res);
+    this.replay(res ?? simulate(this.data_, [...mine, ...enemy], seed));
   }
 
-  private replay(res: BattleResult) {
+  protected replay(res: BattleResult) {
     const speed = settings.speed;
     const msPerTick = 100 / speed;
     for (const e of res.events) this.time.delayedCall(e.t * msPerTick + 400, () => this.apply(e, msPerTick));
     this.time.delayedCall(res.ticks * msPerTick + 1200, () => this.showResult(res));
   }
 
-  private apply(e: BattleEvent, msPerTick: number) {
+  protected apply(e: BattleEvent, msPerTick: number) {
     const v = this.views.get(e.uid);
     if (!v) return;
     if (e.type === "move") {
@@ -284,17 +301,21 @@ export class BoardScene extends Phaser.Scene {
     }
   }
 
-  private showResult(res: BattleResult) {
+  protected showResult(res: BattleResult) {
     // survivors react first: winners celebrate, a draw leaves everyone dejected
     for (const v of this.views.values()) {
       if (!v.c.visible || v.anim.dead) continue;
       if (res.winner === "draw") void v.anim.lose();
       else if (v.side === res.winner) void v.anim.win();
     }
-    this.time.delayedCall(1100, () => this.showResultPanel(res));
+    this.time.delayedCall(1100, () => this.afterBattle(res));
   }
 
-  private showResultPanel(res: BattleResult) {
+  protected afterBattle(res: BattleResult) {
+    this.showResultPanel(res);
+  }
+
+  protected showResultPanel(res: BattleResult) {
     const dmg = playerDamage(res, 1);
     const title = res.winner === "A" ? t("win") : res.winner === "B" ? t("lose") : t("draw");
     const color = res.winner === "A" ? "#ffe6a3" : res.winner === "B" ? "#ff8a7a" : "#e6e0d4";
@@ -310,7 +331,7 @@ export class BoardScene extends Phaser.Scene {
     this.tweens.add({ targets: big, scale: 1, duration: 300, ease: "Back.easeOut" });
   }
 
-  private cell(g: Phaser.GameObjects.Graphics, quad: Pt[], tint: number, alpha: number) {
+  protected cell(g: Phaser.GameObjects.Graphics, quad: Pt[], tint: number, alpha: number) {
     const pts = quad.map(([x, y]) => new Phaser.Math.Vector2(x, y));
     g.fillStyle(tint, alpha).fillPoints(pts, true);
     g.lineStyle(2, tint, 0.8).strokePoints(pts, true);

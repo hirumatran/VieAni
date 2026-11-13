@@ -51,6 +51,22 @@ export class Team {
     return true;
   }
 
+  /** take a unit off the board / bench (sold or merged); returns it */
+  remove(uid: number): OwnedUnit | null {
+    const s = this.locate(uid);
+    if (!s) return null;
+    const u = this.at(s);
+    this.put(s, null);
+    return u;
+  }
+
+  /** put a unit on an empty spot (no limit check – callers decide) */
+  place(u: OwnedUnit, s: Spot): boolean {
+    if (!Team.valid(s) || this.at(s)) return false;
+    this.put(s, u);
+    return true;
+  }
+
   /** move a unit; swaps with whoever is there. Refuses to exceed the board limit. */
   move(uid: number, to: Spot): boolean {
     const from = this.locate(uid);
