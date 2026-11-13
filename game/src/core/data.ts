@@ -24,6 +24,14 @@ export interface Species {
   range: number;
   skill: string;
   zodiac?: string | null;
+  /** keep = in the current roster; later = saved for an update; removed = cut */
+  status?: "keep" | "later" | "removed";
+  role?: string;
+  skills?: {
+    active: { name: string; effect: string; time: string; damage: string; energy: number; estSeconds: number };
+    passive: string;
+    star3: string;
+  };
 }
 
 export interface Synergy {
@@ -34,12 +42,15 @@ export interface Synergy {
   basis?: string;
 }
 
-export interface Item { id: number; name: string; tier: number; cat: "TC" | "PT" | "HT" | "TD" | "NEM" | "SAN"; effect: string }
+export interface Item { id: number; name: string; tier: number; cat: "TC" | "PT" | "HT" | "TD" | "NEM" | "SAN" | "LV"; effect: string }
 
 export interface Relation { kind: "Thiên địch" | "Cộng sinh"; a: number[]; b: number[]; bType?: TypeName; mult?: number; effect: string }
 
 export interface GameData {
+  /** all species in the data file (incl. 'later' / 'removed') */
   species: Species[];
+  /** the playable roster (status keep) */
+  roster: Species[];
   byId: Map<number, Species>;
   typeChart: Record<string, Record<string, number>>;
   legendary: { dealt: number; taken: number };
@@ -53,6 +64,7 @@ export function loadData(): GameData {
   const species = (vieindex.species as unknown as Species[]).slice().sort((a, b) => a.dex - b.dex);
   return {
     species,
+    roster: species.filter((s) => (s.status ?? "keep") === "keep"),
     byId: new Map(species.map((s) => [s.id, s])),
     typeChart: vieindex.typeChart as Record<string, Record<string, number>>,
     legendary: vieindex.legendaryRule,
@@ -87,6 +99,14 @@ export function validate(d: GameData): string[] {
       if (!(s.stats[k] > 0)) errs.push(`${s.vi}: stat ${k}`);
   }
   for (const sy of d.synergies) for (const m of sy.members) if (!ids.has(m)) errs.push(`synergy ${sy.name}: unknown member ${m}`);
+  const keep = new Set(d.roster.map((s) => s.id));
+  for (const sy of d.synergies) for (const m of sy.members) if (!keep.has(m)) errs.push(`synergy ${sy.name}: member ${m} is not in the roster`);
+  for (const s of d.roster) {
+    if (!s.role) errs.push(`${s.vi}: no role`);
+    if (!s.skills?.active?.name || !s.skills.passive || !s.skills.star3) errs.push(`${s.vi}: missing skills`);
+    const n = d.synergies.filter((g) => g.members.includes(s.id)).length;
+    if (n > 2) errs.push(`${s.vi}: ${n} synergies (max 2)`);
+  }
   for (const r of d.relations) for (const m of [...r.a, ...r.b]) if (!ids.has(m)) errs.push(`relation: unknown id ${m}`);
   return errs;
 }

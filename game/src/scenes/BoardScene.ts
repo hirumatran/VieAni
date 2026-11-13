@@ -225,7 +225,7 @@ export class BoardScene extends Phaser.Scene {
     // practice opponent: random VieAni (tier ≤ 3), same count, random spots on their half
     const seed = Math.floor(Math.random() * 1e9);
     const rng = new Rng(seed);
-    const pool = this.data_.species.filter((s) => s.tier <= 3);
+    const pool = this.data_.roster.filter((s) => s.tier <= 3);
     const used = new Set<string>();
     const enemy: Placed[] = mine.map((_, i) => {
       let r: number, c: number;

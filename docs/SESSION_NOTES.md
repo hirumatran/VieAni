@@ -126,3 +126,14 @@ back into `data/*.json` before rebuilding the page.
   check it with `npm test` (data validation), and push. Ask the PO which tabs changed.
 - PO will work on: VieAni line-up, types, synergies; more Gemini backgrounds (prompts in docs/BACKGROUND_PROMPTS.md).
 - Next dev tasks: T11 skills + T12 status effects (→ M1), T13, T14.
+
+## PO review 2 – 13 Nov 2026 (sheet + data v2)
+- Source of truth for the redesign: `scripts/design_v2.py` (roles, ranges, 12 synergies, 3 skills per VieAni, Linh Vật);
+  `scripts/apply_v2.py OUT` regenerates data/*.json (+ sheet payloads). Species now carry `status` (keep/later/removed),
+  `role`, `skills{active,passive,star3}`; `GameData.roster` = playable 87.
+- Sheet: VieAni tab = 87 rows (IDs renumbered V001–V087 by formula); 21 rows moved to tab "Lưu trữ (bản sau / đã xoá)".
+  New columns used: B action, G role (dropdown), U range, X active, Y passive, Z ★3. Tộc hệ = 12 rows (formulas).
+  Luật chơi: max level 10, +2 XP/round, XP/odds to level 10, Linh Vật rule, roles, skill format + damage budget.
+  Vật phẩm: #ERROR cells fixed ('+…' text), VP51–53 Linh Vật. Thiên địch: 27 relations (only playable VieAni). Hiệu ứng: +7 effects.
+- Renamed: Cá heo Irrawaddy → **Cá Nược (Cá Heo Sông)** (documented VN name; PO asked "Cá Ông Nược"); Thân (khỉ) carried by Chà vá chân xám while Khỉ Vàng waits.
+- Config: MAX_LEVEL 10, XP_PER_ROUND 2, CHARM_BONUS_ZODIAC 2. 30 tests pass. Skills/synergy effects are DATA ONLY – the battle engine still uses the placeholder skill until T11/T12.

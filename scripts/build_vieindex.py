@@ -6,6 +6,14 @@ Run scripts/sprites.py first if the drawn sprites changed.
 import base64, json, pathlib
 root = pathlib.Path(__file__).resolve().parent.parent
 data = json.loads((root / "data/vieindex.json").read_text(encoding="utf-8"))
+# only the playable roster (status keep); 'later' / 'removed' VieAni are listed in the sheet archive tab
+data["species"] = [s for s in data["species"] if s.get("status", "keep") == "keep"]
+for s in data["species"]:
+    k = s.get("skills")
+    if k:  # one text block for the card: active · passive · ★3
+        a = k["active"]
+        s["skill"] = (f"{a['name']} ({a['energy']} năng lượng): {a['effect']} – sát thương {a['damage']}. "
+                      f"Bị động – {k['passive']}. ★3 – {k['star3']}")
 sprites = {}
 for s in data["species"]:
     custom = root / f'assets/sprites/custom/{s["id"]:02d}.png'  # from pixelize.py / hand-made

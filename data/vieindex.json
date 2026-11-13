@@ -31,8 +31,22 @@
    "attackClass": "physical",
    "range": 1,
    "statNote": "Thú nhỏ: rất nhanh nhưng yếu",
-   "skill": "Ẩn nấp: 25% né đòn",
-   "tier": 3
+   "skill": "Sọc Ngụy Trang: 15% / 20% / 25% né đòn",
+   "tier": 3,
+   "status": "keep",
+   "role": "Săn Mồi",
+   "skills": {
+    "active": {
+     "name": "Phóng Vằn",
+     "effect": "Phóng như tên bắn tới hàng sau, đá hậu mục tiêu rồi nhảy về ô trống gần nhất",
+     "time": "Tức thời",
+     "damage": "275 / 440 / 715",
+     "energy": 100,
+     "estSeconds": 8
+    },
+    "passive": "Sọc Ngụy Trang: 15% / 20% / 25% né đòn",
+    "star3": "Bóng Đêm Trường Sơn: sau Phóng Vằn ẩn mình 2 giây"
+   }
   },
   {
    "id": 38,
@@ -59,7 +73,7 @@
    "attackClass": "physical",
    "range": 1,
    "statNote": "Thú cỡ lớn: máu, tấn công, phòng thủ cao; chậm",
-   "skill": "Voi chiến Bà Triệu: khi Voi còn trên sân, cả đội +10% Tấn công. Dậm đất: mỗi 8 giây làm choáng kẻ địch kề bên 1 giây",
+   "skill": "Voi Chiến Bà Triệu: khi Voi còn trên sân, cả đội +5% / 8% / 10% Tấn công",
    "tier": 3,
    "story": "Bà Triệu ra trận mặc áo giáp vàng, đi guốc ngà, cưỡi voi trắng một ngà.",
    "storySrc": [
@@ -68,7 +82,21 @@
      "https://vi.wikipedia.org/wiki/B%C3%A0_Tri%E1%BB%87u"
     ]
    ],
-   "storyAccuracy": "Truyền thuyết lịch sử"
+   "storyAccuracy": "Truyền thuyết lịch sử",
+   "status": "keep",
+   "role": "Đỡ Đòn",
+   "skills": {
+    "active": {
+     "name": "Dậm Đất",
+     "effect": "Dậm chân làm rung đất: Choáng kẻ địch kề bên",
+     "time": "1 / 1,25 / 1,5 giây",
+     "damage": "150 / 240 / 390 (diện rộng)",
+     "energy": 60,
+     "estSeconds": 9
+    },
+    "passive": "Voi Chiến Bà Triệu: khi Voi còn trên sân, cả đội +5% / 8% / 10% Tấn công",
+    "star3": "Voi Trắng Một Ngà: Dậm Đất lan ra bán kính 2 ô"
+   }
   },
   {
    "id": 33,
@@ -96,7 +124,8 @@
    "range": 1,
    "statNote": "Rùa: phòng thủ rất cao, rất chậm. Giải: mai mềm như da, rình mồi và cắn rất nhanh",
    "skill": "Rình đáy cát: đòn đầu tiên ×2 sát thương",
-   "tier": 3
+   "tier": 3,
+   "status": "removed"
   },
   {
    "id": 43,
@@ -124,8 +153,22 @@
    "attackClass": "special",
    "range": 3,
    "statNote": "Chim lội nước: nhanh, mổ từ xa",
-   "skill": "Lùa cá: đồng đội Đất Ngập Nước +10% Tấn công",
-   "tier": 3
+   "skill": "Đàn Trú Đông: +10% / 15% / 20% Tốc độ khi đứng cạnh một VieAni hệ Trời",
+   "tier": 3,
+   "status": "keep",
+   "role": "Hỗ Trợ",
+   "skills": {
+    "active": {
+     "name": "Lùa Cá",
+     "effect": "Quét mỏ thìa trên mặt nước: đồng đội Sông Nước +15% / 20% / 25% Tấn công, kẻ địch trong vùng −15% Tốc độ",
+     "time": "5 giây",
+     "damage": "100 / 160 / 260 (diện rộng)",
+     "energy": 110,
+     "estSeconds": 10
+    },
+    "passive": "Đàn Trú Đông: +10% / 15% / 20% Tốc độ khi đứng cạnh một VieAni hệ Trời",
+    "star3": "Bãi Bồi Bình Yên: Lùa Cá hồi 10% máu cho đồng đội trong vùng"
+   }
   },
   {
    "id": 27,
@@ -153,7 +196,8 @@
    "range": 3,
    "statNote": "Linh trưởng ăn lá: nhanh nhẹn, đánh tầm xa (tấn công ĐB). Chà vá chân đen sống rừng khô thưa, di chuyển xa",
    "skill": "Đi xa: +1 tầm đánh",
-   "tier": 3
+   "tier": 3,
+   "status": "later"
   },
   {
    "id": 28,
@@ -182,7 +226,8 @@
    "range": 3,
    "statNote": "Vượn: chuyền cành nhanh nhất; tiếng hót = tấn công ĐB. Vượn Cao Vít sống rừng đá vôi, tán rừng thấp và đứt quãng",
    "skill": "Song ca: tiếng hót làm chậm kẻ địch 15%",
-   "tier": 3
+   "tier": 3,
+   "status": "later"
   },
   {
    "id": 24,
@@ -211,11 +256,12 @@
    "range": 3,
    "statNote": "Linh trưởng ăn lá: nhanh nhẹn, đánh tầm xa (tấn công ĐB). Voọc Cát Bà bền bỉ, sống sót trên đảo đá vôi biệt lập",
    "skill": "Sống sót: lần đầu máu dưới 25%, hồi 30% máu",
-   "tier": 3
+   "tier": 3,
+   "status": "later"
   },
   {
    "id": 46,
-   "vi": "Báo gấm",
+   "vi": "Báo Gấm",
    "en": "Clouded Leopard",
    "sci": "Neofelis nebulosa",
    "group": "Endangered",
@@ -238,8 +284,22 @@
    "attackClass": "physical",
    "range": 1,
    "statNote": "Thú săn mồi: tấn công và tốc độ cao",
-   "skill": "Vồ từ trên cây: đòn đầu tiên nhắm hàng sau của địch",
-   "tier": 3
+   "skill": "Vồ từ trên cây: đòn đầu tiên nhắm kẻ địch có máu thấp nhất; +15% / 20% / 25% tỉ lệ chí mạng",
+   "tier": 3,
+   "status": "keep",
+   "role": "Săn Mồi",
+   "skills": {
+    "active": {
+     "name": "Vồ Từ Tán Cây",
+     "effect": "Nhảy lên cây rồi vồ xuống kẻ địch có máu thấp nhất trên sân",
+     "time": "Tức thời",
+     "damage": "300 / 480 / 780",
+     "energy": 90,
+     "estSeconds": 9
+    },
+    "passive": "Vồ từ trên cây: đòn đầu tiên nhắm kẻ địch có máu thấp nhất; +15% / 20% / 25% tỉ lệ chí mạng",
+    "star3": "Da Báo: ẩn mình vào cảnh vật – không thể bị đòn tầm xa nhắm vào trong 4 giây đầu trận và 2 giây sau mỗi lần dùng kỹ năng"
+   }
   },
   {
    "id": 23,
@@ -268,11 +328,12 @@
    "range": 3,
    "statNote": "Linh trưởng ăn lá: nhanh nhẹn, đánh tầm xa (tấn công ĐB). Voọc mông trắng leo vách đá vôi dựng đứng rất nhanh",
    "skill": "Leo vách: né 25% đòn cận chiến",
-   "tier": 3
+   "tier": 3,
+   "status": "later"
   },
   {
    "id": 49,
-   "vi": "Bò biển",
+   "vi": "Bò Biển (Cá Nàng Tiên)",
    "en": "Dugong",
    "sci": "Dugong dugon",
    "group": "Endangered",
@@ -297,8 +358,22 @@
    "attackClass": "special",
    "range": 3,
    "statNote": "Bò biển: to, hiền, chậm",
-   "skill": "Gặm cỏ biển: hồi 2% máu/giây",
-   "tier": 3
+   "skill": "Gặm Cỏ Biển: hồi 2% / 2,5% / 3% máu mỗi giây khi không bị đánh trong 2 giây",
+   "tier": 3,
+   "status": "keep",
+   "role": "Phép Thuật",
+   "skills": {
+    "active": {
+     "name": "Tiếng Hát Cá Nàng Tiên",
+     "effect": "Mê hoặc kẻ địch trong 2 ô quanh mục tiêu: không thể tấn công Bò Biển và đồng đội kề bên",
+     "time": "3 / 4 / 5 giây",
+     "damage": "125 / 200 / 325 (diện rộng)",
+     "energy": 80,
+     "estSeconds": 11
+    },
+    "passive": "Gặm Cỏ Biển: hồi 2% / 2,5% / 3% máu mỗi giây khi không bị đánh trong 2 giây",
+    "star3": "Thảm Cỏ Biển: tiếng hát hồi cho đồng đội trong vùng 15% máu tối đa của họ"
+   }
   },
   {
    "id": 18,
@@ -325,8 +400,22 @@
    "attackClass": "special",
    "range": 3,
    "statNote": "Chim rừng: nhanh, phô diễn bộ lông = tấn công ĐB",
-   "skill": "Ẩn trong tán rừng: 20% né đòn",
-   "tier": 4
+   "skill": "Ẩn Trong Tán Rừng: 15% / 20% / 25% né đòn",
+   "tier": 4,
+   "status": "keep",
+   "role": "Phép Thuật",
+   "skills": {
+    "active": {
+     "name": "Lông Lam Ánh Bạc",
+     "effect": "Xòe lông lam phản chiếu ánh sáng: Mù kẻ địch trong hình nón 2 ô phía trước",
+     "time": "2 / 2,5 / 3 giây",
+     "damage": "225 / 370 / 595 (diện rộng)",
+     "energy": 100,
+     "estSeconds": 10
+    },
+    "passive": "Ẩn Trong Tán Rừng: 15% / 20% / 25% né đòn",
+    "star3": "Bóng Ma Trường Sơn: khi bị hạ, để lại hồn ma 4 giây tiếp tục dùng kỹ năng 1 lần ('loài đã mất ngoài tự nhiên')"
+   }
   },
   {
    "id": 11,
@@ -355,7 +444,8 @@
    "range": 1,
    "statNote": "Ngư Tinh: thủy quái, tấn công cao",
    "skill": "Sóng dữ: đẩy lùi và làm chậm hàng đầu của địch",
-   "tier": 5
+   "tier": 5,
+   "status": "later"
   },
   {
    "id": 35,
@@ -383,8 +473,22 @@
    "attackClass": "special",
    "range": 3,
    "statNote": "Chim lội nước: nhanh, mổ từ xa. Cò quắm lớn là loài cò quắm lớn nhất, nặng hơn",
-   "skill": "Mỏ cong: đòn đánh bỏ qua 20% Phòng thủ",
-   "tier": 3
+   "skill": "Mỏ Cong: đòn đánh thường bỏ qua 20% Phòng thủ",
+   "tier": 3,
+   "status": "keep",
+   "role": "Phép Thuật",
+   "skills": {
+    "active": {
+     "name": "Mỏ Quắm Xuyên Bùn",
+     "effect": "Chọc mỏ dài xuyên giáp: sát thương bỏ qua 30% / 40% / 50% Phòng thủ ĐB",
+     "time": "Tức thời",
+     "damage": "275 / 440 / 715",
+     "energy": 80,
+     "estSeconds": 8
+    },
+    "passive": "Mỏ Cong: đòn đánh thường bỏ qua 20% Phòng thủ",
+    "star3": "Đàn Cò Quắm: kỹ năng nảy sang thêm 2 kẻ địch gần đó (60% sát thương)"
+   }
   },
   {
    "id": 16,
@@ -412,8 +516,22 @@
    "attackClass": "physical",
    "range": 1,
    "statNote": "Vượn khổng lồ: to, khỏe, chậm",
-   "skill": "Đấm đá: đòn đánh gây sát thương lan",
-   "tier": 4
+   "skill": "Thân Hình Khổng Lồ: +10% / 15% / 20% Máu",
+   "tier": 4,
+   "status": "keep",
+   "role": "Chiến Đấu",
+   "skills": {
+    "active": {
+     "name": "Đấm Đá Khổng Lồ",
+     "effect": "Đập hai tay xuống đất: sát thương lan 20% / 30% / 40% ra kẻ địch kề bên và Choáng 0,5 giây",
+     "time": "Tức thời",
+     "damage": "360 / 580 / 935",
+     "energy": 80,
+     "estSeconds": 11
+    },
+    "passive": "Thân Hình Khổng Lồ: +10% / 15% / 20% Máu",
+    "star3": "Vỗ Ngực: khi dùng kỹ năng, +100% Tấn công trong 4 giây"
+   }
   },
   {
    "id": 3,
@@ -441,7 +559,7 @@
    "attackClass": "special",
    "range": 3,
    "statNote": "Kim Quy: mai thần, phòng thủ rất cao",
-   "skill": "Nỏ thần: đồng đội đánh tầm xa +20% sát thương. Hoàn kiếm: 1 lần mỗi vòng, đòi lại 1 vật phẩm của kẻ địch và trao cho đồng đội",
+   "skill": "Nỏ Thần: đồng đội đánh tầm xa +12% / 16% / 20% sát thương",
    "tier": 5,
    "story": "Rùa thần Kim Quy giúp An Dương Vương xây thành Cổ Loa và trao móng làm lẫy nỏ thần; về sau Rùa vàng nổi lên hồ đòi vua Lê Lợi trả gươm thần, hồ được gọi là Hoàn Kiếm.",
    "storySrc": [
@@ -454,7 +572,21 @@
      "https://vi.wikipedia.org/wiki/H%E1%BB%93_Ho%C3%A0n_Ki%E1%BA%BFm"
     ]
    ],
-   "storyAccuracy": "Truyện gốc"
+   "storyAccuracy": "Truyện gốc",
+   "status": "keep",
+   "role": "Hỗ Trợ",
+   "skills": {
+    "active": {
+     "name": "Hoàn Kiếm",
+     "effect": "Đòi lại 1 vật phẩm của kẻ địch mạnh nhất và trao cho đồng đội yếu nhất đến hết trận; 1 lần mỗi vòng",
+     "time": "Đến hết trận",
+     "damage": "320 / 520 / 840",
+     "energy": 80,
+     "estSeconds": 11
+    },
+    "passive": "Nỏ Thần: đồng đội đánh tầm xa +12% / 16% / 20% sát thương",
+    "star3": "Móng Rùa Thần: đồng đội đánh tầm xa bắn trúng thêm 1 mục tiêu (50% sát thương)"
+   }
   },
   {
    "id": 48,
@@ -481,8 +613,22 @@
    "attackClass": "physical",
    "range": 2,
    "statNote": "Hồng hoàng: mỏ và mũ sừng lớn, tấn công mạnh",
-   "skill": "Mũ sừng: đòn mổ gây choáng 0,5 giây",
-   "tier": 3
+   "skill": "Cánh Vỗ Ầm: 15% / 20% / 25% đòn đánh gây Choáng 0,5 giây",
+   "tier": 3,
+   "status": "keep",
+   "role": "Săn Mồi",
+   "skills": {
+    "active": {
+     "name": "Mổ Mũ Sừng",
+     "effect": "Lao xuống mổ bằng mỏ và mũ sừng: Choáng mục tiêu",
+     "time": "0,5 / 0,75 / 1 giây",
+     "damage": "275 / 440 / 715",
+     "energy": 80,
+     "estSeconds": 8
+    },
+    "passive": "Cánh Vỗ Ầm: 15% / 20% / 25% đòn đánh gây Choáng 0,5 giây",
+    "star3": "Mũ Sừng Kép: ×2 thời gian Choáng của cả hai kỹ năng"
+   }
   },
   {
    "id": 42,
@@ -509,8 +655,22 @@
    "attackClass": "special",
    "range": 3,
    "statNote": "Chim rừng: nhanh, phô diễn bộ lông = tấn công ĐB",
-   "skill": "Xòe đuôi: mỗi 8 giây làm chậm 20% kẻ địch xung quanh trong 2 giây",
-   "tier": 3
+   "skill": "Mắt Công: 15% / 20% / 25% phản kỹ năng gây khống chế về kẻ dùng",
+   "tier": 3,
+   "status": "keep",
+   "role": "Hỗ Trợ",
+   "skills": {
+    "active": {
+     "name": "Xòe Đuôi",
+     "effect": "Xòe đuôi rực rỡ làm chậm kẻ địch trong bán kính 1 ô 20% / 30% / 40%",
+     "time": "2 / 3 / 4 giây",
+     "damage": "100 / 160 / 260 (diện rộng)",
+     "energy": 80,
+     "estSeconds": 8
+    },
+    "passive": "Mắt Công: 15% / 20% / 25% phản kỹ năng gây khống chế về kẻ dùng",
+    "star3": "Đuôi Công Rộng: bán kính Xòe Đuôi tăng lên 2 ô"
+   }
   },
   {
    "id": 26,
@@ -535,10 +695,25 @@
    },
    "attackType": "Grass",
    "attackClass": "special",
-   "range": 3,
+   "range": 2,
    "statNote": "Linh trưởng ăn lá: nhanh nhẹn, đánh tầm xa (tấn công ĐB). Chà vá chân xám sống ở vùng núi cao hơn (Kon Ka Kinh)",
-   "skill": "Núi cao: +15% Máu tối đa",
-   "tier": 3
+   "skill": "Nhảy Cành: 15% / 20% / 25% né đòn cận chiến",
+   "tier": 3,
+   "status": "keep",
+   "role": "Chiến Đấu",
+   "zodiac": "Thân",
+   "skills": {
+    "active": {
+     "name": "Gầm Rú",
+     "effect": "Gầm vang khiến kẻ địch trong bán kính 2 ô hoảng sợ: −10% / 15% / 20% Tấn công",
+     "time": "4 giây",
+     "damage": "125 / 200 / 325 (diện rộng)",
+     "energy": 90,
+     "estSeconds": 9
+    },
+    "passive": "Nhảy Cành: 15% / 20% / 25% né đòn cận chiến",
+    "star3": "Thủ Lĩnh Bầy: Gầm Rú cho đồng đội trong vùng +15% Tốc độ"
+   }
   },
   {
    "id": 34,
@@ -565,8 +740,22 @@
    "attackClass": "physical",
    "range": 1,
    "statNote": "Rùa: phòng thủ rất cao, rất chậm. Rùa biển bơi nhanh ngoài khơi, mai nhẹ hơn rùa đầm",
-   "skill": "Bơi xa: miễn làm chậm, +15% Tốc độ",
-   "tier": 3
+   "skill": "Bơi Xa: miễn bị làm chậm; +10% / 15% / 20% Tốc độ",
+   "tier": 3,
+   "status": "keep",
+   "role": "Đỡ Đòn",
+   "skills": {
+    "active": {
+     "name": "Rụt Mai",
+     "effect": "Rụt vào mai: giảm 50% / 60% / 70% sát thương nhận vào, khiêu khích kẻ địch kề bên",
+     "time": "3 giây",
+     "damage": "—",
+     "energy": 80,
+     "estSeconds": 11
+    },
+    "passive": "Bơi Xa: miễn bị làm chậm; +10% / 15% / 20% Tốc độ",
+    "star3": "Mai Đồi Mồi: khi Rụt Mai kết thúc, phản lại 30% tổng sát thương đã chặn lên kẻ địch kề bên"
+   }
   },
   {
    "id": 17,
@@ -594,9 +783,23 @@
    "attackClass": "physical",
    "range": 1,
    "statNote": "Thú săn mồi: tấn công và tốc độ cao",
-   "skill": "Chúa sơn lâm: kẻ địch xung quanh −15% Tấn công",
+   "skill": "Chúa Sơn Lâm: kẻ địch trong 2 ô −15% / 20% / 25% Tấn công",
    "zodiac": "Dần",
-   "tier": 4
+   "tier": 4,
+   "status": "keep",
+   "role": "Săn Mồi",
+   "skills": {
+    "active": {
+     "name": "Hổ Vồ",
+     "effect": "Phóng tới kẻ địch xa nhất trong 3 ô, vồ và xé",
+     "time": "Tức thời",
+     "damage": "420 / 680 / 1105",
+     "energy": 90,
+     "estSeconds": 9
+    },
+    "passive": "Chúa Sơn Lâm: kẻ địch trong 2 ô −15% / 20% / 25% Tấn công",
+    "star3": "Oai Hùm: Chúa Sơn Lâm áp dụng cho toàn bộ kẻ địch trên sân"
+   }
   },
   {
    "id": 10,
@@ -625,7 +828,7 @@
    "attackClass": "physical",
    "range": 1,
    "statNote": "Ngựa sắt: thân sắt, tấn công và phòng thủ cao",
-   "skill": "Phun lửa: đốt cả một hàng kẻ địch, để lại ô 'Làng Cháy' bỏng 4 giây. Nhổ tre đánh giặc: khi máu dưới 50% (gươm gãy), đòn đánh quét cả hàng ngang và +1 tầm",
+   "skill": "Nhổ Tre Đánh Giặc: khi máu dưới 50% (gươm gãy), đòn đánh quét cả hàng ngang và +1 tầm",
    "zodiac": "Ngọ",
    "tier": 5,
    "story": "Ngựa sắt phun lửa thiêu rừng, nơi ấy nay là làng Cháy; gươm gãy, Gióng nhổ tre quật giặc, tre bị lửa táp thành tre đằng ngà; vết chân ngựa thành dãy ao.",
@@ -635,11 +838,25 @@
      "https://vi.wikipedia.org/wiki/Th%C3%A1nh_Gi%C3%B3ng"
     ]
    ],
-   "storyAccuracy": "Truyện gốc"
+   "storyAccuracy": "Truyện gốc",
+   "status": "keep",
+   "role": "Chiến Đấu",
+   "skills": {
+    "active": {
+     "name": "Phun Lửa",
+     "effect": "Phun lửa đốt cả một hàng kẻ địch, để lại ô 'Làng Cháy' gây Bỏng 3% máu/giây",
+     "time": "4 giây",
+     "damage": "280 / 455 / 735 (cả hàng)",
+     "energy": 90,
+     "estSeconds": 10
+    },
+    "passive": "Nhổ Tre Đánh Giặc: khi máu dưới 50% (gươm gãy), đòn đánh quét cả hàng ngang và +1 tầm",
+    "star3": "Lửa Thiêu Rừng: Phun Lửa đốt toàn bộ nửa sân kẻ địch"
+   }
   },
   {
    "id": 41,
-   "vi": "Cá heo Irrawaddy",
+   "vi": "Cá Nược (Cá Heo Sông)",
    "en": "Irrawaddy Dolphin",
    "sci": "Orcaella brevirostris",
    "group": "Endangered",
@@ -662,12 +879,26 @@
    "attackClass": "special",
    "range": 3,
    "statNote": "Cá heo: định vị bằng sóng âm = tấn công ĐB",
-   "skill": "Sóng âm: đòn đặc biệt bỏ qua 20% Phòng thủ ĐB",
-   "tier": 3
+   "skill": "Định Vị: đòn đánh thường bằng sóng âm giảm 20% Phòng thủ ĐB của mục tiêu trong 3 giây (không cộng dồn)",
+   "tier": 3,
+   "status": "keep",
+   "role": "Hỗ Trợ",
+   "skills": {
+    "active": {
+     "name": "Sóng Âm Định Vị",
+     "effect": "Phát sóng âm xuyên một hàng: kẻ địch trúng bị −20% / 25% / 30% Phòng thủ ĐB; đồng đội trên hàng được +15% Tấn công ĐB",
+     "time": "4 / 5 / 6 giây",
+     "damage": "150 / 240 / 390 (cả hàng)",
+     "energy": 70,
+     "estSeconds": 8
+    },
+    "passive": "Định Vị: đòn đánh thường bằng sóng âm giảm 20% Phòng thủ ĐB của mục tiêu trong 3 giây (không cộng dồn)",
+    "star3": "Cá Nược Dẫn Đường: đầu trận đồng đội hệ Nước +20% Tốc độ trong 6 giây"
+   }
   },
   {
    "id": 15,
-   "vi": "Bò xám",
+   "vi": "Bò Xám",
    "en": "Kouprey",
    "sci": "Bos sauveli",
    "group": "Vanished",
@@ -692,8 +923,22 @@
    "attackClass": "physical",
    "range": 1,
    "statNote": "Thú cỡ lớn: máu, tấn công, phòng thủ cao; chậm. Bò xám: sừng dài, linh hoạt hơn tê giác",
-   "skill": "Sừng cong: phản 15% sát thương cận chiến",
-   "tier": 4
+   "skill": "Sừng Cong: phản 15% / 20% / 25% sát thương cận chiến nhận vào",
+   "tier": 4,
+   "status": "keep",
+   "role": "Đỡ Đòn",
+   "skills": {
+    "active": {
+     "name": "Húc Sừng Cong",
+     "effect": "Lao tới húc mục tiêu và hất văng 1 ô, gây Choáng",
+     "time": "Choáng 1 / 1,5 / 2 giây",
+     "damage": "325 / 525 / 850",
+     "energy": 70,
+     "estSeconds": 10
+    },
+    "passive": "Sừng Cong: phản 15% / 20% / 25% sát thương cận chiến nhận vào",
+    "star3": "Tăng Trọng: mỗi đồng đội ngã xuống trong bán kính 1 ô cho Bò Xám +10% Máu tối đa và +5% Phòng thủ (cộng dồn)"
+   }
   },
   {
    "id": 21,
@@ -720,8 +965,22 @@
    "attackClass": "physical",
    "range": 1,
    "statNote": "Thú móng guốc rừng: nhanh, khá cân bằng. Mang lớn: gạc lớn nhất trong các loài mang",
-   "skill": "Gạc lớn: cú húc +25% sát thương lên hệ Cỏ",
-   "tier": 3
+   "skill": "Gạc Lớn Nhất: +10% / 15% / 20% Phòng thủ khi đứng hàng đầu",
+   "tier": 3,
+   "status": "keep",
+   "role": "Chiến Đấu",
+   "skills": {
+    "active": {
+     "name": "Húc Gạc Lớn",
+     "effect": "Cúi gạc húc mục tiêu, gây thêm 25% sát thương lên hệ Cỏ",
+     "time": "Tức thời",
+     "damage": "275 / 440 / 715",
+     "energy": 80,
+     "estSeconds": 8
+    },
+    "passive": "Gạc Lớn Nhất: +10% / 15% / 20% Phòng thủ khi đứng hàng đầu",
+    "star3": "Gạc Xuyên: Húc Gạc Lớn xuyên qua mục tiêu, trúng thêm kẻ đứng sau"
+   }
   },
   {
    "id": 4,
@@ -749,8 +1008,22 @@
    "attackClass": "physical",
    "range": 1,
    "statNote": "Lân: cân bằng mọi mặt",
-   "skill": "Múa lân trừ tà: mỗi 8 giây xóa hiệu ứng xấu khỏi đồng đội",
-   "tier": 5
+   "skill": "Trống Lân: mỗi 8 giây gỡ 1 hiệu ứng xấu khỏi đồng đội kề bên",
+   "tier": 5,
+   "status": "keep",
+   "role": "Chiến Đấu",
+   "skills": {
+    "active": {
+     "name": "Múa Lân Trừ Tà",
+     "effect": "Múa quanh đồng đội: xóa mọi hiệu ứng xấu và cho miễn khống chế",
+     "time": "2 / 3 / 4 giây",
+     "damage": "240 / 390 / 630 (diện rộng)",
+     "energy": 80,
+     "estSeconds": 9
+    },
+    "passive": "Trống Lân: mỗi 8 giây gỡ 1 hiệu ứng xấu khỏi đồng đội kề bên",
+    "star3": "Lân Vàng: Múa Lân Trừ Tà hồi 15% máu cho cả đội"
+   }
   },
   {
    "id": 2,
@@ -778,7 +1051,7 @@
    "attackClass": "special",
    "range": 3,
    "statNote": "Chim Lạc: bay nhanh, tấn công ĐB",
-   "skill": "Hồn trống đồng: đồng đội hệ Trời +10% Tốc độ; nếu đội có Trống Đồng Đông Sơn thì hiệu ứng trống ×2",
+   "skill": "Hào Khí Lạc Việt: +10% Máu và +3% Tấn công, Phòng thủ, Tốc độ cho mỗi tộc hệ đang kích hoạt trên sân",
    "tier": 5,
    "story": "Chim Lạc là hình chim mỏ dài trên trống đồng Đông Sơn; giới nghiên cứu phỏng đoán có thể là cò, vạc, sếu, bồ nông hay hồng hoàng.",
    "storySrc": [
@@ -787,11 +1060,25 @@
      "https://vi.wikipedia.org/wiki/Chim_L%E1%BA%A1c"
     ]
    ],
-   "storyAccuracy": "Hình tượng gốc; cơ chế là sáng tạo"
+   "storyAccuracy": "Hình tượng gốc; cơ chế là sáng tạo",
+   "status": "keep",
+   "role": "Phép Thuật",
+   "skills": {
+    "active": {
+     "name": "Phong Ba Bão Táp",
+     "effect": "Vỗ cánh tạo cuồng phong đẩy lùi toàn bộ kẻ địch 1 / 2 / 3 ô",
+     "time": "Tức thời",
+     "damage": "100% Tấn công ĐB của Chim Lạc + 240 / 390 / 630",
+     "energy": 130,
+     "estSeconds": 12
+    },
+    "passive": "Hào Khí Lạc Việt: +10% Máu và +3% Tấn công, Phòng thủ, Tốc độ cho mỗi tộc hệ đang kích hoạt trên sân",
+    "star3": "Hồn Trống Đồng: nếu đội có Trống Đồng Đông Sơn, hiệu ứng trống ×2 và Phong Ba Bão Táp làm Choáng 1 giây"
+   }
   },
   {
    "id": 37,
-   "vi": "Cá tra dầu",
+   "vi": "Cá Tra Dầu",
    "en": "Mekong Giant Catfish",
    "sci": "Pangasianodon gigas",
    "group": "Endangered",
@@ -814,8 +1101,22 @@
    "attackClass": "physical",
    "range": 1,
    "statNote": "Cá cỡ lớn: máu cao, khá cân bằng",
-   "skill": "Khổng lồ sông Mê Kông: +20% Máu tối đa",
-   "tier": 3
+   "skill": "Khổng Lồ Sông Mê Kông: +10% / 15% / 20% Máu tối đa",
+   "tier": 3,
+   "status": "keep",
+   "role": "Đỡ Đòn",
+   "skills": {
+    "active": {
+     "name": "Giẫy Giụa",
+     "effect": "Quẫy mạnh, lớp da trơn tiết dầu: 1 kẻ địch trúng bị +20% / 30% / 40% trượt đòn vật lý",
+     "time": "5 giây",
+     "damage": "150 / 240 / 390",
+     "energy": 80,
+     "estSeconds": 10
+    },
+    "passive": "Khổng Lồ Sông Mê Kông: +10% / 15% / 20% Máu tối đa",
+    "star3": "Giẫy Giụa Diện Rộng: ảnh hưởng mọi kẻ địch trong bán kính 2 ô thay vì 1 mục tiêu"
+   }
   },
   {
    "id": 6,
@@ -844,8 +1145,22 @@
    "attackClass": "physical",
    "range": 1,
    "statNote": "Nghê: linh thú canh giữ bằng đá, phòng thủ rất cao",
-   "skill": "Trấn giữ: gánh 30% sát thương thay cho đồng đội kề bên",
-   "tier": 5
+   "skill": "Thân Đá: +10% / 15% / 20% Phòng thủ và Phòng thủ ĐB",
+   "tier": 5,
+   "status": "keep",
+   "role": "Đỡ Đòn",
+   "skills": {
+    "active": {
+     "name": "Trấn Giữ",
+     "effect": "Đứng tấn: gánh 30% / 40% / 50% sát thương thay cho đồng đội kề bên",
+     "time": "5 giây",
+     "damage": "—",
+     "energy": 80,
+     "estSeconds": 11
+    },
+    "passive": "Thân Đá: +10% / 15% / 20% Phòng thủ và Phòng thủ ĐB",
+    "star3": "Nghê Canh Đình: khi Trấn Giữ kết thúc, phản 25% sát thương đã gánh lên kẻ địch trong 1 ô"
+   }
   },
   {
    "id": 9,
@@ -873,7 +1188,7 @@
    "attackClass": "physical",
    "range": 1,
    "statNote": "Ngựa chín hồng mao: nhanh nhất",
-   "skill": "Phi nước đại: luôn ra đòn đầu tiên trong trận. Núi dâng: mỗi lần nhận đòn hệ Nước, +5 Phòng thủ (cộng dồn)",
+   "skill": "Vó Ngựa: +5 / 10 / 15 tốc độ đánh sau mỗi đòn lên cùng một kẻ địch (cộng dồn), mất khi đổi mục tiêu",
    "zodiac": "Ngọ",
    "tier": 5,
    "story": "Ngựa chín hồng mao – một trong ba lễ vật Vua Hùng đòi làm sính lễ.",
@@ -883,7 +1198,21 @@
      "https://vi.wikipedia.org/wiki/S%C6%A1n_Tinh_%E2%80%93_Th%E1%BB%A7y_Tinh"
     ]
    ],
-   "storyAccuracy": "Truyện gốc"
+   "storyAccuracy": "Truyện gốc",
+   "status": "keep",
+   "role": "Chiến Đấu",
+   "skills": {
+    "active": {
+     "name": "Phi Nước Đại",
+     "effect": "Phi xuyên qua hàng địch đến hàng sau, giẫm mọi kẻ địch trên đường",
+     "time": "Tức thời",
+     "damage": "280 / 455 / 735 (đường thẳng)",
+     "energy": 110,
+     "estSeconds": 9
+    },
+    "passive": "Vó Ngựa: +5 / 10 / 15 tốc độ đánh sau mỗi đòn lên cùng một kẻ địch (cộng dồn), mất khi đổi mục tiêu",
+    "star3": "Chín Hồng Mao: ×2 chỉ số cộng dồn của Vó Ngựa; Phi Nước Đại Choáng 0,5 giây"
+   }
   },
   {
    "id": 8,
@@ -911,7 +1240,7 @@
    "attackClass": "physical",
    "range": 1,
    "statNote": "Gà chín cựa: cựa sắc, tấn công và tốc độ cao",
-   "skill": "Chín cựa: mỗi đòn đánh trúng 2 lần. Núi dâng: mỗi lần nhận đòn hệ Nước, +5 Phòng thủ (cộng dồn)",
+   "skill": "Cựa Thép: đòn đánh thường +5 / 10 / 15 sát thương sau mỗi đòn lên cùng một kẻ địch (cộng dồn), mất khi đổi mục tiêu",
    "zodiac": "Dậu",
    "tier": 5,
    "story": "Gà chín cựa – một trong ba lễ vật Vua Hùng đòi làm sính lễ.",
@@ -921,7 +1250,21 @@
      "https://vi.wikipedia.org/wiki/S%C6%A1n_Tinh_%E2%80%93_Th%E1%BB%A7y_Tinh"
     ]
    ],
-   "storyAccuracy": "Truyện gốc"
+   "storyAccuracy": "Truyện gốc",
+   "status": "keep",
+   "role": "Chiến Đấu",
+   "skills": {
+    "active": {
+     "name": "Chín Cựa",
+     "effect": "Đá liên hoàn 9 cú vào mục tiêu",
+     "time": "1,5 giây",
+     "damage": "440 / 715 / 1155 (9 cú)",
+     "energy": 120,
+     "estSeconds": 10
+    },
+    "passive": "Cựa Thép: đòn đánh thường +5 / 10 / 15 sát thương sau mỗi đòn lên cùng một kẻ địch (cộng dồn), mất khi đổi mục tiêu",
+    "star3": "Gà Thần: ×2 sát thương của Chín Cựa và Cựa Thép"
+   }
   },
   {
    "id": 12,
@@ -950,7 +1293,7 @@
    "attackClass": "special",
    "range": 3,
    "statNote": "Hồ Tinh: yêu thuật = tấn công ĐB rất cao",
-   "skill": "Biến hóa vạn trạng: khi đầy năng lượng, hóa thành bản sao của VieAni mạnh nhất phe địch (tổng chỉ số cao nhất), giữ nguyên % máu, 1 lần mỗi vòng. Mê hoặc: khiến 1 kẻ địch tấn công đồng đội của nó 2 giây",
+   "skill": "Mê Hoặc: đòn đánh có 10% / 15% / 20% khiến mục tiêu tấn công đồng đội của nó 2 giây",
    "tier": 5,
    "story": "Theo Lĩnh Nam chích quái, Hồ Tinh là cáo chín đuôi sống hơn ngàn năm, 'biến hóa vạn trạng, khi thành người khi thành quỷ'; Lạc Long Quân dâng nước phá hang, chỗ ấy thành Hồ Tây (đầm Xác Cáo).",
    "storySrc": [
@@ -963,7 +1306,21 @@
      "https://vi.wikipedia.org/wiki/H%E1%BB%93_ly_tinh"
     ]
    ],
-   "storyAccuracy": "Truyện gốc"
+   "storyAccuracy": "Truyện gốc",
+   "status": "keep",
+   "role": "Phép Thuật",
+   "skills": {
+    "active": {
+     "name": "Biến Hóa Vạn Trạng",
+     "effect": "Hóa thành bản sao của VieAni mạnh nhất phe địch (tổng chỉ số cao nhất), giữ nguyên % máu; 1 lần mỗi vòng",
+     "time": "Đến hết trận",
+     "damage": "Theo kỹ năng của bản sao",
+     "energy": 130,
+     "estSeconds": 12
+    },
+    "passive": "Mê Hoặc: đòn đánh có 10% / 15% / 20% khiến mục tiêu tấn công đồng đội của nó 2 giây",
+    "star3": "Cửu Vĩ: bản sao giữ thêm 1 kỹ năng bị động của Hồ Tinh và +20% mọi chỉ số"
+   }
   },
   {
    "id": 7,
@@ -991,7 +1348,7 @@
    "attackClass": "physical",
    "range": 1,
    "statNote": "Thú cỡ lớn: máu, tấn công, phòng thủ cao; chậm",
-   "skill": "Chín ngà: cú húc gây sát thương lan 3 ô phía trước. Núi dâng: mỗi lần nhận đòn hệ Nước, +5 Phòng thủ (cộng dồn đến hết trận)",
+   "skill": "Núi Dâng: mỗi đòn hệ Nước nhận vào cho +5 Phòng thủ (cộng dồn đến hết trận); +5% / 10% / 15% Máu",
    "tier": 5,
    "story": "Sính lễ Sơn Tinh mang đến trước; Thủy Tinh dâng nước đánh, nước dâng cao bao nhiêu thì đồi núi cao lên bấy nhiêu.",
    "storySrc": [
@@ -1000,7 +1357,21 @@
      "https://vi.wikipedia.org/wiki/S%C6%A1n_Tinh_%E2%80%93_Th%E1%BB%A7y_Tinh"
     ]
    ],
-   "storyAccuracy": "Truyện gốc"
+   "storyAccuracy": "Truyện gốc",
+   "status": "keep",
+   "role": "Đỡ Đòn",
+   "skills": {
+    "active": {
+     "name": "Chín Ngà",
+     "effect": "Hất chín ngà về phía trước: sát thương lan 3 ô phía trước và Đẩy lùi 1 ô",
+     "time": "Tức thời",
+     "damage": "280 / 455 / 735 (3 ô)",
+     "energy": 70,
+     "estSeconds": 10
+    },
+    "passive": "Núi Dâng: mỗi đòn hệ Nước nhận vào cho +5 Phòng thủ (cộng dồn đến hết trận); +5% / 10% / 15% Máu",
+    "star3": "Sính Lễ Vua Hùng: Chín Ngà làm Choáng 1 giây và đồng đội Sơn Tinh +15% Tấn công 4 giây"
+   }
   },
   {
    "id": 29,
@@ -1027,8 +1398,22 @@
    "attackClass": "special",
    "range": 3,
    "statNote": "Vượn: chuyền cành nhanh nhất; tiếng hót = tấn công ĐB. Vượn đen má trắng chuyền cành trong tán rừng già cao, rất nhanh",
-   "skill": "Chuyền cành: mỗi 5 giây nhảy sang ô trống và né 1 đòn",
-   "tier": 3
+   "skill": "Chuyền Cành: mỗi 5 giây nhảy sang ô trống và né 1 đòn",
+   "tier": 3,
+   "status": "keep",
+   "role": "Phép Thuật",
+   "skills": {
+    "active": {
+     "name": "Bài Ca Rừng Già",
+     "effect": "Hót vang: sóng âm trúng mọi kẻ địch trong 2 ô quanh mục tiêu, làm chậm 15%",
+     "time": "3 giây",
+     "damage": "150 / 240 / 390 (diện rộng)",
+     "energy": 100,
+     "estSeconds": 9
+    },
+    "passive": "Chuyền Cành: mỗi 5 giây nhảy sang ô trống và né 1 đòn",
+    "star3": "Tán Rừng Che Chở: đồng đội +10% Tốc độ khi Vượn nhảy ngang qua"
+   }
   },
   {
    "id": 40,
@@ -1055,8 +1440,22 @@
    "attackClass": "physical",
    "range": 1,
    "statNote": "Thú nhỏ: rất nhanh nhưng yếu. Cầy vằn chắc nịch, kiếm ăn dưới đất",
-   "skill": "Đào bới: hồi 4% máu mỗi 5 giây",
-   "tier": 3
+   "skill": "Mùi Xạ Hương: kẻ địch đánh Cầy vằn có 15% / 20% / 25% bị Mù 1 giây",
+   "tier": 3,
+   "status": "keep",
+   "role": "Hỗ Trợ",
+   "skills": {
+    "active": {
+     "name": "Đào Hang Tiếp Tế",
+     "effect": "Đào đất tìm mồi: hồi máu cho 2 đồng đội yếu nhất và gỡ 1 hiệu ứng xấu",
+     "time": "Tức thời",
+     "damage": "Hồi 150 / 250 / 400 máu",
+     "energy": 90,
+     "estSeconds": 8
+    },
+    "passive": "Mùi Xạ Hương: kẻ địch đánh Cầy vằn có 15% / 20% / 25% bị Mù 1 giây",
+    "star3": "Hang Ổ: Đào Hang Tiếp Tế hồi cho 3 đồng đội và cho họ +15% né đòn 3 giây"
+   }
   },
   {
    "id": 44,
@@ -1085,8 +1484,22 @@
    "attackClass": "special",
    "range": 3,
    "statNote": "Culi: chậm chạp; nọc độc = tấn công ĐB cao",
-   "skill": "Vết cắn độc: gây độc 3% máu/giây trong 4 giây",
-   "tier": 3
+   "skill": "Chậm Mà Chắc: +10% / 15% / 20% Phòng thủ ĐB; miễn bị đẩy lùi",
+   "tier": 3,
+   "status": "keep",
+   "role": "Phép Thuật",
+   "skills": {
+    "active": {
+     "name": "Vết Cắn Độc",
+     "effect": "Cắn mục tiêu, nọc độc từ tuyến ở khuỷu tay gây Độc 3% / 4% / 5% máu mỗi giây và −30% hồi máu",
+     "time": "4 giây",
+     "damage": "200 / 320 / 520 + Độc",
+     "energy": 70,
+     "estSeconds": 9
+    },
+    "passive": "Chậm Mà Chắc: +10% / 15% / 20% Phòng thủ ĐB; miễn bị đẩy lùi",
+    "star3": "Nọc Lan: Độc lây sang 1 kẻ địch kề bên mục tiêu"
+   }
   },
   {
    "id": 25,
@@ -1114,7 +1527,8 @@
    "range": 3,
    "statNote": "Linh trưởng ăn lá: nhanh nhẹn, đánh tầm xa (tấn công ĐB). Chà vá chân nâu sống đàn lớn, thích nghi cả gần thành phố (Sơn Trà)",
    "skill": "Nữ hoàng linh trưởng: đồng đội Chà Vá +10% Phòng thủ ĐB",
-   "tier": 3
+   "tier": 3,
+   "status": "later"
   },
   {
    "id": 20,
@@ -1141,8 +1555,22 @@
    "attackClass": "physical",
    "range": 1,
    "statNote": "Thú móng guốc rừng: nhanh, khá cân bằng. Sao la: tính điềm tĩnh, hai sừng dài thẳng dùng để phòng vệ",
-   "skill": "Kỳ lân châu Á: không bị chọn làm mục tiêu trong 3 giây đầu trận",
-   "tier": 3
+   "skill": "Kỳ Lân Châu Á: không bị chọn làm mục tiêu trong 3 giây đầu trận",
+   "tier": 3,
+   "status": "keep",
+   "role": "Đỡ Đòn",
+   "skills": {
+    "active": {
+     "name": "Sừng Thẳng Phòng Vệ",
+     "effect": "Chĩa đôi sừng thẳng chặn đường: khiêu khích kẻ địch trong 1 ô và giảm 30% / 40% / 50% sát thương cận chiến nhận vào",
+     "time": "3 / 4 / 5 giây",
+     "damage": "125 / 200 / 325 (diện rộng)",
+     "energy": 100,
+     "estSeconds": 10
+    },
+    "passive": "Kỳ Lân Châu Á: không bị chọn làm mục tiêu trong 3 giây đầu trận",
+    "star3": "Điềm Lành: khi Sao La còn trên sân, đồng đội Đại Ngàn +10% mọi chỉ số"
+   }
   },
   {
    "id": 45,
@@ -1170,12 +1598,26 @@
    "attackClass": "special",
    "range": 3,
    "statNote": "Chim lội nước: nhanh, mổ từ xa. Sếu đầu đỏ là loài chim bay cao nhất thế giới, to và nặng",
-   "skill": "Vũ điệu sếu: đồng đội Cửu Long +10% Tốc độ",
-   "tier": 3
+   "skill": "Bay Cao: là VieAni Bay – né 30% đòn cận chiến của VieAni không phải hệ Trời",
+   "tier": 3,
+   "status": "keep",
+   "role": "Hỗ Trợ",
+   "skills": {
+    "active": {
+     "name": "Vũ Điệu Sếu",
+     "effect": "Múa giữa đồng: đồng đội +10% / 15% / 20% Tốc độ và hồi 10% máu",
+     "time": "5 giây",
+     "damage": "Hồi 10% máu",
+     "energy": 100,
+     "estSeconds": 10
+    },
+    "passive": "Bay Cao: là VieAni Bay – né 30% đòn cận chiến của VieAni không phải hệ Trời",
+    "star3": "Mùa Sếu Về: Vũ Điệu Sếu còn cho +15% Tấn công và gỡ hiệu ứng xấu"
+   }
   },
   {
    "id": 31,
-   "vi": "Cá sấu nước ngọt",
+   "vi": "Cá Sấu Nước Ngọt",
    "en": "Siamese Crocodile",
    "sci": "Crocodylus siamensis",
    "group": "Endangered",
@@ -1200,8 +1642,22 @@
    "attackClass": "physical",
    "range": 1,
    "statNote": "Cá sấu: lực cắn mạnh, da dày, chậm trên cạn",
-   "skill": "Đớp và xoay: giữ chân mục tiêu 2 giây",
-   "tier": 3
+   "skill": "Da Cá Sấu: giảm 10% / 15% / 20% sát thương vật lý nhận vào",
+   "tier": 3,
+   "status": "keep",
+   "role": "Săn Mồi",
+   "skills": {
+    "active": {
+     "name": "Đớp Mồi",
+     "effect": "Cắn chặt và giữ chân mục tiêu (Trói), cắn liên tục trong thời gian giữ",
+     "time": "2 / 2,5 / 3 giây",
+     "damage": "275 / 440 / 715 (chia đều theo thời gian)",
+     "energy": 80,
+     "estSeconds": 11
+    },
+    "passive": "Da Cá Sấu: giảm 10% / 15% / 20% sát thương vật lý nhận vào",
+    "star3": "Ẩn Nấp: lặn trong nước rồi trồi lên sau lưng kẻ địch đánh chậm nhất trong bán kính 3 ô, đớp một đòn chí mạng 125% sát thương"
+   }
   },
   {
    "id": 50,
@@ -1228,8 +1684,22 @@
    "attackClass": "physical",
    "range": 1,
    "statNote": "Thú nhỏ: rất nhanh nhưng yếu. Cheo cheo rất nhỏ, nhút nhát, chạy nhanh",
-   "skill": "Nhanh như cheo: luôn né đòn đầu tiên nhắm vào mình",
-   "tier": 3
+   "skill": "Nhút Nhát: luôn né đòn đầu tiên nhắm vào mình; 10% / 15% / 20% né đòn",
+   "tier": 3,
+   "status": "keep",
+   "role": "Hỗ Trợ",
+   "skills": {
+    "active": {
+     "name": "Nhanh Như Cheo",
+     "effect": "Dẫn dụ kẻ địch có Tấn công cao nhất đánh vào mình (khiêu khích), dùng tốc độ né đòn +50%",
+     "time": "4 / 5 / 6 giây",
+     "damage": "—",
+     "energy": 120,
+     "estSeconds": 10
+    },
+    "passive": "Nhút Nhát: luôn né đòn đầu tiên nhắm vào mình; 10% / 15% / 20% né đòn",
+    "star3": "Biến Mất Trong Bụi Rậm: sau khi Nhanh Như Cheo kết thúc, ẩn mình 2 giây và hồi 20% máu"
+   }
   },
   {
    "id": 36,
@@ -1257,8 +1727,22 @@
    "attackClass": "special",
    "range": 3,
    "statNote": "Chim lội nước: nhanh, mổ từ xa. Rẽ mỏ thìa rất nhỏ (khoảng 15 cm) và nhanh",
-   "skill": "Mỏ thìa: né 30% đòn tầm xa",
-   "tier": 3
+   "skill": "Bé Nhỏ Nhanh Nhẹn: 20% / 25% / 30% né đòn tầm xa",
+   "tier": 3,
+   "status": "keep",
+   "role": "Phép Thuật",
+   "skills": {
+    "active": {
+     "name": "Mỏ Thìa Vẩy Nước",
+     "effect": "Vẩy nước lấp lánh trúng 3 kẻ địch ngẫu nhiên, Mù 1 giây",
+     "time": "1 giây",
+     "damage": "125 / 200 / 325 mỗi mục tiêu",
+     "energy": 80,
+     "estSeconds": 7
+    },
+    "passive": "Bé Nhỏ Nhanh Nhẹn: 20% / 25% / 30% né đòn tầm xa",
+    "star3": "Hiếm Có Khó Tìm: lần đầu bị hạ, sống lại với 30% máu (chỉ còn vài trăm cá thể ngoài tự nhiên)"
+   }
   },
   {
    "id": 47,
@@ -1285,8 +1769,22 @@
    "attackClass": "physical",
    "range": 1,
    "statNote": "Gấu: khỏe, máu và tấn công khá; trung bình về tốc độ",
-   "skill": "Lưỡi dài: hồi 15% máu mỗi khi đánh trúng Côn trùng",
-   "tier": 3
+   "skill": "Lưỡi Dài: hồi 10% / 12% / 15% máu mỗi khi đánh trúng Côn trùng",
+   "tier": 3,
+   "status": "keep",
+   "role": "Chiến Đấu",
+   "skills": {
+    "active": {
+     "name": "Cào Tổ Ong",
+     "effect": "Đứng thẳng dậy cào liên tục vào mục tiêu; hồi máu bằng 30% sát thương gây ra",
+     "time": "2 giây",
+     "damage": "300 / 480 / 780",
+     "energy": 70,
+     "estSeconds": 8
+    },
+    "passive": "Lưỡi Dài: hồi 10% / 12% / 15% máu mỗi khi đánh trúng Côn trùng",
+    "star3": "Ôm Ghì: Cào Tổ Ong Trói mục tiêu trong thời gian cào"
+   }
   },
   {
    "id": 30,
@@ -1313,8 +1811,22 @@
    "attackClass": "physical",
    "range": 1,
    "statNote": "Thân phủ vảy sừng: phòng thủ rất cao",
-   "skill": "Cuộn tròn: khi máu dưới 30%, +50% Phòng thủ trong 4 giây",
-   "tier": 3
+   "skill": "Vảy Sừng: giảm 10% / 15% / 20% sát thương vật lý nhận vào",
+   "tier": 3,
+   "status": "keep",
+   "role": "Đỡ Đòn",
+   "skills": {
+    "active": {
+     "name": "Cuộn Tròn",
+     "effect": "Nhảy lên cuộn tròn lăn vào kẻ địch trong bán kính 1 / 2 / 3 ô; +5% Phòng thủ cho mỗi kẻ địch trúng (cộng dồn)",
+     "time": "Tức thời",
+     "damage": "150 / 240 / 390 (diện rộng)",
+     "energy": 70,
+     "estSeconds": 9
+    },
+    "passive": "Vảy Sừng: giảm 10% / 15% / 20% sát thương vật lý nhận vào",
+    "star3": "Kháng Phép: sau khi Cuộn Tròn, miễn nhiễm sát thương ĐB 2 giây"
+   }
   },
   {
    "id": 19,
@@ -1342,7 +1854,8 @@
    "range": 1,
    "statNote": "Rùa: phòng thủ rất cao, rất chậm. Giải: mai mềm như da, rình mồi và cắn rất nhanh",
    "skill": "Trường thọ: hồi 2% máu mỗi giây",
-   "tier": 4
+   "tier": 4,
+   "status": "removed"
   },
   {
    "id": 22,
@@ -1372,7 +1885,8 @@
    "range": 3,
    "statNote": "Linh trưởng ăn lá: nhanh nhẹn, đánh tầm xa (tấn công ĐB). Voọc mũi hếch là loài voọc lớn nhất trong nhóm, chịu lạnh vùng núi cao",
    "skill": "Chịu lạnh: miễn nhiễm làm chậm",
-   "tier": 3
+   "tier": 3,
+   "status": "later"
   },
   {
    "id": 1,
@@ -1401,7 +1915,7 @@
    "attackClass": "special",
    "range": 3,
    "statNote": "Rồng: hô mưa gọi sấm = tấn công ĐB",
-   "skill": "Hô mưa gọi sấm: mỗi 6 giây giáng sét xuống 3 kẻ địch. Thăng Long: lần đầu máu dưới 30%, bay vút lên 2 giây (không thể bị chọn làm mục tiêu) rồi giáng sét ×2",
+   "skill": "Thăng Long: lần đầu máu dưới 30%, bay vút lên 2 giây (không thể bị chọn làm mục tiêu) rồi giáng sét ×2",
    "zodiac": "Thìn",
    "tier": 5,
    "story": "Năm 1009–1010, tương truyền vua Lý Công Uẩn dời đô ra Đại La thấy rồng bay lên nên đặt tên kinh đô là Thăng Long ('rồng bay lên'). Lạc Long Quân – thần mình rồng – diệt Ngư Tinh, Hồ Tinh, Mộc Tinh.",
@@ -1415,7 +1929,21 @@
      "https://vi.wikipedia.org/wiki/Con_R%E1%BB%93ng_ch%C3%A1u_Ti%C3%AAn"
     ]
    ],
-   "storyAccuracy": "Truyện gốc"
+   "storyAccuracy": "Truyện gốc",
+   "status": "keep",
+   "role": "Phép Thuật",
+   "skills": {
+    "active": {
+     "name": "Hô Mưa Gọi Sấm",
+     "effect": "Giáng sét xuống 3 kẻ địch máu cao nhất",
+     "time": "Tức thời",
+     "damage": "320 / 520 / 840 mỗi mục tiêu",
+     "energy": 90,
+     "estSeconds": 9
+    },
+    "passive": "Thăng Long: lần đầu máu dưới 30%, bay vút lên 2 giây (không thể bị chọn làm mục tiêu) rồi giáng sét ×2",
+    "star3": "Long Uy: Hô Mưa Gọi Sấm trúng 5 kẻ địch và làm Choáng 0,5 giây"
+   }
   },
   {
    "id": 14,
@@ -1443,8 +1971,22 @@
    "attackClass": "physical",
    "range": 1,
    "statNote": "Thú cỡ lớn: máu, tấn công, phòng thủ cao; chậm. Tê giác Java: da dày nhiều nếp gấp như áo giáp",
-   "skill": "Sừng tê: lao húc gây choáng 1,5 giây",
-   "tier": 4
+   "skill": "Da Giáp: giảm 10% / 15% / 20% sát thương nhận vào từ phía trước",
+   "tier": 4,
+   "status": "keep",
+   "role": "Đỡ Đòn",
+   "skills": {
+    "active": {
+     "name": "Sừng Tê Giác",
+     "effect": "Lao húc mục tiêu: Choáng 1,5 giây, gây chí mạng 150% / 200% / 250%. Nếu mục tiêu còn dưới 25% máu thì hạ gục ngay",
+     "time": "Choáng 1,5 giây",
+     "damage": "325 / 525 / 850 × chí mạng",
+     "energy": 60,
+     "estSeconds": 9
+    },
+    "passive": "Da Giáp: giảm 10% / 15% / 20% sát thương nhận vào từ phía trước",
+    "star3": "Sừng Bất Khuất: hồi chiêu Sừng Tê Giác giảm còn 7 giây"
+   }
   },
   {
    "id": 5,
@@ -1473,7 +2015,7 @@
    "attackClass": "special",
    "range": 3,
    "statNote": "Phượng Hoàng: lửa thiêng = tấn công ĐB rất cao",
-   "skill": "Trứng lửa tái sinh: khi bị hạ, hóa thành trứng lửa 6 giây (máu trứng = 30% máu tối đa, đốt kẻ địch kề bên). Nếu trứng không bị phá, Phượng Hoàng nở lại với 100% máu. 1 lần mỗi trận",
+   "skill": "Trứng Lửa Tái Sinh: khi bị hạ, hóa trứng lửa 6 giây (máu trứng = 30% máu tối đa, đốt kẻ kề bên). Trứng không bị phá thì nở lại với 100% máu; 1 lần mỗi trận",
    "tier": 5,
    "story": "Ở Việt Nam, phượng hoàng phát triển từ hình tượng chim Lạc, là một trong Tứ Linh, biểu tượng cát tường và nữ tính, thường đi đôi với rồng.",
    "storySrc": [
@@ -1482,7 +2024,21 @@
      "https://vi.wikipedia.org/wiki/Ph%C6%B0%E1%BB%A3ng_ho%C3%A0ng"
     ]
    ],
-   "storyAccuracy": "Sáng tạo cho game: mô-típ 'tái sinh từ lửa' thuộc truyền thuyết phượng hoàng phương Tây (và giống Supernova của Phoenix trong Dota 2), không có trong truyện Việt."
+   "storyAccuracy": "Sáng tạo cho game: mô-típ 'tái sinh từ lửa' thuộc truyền thuyết phượng hoàng phương Tây (và giống Supernova của Phoenix trong Dota 2), không có trong truyện Việt.",
+   "status": "keep",
+   "role": "Phép Thuật",
+   "skills": {
+    "active": {
+     "name": "Lửa Thiêng",
+     "effect": "Gọi mưa lửa xuống vùng 2×2 quanh mục tiêu, gây Bỏng",
+     "time": "Bỏng 3 giây",
+     "damage": "280 / 455 / 735 (diện rộng)",
+     "energy": 90,
+     "estSeconds": 9
+    },
+    "passive": "Trứng Lửa Tái Sinh: khi bị hạ, hóa trứng lửa 6 giây (máu trứng = 30% máu tối đa, đốt kẻ kề bên). Trứng không bị phá thì nở lại với 100% máu; 1 lần mỗi trận",
+    "star3": "Phượng Múa: sau khi tái sinh, Lửa Thiêng dùng ngay và +30% Tấn công ĐB đến hết trận"
+   }
   },
   {
    "id": 32,
@@ -1510,7 +2066,8 @@
    "range": 1,
    "statNote": "Rùa: phòng thủ rất cao, rất chậm",
    "skill": "Rụt cổ: chặn hoàn toàn 1 đòn mỗi 6 giây",
-   "tier": 3
+   "tier": 3,
+   "status": "removed"
   },
   {
    "id": 13,
@@ -1538,7 +2095,7 @@
    "attackClass": "special",
    "range": 3,
    "statNote": "Cá Ông: khổng lồ, máu rất cao, chậm",
-   "skill": "Nam Hải cứu nạn: che chắn đồng đội sắp bị hạ, hồi 25% máu (1 lần mỗi đồng đội). Ông Nam Hải: đồng đội hệ Nước +10% Phòng thủ ĐB",
+   "skill": "Ông Nam Hải: đồng đội hệ Nước +12% Phòng thủ và Phòng thủ ĐB; đòn hệ Nước của kẻ địch −12% sát thương",
    "tier": 5,
    "story": "Ngư dân miền Trung và miền Nam thờ cá voi là thần Nam Hải, tin rằng Ông cứu người gặp nạn trên biển; triều đình sắc phong là Nhân ngư, Đức ngư.",
    "storySrc": [
@@ -1547,7 +2104,21 @@
      "https://vi.wikipedia.org/wiki/T%E1%BB%A5c_th%E1%BB%9D_c%C3%A1_%C3%94ng"
     ]
    ],
-   "storyAccuracy": "Tín ngưỡng gốc"
+   "storyAccuracy": "Tín ngưỡng gốc",
+   "status": "keep",
+   "role": "Hỗ Trợ",
+   "skills": {
+    "active": {
+     "name": "Nam Hải Cứu Nạn",
+     "effect": "Che chắn đồng đội máu thấp nhất trong 2 ô: tạo khiên và hồi máu",
+     "time": "Khiên 4 giây",
+     "damage": "Khiên 300 / 500 / 800; hồi 20% / 25% / 30% máu",
+     "energy": 70,
+     "estSeconds": 10
+    },
+    "passive": "Ông Nam Hải: đồng đội hệ Nước +12% Phòng thủ và Phòng thủ ĐB; đòn hệ Nước của kẻ địch −12% sát thương",
+    "star3": "Linh Ngư Phù Hộ: Nam Hải Cứu Nạn che chắn thêm 1 đồng đội; mỗi đồng đội được cứu 1 lần mỗi trận"
+   }
   },
   {
    "id": 51,
@@ -1562,7 +2133,7 @@
     "Ground"
    ],
    "body": "dog",
-   "skill": "Giữ nhà: đứng hàng sau thì +20% Phòng thủ cho đồng đội kề bên",
+   "skill": "Trung Thành: khi đồng đội kề bên bị hạ, +20% / 25% / 30% Tấn công đến hết trận",
    "zodiac": "Tuất",
    "tier": 1,
    "statNote": "Chó: cắn mạnh, chạy nhanh",
@@ -1577,7 +2148,21 @@
    "attackType": "Ground",
    "attackClass": "physical",
    "range": 1,
-   "dex": 58
+   "dex": 58,
+   "status": "keep",
+   "role": "Đỡ Đòn",
+   "skills": {
+    "active": {
+     "name": "Sủa Giữ Nhà",
+     "effect": "Sủa vang khiêu khích kẻ địch trong 1 ô; đồng đội kề bên +20% Phòng thủ",
+     "time": "3 / 3,5 / 4 giây",
+     "damage": "—",
+     "energy": 90,
+     "estSeconds": 9
+    },
+    "passive": "Trung Thành: khi đồng đội kề bên bị hạ, +20% / 25% / 30% Tấn công đến hết trận",
+    "star3": "Chó Giữ Làng: Sủa Giữ Nhà khiêu khích trong bán kính 2 ô"
+   }
   },
   {
    "id": 52,
@@ -1593,7 +2178,7 @@
     "Rock"
    ],
    "body": "dog",
-   "skill": "Săn vùng núi: miễn bị làm chậm; +20% né đòn 5 giây đầu trận",
+   "skill": "Chân Núi: miễn bị làm chậm; +20% né đòn trong 5 giây đầu trận (★2: 6 giây, ★3: 7 giây)",
    "zodiac": "Tuất",
    "tweak": {
     "def": 10,
@@ -1612,7 +2197,21 @@
    "attackType": "Ground",
    "attackClass": "physical",
    "range": 1,
-   "dex": 59
+   "dex": 59,
+   "status": "keep",
+   "role": "Chiến Đấu",
+   "skills": {
+    "active": {
+     "name": "Săn Vùng Núi",
+     "effect": "Phi lên dốc đá rồi vồ mục tiêu ở hàng sau",
+     "time": "Tức thời",
+     "damage": "180 / 300 / 480",
+     "energy": 80,
+     "estSeconds": 8
+    },
+    "passive": "Chân Núi: miễn bị làm chậm; +20% né đòn trong 5 giây đầu trận (★2: 6 giây, ★3: 7 giây)",
+    "star3": "Cộc Đuôi Dũng Mãnh: Săn Vùng Núi Choáng mục tiêu 1 giây"
+   }
   },
   {
    "id": 53,
@@ -1628,7 +2227,7 @@
     "Water"
    ],
    "body": "dog",
-   "skill": "Xoáy lưng: đòn đầu tiên lên mỗi mục tiêu luôn chí mạng",
+   "skill": "Xoáy Lưng: đòn đầu tiên lên mỗi mục tiêu luôn chí mạng; +5% / 10% / 15% tỉ lệ chí mạng",
    "zodiac": "Tuất",
    "tweak": {
     "spe": 10,
@@ -1647,7 +2246,21 @@
    "attackType": "Ground",
    "attackClass": "physical",
    "range": 1,
-   "dex": 61
+   "dex": 61,
+   "status": "keep",
+   "role": "Săn Mồi",
+   "skills": {
+    "active": {
+     "name": "Xoáy Lưng",
+     "effect": "Lao tới đánh chí mạng mục tiêu, bỏ qua né đòn",
+     "time": "Tức thời",
+     "damage": "180 / 300 / 480 × chí mạng",
+     "energy": 80,
+     "estSeconds": 8
+    },
+    "passive": "Xoáy Lưng: đòn đầu tiên lên mỗi mục tiêu luôn chí mạng; +5% / 10% / 15% tỉ lệ chí mạng",
+    "star3": "Biết Bơi: miễn sát thương hệ Nước trong 3 giây sau khi dùng kỹ năng"
+   }
   },
   {
    "id": 54,
@@ -1682,7 +2295,8 @@
    "attackType": "Ground",
    "attackClass": "physical",
    "range": 1,
-   "dex": 57
+   "dex": 57,
+   "status": "later"
   },
   {
    "id": 55,
@@ -1697,7 +2311,7 @@
     "Ground"
    ],
    "body": "dog",
-   "skill": "Bản năng hoang dã: +20% Tấn công khi máu dưới 50%",
+   "skill": "Hoang Dã: +20% / 25% / 30% Tấn công khi máu dưới 50%",
    "zodiac": "Tuất",
    "tweak": {
     "atk": 10,
@@ -1716,7 +2330,21 @@
    "attackType": "Ground",
    "attackClass": "physical",
    "range": 1,
-   "dex": 60
+   "dex": 60,
+   "status": "keep",
+   "role": "Săn Mồi",
+   "skills": {
+    "active": {
+     "name": "Bản Năng Hoang Dã",
+     "effect": "Cắn xé mục tiêu, sát thương tăng theo % máu đã mất của Chó Lài",
+     "time": "Tức thời",
+     "damage": "165 / 275 / 440 (tới ×2 khi gần chết)",
+     "energy": 80,
+     "estSeconds": 8
+    },
+    "passive": "Hoang Dã: +20% / 25% / 30% Tấn công khi máu dưới 50%",
+    "star3": "Đầu Đàn: Bản Năng Hoang Dã gây Chảy máu 3% máu/giây trong 3 giây"
+   }
   },
   {
    "id": 56,
@@ -1731,7 +2359,7 @@
     "Ground"
    ],
    "body": "cat",
-   "skill": "Vồ mồi: đòn đầu tiên lên mỗi mục tiêu +30% sát thương",
+   "skill": "Bắt Chuột: +20% / 30% / 40% sát thương lên Chuột",
    "zodiac": "Mão",
    "tier": 1,
    "statNote": "Mèo: nhanh nhẹn, vồ mồi chính xác",
@@ -1746,7 +2374,21 @@
    "attackType": "Ground",
    "attackClass": "physical",
    "range": 1,
-   "dex": 81
+   "dex": 81,
+   "status": "keep",
+   "role": "Săn Mồi",
+   "skills": {
+    "active": {
+     "name": "Vồ Mồi",
+     "effect": "Vồ tới mục tiêu: đòn đầu tiên lên mỗi mục tiêu +30% sát thương",
+     "time": "Tức thời",
+     "damage": "180 / 300 / 480",
+     "energy": 80,
+     "estSeconds": 8
+    },
+    "passive": "Bắt Chuột: +20% / 30% / 40% sát thương lên Chuột",
+    "star3": "Mèo Mướp Lanh Lẹ: Vồ Mồi nảy sang kẻ địch thứ hai"
+   }
   },
   {
    "id": 57,
@@ -1762,7 +2404,7 @@
     "Poison"
    ],
    "body": "cat",
-   "skill": "Quỷ nhập tràng: 1 lần mỗi vòng đấu, nhảy qua một đồng đội vừa bị hạ để nó sống dậy 5 giây với 40% máu, rồi ngã xuống lại",
+   "skill": "Mắt Đêm: 10% / 15% / 20% né đòn; nhìn thấy kẻ địch Ẩn mình",
    "zodiac": "Mão",
    "tweak": {
     "spa": 10,
@@ -1789,7 +2431,21 @@
      "https://vi.wikipedia.org/wiki/Qu%E1%BB%B7_nh%E1%BA%ADp_tr%C3%A0ng"
     ]
    ],
-   "storyAccuracy": "Tín ngưỡng dân gian (khoa học không công nhận)"
+   "storyAccuracy": "Tín ngưỡng dân gian (khoa học không công nhận)",
+   "status": "keep",
+   "role": "Hỗ Trợ",
+   "skills": {
+    "active": {
+     "name": "Quỷ Nhập Tràng",
+     "effect": "Nhảy qua một đồng đội vừa bị hạ: nó sống dậy 5 giây với 30% / 40% / 50% máu rồi ngã xuống lại; 1 lần mỗi vòng",
+     "time": "5 giây",
+     "damage": "—",
+     "energy": 100,
+     "estSeconds": 10
+    },
+    "passive": "Mắt Đêm: 10% / 15% / 20% né đòn; nhìn thấy kẻ địch Ẩn mình",
+    "star3": "Chín Mạng: đồng đội được hồi sinh không ngã xuống lại sau 5 giây"
+   }
   },
   {
    "id": 58,
@@ -1804,7 +2460,7 @@
     "Ground"
    ],
    "body": "cat",
-   "skill": "May mắn: 15% hồi sinh với 25% máu khi bị hạ",
+   "skill": "May Mắn: 15% / 20% / 25% hồi sinh với 25% máu khi bị hạ",
    "zodiac": "Mão",
    "tweak": {
     "spd": 10,
@@ -1823,7 +2479,21 @@
    "attackType": "Ground",
    "attackClass": "physical",
    "range": 1,
-   "dex": 82
+   "dex": 82,
+   "status": "keep",
+   "role": "Chiến Đấu",
+   "skills": {
+    "active": {
+     "name": "Cào Ba Màu",
+     "effect": "Cào ba nhát vào mục tiêu, mỗi nhát một hiệu ứng: −10% Tấn công, −10% Phòng thủ, −10% Tốc độ",
+     "time": "4 giây",
+     "damage": "150 / 250 / 400",
+     "energy": 80,
+     "estSeconds": 8
+    },
+    "passive": "May Mắn: 15% / 20% / 25% hồi sinh với 25% máu khi bị hạ",
+    "star3": "Mèo Tam Thể Mang Lộc: +1 vàng mỗi vòng thắng khi Mèo Tam Thể còn sống"
+   }
   },
   {
    "id": 59,
@@ -1853,7 +2523,8 @@
    "attackType": "Ground",
    "attackClass": "physical",
    "range": 1,
-   "dex": 74
+   "dex": 74,
+   "status": "removed"
   },
   {
    "id": 60,
@@ -1868,7 +2539,7 @@
     "Ground"
    ],
    "body": "fowl",
-   "skill": "Chân voi: miễn bị đẩy lùi; +20% Phòng thủ",
+   "skill": "Đá Cựa: 15% / 20% / 25% đòn đánh gây Chảy máu 3% máu/giây trong 3 giây",
    "zodiac": "Dậu",
    "tweak": {
     "hp": 10,
@@ -1888,7 +2559,21 @@
    "attackType": "Ground",
    "attackClass": "physical",
    "range": 1,
-   "dex": 73
+   "dex": 73,
+   "status": "keep",
+   "role": "Đỡ Đòn",
+   "skills": {
+    "active": {
+     "name": "Chân Voi Trụ Vững",
+     "effect": "Bám chặt chân: không thể bị đẩy lùi, +30% / 40% / 50% Phòng thủ, khiêu khích kẻ địch kề bên",
+     "time": "3 giây",
+     "damage": "—",
+     "energy": 70,
+     "estSeconds": 9
+    },
+    "passive": "Đá Cựa: 15% / 20% / 25% đòn đánh gây Chảy máu 3% máu/giây trong 3 giây",
+    "star3": "Gà Tiến Vua: kết thúc Chân Voi Trụ Vững thì hồi 20% máu"
+   }
   },
   {
    "id": 61,
@@ -1922,7 +2607,8 @@
    "attackType": "Ground",
    "attackClass": "physical",
    "range": 1,
-   "dex": 72
+   "dex": 72,
+   "status": "removed"
   },
   {
    "id": 62,
@@ -1937,7 +2623,7 @@
     "Ground"
    ],
    "body": "pig",
-   "skill": "Bụng phệ: +25% Máu tối đa",
+   "skill": "Lì Lợm: +2% Máu tối đa cho mỗi đòn nhận vào (tối đa +20% / 25% / 30%)",
    "zodiac": "Hợi",
    "tweak": {
     "hp": 10,
@@ -1956,7 +2642,21 @@
    "attackType": "Ground",
    "attackClass": "physical",
    "range": 1,
-   "dex": 76
+   "dex": 76,
+   "status": "keep",
+   "role": "Đỡ Đòn",
+   "skills": {
+    "active": {
+     "name": "Ủn Ỉn Lăn Bùn",
+     "effect": "Lăn bùn: tạo khiên và hồi máu",
+     "time": "Khiên 4 giây",
+     "damage": "Khiên 150 / 250 / 400",
+     "energy": 60,
+     "estSeconds": 9
+    },
+    "passive": "Lì Lợm: +2% Máu tối đa cho mỗi đòn nhận vào (tối đa +20% / 25% / 30%)",
+    "star3": "Bụng Phệ: Ủn Ỉn Lăn Bùn khiêu khích kẻ địch kề bên"
+   }
   },
   {
    "id": 63,
@@ -1971,7 +2671,7 @@
     "Ground"
    ],
    "body": "pig",
-   "skill": "Mắn đẻ: khi bị hạ, để lại 1 heo con (20% chỉ số)",
+   "skill": "Mắn Đẻ: khi bị hạ, để lại 1 heo con (20% chỉ số)",
    "zodiac": "Hợi",
    "tier": 1,
    "statNote": "Heo: máu rất dày, khỏe, chậm",
@@ -1986,7 +2686,21 @@
    "attackType": "Ground",
    "attackClass": "physical",
    "range": 1,
-   "dex": 77
+   "dex": 77,
+   "status": "keep",
+   "role": "Đỡ Đòn",
+   "skills": {
+    "active": {
+     "name": "Gọi Đàn",
+     "effect": "Kêu gọi đàn con: tạo 1 heo con cản đường (20% / 25% / 30% chỉ số)",
+     "time": "Đến hết trận",
+     "damage": "—",
+     "energy": 90,
+     "estSeconds": 12
+    },
+    "passive": "Mắn Đẻ: khi bị hạ, để lại 1 heo con (20% chỉ số)",
+    "star3": "Đàn Đông: khi bị hạ để lại 2 heo con với 40% chỉ số"
+   }
   },
   {
    "id": 64,
@@ -2001,7 +2715,7 @@
     "Ground"
    ],
    "body": "rodent",
-   "skill": "Đám cưới chuột: đầu trận dâng lễ cho Mèo – Mèo phe địch không tấn công Chuột trong 4 giây. Lẻn nhanh: 25% né đòn",
+   "skill": "Đám Cưới Chuột: đầu trận dâng lễ cho Mèo – Mèo phe địch không tấn công Chuột trong 3 / 4 / 5 giây; 25% né đòn",
    "zodiac": "Tý",
    "tweak": {
     "spe": 15,
@@ -2028,7 +2742,21 @@
      "https://vi.wikipedia.org/wiki/Tranh_%C4%90%C3%B4ng_H%E1%BB%93"
     ]
    ],
-   "storyAccuracy": "Tranh dân gian gốc"
+   "storyAccuracy": "Tranh dân gian gốc",
+   "status": "keep",
+   "role": "Săn Mồi",
+   "skills": {
+    "active": {
+     "name": "Lẻn Vào Kho",
+     "effect": "Chui qua khe đến hàng sau, cắn kẻ địch máu thấp nhất",
+     "time": "Tức thời",
+     "damage": "165 / 275 / 440",
+     "energy": 90,
+     "estSeconds": 7
+    },
+    "passive": "Đám Cưới Chuột: đầu trận dâng lễ cho Mèo – Mèo phe địch không tấn công Chuột trong 3 / 4 / 5 giây; 25% né đòn",
+    "star3": "Họ Nhà Chuột: khi bị hạ, để lại 2 chuột con (20% chỉ số)"
+   }
   },
   {
    "id": 65,
@@ -2044,7 +2772,7 @@
     "Poison"
    ],
    "body": "rodent",
-   "skill": "Mầm bệnh: đòn đánh gây nhiễm độc 2% máu/giây trong 3 giây",
+   "skill": "Gặm Nhấm: đòn đánh giảm 3 Phòng thủ của mục tiêu (cộng dồn 5 / 7 / 10 lần)",
    "zodiac": "Tý",
    "tweak": {
     "hp": 10,
@@ -2064,7 +2792,21 @@
    "attackType": "Ground",
    "attackClass": "physical",
    "range": 1,
-   "dex": 63
+   "dex": 63,
+   "status": "keep",
+   "role": "Chiến Đấu",
+   "skills": {
+    "active": {
+     "name": "Mầm Bệnh",
+     "effect": "Cắn mục tiêu: Độc 3% / 4% / 5% máu mỗi giây, lây sang 1 kẻ địch kề bên",
+     "time": "3 giây",
+     "damage": "120 / 200 / 320 + Độc",
+     "energy": 90,
+     "estSeconds": 8
+    },
+    "passive": "Gặm Nhấm: đòn đánh giảm 3 Phòng thủ của mục tiêu (cộng dồn 5 / 7 / 10 lần)",
+    "star3": "Đại Dịch: Độc của Mầm Bệnh lây thêm 1 lần nữa khi mục tiêu bị hạ"
+   }
   },
   {
    "id": 66,
@@ -2095,7 +2837,8 @@
    "attackType": "Ground",
    "attackClass": "physical",
    "range": 1,
-   "dex": 64
+   "dex": 64,
+   "status": "later"
   },
   {
    "id": 67,
@@ -2111,7 +2854,7 @@
     "Water"
    ],
    "body": "giant",
-   "skill": "Trâu vàng Hồ Tây: lần đầu máu dưới 50%, lao húc xuyên một hàng, ô đi qua bị sụt (kẻ địch đứng trên bị chậm 30% trong 3 giây). Đầu cơ nghiệp: đồng đội Đồng Quê +10% Phòng thủ",
+   "skill": "Con Trâu Là Đầu Cơ Nghiệp: +10% / 15% / 20% Máu",
    "zodiac": "Sửu",
    "tweak": {
     "spe": -10,
@@ -2138,7 +2881,21 @@
      "https://vi.wikipedia.org/wiki/H%E1%BB%93_T%C3%A2y"
     ]
    ],
-   "storyAccuracy": "Truyện gốc (trâu vàng thần, trong game gán cho Trâu)"
+   "storyAccuracy": "Truyện gốc (trâu vàng thần, trong game gán cho Trâu)",
+   "status": "keep",
+   "role": "Đỡ Đòn",
+   "skills": {
+    "active": {
+     "name": "Trâu Vàng Hồ Tây",
+     "effect": "Lao húc xuyên một hàng, ô đi qua bị sụt: kẻ địch đứng trên bị chậm 30%",
+     "time": "3 giây",
+     "damage": "135 / 225 / 360 (cả hàng)",
+     "energy": 60,
+     "estSeconds": 9
+    },
+    "passive": "Con Trâu Là Đầu Cơ Nghiệp: +10% / 15% / 20% Máu",
+    "star3": "Đầu Cơ Nghiệp: +1 vàng mỗi lần Trâu hạ được kẻ địch (tối đa 2 vàng mỗi vòng)"
+   }
   },
   {
    "id": 68,
@@ -2153,7 +2910,7 @@
     "Rock"
    ],
    "body": "goat",
-   "skill": "Leo vách: +20% né đòn",
+   "skill": "Leo Vách: 15% / 20% / 25% né đòn",
    "zodiac": "Mùi",
    "tier": 1,
    "statNote": "Dê: cứng cáp, leo trèo giỏi",
@@ -2168,7 +2925,21 @@
    "attackType": "Rock",
    "attackClass": "physical",
    "range": 1,
-   "dex": 69
+   "dex": 69,
+   "status": "keep",
+   "role": "Đỡ Đòn",
+   "skills": {
+    "active": {
+     "name": "Húc Đầu",
+     "effect": "Lùi lấy đà rồi húc mạnh: Đẩy lùi mục tiêu 1 ô và Choáng",
+     "time": "Choáng 0,5 / 0,75 / 1 giây",
+     "damage": "150 / 250 / 400",
+     "energy": 70,
+     "estSeconds": 8
+    },
+    "passive": "Leo Vách: 15% / 20% / 25% né đòn",
+    "star3": "Dê Núi Đá: Húc Đầu đẩy lùi 2 ô và gây thêm sát thương nếu mục tiêu va vào kẻ khác"
+   }
   },
   {
    "id": 69,
@@ -2183,7 +2954,7 @@
     "Ground"
    ],
    "body": "horse",
-   "skill": "Thồ hàng: đồng đội kề bên +10% Tốc độ",
+   "skill": "Bền Sức: đồng đội kề bên +6% / 8% / 10% Tốc độ",
    "zodiac": "Ngọ",
    "tier": 1,
    "statNote": "Ngựa: bền sức, chạy nhanh",
@@ -2198,7 +2969,21 @@
    "attackType": "Ground",
    "attackClass": "physical",
    "range": 1,
-   "dex": 84
+   "dex": 84,
+   "status": "keep",
+   "role": "Hỗ Trợ",
+   "skills": {
+    "active": {
+     "name": "Thồ Hàng",
+     "effect": "Chở 2 đồng đội yếu nhất lùi về hàng sau, cho họ +20% Tốc độ",
+     "time": "4 giây",
+     "damage": "—",
+     "energy": 100,
+     "estSeconds": 10
+    },
+    "passive": "Bền Sức: đồng đội kề bên +6% / 8% / 10% Tốc độ",
+    "star3": "Ngựa Trạm: Thồ Hàng còn hồi 15% máu cho đồng đội được chở"
+   }
   },
   {
    "id": 70,
@@ -2214,7 +2999,7 @@
     "Sky"
    ],
    "body": "duck",
-   "skill": "Lội ruộng: nhặt mồi hồi 3% máu mỗi 4 giây",
+   "skill": "Ăn Ốc: +50% sát thương lên Ốc Bươu Vàng; 10% / 15% / 20% né đòn hệ Nước",
    "tier": 1,
    "statNote": "Vịt: cân bằng, lội nước giỏi",
    "stats": {
@@ -2228,7 +3013,21 @@
    "attackType": "Water",
    "attackClass": "physical",
    "range": 2,
-   "dex": 92
+   "dex": 92,
+   "status": "keep",
+   "role": "Hỗ Trợ",
+   "skills": {
+    "active": {
+     "name": "Lội Ruộng",
+     "effect": "Lội nước nhặt mồi: hồi máu cho bản thân và đồng đội kề bên",
+     "time": "Tức thời",
+     "damage": "Hồi 120 / 200 / 320 máu",
+     "energy": 70,
+     "estSeconds": 8
+    },
+    "passive": "Ăn Ốc: +50% sát thương lên Ốc Bươu Vàng; 10% / 15% / 20% né đòn hệ Nước",
+    "star3": "Đàn Vịt Đồng: Lội Ruộng hồi cho cả đội 8% máu"
+   }
   },
   {
    "id": 71,
@@ -2244,7 +3043,7 @@
     "Water"
    ],
    "body": "wader",
-   "skill": "Mổ chính xác: +30% sát thương lên cá và ếch",
+   "skill": "Cò Theo Trâu: đứng cạnh Trâu thì cả hai +10% / 15% / 20% Tốc độ",
    "tier": 1,
    "statNote": "Chim lội nước: nhanh, mổ từ xa",
    "stats": {
@@ -2258,7 +3057,21 @@
    "attackType": "Sky",
    "attackClass": "special",
    "range": 3,
-   "dex": 66
+   "dex": 66,
+   "status": "keep",
+   "role": "Phép Thuật",
+   "skills": {
+    "active": {
+     "name": "Mổ Chính Xác",
+     "effect": "Mổ thẳng vào mục tiêu, gây thêm 30% sát thương lên cá, ếch, cua, ốc",
+     "time": "Tức thời",
+     "damage": "165 / 275 / 440",
+     "energy": 70,
+     "estSeconds": 7
+    },
+    "passive": "Cò Theo Trâu: đứng cạnh Trâu thì cả hai +10% / 15% / 20% Tốc độ",
+    "star3": "Cánh Cò Bay Lả: là VieAni Bay; kỹ năng trúng thêm 1 mục tiêu"
+   }
   },
   {
    "id": 72,
@@ -2273,7 +3086,7 @@
     "Sky"
    ],
    "body": "smallbird",
-   "skill": "Nhặt thóc giúp Tấm: mỗi 6 giây gỡ 1 hiệu ứng xấu khỏi đồng đội đang yếu nhất. Bầy sẻ: +5% Tốc độ cho mỗi VieAni hệ Trời trên sân",
+   "skill": "Bầy Sẻ: +5% / 7% / 10% Tốc độ cho mỗi VieAni hệ Trời trên sân",
    "tier": 1,
    "statNote": "Chim nhỏ: rất nhanh, yếu",
    "stats": {
@@ -2295,7 +3108,21 @@
      "https://vi.wikipedia.org/wiki/T%E1%BA%A5m_C%C3%A1m"
     ]
    ],
-   "storyAccuracy": "Truyện gốc"
+   "storyAccuracy": "Truyện gốc",
+   "status": "keep",
+   "role": "Hỗ Trợ",
+   "skills": {
+    "active": {
+     "name": "Nhặt Thóc Giúp Tấm",
+     "effect": "Cả bầy sẻ sà xuống: gỡ 1 hiệu ứng xấu và hồi máu cho 2 đồng đội yếu nhất",
+     "time": "Tức thời",
+     "damage": "Hồi 120 / 200 / 320 máu",
+     "energy": 80,
+     "estSeconds": 8
+    },
+    "passive": "Bầy Sẻ: +5% / 7% / 10% Tốc độ cho mỗi VieAni hệ Trời trên sân",
+    "star3": "Chim Sẻ Báo Tin: đầu trận cả đội +10% né đòn 4 giây"
+   }
   },
   {
    "id": 73,
@@ -2310,7 +3137,7 @@
     "Sky"
    ],
    "body": "smallbird",
-   "skill": "Bắt chước: sao chép kỹ năng của kẻ địch gần nhất (1 lần mỗi trận)",
+   "skill": "Lắm Lời: đòn đánh 10% / 15% / 20% làm Câm lặng mục tiêu 1 giây (không dùng được kỹ năng)",
    "tweak": {
     "spa": 10,
     "spe": -10
@@ -2328,7 +3155,21 @@
    "attackType": "Sky",
    "attackClass": "special",
    "range": 3,
-   "dex": 87
+   "dex": 87,
+   "status": "keep",
+   "role": "Phép Thuật",
+   "skills": {
+    "active": {
+     "name": "Bắt Chước",
+     "effect": "Sao chép kỹ năng của kẻ địch gần nhất trong 1 / 2 / 3 ô và dùng lại ngay",
+     "time": "Theo kỹ năng sao chép",
+     "damage": "70% sức mạnh của kỹ năng gốc",
+     "energy": 100,
+     "estSeconds": 10
+    },
+    "passive": "Lắm Lời: đòn đánh 10% / 15% / 20% làm Câm lặng mục tiêu 1 giây (không dùng được kỹ năng)",
+    "star3": "Sáo Nói Tiếng Người: kỹ năng sao chép giữ 100% sức mạnh"
+   }
   },
   {
    "id": 74,
@@ -2358,7 +3199,8 @@
    "attackType": "Water",
    "attackClass": "physical",
    "range": 1,
-   "dex": 54
+   "dex": 54,
+   "status": "later"
   },
   {
    "id": 75,
@@ -2373,7 +3215,7 @@
     "Water"
    ],
    "body": "carp",
-   "skill": "Cá chép hóa rồng: sống sót 20 giây trên sân thì hóa Rồng Con (thêm hệ Huyền thoại, chỉ số ×1,5, có Bay) đến hết trận",
+   "skill": "Cá Chép Hóa Rồng: sống sót 20 giây trên sân thì hóa Rồng Con (thêm hệ Huyền thoại, chỉ số ×1,3 / ×1,4 / ×1,5, có Bay) đến hết trận",
    "tier": 1,
    "statNote": "Cá chép: dai sức, tiềm năng hóa rồng = tấn công ĐB",
    "stats": {
@@ -2395,7 +3237,21 @@
      "https://vi.wikipedia.org/wiki/T%C3%A1o_qu%C3%A2n"
     ]
    ],
-   "storyAccuracy": "Truyện gốc"
+   "storyAccuracy": "Truyện gốc",
+   "status": "keep",
+   "role": "Phép Thuật",
+   "skills": {
+    "active": {
+     "name": "Vượt Vũ Môn",
+     "effect": "Quẫy đuôi tạo sóng trúng mục tiêu và kẻ đứng sau; tích 1 'vảy rồng' (+5% Tấn công ĐB)",
+     "time": "Tức thời",
+     "damage": "135 / 225 / 360",
+     "energy": 60,
+     "estSeconds": 8
+    },
+    "passive": "Cá Chép Hóa Rồng: sống sót 20 giây trên sân thì hóa Rồng Con (thêm hệ Huyền thoại, chỉ số ×1,3 / ×1,4 / ×1,5, có Bay) đến hết trận",
+    "star3": "Long Môn: hóa rồng sau 12 giây và Rồng Con giữ kỹ năng Hô Mưa Gọi Sấm (50% sức mạnh)"
+   }
   },
   {
    "id": 76,
@@ -2424,7 +3280,8 @@
    "attackType": "Water",
    "attackClass": "physical",
    "range": 1,
-   "dex": 53
+   "dex": 53,
+   "status": "later"
   },
   {
    "id": 77,
@@ -2440,7 +3297,7 @@
     "Rock"
    ],
    "body": "crab",
-   "skill": "Dã tràng xe cát: mỗi 8 giây đắp một ụ cát chặn đòn tầm xa cho đồng đội phía sau; ụ cát tự sụp sau 4 giây ('nhọc lòng mà chẳng nên công cán gì'). Càng kẹp: giữ chân mục tiêu 1 giây",
+   "skill": "Càng Kẹp: đòn đánh 10% / 15% / 20% giữ chân mục tiêu 1 giây",
    "tier": 1,
    "statNote": "Cua: mai cứng, càng kẹp mạnh, chậm",
    "stats": {
@@ -2462,7 +3319,21 @@
      "https://vi.wikipedia.org/wiki/D%C3%A3_tr%C3%A0ng"
     ]
    ],
-   "storyAccuracy": "Truyện gốc về con dã tràng (một loài cua biển khác); trong game gán cho Cua Đồng"
+   "storyAccuracy": "Truyện gốc về con dã tràng (một loài cua biển khác); trong game gán cho Cua Đồng",
+   "status": "keep",
+   "role": "Đỡ Đòn",
+   "skills": {
+    "active": {
+     "name": "Dã Tràng Xe Cát",
+     "effect": "Đắp ụ cát chặn đòn tầm xa cho đồng đội phía sau; ụ tự sụp ('nhọc lòng mà chẳng nên công cán gì')",
+     "time": "4 / 5 / 6 giây",
+     "damage": "Ụ cát chịu 200 / 350 / 550 sát thương",
+     "energy": 60,
+     "estSeconds": 8
+    },
+    "passive": "Càng Kẹp: đòn đánh 10% / 15% / 20% giữ chân mục tiêu 1 giây",
+    "star3": "Mai Cứng: khi ụ cát sụp, Cua +30% Phòng thủ 4 giây"
+   }
   },
   {
    "id": 78,
@@ -2477,7 +3348,7 @@
     "Water"
    ],
    "body": "snail",
-   "skill": "Ngoại lai: mỗi 8 giây đẻ 1 ốc con (10% chỉ số)",
+   "skill": "Ngoại Lai: mỗi 8 giây đẻ 1 ốc con (10% / 12% / 15% chỉ số) cản đường",
    "tier": 1,
    "statNote": "Ốc: vỏ rất cứng, rất chậm",
    "stats": {
@@ -2491,7 +3362,21 @@
    "attackType": "Water",
    "attackClass": "physical",
    "range": 1,
-   "dex": 86
+   "dex": 86,
+   "status": "keep",
+   "role": "Đỡ Đòn",
+   "skills": {
+    "active": {
+     "name": "Rút Vào Vỏ",
+     "effect": "Đóng nắp vỏ: miễn sát thương vật lý",
+     "time": "1,5 / 2 / 2,5 giây",
+     "damage": "—",
+     "energy": 60,
+     "estSeconds": 9
+    },
+    "passive": "Ngoại Lai: mỗi 8 giây đẻ 1 ốc con (10% / 12% / 15% chỉ số) cản đường",
+    "star3": "Ốc Bươu Vàng Phá Lúa: ốc con làm chậm 15% kẻ địch chạm vào"
+   }
   },
   {
    "id": 79,
@@ -2506,7 +3391,7 @@
     "Rock"
    ],
    "body": "gecko",
-   "skill": "Tặc lưỡi: tầm đánh vô hạn với hệ Côn trùng – luôn bắt Côn trùng ở bất kỳ đâu trên sân",
+   "skill": "Bám Tường: tầm đánh vô hạn với hệ Côn trùng; 10% / 15% / 20% né đòn",
    "tier": 1,
    "statNote": "Bò sát nhỏ: nhanh, phóng lưỡi/ngoạm bắt mồi",
    "stats": {
@@ -2520,7 +3405,21 @@
    "attackType": "Rock",
    "attackClass": "physical",
    "range": 1,
-   "dex": 89
+   "dex": 89,
+   "status": "keep",
+   "role": "Săn Mồi",
+   "skills": {
+    "active": {
+     "name": "Tặc Lưỡi",
+     "effect": "Tặc lưỡi ba tiếng: bắt Côn trùng ở bất kỳ đâu trên sân",
+     "time": "Tức thời",
+     "damage": "180 / 300 / 480 (×1,5 lên Côn trùng)",
+     "energy": 70,
+     "estSeconds": 7
+    },
+    "passive": "Bám Tường: tầm đánh vô hạn với hệ Côn trùng; 10% / 15% / 20% né đòn",
+    "star3": "Thạch Sùng Kêu: Tặc Lưỡi trúng thêm 1 Côn trùng nữa"
+   }
   },
   {
    "id": 80,
@@ -2536,7 +3435,7 @@
     "Grass"
    ],
    "body": "gecko",
-   "skill": "Đứt đuôi: lần đầu nhận đòn chí tử, còn lại 1 máu và chạy ra xa",
+   "skill": "Đứt Đuôi: lần đầu nhận đòn chí tử còn lại 1 máu và chạy ra xa (★2 còn 10% máu, ★3 còn 20%)",
    "tweak": {
     "hp": 10,
     "spa": -10
@@ -2554,7 +3453,21 @@
    "attackType": "Ground",
    "attackClass": "physical",
    "range": 1,
-   "dex": 88
+   "dex": 88,
+   "status": "keep",
+   "role": "Săn Mồi",
+   "skills": {
+    "active": {
+     "name": "Phóng Lưỡi",
+     "effect": "Phóng lưỡi bắt một Côn trùng bất kỳ trên sân (không có thì kẻ địch gần nhất)",
+     "time": "Tức thời",
+     "damage": "180 / 300 / 480",
+     "energy": 70,
+     "estSeconds": 7
+    },
+    "passive": "Đứt Đuôi: lần đầu nhận đòn chí tử còn lại 1 máu và chạy ra xa (★2 còn 10% máu, ★3 còn 20%)",
+    "star3": "Đuôi Mọc Lại: sau Đứt Đuôi, hồi 30% máu trong 3 giây"
+   }
   },
   {
    "id": 81,
@@ -2570,7 +3483,7 @@
     "Water"
    ],
    "body": "toad",
-   "skill": "Cậu ông Trời: kẻ địch nào đánh Cóc sẽ bị sét đánh (sát thương hệ Điện = 15% máu tối đa của kẻ đó; hồi chiêu 12 giây). Khi Cóc bị hạ, nghiến răng gọi mưa: đòn hệ Nước của đồng đội +20% trong 5 giây",
+   "skill": "Cậu Ông Trời: kẻ địch đánh Cóc bị sét đánh (hệ Điện, 15% máu tối đa của kẻ đó); hồi chiêu 12 / 10 / 8 giây",
    "tier": 1,
    "statNote": "Cóc: chậm, nhựa độc = tấn công ĐB",
    "stats": {
@@ -2592,7 +3505,21 @@
      "https://vi.wikipedia.org/wiki/C%C3%B3c_ki%E1%BB%87n_tr%E1%BB%9Di"
     ]
    ],
-   "storyAccuracy": "Truyện gốc + tục ngữ"
+   "storyAccuracy": "Truyện gốc + tục ngữ",
+   "status": "keep",
+   "role": "Hỗ Trợ",
+   "skills": {
+    "active": {
+     "name": "Nghiến Răng Gọi Mưa",
+     "effect": "Nghiến răng gọi mưa trên sân: đòn hệ Nước của đồng đội +15% / 20% / 25% sát thương",
+     "time": "5 giây",
+     "damage": "—",
+     "energy": 70,
+     "estSeconds": 10
+    },
+    "passive": "Cậu Ông Trời: kẻ địch đánh Cóc bị sét đánh (hệ Điện, 15% máu tối đa của kẻ đó); hồi chiêu 12 / 10 / 8 giây",
+    "star3": "Cóc Kiện Trời: Cua, Hổ, Gấu, Ong cùng phe lập tức ra đòn mỗi khi Cóc nghiến răng"
+   }
   },
   {
    "id": 82,
@@ -2621,7 +3548,8 @@
    "attackType": "Water",
    "attackClass": "physical",
    "range": 1,
-   "dex": 71
+   "dex": 71,
+   "status": "removed"
   },
   {
    "id": 83,
@@ -2636,7 +3564,7 @@
     "Insect"
    ],
    "body": "roach",
-   "skill": "Chạy trốn: 35% né đòn; khi máu dưới 20% chạy khỏi tầm đánh 2 giây",
+   "skill": "Bất Tử: 25% / 30% / 35% né đòn; khi máu dưới 20%, chạy khỏi tầm đánh 2 giây",
    "tier": 1,
    "statNote": "Gián: nhanh nhất, rất khó bị đánh trúng",
    "stats": {
@@ -2650,7 +3578,21 @@
    "attackType": "Insect",
    "attackClass": "physical",
    "range": 1,
-   "dex": 75
+   "dex": 75,
+   "status": "keep",
+   "role": "Săn Mồi",
+   "skills": {
+    "active": {
+     "name": "Chạy Trốn",
+     "effect": "Bỏ chạy nhanh ra khỏi tầm đánh rồi quay lại cắn kẻ địch yếu nhất",
+     "time": "2 giây",
+     "damage": "150 / 250 / 400",
+     "energy": 90,
+     "estSeconds": 7
+    },
+    "passive": "Bất Tử: 25% / 30% / 35% né đòn; khi máu dưới 20%, chạy khỏi tầm đánh 2 giây",
+    "star3": "Gián Bay: khi Chạy Trốn thì được Bay"
+   }
   },
   {
    "id": 84,
@@ -2666,7 +3608,7 @@
     "Poison"
    ],
    "body": "mosquito",
-   "skill": "Hút máu: hồi 30% sát thương gây ra; 15% gây Sốt (−20% Tốc độ trong 3 giây)",
+   "skill": "Truyền Bệnh: 15% / 20% / 25% đòn đánh gây Sốt 3 giây",
    "tier": 1,
    "statNote": "Muỗi: mong manh, rất nhanh, hút máu = tấn công ĐB",
    "stats": {
@@ -2680,7 +3622,21 @@
    "attackType": "Insect",
    "attackClass": "special",
    "range": 3,
-   "dex": 83
+   "dex": 83,
+   "status": "keep",
+   "role": "Phép Thuật",
+   "skills": {
+    "active": {
+     "name": "Hút Máu",
+     "effect": "Đốt và hút máu mục tiêu; 30% gây Sốt (−20% Tốc độ)",
+     "time": "Sốt 3 giây",
+     "damage": "150 / 250 / 400 (hồi 50% sát thương)",
+     "energy": 80,
+     "estSeconds": 7
+    },
+    "passive": "Truyền Bệnh: 15% / 20% / 25% đòn đánh gây Sốt 3 giây",
+    "star3": "Muỗi Vằn Sốt Xuất Huyết: Sốt còn khiến mục tiêu mất 2% máu mỗi giây"
+   }
   },
   {
    "id": 85,
@@ -2696,7 +3652,7 @@
     "Fire"
    ],
    "body": "firefly",
-   "skill": "Lập lòe: mỗi 5 giây làm chói mắt 1 kẻ địch (−30% chính xác trong 2 giây)",
+   "skill": "Đèn Đêm: đồng đội kề bên +10% / 15% / 20% chính xác (bỏ qua né đòn)",
    "tier": 1,
    "statNote": "Đom đóm: ánh sáng = tấn công ĐB",
    "stats": {
@@ -2710,7 +3666,21 @@
    "attackType": "Insect",
    "attackClass": "special",
    "range": 3,
-   "dex": 70
+   "dex": 70,
+   "status": "keep",
+   "role": "Phép Thuật",
+   "skills": {
+    "active": {
+     "name": "Lập Lòe",
+     "effect": "Nháy sáng làm chói mắt kẻ địch trong 1 ô quanh mục tiêu",
+     "time": "Mù 2 / 2,5 / 3 giây",
+     "damage": "75 / 125 / 200 (diện rộng)",
+     "energy": 80,
+     "estSeconds": 8
+    },
+    "passive": "Đèn Đêm: đồng đội kề bên +10% / 15% / 20% chính xác (bỏ qua né đòn)",
+    "star3": "Đom Đóm Sáng Rực: Lập Lòe cho đồng đội trong vùng +15% Tấn công ĐB 4 giây"
+   }
   },
   {
    "id": 86,
@@ -2726,7 +3696,7 @@
     "Fire"
    ],
    "body": "ant",
-   "skill": "Đốt rát: gây bỏng 3% máu/giây trong 3 giây",
+   "skill": "Tổ Kiến: +5% Tấn công mỗi 3 giây (cộng dồn 4 / 5 / 6 lần)",
    "tier": 1,
    "statNote": "Kiến: khỏe so với thân hình, vỏ cứng",
    "stats": {
@@ -2740,7 +3710,21 @@
    "attackType": "Insect",
    "attackClass": "physical",
    "range": 1,
-   "dex": 78
+   "dex": 78,
+   "status": "keep",
+   "role": "Chiến Đấu",
+   "skills": {
+    "active": {
+     "name": "Đốt Rát",
+     "effect": "Cả tổ đốt mục tiêu: gây Bỏng 3% / 4% / 5% máu mỗi giây",
+     "time": "3 giây",
+     "damage": "120 / 200 / 320 + Bỏng",
+     "energy": 70,
+     "estSeconds": 8
+    },
+    "passive": "Tổ Kiến: +5% Tấn công mỗi 3 giây (cộng dồn 4 / 5 / 6 lần)",
+    "star3": "Lửa Kiến: ×2 lượng máu mất do Bỏng"
+   }
   },
   {
    "id": 87,
@@ -2755,7 +3739,7 @@
     "Insect"
    ],
    "body": "ant",
-   "skill": "Canh vườn: +30% sát thương lên Côn trùng khác; đồng đội hệ Cỏ +10% Phòng thủ",
+   "skill": "Kiến Thợ Dệt: +10% / 15% / 20% Phòng thủ khi đứng cạnh một đồng đội hệ Cỏ",
    "tweak": {
     "def": 10,
     "spa": -10
@@ -2773,7 +3757,21 @@
    "attackType": "Insect",
    "attackClass": "physical",
    "range": 1,
-   "dex": 79
+   "dex": 79,
+   "status": "keep",
+   "role": "Chiến Đấu",
+   "skills": {
+    "active": {
+     "name": "Canh Vườn",
+     "effect": "Cả đàn kiến vàng giữ vườn: +30% sát thương lên Côn trùng khác, đồng đội hệ Cỏ +10% Phòng thủ",
+     "time": "5 giây",
+     "damage": "120 / 200 / 320",
+     "energy": 70,
+     "estSeconds": 8
+    },
+    "passive": "Kiến Thợ Dệt: +10% / 15% / 20% Phòng thủ khi đứng cạnh một đồng đội hệ Cỏ",
+    "star3": "Thiên Địch Sâu Bọ: ×2 lượng Phòng thủ cộng thêm của Canh Vườn"
+   }
   },
   {
    "id": 88,
@@ -2789,7 +3787,7 @@
     "Poison"
    ],
    "body": "bee",
-   "skill": "Ngòi chết: một đòn đốt ×3 sát thương nhưng Ong mất 50% máu",
+   "skill": "Bầy Ong: mỗi Ong trên sân +5% / 7% / 10% Tấn công cho Côn trùng đồng đội",
    "tier": 1,
    "statNote": "Ong: ngòi đốt mạnh, mong manh",
    "stats": {
@@ -2803,7 +3801,21 @@
    "attackType": "Insect",
    "attackClass": "physical",
    "range": 1,
-   "dex": 85
+   "dex": 85,
+   "status": "keep",
+   "role": "Săn Mồi",
+   "skills": {
+    "active": {
+     "name": "Ngòi Chết",
+     "effect": "Một đòn đốt ×3 sát thương nhưng Ong mất 50% máu",
+     "time": "Tức thời",
+     "damage": "225 / 375 / 600",
+     "energy": 90,
+     "estSeconds": 9
+    },
+    "passive": "Bầy Ong: mỗi Ong trên sân +5% / 7% / 10% Tấn công cho Côn trùng đồng đội",
+    "star3": "Ong Chúa Phù Hộ: Ngòi Chết chỉ làm Ong mất 20% máu"
+   }
   },
   {
    "id": 89,
@@ -2818,7 +3830,7 @@
     "Insect"
    ],
    "body": "cicada",
-   "skill": "Khúc ca mùa hè: mỗi 6 giây làm choáng kẻ địch gần nhất 0,5 giây. Lột xác: hồi 30% máu một lần",
+   "skill": "Vỏ Ve: +10% / 15% / 20% Phòng thủ",
    "tier": 1,
    "statNote": "Ve sầu: tiếng kêu = tấn công ĐB, vỏ cứng",
    "stats": {
@@ -2832,7 +3844,21 @@
    "attackType": "Insect",
    "attackClass": "special",
    "range": 3,
-   "dex": 91
+   "dex": 91,
+   "status": "keep",
+   "role": "Phép Thuật",
+   "skills": {
+    "active": {
+     "name": "Khúc Ca Mùa Hè",
+     "effect": "Kêu inh ỏi: Choáng kẻ địch gần nhất",
+     "time": "0,5 / 0,75 / 1 giây",
+     "damage": "120 / 200 / 320",
+     "energy": 50,
+     "estSeconds": 6
+    },
+    "passive": "Vỏ Ve: +10% / 15% / 20% Phòng thủ",
+    "star3": "Lột Xác: 1 lần mỗi trận, khi máu dưới 30% hồi 30% máu"
+   }
   },
   {
    "id": 90,
@@ -2848,7 +3874,7 @@
     "Grass"
    ],
    "body": "grasshopper",
-   "skill": "Châu chấu đá xe: +50% sát thương lên kẻ địch bậc cao hơn",
+   "skill": "Liều Mạng: +30% / 40% / 50% sát thương lên kẻ địch có bậc cao hơn",
    "tier": 1,
    "statNote": "Châu chấu: nhảy xa, đá mạnh",
    "stats": {
@@ -2862,7 +3888,21 @@
    "attackType": "Insect",
    "attackClass": "physical",
    "range": 1,
-   "dex": 55
+   "dex": 55,
+   "status": "keep",
+   "role": "Chiến Đấu",
+   "skills": {
+    "active": {
+     "name": "Châu Chấu Đá Xe",
+     "effect": "Nhảy xa đá vào kẻ địch có bậc cao nhất trong 3 ô",
+     "time": "Tức thời",
+     "damage": "180 / 300 / 480 (+50% nếu mục tiêu bậc cao hơn)",
+     "energy": 80,
+     "estSeconds": 8
+    },
+    "passive": "Liều Mạng: +30% / 40% / 50% sát thương lên kẻ địch có bậc cao hơn",
+    "star3": "Đẩy Xe: đòn đánh có 20% đẩy lùi kẻ địch bậc cao hơn 1 ô"
+   }
   },
   {
    "id": 91,
@@ -2878,7 +3918,7 @@
     "Sky"
    ],
    "body": "dragonfly",
-   "skill": "Báo mưa: đồng đội hệ Nước +10% sát thương ('chuồn chuồn bay thấp thì mưa')",
+   "skill": "Báo Mưa: đồng đội hệ Nước +6% / 8% / 10% sát thương ('chuồn chuồn bay thấp thì mưa')",
    "tier": 1,
    "statNote": "Chuồn chuồn: bay cực nhanh, săn mồi trên không",
    "stats": {
@@ -2892,7 +3932,21 @@
    "attackType": "Insect",
    "attackClass": "physical",
    "range": 2,
-   "dex": 62
+   "dex": 62,
+   "status": "keep",
+   "role": "Săn Mồi",
+   "skills": {
+    "active": {
+     "name": "Bổ Nhào",
+     "effect": "Bay vút xuống mục tiêu, đánh 3 lần liên tiếp",
+     "time": "1 giây",
+     "damage": "165 / 275 / 440 (3 đòn)",
+     "energy": 80,
+     "estSeconds": 7
+    },
+    "passive": "Báo Mưa: đồng đội hệ Nước +6% / 8% / 10% sát thương ('chuồn chuồn bay thấp thì mưa')",
+    "star3": "Cắn Rốn Biết Bơi: 1 lần mỗi trận giúp 1 đồng đội miễn nhiễm sát thương hệ Nước 5 giây"
+   }
   },
   {
    "id": 92,
@@ -2908,7 +3962,7 @@
     "Grass"
    ],
    "body": "mantis",
-   "skill": "Rình vồ: đòn đầu tiên ×2 sát thương",
+   "skill": "Rình Vồ: đòn đầu tiên trong trận ×1,5 / ×2 / ×2,5 sát thương",
    "tier": 1,
    "statNote": "Bọ ngựa: chân lưỡi hái, tấn công rất mạnh",
    "stats": {
@@ -2922,7 +3976,21 @@
    "attackType": "Insect",
    "attackClass": "physical",
    "range": 1,
-   "dex": 51
+   "dex": 51,
+   "status": "keep",
+   "role": "Săn Mồi",
+   "skills": {
+    "active": {
+     "name": "Lưỡi Hái",
+     "effect": "Chém hai lưỡi hái vào mục tiêu; nếu mục tiêu là Côn trùng thì Trói 1 giây",
+     "time": "Tức thời",
+     "damage": "180 / 300 / 480",
+     "energy": 60,
+     "estSeconds": 6
+    },
+    "passive": "Rình Vồ: đòn đầu tiên trong trận ×1,5 / ×2 / ×2,5 sát thương",
+    "star3": "Bọ Ngựa Cái: hạ được kẻ địch thì hồi 30% máu"
+   }
   },
   {
    "id": 93,
@@ -2937,7 +4005,7 @@
     "Ground"
    ],
    "body": "pig",
-   "skill": "Húc: lao vào kẻ địch, gây choáng 1 giây",
+   "skill": "Nanh Lợn Lòi: +10% / 15% / 20% sát thương khi máu dưới 50%",
    "zodiac": "Hợi",
    "tier": 2,
    "statNote": "Heo: máu rất dày, khỏe, chậm",
@@ -2952,7 +4020,21 @@
    "attackType": "Ground",
    "attackClass": "physical",
    "range": 1,
-   "dex": 96
+   "dex": 96,
+   "status": "keep",
+   "role": "Chiến Đấu",
+   "skills": {
+    "active": {
+     "name": "Húc",
+     "effect": "Lao vào kẻ địch, gây Choáng",
+     "time": "1 / 1,25 / 1,5 giây",
+     "damage": "200 / 325 / 525",
+     "energy": 70,
+     "estSeconds": 9
+    },
+    "passive": "Nanh Lợn Lòi: +10% / 15% / 20% sát thương khi máu dưới 50%",
+    "star3": "Hung Hãn: Húc xuyên qua mục tiêu và trúng cả kẻ đứng sau"
+   }
   },
   {
    "id": 94,
@@ -2982,7 +4064,8 @@
    "attackType": "Grass",
    "attackClass": "physical",
    "range": 1,
-   "dex": 100
+   "dex": 100,
+   "status": "later"
   },
   {
    "id": 95,
@@ -3013,7 +4096,8 @@
    "attackType": "Grass",
    "attackClass": "special",
    "range": 3,
-   "dex": 98
+   "dex": 98,
+   "status": "later"
   },
   {
    "id": 96,
@@ -3028,7 +4112,7 @@
     "Grass"
    ],
    "body": "small",
-   "skill": "Tích trữ: mỗi 6 giây hồi 6% máu",
+   "skill": "Nhảy Cành: 15% / 20% / 25% né đòn",
    "tier": 2,
    "statNote": "Thú nhỏ: rất nhanh nhưng yếu",
    "stats": {
@@ -3042,7 +4126,21 @@
    "attackType": "Grass",
    "attackClass": "physical",
    "range": 1,
-   "dex": 103
+   "dex": 103,
+   "status": "keep",
+   "role": "Hỗ Trợ",
+   "skills": {
+    "active": {
+     "name": "Tích Trữ Hạt",
+     "effect": "Ném hạt dẻ cho đồng đội: hồi máu và +10% Tấn công",
+     "time": "4 giây",
+     "damage": "Hồi 150 / 250 / 400 máu",
+     "energy": 90,
+     "estSeconds": 8
+    },
+    "passive": "Nhảy Cành: 15% / 20% / 25% né đòn",
+    "star3": "Kho Hạt Mùa Đông: Tích Trữ Hạt cho 2 đồng đội"
+   }
   },
   {
    "id": 97,
@@ -3057,7 +4155,7 @@
     "Grass"
    ],
    "body": "deer",
-   "skill": "Sủa báo động: khi bị đánh lần đầu, đồng đội +15% né đòn trong 3 giây",
+   "skill": "Nhanh Chân: 10% / 15% / 20% né đòn",
    "tier": 2,
    "statNote": "Thú móng guốc rừng: nhanh, khá cân bằng",
    "stats": {
@@ -3071,7 +4169,21 @@
    "attackType": "Grass",
    "attackClass": "physical",
    "range": 1,
-   "dex": 97
+   "dex": 97,
+   "status": "keep",
+   "role": "Hỗ Trợ",
+   "skills": {
+    "active": {
+     "name": "Sủa Báo Động",
+     "effect": "Kêu như tiếng chó sủa báo động: đồng đội +15% / 20% / 25% né đòn",
+     "time": "3 giây",
+     "damage": "—",
+     "energy": 80,
+     "estSeconds": 8
+    },
+    "passive": "Nhanh Chân: 10% / 15% / 20% né đòn",
+    "star3": "Rừng Có Mắt: Sủa Báo Động làm lộ diện kẻ địch Ẩn mình và −15% chính xác của kẻ địch trong 2 ô"
+   }
   },
   {
    "id": 98,
@@ -3086,7 +4198,7 @@
     "Rock"
    ],
    "body": "gecko",
-   "skill": "Ngoạm chặt: giữ chân mục tiêu 2 giây",
+   "skill": "Ngoạm Chặt: đòn đánh 10% / 15% / 20% giữ chân mục tiêu 2 giây",
    "tier": 2,
    "statNote": "Bò sát nhỏ: nhanh, phóng lưỡi/ngoạm bắt mồi",
    "stats": {
@@ -3100,7 +4212,21 @@
    "attackType": "Rock",
    "attackClass": "physical",
    "range": 1,
-   "dex": 105
+   "dex": 105,
+   "status": "keep",
+   "role": "Săn Mồi",
+   "skills": {
+    "active": {
+     "name": "Tàng Hình",
+     "effect": "Đổi màu da ẩn mình, rồi ngoạm chặt mục tiêu",
+     "time": "Ẩn mình 3 / 4 / 5 giây",
+     "damage": "240 / 390 / 630",
+     "energy": 100,
+     "estSeconds": 10
+    },
+    "passive": "Ngoạm Chặt: đòn đánh 10% / 15% / 20% giữ chân mục tiêu 2 giây",
+    "star3": "Tắc Kè Kêu Mưa: sau Tàng Hình, đòn đầu tiên chí mạng và Choáng 1 giây"
+   }
   },
   {
    "id": 99,
@@ -3115,7 +4241,7 @@
     "Poison"
    ],
    "body": "snake",
-   "skill": "Rồng rắn lên mây: đứng cạnh Rồng (Rồng Lạc Việt hoặc Rồng Con) thì được Bay. Ngọc rắn: né kỹ năng đầu tiên nhắm vào mình. Nọc thần kinh: gây độc 4% máu/giây trong 3 giây",
+   "skill": "Ngọc Rắn: né kỹ năng đầu tiên nhắm vào mình",
    "zodiac": "Tỵ",
    "tier": 2,
    "statNote": "Rắn độc: nọc độc = tấn công ĐB",
@@ -3142,7 +4268,21 @@
      "https://vi.wikipedia.org/wiki/D%C3%A3_tr%C3%A0ng"
     ]
    ],
-   "storyAccuracy": "Trò chơi và truyện gốc; cơ chế Bay là sáng tạo"
+   "storyAccuracy": "Trò chơi và truyện gốc; cơ chế Bay là sáng tạo",
+   "status": "keep",
+   "role": "Phép Thuật",
+   "skills": {
+    "active": {
+     "name": "Nọc Thần Kinh",
+     "effect": "Phun nọc: Độc 4% / 5% / 6% máu mỗi giây và làm chậm 20%",
+     "time": "3 giây",
+     "damage": "160 / 260 / 420 + Độc",
+     "energy": 70,
+     "estSeconds": 8
+    },
+    "passive": "Ngọc Rắn: né kỹ năng đầu tiên nhắm vào mình",
+    "star3": "Rồng Rắn Lên Mây: đứng cạnh Rồng (Rồng Lạc Việt hoặc Rồng Con) thì được Bay và +20% Tấn công ĐB"
+   }
   },
   {
    "id": 100,
@@ -3157,7 +4297,7 @@
     "Ground"
    ],
    "body": "python",
-   "skill": "Rồng rắn lên mây: đứng cạnh Rồng thì được Bay. Siết chặt: trói mục tiêu 2 giây, mỗi giây −5% máu",
+   "skill": "Da Gấm: giảm 10% / 15% / 20% sát thương ĐB nhận vào",
    "zodiac": "Tỵ",
    "tier": 2,
    "statNote": "Trăn: to khỏe, siết mồi, chậm",
@@ -3180,7 +4320,21 @@
      "https://vi.wikipedia.org/wiki/R%E1%BB%93ng_r%E1%BA%AFn_l%C3%AAn_m%C3%A2y"
     ]
    ],
-   "storyAccuracy": "Trò chơi gốc; cơ chế là sáng tạo"
+   "storyAccuracy": "Trò chơi gốc; cơ chế là sáng tạo",
+   "status": "keep",
+   "role": "Chiến Đấu",
+   "skills": {
+    "active": {
+     "name": "Siết Chặt",
+     "effect": "Quấn và siết mục tiêu: Trói, mỗi giây mất 5% máu",
+     "time": "2 / 2,5 / 3 giây",
+     "damage": "120 / 195 / 315 + 5% máu/giây",
+     "energy": 70,
+     "estSeconds": 10
+    },
+    "passive": "Da Gấm: giảm 10% / 15% / 20% sát thương ĐB nhận vào",
+    "star3": "Rồng Rắn Lên Mây: đứng cạnh Rồng (Rồng Lạc Việt hoặc Rồng Con) thì được Bay; Siết Chặt kéo dài thêm 1 giây"
+   }
   },
   {
    "id": 101,
@@ -3196,7 +4350,7 @@
     "Electric"
    ],
    "body": "ray",
-   "skill": "Phóng điện: 25% làm tê liệt mục tiêu 1 giây",
+   "skill": "Da Tích Điện: 15% / 20% / 25% làm tê liệt kẻ đánh cận chiến 1 giây",
    "tier": 2,
    "statNote": "Cá đuối điện: phóng điện = tấn công ĐB",
    "stats": {
@@ -3210,7 +4364,21 @@
    "attackType": "Water",
    "attackClass": "special",
    "range": 3,
-   "dex": 93
+   "dex": 93,
+   "status": "keep",
+   "role": "Phép Thuật",
+   "skills": {
+    "active": {
+     "name": "Phóng Điện",
+     "effect": "Phóng dòng điện nảy qua 3 kẻ địch",
+     "time": "Tê liệt 1 giây",
+     "damage": "120 / 195 / 315 mỗi lần nảy",
+     "energy": 70,
+     "estSeconds": 9
+    },
+    "passive": "Da Tích Điện: 15% / 20% / 25% làm tê liệt kẻ đánh cận chiến 1 giây",
+    "star3": "Lưới Điện: Phóng Điện nảy 5 lần"
+   }
   },
   {
    "id": 102,
@@ -3226,7 +4394,7 @@
     "Poison"
    ],
    "body": "jelly",
-   "skill": "Xúc tu độc: kẻ đánh cận chiến bị phản 15% sát thương dạng độc",
+   "skill": "Tế Bào Gai: kẻ đánh cận chiến bị phản 10% / 15% / 20% sát thương dạng độc",
    "tier": 2,
    "statNote": "Sứa: xúc tu độc = tấn công ĐB, chậm",
    "stats": {
@@ -3239,8 +4407,22 @@
    },
    "attackType": "Water",
    "attackClass": "special",
-   "range": 3,
-   "dex": 104
+   "range": 2,
+   "dex": 104,
+   "status": "keep",
+   "role": "Phép Thuật",
+   "skills": {
+    "active": {
+     "name": "Xúc Tu Độc",
+     "effect": "Quấn xúc tu quanh mình: kẻ địch trong 1 ô bị Độc và Trói 1 giây",
+     "time": "Độc 3 giây",
+     "damage": "120 / 195 / 315 (diện rộng)",
+     "energy": 70,
+     "estSeconds": 10
+    },
+    "passive": "Tế Bào Gai: kẻ đánh cận chiến bị phản 10% / 15% / 20% sát thương dạng độc",
+    "star3": "Sứa Bất Tử: 1 lần mỗi trận, khi bị hạ thì hồi lại 30% máu (thủy tức trở lại)"
+   }
   },
   {
    "id": 103,
@@ -3255,7 +4437,7 @@
     "Water"
    ],
    "body": "squid",
-   "skill": "Phun mực: làm mù kẻ địch xung quanh 2 giây",
+   "skill": "Đổi Màu: 15% / 20% / 25% né đòn tầm xa",
    "tier": 2,
    "statNote": "Mực: phun mực = tấn công ĐB, nhanh",
    "stats": {
@@ -3269,7 +4451,21 @@
    "attackType": "Water",
    "attackClass": "special",
    "range": 3,
-   "dex": 101
+   "dex": 101,
+   "status": "keep",
+   "role": "Phép Thuật",
+   "skills": {
+    "active": {
+     "name": "Phun Mực",
+     "effect": "Phun mực đen: Mù kẻ địch trong bán kính 1 ô quanh mục tiêu",
+     "time": "2 / 3 / 4 giây",
+     "damage": "100 / 160 / 260 (diện rộng)",
+     "energy": 80,
+     "estSeconds": 9
+    },
+    "passive": "Đổi Màu: 15% / 20% / 25% né đòn tầm xa",
+    "star3": "Mực Khổng Lồ: Phun Mực lan bán kính 2 ô"
+   }
   },
   {
    "id": 104,
@@ -3284,7 +4480,7 @@
     "Sky"
    ],
    "body": "owl",
-   "skill": "Mắt đêm: không thể bị né đòn bởi VieAni Dạ Hành",
+   "skill": "Mắt Đêm: không thể bị né đòn bởi kẻ địch Ẩn mình hoặc có né đòn; +5% / 10% / 15% chí mạng",
    "tier": 2,
    "statNote": "Cú: săn đêm, nhanh và chính xác",
    "stats": {
@@ -3298,7 +4494,21 @@
    "attackType": "Sky",
    "attackClass": "physical",
    "range": 2,
-   "dex": 94
+   "dex": 94,
+   "status": "keep",
+   "role": "Săn Mồi",
+   "skills": {
+    "active": {
+     "name": "Săn Đêm",
+     "effect": "Lặng lẽ sà xuống kẻ địch Ẩn mình hoặc máu thấp nhất; luôn trúng",
+     "time": "Tức thời",
+     "damage": "240 / 390 / 630",
+     "energy": 80,
+     "estSeconds": 8
+    },
+    "passive": "Mắt Đêm: không thể bị né đòn bởi kẻ địch Ẩn mình hoặc có né đòn; +5% / 10% / 15% chí mạng",
+    "star3": "Cú Vọ: Săn Đêm làm Câm lặng mục tiêu 2 giây"
+   }
   },
   {
    "id": 105,
@@ -3313,7 +4523,7 @@
     "Sky"
    ],
    "body": "raptor",
-   "skill": "Sà xuống: tầm đánh vô hạn với nhóm Gà",
+   "skill": "Mắt Diều Hâu: +10% / 15% / 20% chí mạng lên mục tiêu đang đứng một mình (không có đồng đội kề bên)",
    "tier": 2,
    "statNote": "Chim săn mồi: móng vuốt mạnh, bay nhanh",
    "stats": {
@@ -3327,7 +4537,21 @@
    "attackType": "Sky",
    "attackClass": "physical",
    "range": 2,
-   "dex": 95
+   "dex": 95,
+   "status": "keep",
+   "role": "Săn Mồi",
+   "skills": {
+    "active": {
+     "name": "Sà Xuống",
+     "effect": "Lao xuống từ trên cao: tầm đánh vô hạn với nhóm Gà, Chuột, Rắn",
+     "time": "Tức thời",
+     "damage": "240 / 390 / 630",
+     "energy": 80,
+     "estSeconds": 8
+    },
+    "passive": "Mắt Diều Hâu: +10% / 15% / 20% chí mạng lên mục tiêu đang đứng một mình (không có đồng đội kề bên)",
+    "star3": "Quắp Mồi: Sà Xuống nhấc mục tiêu lên 1 giây (không hành động)"
+   }
   },
   {
    "id": 106,
@@ -3357,7 +4581,8 @@
    "attackType": "Ground",
    "attackClass": "physical",
    "range": 1,
-   "dex": 99
+   "dex": 99,
+   "status": "later"
   },
   {
    "id": 107,
@@ -3372,7 +4597,7 @@
     "Ground"
    ],
    "body": "predator",
-   "skill": "Săn bầy: +10% sát thương cho mỗi VieAni Săn Mồi khác trên sân",
+   "skill": "Săn Bầy: +5% / 8% / 10% sát thương cho mỗi VieAni Săn Mồi khác trên sân",
    "tier": 3,
    "statNote": "Thú săn mồi: tấn công và tốc độ cao",
    "stats": {
@@ -3390,7 +4615,21 @@
     "spe": 10,
     "hp": -10
    },
-   "dex": 108
+   "dex": 108,
+   "status": "keep",
+   "role": "Săn Mồi",
+   "skills": {
+    "active": {
+     "name": "Sói Hú",
+     "effect": "Hú gọi bầy: đồng đội Chó & Sói +15% / 20% / 25% Tấn công và tốc độ đánh",
+     "time": "5 giây",
+     "damage": "—",
+     "energy": 100,
+     "estSeconds": 9
+    },
+    "passive": "Săn Bầy: +5% / 8% / 10% sát thương cho mỗi VieAni Săn Mồi khác trên sân",
+    "star3": "Gọi Bầy: triệu hồi 2 sói con (40% chỉ số của Sói Đỏ) có 30% chí mạng"
+   }
   },
   {
    "id": 108,
@@ -3420,7 +4659,8 @@
    "attackType": "Insect",
    "attackClass": "physical",
    "range": 1,
-   "dex": 107
+   "dex": 107,
+   "status": "later"
   }
  ],
  "types": [
@@ -3543,5 +4783,13 @@
   "Endangered": 3,
   "Vanished": 4,
   "Legendary": 5
- }
+ },
+ "roles": {
+  "Đỡ Đòn": "Hàng đầu, máu/giáp dày, giữ chân và hút sát thương",
+  "Chiến Đấu": "Hàng đầu/giữa, vừa đánh vừa chịu đòn",
+  "Săn Mồi": "Lao vào hàng sau, sát thương lớn, chí mạng",
+  "Phép Thuật": "Hàng sau, kỹ năng diện rộng, sát thương ĐB",
+  "Hỗ Trợ": "Hàng sau/giữa, buff đồng đội, hồi máu, khống chế"
+ },
+ "skillFormat": "Tên · Hiệu ứng · Thời gian · Sát thương (★1/★2/★3) · Hồi chiêu (năng lượng)"
 }

@@ -1,6 +1,6 @@
 // All game-rule numbers in one place (see docs/GDD.md). Balance by editing this file.
 
-export const VERSION = "0.4.0";
+export const VERSION = "0.5.0";
 
 export const PLAYERS = 8;
 export const PLAYER_HP = 100;
@@ -27,16 +27,16 @@ export const STREAK_BONUS: [number, number][] = [[2, 1], [4, 2], [6, 3]];
 export const REROLL_COST = 2;
 export const XP_BUY_COST = 4;
 export const XP_BUY_AMOUNT = 4;
-export const XP_PER_ROUND = 1;
+export const XP_PER_ROUND = 2;
 /** XP needed to go from level i+1 to i+2 */
-export const XP_TO_NEXT = [1, 2, 6, 10, 20, 36, 56, 80, 100, 130, 160];
-export const MAX_LEVEL = 12; // 12 = a full 12 Con Giáp team
+export const XP_TO_NEXT = [1, 2, 6, 10, 20, 36, 56, 80, 100];
+export const MAX_LEVEL = 10; // full 12 Con Giáp needs Ấn Thống Nhất (3 Linh Vật + Rồng Lạc Việt at level 10)
 
 // --- shop ---
 export const SHOP_SLOTS = 5;
 /** copies of each species in the shared pool, by tier 1..5 */
 export const POOL_COPIES: Record<number, number> = { 1: 20, 2: 16, 3: 12, 4: 10, 5: 6 };
-/** shop odds in % by level (row = level 1..12, columns = tier 1..5) */
+/** shop odds in % by level (row = level 1..10, columns = tier 1..5) */
 export const SHOP_ODDS: number[][] = [
   [100, 0, 0, 0, 0],
   [75, 25, 0, 0, 0],
@@ -48,8 +48,6 @@ export const SHOP_ODDS: number[][] = [
   [12, 20, 35, 25, 8],
   [8, 15, 30, 32, 15],
   [5, 10, 25, 35, 25],
-  [3, 8, 22, 37, 30],
-  [2, 6, 20, 37, 35],
 ];
 
 // --- units / combat ---
@@ -96,3 +94,9 @@ export function stageDamage(round: number): number {
 export const INVENTORY_MAX = 10;
 export const TEAM_ITEM_SLOTS = 2;
 export const BOARD_OBJECTS_MAX = 2;
+
+// --- Linh Vật charms (Ấn Thống Nhất) ---
+/** at MAX_LEVEL, with Rồng Lạc Việt on board and all 3 charms, this many missing zodiac signs count as present */
+export const CHARM_BONUS_ZODIAC = 2;
+export const CHARM_ITEM_IDS = [51, 52, 53];
+export const ROLES = ["Đỡ Đòn", "Chiến Đấu", "Săn Mồi", "Phép Thuật", "Hỗ Trợ"] as const;

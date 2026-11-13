@@ -1,60 +1,492 @@
 {
  "note": "Vật phẩm chiến đấu (bản nháp). Cấu trúc theo Dota Underlords: 5 bậc (bậc cao xuất hiện ở vòng sau), mỗi VieAni mang 1 vật phẩm. Loại: Tấn công / Phòng thủ / Hỗ trợ (người mang), Toàn đội (tác dụng cả đội, không cần người mang), Ném (dùng 1 lần mỗi vòng lên kẻ địch), Đặt trên sân (chiếm 1 ô). 'basis' = điển tích; 'src' = nguồn nếu có.",
- "categories": {"TC": "Tấn công", "PT": "Phòng thủ", "HT": "Hỗ trợ", "TD": "Toàn đội", "NEM": "Ném", "SAN": "Đặt trên sân"},
+ "categories": {
+  "TC": "Tấn công",
+  "PT": "Phòng thủ",
+  "HT": "Hỗ trợ",
+  "TD": "Toàn đội",
+  "NEM": "Ném",
+  "SAN": "Đặt trên sân",
+  "LV": "Linh vật"
+ },
  "items": [
-  {"id": 1, "name": "Gậy Tre", "tier": 1, "cat": "TC", "effect": "+10 Tấn công", "basis": "Cây tre – vật dụng và vũ khí thô sơ quen thuộc của làng Việt", "src": ""},
-  {"id": 2, "name": "Liềm Gặt", "tier": 1, "cat": "TC", "effect": "+25% sát thương lên hệ Cỏ", "basis": "Liềm gặt lúa của nhà nông", "src": ""},
-  {"id": 3, "name": "Ná Cao Su", "tier": 1, "cat": "TC", "effect": "Chỉ cho VieAni đánh xa: +15% sát thương, +10% tốc độ đánh", "basis": "Đồ chơi bắn chim của trẻ em làng quê", "src": ""},
-  {"id": 4, "name": "Khiên Mây", "tier": 1, "cat": "PT", "effect": "+15 Phòng thủ", "basis": "Khiên đan bằng mây – vũ khí phòng thân cổ truyền", "src": ""},
-  {"id": 5, "name": "Nón Lá", "tier": 1, "cat": "PT", "effect": "+10 Phòng thủ ĐB; giảm 15% sát thương từ hệ Lửa và Nước (che nắng che mưa)", "basis": "Nón lá – biểu tượng của người Việt", "src": ""},
-  {"id": 6, "name": "Áo Tơi Lá", "tier": 1, "cat": "PT", "effect": "Giảm 30% sát thương từ hệ Nước", "basis": "Áo mưa kết bằng lá của nhà nông xưa", "src": ""},
-  {"id": 7, "name": "Bánh Chưng", "tier": 1, "cat": "HT", "effect": "+15% Máu tối đa. Nếu đội có cả Bánh Giầy: mọi đồng đội +5% chỉ số", "basis": "Lang Liêu dâng bánh chưng (vuông, tượng đất) và bánh giầy (tròn, tượng trời) lên vua Hùng", "src": "https://vi.wikipedia.org/wiki/B%C3%A1nh_ch%C6%B0ng"},
-  {"id": 8, "name": "Bánh Giầy", "tier": 1, "cat": "HT", "effect": "+15 Phòng thủ ĐB. Đi cặp với Bánh Chưng", "basis": "Tích Lang Liêu", "src": "https://vi.wikipedia.org/wiki/B%C3%A1nh_ch%C6%B0ng"},
-  {"id": 9, "name": "Nắm Xôi", "tier": 1, "cat": "HT", "effect": "Lần đầu máu dưới 30%, hồi 25% máu", "basis": "Thằng Bờm chỉ chịu đổi quạt mo lấy nắm xôi", "src": "https://vi.wikipedia.org/wiki/Th%E1%BA%B1ng_B%E1%BB%9Dm"},
-  {"id": 10, "name": "Rọ Mõm", "tier": 1, "cat": "NEM", "effect": "Ném vào 1 kẻ địch: −30% Tấn công và Tốc độ trong 4 giây; nếu trúng Chó thì Chó không thể gây Dại", "basis": "Rọ mõm cho chó", "src": ""},
-  {"id": 11, "name": "Vắc Xin", "tier": 1, "cat": "HT", "effect": "Miễn nhiễm Dại và Độc", "basis": "Tiêm phòng dại cho chó mèo; tiêm vắc-xin phòng bệnh", "src": ""},
-  {"id": 12, "name": "Lá Xông", "tier": 1, "cat": "HT", "effect": "Hồi 3% máu mỗi 5 giây; thời gian Độc và Sốt lên người mang giảm một nửa", "basis": "Nồi lá xông giải cảm của dân gian", "src": ""},
-
-  {"id": 13, "name": "Quạt Mo", "tier": 2, "cat": "HT", "effect": "+15% Tốc độ; không thể bị cướp hay đòi vật phẩm (Bờm không đổi quạt)", "basis": "Thằng Bờm có cái quạt mo, Phú ông xin đổi ba bò chín trâu", "src": "https://vi.wikipedia.org/wiki/Th%E1%BA%B1ng_B%E1%BB%9Dm"},
-  {"id": 14, "name": "Giáo Đồng Đông Sơn", "tier": 2, "cat": "TC", "effect": "+20 Tấn công; đòn đánh bỏ qua 10% Phòng thủ", "basis": "Mũi giáo đồng – hiện vật tiêu biểu của văn hóa Đông Sơn", "src": ""},
-  {"id": 15, "name": "Dao Quắm", "tier": 2, "cat": "TC", "effect": "+15 Tấn công; 20% gây chảy máu (mất 3% máu/giây trong 3 giây)", "basis": "Dao quắm phát rừng của người miền núi", "src": ""},
-  {"id": 16, "name": "Xích Sắt", "tier": 2, "cat": "NEM", "effect": "Ném xích vào 1 kẻ địch: −25% Tấn công, −40% Tốc độ trong 4 giây", "basis": "Ý tưởng của bạn", "src": ""},
-  {"id": 17, "name": "Lồng Sắt", "tier": 2, "cat": "NEM", "effect": "Nhốt 1 kẻ địch bậc 1–2: không thể di chuyển 3 giây (vẫn đánh được nếu mục tiêu trong tầm)", "basis": "Lồng, bẫy bắt thú nhỏ", "src": ""},
-  {"id": 18, "name": "Lưới Đánh Cá", "tier": 2, "cat": "NEM", "effect": "Trói 1 VieAni hệ Nước 3 giây (hệ khác 1 giây)", "basis": "Lưới của ngư dân", "src": ""},
-  {"id": 19, "name": "Nơm Bắt Cá", "tier": 2, "cat": "NEM", "effect": "Úp 1 VieAni hệ Nước bậc 1–2: nhốt 4 giây", "basis": "Nơm tre úp cá ngoài đồng", "src": ""},
-  {"id": 20, "name": "Hũ Mật", "tier": 2, "cat": "SAN", "effect": "Đặt vào 1 ô (máu 300): Côn trùng và Gấu phe địch bị dụ, phải tấn công hũ trước", "basis": "Ý tưởng của bạn – mật ngọt dụ ong, kiến, gấu", "src": ""},
-  {"id": 21, "name": "Bẫy Chông Tre", "tier": 2, "cat": "SAN", "effect": "Đặt một hàng rào chông 2 ô: kẻ địch giẫm lên mất 10% máu; đồng đội đứng sau rào nhận ít hơn 20% sát thương cận chiến", "basis": "Hầm chông, rào chông tre trong chiến tranh giữ nước", "src": ""},
-  {"id": 22, "name": "Đèn Ông Sao", "tier": 2, "cat": "HT", "effect": "Đồng đội kề bên +15% chính xác; kẻ địch Dạ Hành mất né đòn khi ở gần", "basis": "Đèn ông sao đêm Trung thu", "src": ""},
-  {"id": 23, "name": "Mõ Gỗ", "tier": 2, "cat": "HT", "effect": "Mỗi 6 giây đánh mõ: gỡ Choáng và Mê hoặc khỏi đồng đội kề bên", "basis": "Mõ gỗ ở chùa và đình làng, cũng dùng để báo động", "src": ""},
-  {"id": 24, "name": "Lì Xì", "tier": 2, "cat": "HT", "effect": "Kinh tế: +1 vàng mỗi vòng thắng khi người mang còn sống", "basis": "Phong bao lì xì ngày Tết", "src": ""},
-
-  {"id": 25, "name": "Trống Đồng Đông Sơn", "tier": 3, "cat": "TD", "effect": "Cả đội +15% Tấn công và +15% Tốc độ. Có Chim Lạc: hiệu ứng ×2", "basis": "Trống đồng Đông Sơn – trên mặt trống có hình chim Lạc, người nhảy múa quanh mặt trời", "src": "https://vi.wikipedia.org/wiki/Tr%E1%BB%91ng_%C4%91%E1%BB%93ng_%C4%90%C3%B4ng_S%C6%A1n"},
-  {"id": 26, "name": "Nỏ Thần An Dương Vương", "tier": 3, "cat": "TC", "effect": "Chỉ cho VieAni đánh xa: mỗi phát bắn trúng 3 mục tiêu", "basis": "Kim Quy trao móng làm lẫy nỏ thần cho An Dương Vương", "src": "https://vi.wikipedia.org/wiki/An_D%C6%B0%C6%A1ng_V%C6%B0%C6%A1ng"},
-  {"id": 27, "name": "Cây Tre Trăm Đốt", "tier": 3, "cat": "TC", "effect": "Chỉ cho VieAni đánh xa: tầm đánh vô hạn", "basis": "Truyện Cây tre trăm đốt – 'khắc nhập, khắc xuất'", "src": ""},
-  {"id": 28, "name": "Tre Đằng Ngà", "tier": 3, "cat": "TC", "effect": "Chỉ cho VieAni cận chiến: đòn đánh quét cả hàng ngang", "basis": "Gươm gãy, Thánh Gióng nhổ tre quật giặc; tre bị lửa táp thành tre đằng ngà", "src": "https://vi.wikipedia.org/wiki/Th%C3%A1nh_Gi%C3%B3ng"},
-  {"id": 29, "name": "Cọc Bạch Đằng", "tier": 3, "cat": "SAN", "effect": "Cắm cọc vào 2 ô: VieAni hệ Nước phe địch đi qua bị trói 2 giây và mất 15% máu", "basis": "Ngô Quyền cắm cọc nhọn lòng sông Bạch Đằng, đợi thủy triều rút đánh tan quân Nam Hán (938)", "src": "https://vi.wikipedia.org/wiki/Tr%E1%BA%ADn_B%E1%BA%A1ch_%C4%90%E1%BA%B1ng_(938)"},
-  {"id": 30, "name": "Hịch Tướng Sĩ", "tier": 3, "cat": "TD", "effect": "Khi đồng đội đầu tiên bị hạ, cả đội +20% Tấn công đến hết trận", "basis": "Hịch tướng sĩ của Trần Hưng Đạo khích lệ tướng sĩ đánh quân Nguyên Mông", "src": "https://vi.wikipedia.org/wiki/H%E1%BB%8Bch_t%C6%B0%E1%BB%9Bng_s%C4%A9"},
-  {"id": 31, "name": "Niêu Cơm Thạch Sanh", "tier": 3, "cat": "HT", "effect": "Khi không bị đánh trong 2 giây, hồi 3% máu mỗi giây (ăn mãi không hết)", "basis": "Niêu cơm thần của Thạch Sanh nấu cho quân lính ăn mãi không hết", "src": ""},
-  {"id": 32, "name": "Đàn Thần Thạch Sanh", "tier": 3, "cat": "HT", "effect": "Mỗi 15 giây gảy đàn: kẻ địch trong 2 ô 'hạ vũ khí', không tấn công 2 giây", "basis": "Tiếng đàn thần của Thạch Sanh khiến quân mười tám nước chư hầu bủn rủn, xin hàng", "src": ""},
-  {"id": 33, "name": "Áo Lông Ngỗng", "tier": 3, "cat": "HT", "effect": "Kẻ địch đầu tiên đánh người mang bị đánh dấu lông ngỗng: cả đội ưu tiên kẻ đó, +15% sát thương lên nó", "basis": "Mỵ Châu rắc lông ngỗng đánh dấu đường chạy", "src": "https://vi.wikipedia.org/wiki/An_D%C6%B0%C6%A1ng_V%C6%B0%C6%A1ng"},
-  {"id": 34, "name": "Quả Thị", "tier": 3, "cat": "HT", "effect": "Khi bị hạ, hóa quả thị 4 giây rồi hồi sinh với 30% máu (1 lần mỗi trận)", "basis": "Tấm chết đi hóa vàng anh, xoan đào, khung cửi, quả thị rồi trở lại làm người", "src": "https://vi.wikipedia.org/wiki/T%E1%BA%A5m_C%C3%A1m"},
-  {"id": 35, "name": "Hạt Dưa Mai An Tiêm", "tier": 3, "cat": "HT", "effect": "Mỗi vòng đấu thắng, người mang +2% Máu tối đa vĩnh viễn (tối đa +30%)", "basis": "Mai An Tiêm bị đày ra đảo hoang, gieo hạt giống chim mang tới thành giống dưa hấu quý", "src": "https://vi.wikipedia.org/wiki/Mai_An_Ti%C3%AAm"},
-  {"id": 36, "name": "Ngọc Dã Tràng", "tier": 3, "cat": "HT", "effect": "Hiểu tiếng muôn loài: né kỹ năng đầu tiên nhắm vào mình mỗi trận; nhìn thấy kẻ địch Ẩn mình", "basis": "Viên ngọc rắn tặng Dã Tràng giúp nghe hiểu tiếng muôn loài", "src": "https://vi.wikipedia.org/wiki/D%C3%A3_tr%C3%A0ng"},
-  {"id": 37, "name": "Cồng Chiêng Tây Nguyên", "tier": 3, "cat": "TD", "effect": "Cả đội +10% Tốc độ; mỗi 10 giây hồi 5% máu cho cả đội", "basis": "Không gian văn hóa Cồng chiêng Tây Nguyên – di sản UNESCO", "src": ""},
-
-  {"id": 38, "name": "Gươm Thuận Thiên", "tier": 4, "cat": "TC", "effect": "+40 Tấn công; 25% chí mạng ×2. Kim Quy có thể 'đòi gươm'", "basis": "Gươm thần Lê Lợi được Long Quân cho mượn, trả lại cho Rùa vàng ở hồ Hoàn Kiếm", "src": "https://vi.wikipedia.org/wiki/H%E1%BB%93_Ho%C3%A0n_Ki%E1%BA%BFm"},
-  {"id": 39, "name": "Gậy Sắt Thánh Gióng", "tier": 4, "cat": "TC", "effect": "+30 Tấn công, +20% Máu; khi máu dưới 50% (gậy gãy) tự biến thành Tre Đằng Ngà", "basis": "Gióng cầm roi sắt, cưỡi ngựa sắt đánh giặc Ân", "src": "https://vi.wikipedia.org/wiki/Th%C3%A1nh_Gi%C3%B3ng"},
-  {"id": 40, "name": "Lá Đa Thần", "tier": 4, "cat": "HT", "effect": "Hồi sinh 1 đồng đội bị hạ với 50% máu (1 lần mỗi trận)", "basis": "Cây thuốc cải tử hoàn sinh trong truyện chú Cuội", "src": "https://vi.wikipedia.org/wiki/Cu%E1%BB%99i_(cung_tr%C4%83ng)"},
-  {"id": 41, "name": "Cung Tên Vàng", "tier": 4, "cat": "TC", "effect": "Chỉ cho VieAni đánh xa: +30% chí mạng; ×2 sát thương lên VieAni đang Bay", "basis": "Thạch Sanh dùng cung tên vàng bắn đại bàng tinh", "src": ""},
-  {"id": 42, "name": "Áo Giáp Vàng Bà Triệu", "tier": 4, "cat": "PT", "effect": "+30 Phòng thủ; đứng cạnh Voi thì +20% Tấn công", "basis": "Bà Triệu mặc áo giáp vàng, cưỡi voi trắng một ngà", "src": "https://vi.wikipedia.org/wiki/B%C3%A0_Tri%E1%BB%87u"},
-  {"id": 43, "name": "Guốc Ngà", "tier": 4, "cat": "HT", "effect": "+25% Tốc độ; miễn nhiễm làm chậm", "basis": "Bà Triệu đi guốc ngà ra trận", "src": "https://vi.wikipedia.org/wiki/B%C3%A0_Tri%E1%BB%87u"},
-  {"id": 44, "name": "Võng Cáng Hành Quân", "tier": 4, "cat": "TD", "effect": "Đầu trận: 2 đồng đội hàng sau được đưa thẳng lên hàng đầu và +20% Tốc độ 5 giây", "basis": "Cách hành quân thần tốc của Quang Trung: hai người khiêng một người trên võng, thay phiên nhau", "src": ""},
-  {"id": 45, "name": "Búa Tầm Sét", "tier": 4, "cat": "TC", "effect": "Mỗi đòn đánh có 20% gọi sét (sát thương hệ Điện lên mục tiêu và 1 kẻ địch kề bên)", "basis": "Lưỡi tầm sét của Thiên Lôi trong Cóc kiện trời", "src": "https://vi.wikipedia.org/wiki/C%C3%B3c_ki%E1%BB%87n_tr%E1%BB%9Di"},
-  {"id": 46, "name": "Đèn Kéo Quân", "tier": 4, "cat": "TD", "effect": "Đầu trận tạo 2 bóng ảo của đồng đội ngẫu nhiên (20% chỉ số, không gây sát thương) để đánh lạc hướng", "basis": "Đèn kéo quân Trung thu – bóng quân lính xoay vòng", "src": ""},
-
-  {"id": 47, "name": "Móng Rùa Kim Quy", "tier": 5, "cat": "TD", "effect": "Mọi đồng đội đánh xa bắn trúng 2 mục tiêu; cả đội +15 Phòng thủ", "basis": "Móng rùa thần làm lẫy nỏ thần giữ thành Cổ Loa", "src": "https://vi.wikipedia.org/wiki/An_D%C6%B0%C6%A1ng_V%C6%B0%C6%A1ng"},
-  {"id": 48, "name": "Cờ Lau Tập Trận", "tier": 5, "cat": "TD", "effect": "Cả đội +10% mọi chỉ số; VieAni bậc 1 +20% mọi chỉ số", "basis": "Đinh Bộ Lĩnh thuở nhỏ lấy bông lau làm cờ tập trận cùng trẻ chăn trâu", "src": ""},
-  {"id": 49, "name": "Cờ Sáu Chữ Vàng", "tier": 5, "cat": "TC", "effect": "+30% sát thương lên kẻ địch bậc cao hơn; miễn nhiễm sợ hãi", "basis": "Trần Quốc Toản thêu cờ 'Phá cường địch, báo hoàng ân'", "src": ""},
-  {"id": 50, "name": "Bọc Trăm Trứng", "tier": 5, "cat": "TD", "effect": "Đầu trận nở 2 VieAni bậc 1 ngẫu nhiên đứng ô trống (50% chỉ số); nếu đội có Rồng Lạc Việt: 4 con", "basis": "Âu Cơ sinh bọc trăm trứng nở trăm người con – 'Con Rồng cháu Tiên'", "src": "https://vi.wikipedia.org/wiki/Con_R%E1%BB%93ng_ch%C3%A1u_Ti%C3%AAn"}
- ]
+  {
+   "id": 1,
+   "name": "Gậy Tre",
+   "tier": 1,
+   "cat": "TC",
+   "effect": "+10 Tấn công",
+   "basis": "Cây tre – vật dụng và vũ khí thô sơ quen thuộc của làng Việt",
+   "src": ""
+  },
+  {
+   "id": 2,
+   "name": "Liềm Gặt",
+   "tier": 1,
+   "cat": "TC",
+   "effect": "+25% sát thương lên hệ Cỏ",
+   "basis": "Liềm gặt lúa của nhà nông",
+   "src": ""
+  },
+  {
+   "id": 3,
+   "name": "Ná Cao Su",
+   "tier": 1,
+   "cat": "TC",
+   "effect": "Chỉ cho VieAni đánh xa: +15% sát thương, +10% tốc độ đánh",
+   "basis": "Đồ chơi bắn chim của trẻ em làng quê",
+   "src": ""
+  },
+  {
+   "id": 4,
+   "name": "Khiên Mây",
+   "tier": 1,
+   "cat": "PT",
+   "effect": "+15 Phòng thủ",
+   "basis": "Khiên đan bằng mây – vũ khí phòng thân cổ truyền",
+   "src": ""
+  },
+  {
+   "id": 5,
+   "name": "Nón Lá",
+   "tier": 1,
+   "cat": "PT",
+   "effect": "+10 Phòng thủ ĐB; giảm 15% sát thương từ hệ Lửa và Nước (che nắng che mưa)",
+   "basis": "Nón lá – biểu tượng của người Việt",
+   "src": ""
+  },
+  {
+   "id": 6,
+   "name": "Áo Tơi Lá",
+   "tier": 1,
+   "cat": "PT",
+   "effect": "Giảm 30% sát thương từ hệ Nước",
+   "basis": "Áo mưa kết bằng lá của nhà nông xưa",
+   "src": ""
+  },
+  {
+   "id": 7,
+   "name": "Bánh Chưng",
+   "tier": 1,
+   "cat": "HT",
+   "effect": "+15% Máu tối đa. Nếu đội có cả Bánh Giầy: mọi đồng đội +5% chỉ số",
+   "basis": "Lang Liêu dâng bánh chưng (vuông, tượng đất) và bánh giầy (tròn, tượng trời) lên vua Hùng",
+   "src": "https://vi.wikipedia.org/wiki/B%C3%A1nh_ch%C6%B0ng"
+  },
+  {
+   "id": 8,
+   "name": "Bánh Giầy",
+   "tier": 1,
+   "cat": "HT",
+   "effect": "+15 Phòng thủ ĐB. Đi cặp với Bánh Chưng",
+   "basis": "Tích Lang Liêu",
+   "src": "https://vi.wikipedia.org/wiki/B%C3%A1nh_ch%C6%B0ng"
+  },
+  {
+   "id": 9,
+   "name": "Nắm Xôi",
+   "tier": 1,
+   "cat": "HT",
+   "effect": "Lần đầu máu dưới 30%, hồi 25% máu",
+   "basis": "Thằng Bờm chỉ chịu đổi quạt mo lấy nắm xôi",
+   "src": "https://vi.wikipedia.org/wiki/Th%E1%BA%B1ng_B%E1%BB%9Dm"
+  },
+  {
+   "id": 10,
+   "name": "Rọ Mõm",
+   "tier": 1,
+   "cat": "NEM",
+   "effect": "Ném vào 1 kẻ địch: −30% Tấn công và Tốc độ trong 4 giây; nếu trúng Chó thì Chó không thể gây Dại",
+   "basis": "Rọ mõm cho chó",
+   "src": ""
+  },
+  {
+   "id": 11,
+   "name": "Vắc Xin",
+   "tier": 1,
+   "cat": "HT",
+   "effect": "Miễn nhiễm Dại và Độc",
+   "basis": "Tiêm phòng dại cho chó mèo; tiêm vắc-xin phòng bệnh",
+   "src": ""
+  },
+  {
+   "id": 12,
+   "name": "Lá Xông",
+   "tier": 1,
+   "cat": "HT",
+   "effect": "Hồi 3% máu mỗi 5 giây; thời gian Độc và Sốt lên người mang giảm một nửa",
+   "basis": "Nồi lá xông giải cảm của dân gian",
+   "src": ""
+  },
+  {
+   "id": 13,
+   "name": "Quạt Mo",
+   "tier": 2,
+   "cat": "HT",
+   "effect": "+15% Tốc độ; không thể bị cướp hay đòi vật phẩm (Bờm không đổi quạt)",
+   "basis": "Thằng Bờm có cái quạt mo, Phú ông xin đổi ba bò chín trâu",
+   "src": "https://vi.wikipedia.org/wiki/Th%E1%BA%B1ng_B%E1%BB%9Dm"
+  },
+  {
+   "id": 14,
+   "name": "Giáo Đồng Đông Sơn",
+   "tier": 2,
+   "cat": "TC",
+   "effect": "+20 Tấn công; đòn đánh bỏ qua 10% Phòng thủ",
+   "basis": "Mũi giáo đồng – hiện vật tiêu biểu của văn hóa Đông Sơn",
+   "src": ""
+  },
+  {
+   "id": 15,
+   "name": "Dao Quắm",
+   "tier": 2,
+   "cat": "TC",
+   "effect": "+15 Tấn công; 20% gây chảy máu (mất 3% máu/giây trong 3 giây)",
+   "basis": "Dao quắm phát rừng của người miền núi",
+   "src": ""
+  },
+  {
+   "id": 16,
+   "name": "Xích Sắt",
+   "tier": 2,
+   "cat": "NEM",
+   "effect": "Ném xích vào 1 kẻ địch: −25% Tấn công, −40% Tốc độ trong 4 giây",
+   "basis": "Ý tưởng của bạn",
+   "src": ""
+  },
+  {
+   "id": 17,
+   "name": "Lồng Sắt",
+   "tier": 2,
+   "cat": "NEM",
+   "effect": "Nhốt 1 kẻ địch bậc 1–2: không thể di chuyển 3 giây (vẫn đánh được nếu mục tiêu trong tầm)",
+   "basis": "Lồng, bẫy bắt thú nhỏ",
+   "src": ""
+  },
+  {
+   "id": 18,
+   "name": "Lưới Đánh Cá",
+   "tier": 2,
+   "cat": "NEM",
+   "effect": "Trói 1 VieAni hệ Nước 3 giây (hệ khác 1 giây)",
+   "basis": "Lưới của ngư dân",
+   "src": ""
+  },
+  {
+   "id": 19,
+   "name": "Nơm Bắt Cá",
+   "tier": 2,
+   "cat": "NEM",
+   "effect": "Úp 1 VieAni hệ Nước bậc 1–2: nhốt 4 giây",
+   "basis": "Nơm tre úp cá ngoài đồng",
+   "src": ""
+  },
+  {
+   "id": 20,
+   "name": "Hũ Mật",
+   "tier": 2,
+   "cat": "SAN",
+   "effect": "Đặt vào 1 ô (máu 300): Côn trùng và Gấu phe địch bị dụ, phải tấn công hũ trước",
+   "basis": "Ý tưởng của bạn – mật ngọt dụ ong, kiến, gấu",
+   "src": ""
+  },
+  {
+   "id": 21,
+   "name": "Bẫy Chông Tre",
+   "tier": 2,
+   "cat": "SAN",
+   "effect": "Đặt một hàng rào chông 2 ô: kẻ địch giẫm lên mất 10% máu; đồng đội đứng sau rào nhận ít hơn 20% sát thương cận chiến",
+   "basis": "Hầm chông, rào chông tre trong chiến tranh giữ nước",
+   "src": ""
+  },
+  {
+   "id": 22,
+   "name": "Đèn Ông Sao",
+   "tier": 2,
+   "cat": "HT",
+   "effect": "Đồng đội kề bên +15% chính xác; kẻ địch đang Ẩn mình bị lộ diện khi ở gần",
+   "basis": "Đèn ông sao đêm Trung thu",
+   "src": ""
+  },
+  {
+   "id": 23,
+   "name": "Mõ Gỗ",
+   "tier": 2,
+   "cat": "HT",
+   "effect": "Mỗi 6 giây đánh mõ: gỡ Choáng và Mê hoặc khỏi đồng đội kề bên",
+   "basis": "Mõ gỗ ở chùa và đình làng, cũng dùng để báo động",
+   "src": ""
+  },
+  {
+   "id": 24,
+   "name": "Lì Xì",
+   "tier": 2,
+   "cat": "HT",
+   "effect": "Kinh tế: +1 vàng mỗi vòng thắng khi người mang còn sống",
+   "basis": "Phong bao lì xì ngày Tết",
+   "src": ""
+  },
+  {
+   "id": 25,
+   "name": "Trống Đồng Đông Sơn",
+   "tier": 3,
+   "cat": "TD",
+   "effect": "Cả đội +15% Tấn công và +15% Tốc độ. Có Chim Lạc: hiệu ứng ×2",
+   "basis": "Trống đồng Đông Sơn – trên mặt trống có hình chim Lạc, người nhảy múa quanh mặt trời",
+   "src": "https://vi.wikipedia.org/wiki/Tr%E1%BB%91ng_%C4%91%E1%BB%93ng_%C4%90%C3%B4ng_S%C6%A1n"
+  },
+  {
+   "id": 26,
+   "name": "Nỏ Thần An Dương Vương",
+   "tier": 3,
+   "cat": "TC",
+   "effect": "Chỉ cho VieAni đánh xa: mỗi phát bắn trúng 3 mục tiêu",
+   "basis": "Kim Quy trao móng làm lẫy nỏ thần cho An Dương Vương",
+   "src": "https://vi.wikipedia.org/wiki/An_D%C6%B0%C6%A1ng_V%C6%B0%C6%A1ng"
+  },
+  {
+   "id": 27,
+   "name": "Cây Tre Trăm Đốt",
+   "tier": 3,
+   "cat": "TC",
+   "effect": "Chỉ cho VieAni đánh xa: tầm đánh vô hạn",
+   "basis": "Truyện Cây tre trăm đốt – 'khắc nhập, khắc xuất'",
+   "src": ""
+  },
+  {
+   "id": 28,
+   "name": "Tre Đằng Ngà",
+   "tier": 3,
+   "cat": "TC",
+   "effect": "Chỉ cho VieAni cận chiến: đòn đánh quét cả hàng ngang",
+   "basis": "Gươm gãy, Thánh Gióng nhổ tre quật giặc; tre bị lửa táp thành tre đằng ngà",
+   "src": "https://vi.wikipedia.org/wiki/Th%C3%A1nh_Gi%C3%B3ng"
+  },
+  {
+   "id": 29,
+   "name": "Cọc Bạch Đằng",
+   "tier": 3,
+   "cat": "SAN",
+   "effect": "Cắm cọc vào 2 ô: VieAni hệ Nước phe địch đi qua bị trói 2 giây và mất 15% máu",
+   "basis": "Ngô Quyền cắm cọc nhọn lòng sông Bạch Đằng, đợi thủy triều rút đánh tan quân Nam Hán (938)",
+   "src": "https://vi.wikipedia.org/wiki/Tr%E1%BA%ADn_B%E1%BA%A1ch_%C4%90%E1%BA%B1ng_(938)"
+  },
+  {
+   "id": 30,
+   "name": "Hịch Tướng Sĩ",
+   "tier": 3,
+   "cat": "TD",
+   "effect": "Khi đồng đội đầu tiên bị hạ, cả đội +20% Tấn công đến hết trận",
+   "basis": "Hịch tướng sĩ của Trần Hưng Đạo khích lệ tướng sĩ đánh quân Nguyên Mông",
+   "src": "https://vi.wikipedia.org/wiki/H%E1%BB%8Bch_t%C6%B0%E1%BB%9Bng_s%C4%A9"
+  },
+  {
+   "id": 31,
+   "name": "Niêu Cơm Thạch Sanh",
+   "tier": 3,
+   "cat": "HT",
+   "effect": "Khi không bị đánh trong 2 giây, hồi 3% máu mỗi giây (ăn mãi không hết)",
+   "basis": "Niêu cơm thần của Thạch Sanh nấu cho quân lính ăn mãi không hết",
+   "src": ""
+  },
+  {
+   "id": 32,
+   "name": "Đàn Thần Thạch Sanh",
+   "tier": 3,
+   "cat": "HT",
+   "effect": "Mỗi 15 giây gảy đàn: kẻ địch trong 2 ô 'hạ vũ khí', không tấn công 2 giây",
+   "basis": "Tiếng đàn thần của Thạch Sanh khiến quân mười tám nước chư hầu bủn rủn, xin hàng",
+   "src": ""
+  },
+  {
+   "id": 33,
+   "name": "Áo Lông Ngỗng",
+   "tier": 3,
+   "cat": "HT",
+   "effect": "Kẻ địch đầu tiên đánh người mang bị đánh dấu lông ngỗng: cả đội ưu tiên kẻ đó, +15% sát thương lên nó",
+   "basis": "Mỵ Châu rắc lông ngỗng đánh dấu đường chạy",
+   "src": "https://vi.wikipedia.org/wiki/An_D%C6%B0%C6%A1ng_V%C6%B0%C6%A1ng"
+  },
+  {
+   "id": 34,
+   "name": "Quả Thị",
+   "tier": 3,
+   "cat": "HT",
+   "effect": "Khi bị hạ, hóa quả thị 4 giây rồi hồi sinh với 30% máu (1 lần mỗi trận)",
+   "basis": "Tấm chết đi hóa vàng anh, xoan đào, khung cửi, quả thị rồi trở lại làm người",
+   "src": "https://vi.wikipedia.org/wiki/T%E1%BA%A5m_C%C3%A1m"
+  },
+  {
+   "id": 35,
+   "name": "Hạt Dưa Mai An Tiêm",
+   "tier": 3,
+   "cat": "HT",
+   "effect": "Mỗi vòng đấu thắng, người mang +2% Máu tối đa vĩnh viễn (tối đa +30%)",
+   "basis": "Mai An Tiêm bị đày ra đảo hoang, gieo hạt giống chim mang tới thành giống dưa hấu quý",
+   "src": "https://vi.wikipedia.org/wiki/Mai_An_Ti%C3%AAm"
+  },
+  {
+   "id": 36,
+   "name": "Ngọc Dã Tràng",
+   "tier": 3,
+   "cat": "HT",
+   "effect": "Hiểu tiếng muôn loài: né kỹ năng đầu tiên nhắm vào mình mỗi trận; nhìn thấy kẻ địch Ẩn mình",
+   "basis": "Viên ngọc rắn tặng Dã Tràng giúp nghe hiểu tiếng muôn loài",
+   "src": "https://vi.wikipedia.org/wiki/D%C3%A3_tr%C3%A0ng"
+  },
+  {
+   "id": 37,
+   "name": "Cồng Chiêng Tây Nguyên",
+   "tier": 3,
+   "cat": "TD",
+   "effect": "Cả đội +10% Tốc độ; mỗi 10 giây hồi 5% máu cho cả đội",
+   "basis": "Không gian văn hóa Cồng chiêng Tây Nguyên – di sản UNESCO",
+   "src": ""
+  },
+  {
+   "id": 38,
+   "name": "Gươm Thuận Thiên",
+   "tier": 4,
+   "cat": "TC",
+   "effect": "+40 Tấn công; 25% chí mạng ×2. Kim Quy có thể 'đòi gươm'",
+   "basis": "Gươm thần Lê Lợi được Long Quân cho mượn, trả lại cho Rùa vàng ở hồ Hoàn Kiếm",
+   "src": "https://vi.wikipedia.org/wiki/H%E1%BB%93_Ho%C3%A0n_Ki%E1%BA%BFm"
+  },
+  {
+   "id": 39,
+   "name": "Gậy Sắt Thánh Gióng",
+   "tier": 4,
+   "cat": "TC",
+   "effect": "+30 Tấn công, +20% Máu; khi máu dưới 50% (gậy gãy) tự biến thành Tre Đằng Ngà",
+   "basis": "Gióng cầm roi sắt, cưỡi ngựa sắt đánh giặc Ân",
+   "src": "https://vi.wikipedia.org/wiki/Th%C3%A1nh_Gi%C3%B3ng"
+  },
+  {
+   "id": 40,
+   "name": "Lá Đa Thần",
+   "tier": 4,
+   "cat": "HT",
+   "effect": "Hồi sinh 1 đồng đội bị hạ với 50% máu (1 lần mỗi trận)",
+   "basis": "Cây thuốc cải tử hoàn sinh trong truyện chú Cuội",
+   "src": "https://vi.wikipedia.org/wiki/Cu%E1%BB%99i_(cung_tr%C4%83ng)"
+  },
+  {
+   "id": 41,
+   "name": "Cung Tên Vàng",
+   "tier": 4,
+   "cat": "TC",
+   "effect": "Chỉ cho VieAni đánh xa: +30% chí mạng; ×2 sát thương lên VieAni đang Bay",
+   "basis": "Thạch Sanh dùng cung tên vàng bắn đại bàng tinh",
+   "src": ""
+  },
+  {
+   "id": 42,
+   "name": "Áo Giáp Vàng Bà Triệu",
+   "tier": 4,
+   "cat": "PT",
+   "effect": "+30 Phòng thủ; đứng cạnh Voi thì +20% Tấn công",
+   "basis": "Bà Triệu mặc áo giáp vàng, cưỡi voi trắng một ngà",
+   "src": "https://vi.wikipedia.org/wiki/B%C3%A0_Tri%E1%BB%87u"
+  },
+  {
+   "id": 43,
+   "name": "Guốc Ngà",
+   "tier": 4,
+   "cat": "HT",
+   "effect": "+25% Tốc độ; miễn nhiễm làm chậm",
+   "basis": "Bà Triệu đi guốc ngà ra trận",
+   "src": "https://vi.wikipedia.org/wiki/B%C3%A0_Tri%E1%BB%87u"
+  },
+  {
+   "id": 44,
+   "name": "Võng Cáng Hành Quân",
+   "tier": 4,
+   "cat": "TD",
+   "effect": "Đầu trận: 2 đồng đội hàng sau được đưa thẳng lên hàng đầu và +20% Tốc độ 5 giây",
+   "basis": "Cách hành quân thần tốc của Quang Trung: hai người khiêng một người trên võng, thay phiên nhau",
+   "src": ""
+  },
+  {
+   "id": 45,
+   "name": "Búa Tầm Sét",
+   "tier": 4,
+   "cat": "TC",
+   "effect": "Mỗi đòn đánh có 20% gọi sét (sát thương hệ Điện lên mục tiêu và 1 kẻ địch kề bên)",
+   "basis": "Lưỡi tầm sét của Thiên Lôi trong Cóc kiện trời",
+   "src": "https://vi.wikipedia.org/wiki/C%C3%B3c_ki%E1%BB%87n_tr%E1%BB%9Di"
+  },
+  {
+   "id": 46,
+   "name": "Đèn Kéo Quân",
+   "tier": 4,
+   "cat": "TD",
+   "effect": "Đầu trận tạo 2 bóng ảo của đồng đội ngẫu nhiên (20% chỉ số, không gây sát thương) để đánh lạc hướng",
+   "basis": "Đèn kéo quân Trung thu – bóng quân lính xoay vòng",
+   "src": ""
+  },
+  {
+   "id": 47,
+   "name": "Móng Rùa Kim Quy",
+   "tier": 5,
+   "cat": "TD",
+   "effect": "Mọi đồng đội đánh xa bắn trúng 2 mục tiêu; cả đội +15 Phòng thủ",
+   "basis": "Móng rùa thần làm lẫy nỏ thần giữ thành Cổ Loa",
+   "src": "https://vi.wikipedia.org/wiki/An_D%C6%B0%C6%A1ng_V%C6%B0%C6%A1ng"
+  },
+  {
+   "id": 48,
+   "name": "Cờ Lau Tập Trận",
+   "tier": 5,
+   "cat": "TD",
+   "effect": "Cả đội +10% mọi chỉ số; VieAni bậc 1 +20% mọi chỉ số",
+   "basis": "Đinh Bộ Lĩnh thuở nhỏ lấy bông lau làm cờ tập trận cùng trẻ chăn trâu",
+   "src": ""
+  },
+  {
+   "id": 49,
+   "name": "Cờ Sáu Chữ Vàng",
+   "tier": 5,
+   "cat": "TC",
+   "effect": "+30% sát thương lên kẻ địch bậc cao hơn; miễn nhiễm sợ hãi",
+   "basis": "Trần Quốc Toản thêu cờ 'Phá cường địch, báo hoàng ân'",
+   "src": ""
+  },
+  {
+   "id": 50,
+   "name": "Bọc Trăm Trứng",
+   "tier": 5,
+   "cat": "TD",
+   "effect": "Đầu trận nở 2 VieAni bậc 1 ngẫu nhiên đứng ô trống (50% chỉ số); nếu đội có Rồng Lạc Việt: 4 con",
+   "basis": "Âu Cơ sinh bọc trăm trứng nở trăm người con – 'Con Rồng cháu Tiên'",
+   "src": "https://vi.wikipedia.org/wiki/Con_R%E1%BB%93ng_ch%C3%A1u_Ti%C3%AAn"
+  },
+  {
+   "id": 51,
+   "name": "Linh Vật Bắc Bộ",
+   "tier": 5,
+   "cat": "LV",
+   "effect": "Không cộng chỉ số. Bùa đồng hình dáng vùng Bắc Bộ (núi Tây Bắc, đồng bằng sông Hồng), khắc hoa văn mặt trống đồng và chim Lạc. Là 1 trong 3 mảnh của Ấn Thống Nhất (xem Linh Vật Nam Bộ).",
+   "basis": "Bắc Bộ – cái nôi văn hóa Đông Sơn, trống đồng Ngọc Lũ",
+   "src": ""
+  },
+  {
+   "id": 52,
+   "name": "Linh Vật Trung Bộ",
+   "tier": 5,
+   "cat": "LV",
+   "effect": "Không cộng chỉ số. Bùa ngọc hình dải đất Trung Bộ hẹp và cong chữ S, khắc sóng biển, đèn lồng Hội An và Cá Ông. Là 1 trong 3 mảnh của Ấn Thống Nhất (xem Linh Vật Nam Bộ).",
+   "basis": "Trung Bộ – dải đất hẹp giữa Trường Sơn và Biển Đông",
+   "src": ""
+  },
+  {
+   "id": 53,
+   "name": "Linh Vật Nam Bộ",
+   "tier": 5,
+   "cat": "LV",
+   "effect": "Không cộng chỉ số. Bùa gỗ hình châu thổ Nam Bộ với chín nhánh Cửu Long, khắc hoa sen và sếu đầu đỏ. ẤN THỐNG NHẤT: khi người chơi (1) đạt cấp tối đa 10 với Rồng Lạc Việt trên sân và (2) có đủ 3 Linh Vật Bắc – Trung – Nam trong túi, 2 con giáp còn thiếu trên sân được tính là có mặt → có thể kích hoạt mốc (12) Mười Hai Con Giáp.",
+   "basis": "Nam Bộ – đồng bằng sông Cửu Long chín nhánh đổ ra biển",
+   "src": ""
+  }
+ ],
+ "charmRule": "Linh Vật không chiếm ô vật phẩm của VieAni và không thể bị Hoàn Kiếm (Kim Quy) đòi lại. Cách nhận: mỗi vòng thú dữ (PvE) từ vòng 15 có 1 trong 3 lựa chọn là một Linh Vật bạn chưa có; mỗi người chơi giữ tối đa 1 bản của mỗi Linh Vật."
 }

@@ -6,11 +6,11 @@ describe("rules config", () => {
     expect(C.SHOP_ODDS.length).toBe(C.MAX_LEVEL);
     for (const row of C.SHOP_ODDS) expect(row.reduce((a, b) => a + b, 0)).toBe(100);
   });
-  it("XP table covers levels 1→12", () => {
+  it("XP table covers levels 1→10", () => {
     expect(C.XP_TO_NEXT.length).toBe(C.MAX_LEVEL - 1);
   });
-  it("PO decisions: 15 s prep, 5 start gold, interest max 3, level 12", () => {
-    expect([C.PREP_SECONDS, C.START_GOLD, C.INTEREST_MAX, C.MAX_LEVEL]).toEqual([15, 5, 3, 12]);
+  it("PO decisions: 15 s prep, 5 start gold, interest max 3, max level 10, +2 XP per round", () => {
+    expect([C.PREP_SECONDS, C.START_GOLD, C.INTEREST_MAX, C.MAX_LEVEL, C.XP_PER_ROUND]).toEqual([15, 5, 3, 10, 2]);
   });
   it("PvE rounds are 1–3 then every 6 from 9", () => {
     const pve = Array.from({ length: 40 }, (_, i) => i + 1).filter(C.isPveRound);

@@ -1,6 +1,6 @@
 # VieAni – Game Design Document v1 (draft for PO review)
 
-Status: **v1.1, 11 Nov 2026 – PO review applied** – every number below is a starting value for balancing. They
+Status: **v2, 13 Nov 2026 – PO review 2 applied (roster 87, 12 synergies, level 10, Linh Vật)** – every number below is a starting value for balancing. They
 all live in one file, `game/src/core/config.ts`, so changing a number never needs code changes.
 Data (VieAni, types, synergies, items, relations, effects) comes from `data/*.json` and the Google Sheet.
 
@@ -17,7 +17,9 @@ board, and watch them fight. Win by being the last of 8 players standing.
 | Board | Battle grid 8 columns × 8 rows; each player owns their half (8 × 4) |
 | Screen | **Landscape 16:9, 1280 × 720** (PO decision 11 Nov). Underlords-style camera: high angle, mild perspective, transparent cells over a painted background; scales to any screen |
 | Bench | 8 slots (units waiting, do not fight) |
-| Units on board | = player level (**1–12**; level 12 allows a full 12 Con Giáp team) |
+| Units on board | = player level (**1–10**). A full 12 Con Giáp team needs the Ấn Thống Nhất (§7) |
+| Roster | **87 VieAni** in play (15 saved for a later update, 6 removed – sheet tab 'Lưu trữ') |
+| Roles | Đỡ Đòn (tank) · Chiến Đấu (fighter) · Săn Mồi (assassin) · Phép Thuật (mage) · Hỗ Trợ (support) |
 
 ### Round flow
 1. **Prep phase – 15 s** (single player: can also press "Sẵn sàng" to start early).
@@ -49,18 +51,16 @@ Item tier by round: R1–3 → tier 1, R9 → tier 2, R15 → tier 3, R21 → ti
 | Reroll shop | 2 gold |
 | Lock shop | free (shop is kept for next round) |
 | Buy XP | 4 gold → 4 XP |
-| Free XP | +1 XP at the end of every round |
+| Free XP | **+2 XP** at the end of every round |
 | Unit price | = its tier (tier 1 costs 1 gold … tier 5 costs 5 gold) |
 | Sell | full refund of the gold spent on it (★2 of a tier-1 = 3 gold) |
 
 ### Levels (XP needed to reach the next level)
-| Level | 1→2 | 2→3 | 3→4 | 4→5 | 5→6 | 6→7 | 7→8 | 8→9 | 9→10 | 10→11 | 11→12 |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| XP | 1 | 2 | 6 | 10 | 20 | 36 | 56 | 80 | 100 | 130 | 160 |
+| Level | 1→2 | 2→3 | 3→4 | 4→5 | 5→6 | 6→7 | 7→8 | 8→9 | 9→10 |
+|---|---|---|---|---|---|---|---|---|---|
+| XP | 1 | 2 | 6 | 10 | 20 | 36 | 56 | 80 | 100 |
 
-**Max level 12** so a player can field all 12 Con Giáp at once (PO decision). Every zodiac sign has
-at least one VieAni in the data; the rarest are Dần (only Hổ Đông Dương, tier 4) and Thìn (only
-Rồng Lạc Việt, tier 5), so the full set is a late-game goal.
+**Max level 10** (PO review 2). Ten units can show at most 10 zodiac signs; the last 2 come from the **Ấn Thống Nhất** (3 Linh Vật charms + Rồng Lạc Việt at level 10, §7).
 
 ## 4. Shop
 - 5 slots, refreshed for free every round (unless locked).
@@ -86,8 +86,6 @@ Rồng Lạc Việt, tier 5), so the full set is a late-game goal.
 | 8 | 12 | 20 | 35 | 25 | 8 |
 | 9 | 8 | 15 | 30 | 32 | 15 |
 | 10 | 5 | 10 | 25 | 35 | 25 |
-| 11 | 3 | 8 | 22 | 37 | 30 |
-| 12 | 2 | 6 | 20 | 37 | 35 |
 
 Note for PO: tier 2 has only 14 species but tier 3 has 33, so a given tier-2 VieAni turns up
 more often than a given tier-3 one. That is fine (tier 2 = easy early ★2), but keep it in mind
@@ -123,6 +121,9 @@ when adding new VieAni.
 ### 6.3 Energy and skills
 - Energy (năng lượng): **+10 per own attack, +5 when hit**; at 100 the unit casts its skill, then returns to 0.
 - Passive skills (e.g. "Ẩn nấp: 25% né đòn") are always on.
+- **Every VieAni has 3 skills** (sheet columns X–Z): an **active** skill (format: Tên · Hiệu ứng · Thời gian ·
+  Sát thương ★1/★2/★3 · Hồi chiêu = energy 50–130), a **passive** (always on or % chance) and a **★3 bonus**.
+  Damage budget per tier is in the sheet tab Luật chơi.
 - Skills are built from ~12 reusable templates: damage (single/AoE/line), heal, shield, buff,
   debuff, stun/root, summon, revive, transform, dash/jump, projectile, aura. Each VieAni's skill =
   one template + numbers in data. The 20 folklore skills (Cá Chép hóa rồng, Cóc, Hồ Tinh, …) get
@@ -131,7 +132,9 @@ when adding new VieAni.
 
 ### 6.4 Synergies (Tộc hệ)
 - Counted by **different species** on the board (2 Chó Cỏ count once). Bench does not count.
-- Thresholds and effects from `data/synergies.json` (31 synergies, incl. 12 Con Giáp counted by zodiac).
+- **12 synergies** (PO review 2, down from 31), each VieAni has 1–2: Tứ Linh, Sơn Tinh, Hộ Quốc, Săn Mồi,
+  Cự Thú, Đại Ngàn, Biển Đông, Sông Nước, Côn Trùng, Làng Quê (keeps the PO's Chó → Dại and Mèo → liếm lông ideas),
+  Gia Súc, Mười Hai Con Giáp (counted by zodiac). Thresholds and effects in `data/synergies.json` / sheet tab Tộc hệ.
 - **Cộng sinh** pairs give their bonus when both species are on the board.
 
 ### 6.5 Player damage when losing a round
@@ -148,7 +151,10 @@ Stage damage: rounds 1–10 → 1, 11–20 → 3, 21–30 → 5, 31+ → 8.
   then returns to inventory for the next round.
 - **SAN – Đặt trên sân** (board objects, e.g. Hũ Mật, Bẫy Chông Tre): occupy a cell on your half;
   do not count towards the unit limit; max 2 per board.
-- Effects from `data/items.json` (50 items, tiers 1–5).
+- **LV – Linh Vật** (3 charms: Bắc Bộ, Trung Bộ, Nam Bộ): no stats, no item slot, cannot be taken by Hoàn Kiếm.
+  One may be offered in each PvE boss round from round 15 (max 1 of each). **Ấn Thống Nhất:** at level 10, with Rồng
+  Lạc Việt on the board and all 3 charms, the 2 missing zodiac signs count as present → Mười Hai Con Giáp (12).
+- Effects from `data/items.json` (53 items, tiers 1–5).
 
 ## 8. AI opponents (bots)
 7 bots with names and personalities, all following the same rules and shop pool as the player:
