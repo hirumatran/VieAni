@@ -60,6 +60,7 @@ export class TitleScene extends Phaser.Scene {
     }
 
     this.languageSwitch();
+    button(this, 120, SCREEN_H - 40, 210, 42, "🎬 Xưởng hoạt ảnh", () => this.scene.start("animlab", { code: "V001" }));
     this.add.text(SCREEN_W - 14, SCREEN_H - 12, `${t("alphaNote")} · v${VERSION}`, { fontFamily: FONT_UI, fontSize: "14px", color: CREAM })
       .setOrigin(1, 1).setShadow(1, 1, "#000", 3);
   }

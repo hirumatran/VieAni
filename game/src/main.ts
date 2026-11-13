@@ -4,6 +4,7 @@ import { settings } from "./core/i18n";
 import { SCREEN_H, SCREEN_W } from "./core/layout";
 import { BoardScene } from "./scenes/BoardScene";
 import { TitleScene } from "./scenes/TitleScene";
+import { AnimLabScene } from "./scenes/AnimLabScene";
 
 const data = loadData();
 const problems = validate(data);
@@ -26,7 +27,7 @@ async function boot() {
     backgroundColor: "#1b120c",
     pixelArt: true,
     scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH, width: SCREEN_W, height: SCREEN_H },
-    scene: [new TitleScene(), new BoardScene(data)],
+    scene: [new TitleScene(), new BoardScene(data), new AnimLabScene(data)],
   });
   (window as unknown as { __game: Phaser.Game }).__game = game;
 }

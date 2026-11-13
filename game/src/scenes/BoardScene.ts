@@ -7,13 +7,16 @@ import { BACKGROUNDS, BENCH_CORNERS, BOARD_CORNERS, Grid, SCREEN_H, SCREEN_W, ty
 import { Rng } from "../core/rng";
 import { Team, type OwnedUnit, type Spot } from "../core/team";
 import { button, coverImage, CREAM, FONT_LOGO, FONT_UI, toast } from "../ui/widgets";
+import { typeColour, VieAniView } from "../anim/VieAniView";
+import { preloadIllustrations, texturesFor } from "../anim/illustrations";
 
 const ENEMY_TINT = 0x96e6dc;
 const OWN_TINT = 0xffd68c;
-const SAVE_KEY = "vieani.practice.team";
+const SAVE_KEY = "vieani.practice.team.v2";
 const DEMO_LEVEL = 5; // board limit for practice until levels exist (task T16)
-const DEMO_ROSTER = ["Hổ Đông Dương", "Voi châu Á", "Gấu chó", "Chó Phú Quốc", "Mèo Mun", "Rắn Hổ Mang", "Sếu đầu đỏ", "Trâu"];
-const SPRITE_SCALE = 1.3; // sprite size relative to the cell width
+const DEMO_ROSTER = ["Báo Gấm", "Hổ Đông Dương", "Voi châu Á", "Gấu chó", "Chó Phú Quốc", "Mèo Mun", "Rắn Hổ Mang", "Sếu đầu đỏ", "Trâu"];
+const SPRITE_SCALE = 1.3; // pixel sprite size relative to the cell width
+const ILLU_SCALE = 1.9; // illustration size relative to the cell width (the art has margins)
 
 /** one VieAni on screen: shadow + sprite + HP bar */
 interface View {
@@ -22,6 +25,8 @@ interface View {
   side: "A" | "B";
   c: Phaser.GameObjects.Container;
   sprite: Phaser.GameObjects.Image;
+  anim: VieAniView;
+  illustrated: boolean;
   hpBar: Phaser.GameObjects.Graphics;
   maxHp: number;
   hp: number;
@@ -49,6 +54,7 @@ export class BoardScene extends Phaser.Scene {
     this.bgKey = "bg:" + bg;
     this.load.image(this.bgKey, bg);
     for (const s of this.data_.species) this.load.image(`sp${s.id}`, `sprites/${String(s.id).padStart(2, "0")}.png`);
+    preloadIllustrations(this, this.data_, this.data_.roster);
   }
 
   create() {
@@ -111,17 +117,18 @@ export class BoardScene extends Phaser.Scene {
   // ------------------------------------------------------------------ views
   private spawn(u: OwnedUnit | Placed, side: "A" | "B") {
     const sp = this.data_.byId.get(u.speciesId)!;
-    const c = this.add.container(0, 0);
-    const shadow = this.add.ellipse(0, 0, 40, 10, 0x281e14, 0.45);
-    const sprite = this.add.image(0, 0, `sp${u.speciesId}`).setOrigin(0.5, 0.95);
-    if (side === "B") sprite.setFlipX(true);
+    // our side is seen from behind (back view), the opponent from the front
+    const { tex, illustrated } = texturesFor(this, this.data_, sp, side === "A" ? "back" : "front");
+    const anim = new VieAniView(this, 0, 0, tex, side === "A" ? 1 : -1, typeColour(sp.attackType), !illustrated && side === "B");
+    anim.setStar(u.star);
     const hpBar = this.add.graphics().setVisible(false);
-    c.add([shadow, sprite, hpBar]);
+    anim.c.add(hpBar);
     const maxHp = battleMaxHp(sp, u.star);
-    const v: View = { uid: u.uid, speciesId: u.speciesId, side, c, sprite, hpBar, maxHp, hp: maxHp, row: 0, col: 0 };
+    const v: View = { uid: u.uid, speciesId: u.speciesId, side, c: anim.c, sprite: anim.body, anim, illustrated, hpBar, maxHp, hp: maxHp, row: 0, col: 0 };
     this.views.set(u.uid, v);
-    if (side === "A") sprite.setInteractive({ draggable: true, useHandCursor: true, pixelPerfect: false });
-    sprite.setData("uid", u.uid);
+    if (side === "A") anim.body.setInteractive({ draggable: true, useHandCursor: true, pixelPerfect: false });
+    anim.body.setData("uid", u.uid);
+    anim.idle();
     return v;
   }
 
@@ -132,14 +139,14 @@ export class BoardScene extends Phaser.Scene {
       return { x, y, w: this.bench.cellWidth(0, s.slot) * 1.1 };
     }
     const [x, y] = this.board.foot(s.row, s.col);
-    return { x, y, w: this.board.cellWidth(s.row, s.col) * SPRITE_SCALE };
+    return { x, y, w: this.board.cellWidth(s.row, s.col) };
   }
 
   private place(v: View, s: Spot, animate: boolean, ms = 160) {
-    const { x, y, w } = this.spotPos(s);
+    const { x, y, w: cell } = this.spotPos(s);
+    const w = s.where === "bench" ? cell * (v.illustrated ? 1.45 : 1) : cell * (v.illustrated ? ILLU_SCALE : SPRITE_SCALE);
     if (s.where === "board") { v.row = s.row; v.col = s.col; }
-    v.sprite.setDisplaySize(w, w);
-    (v.c.list[0] as Phaser.GameObjects.Ellipse).setSize(w * 0.6, w * 0.16);
+    v.anim.setSize(w);
     v.c.setDepth(y);
     if (animate) this.tweens.add({ targets: v.c, x, y, duration: ms, ease: "Quad.easeOut" });
     else v.c.setPosition(x, y);
@@ -155,7 +162,7 @@ export class BoardScene extends Phaser.Scene {
   }
 
   private drawHp(v: View, w = v.sprite.displayWidth) {
-    const bw = w * 0.7, bh = 6, y = -v.sprite.displayHeight * 0.98;
+    const bw = Math.min(w * (v.illustrated ? 0.5 : 0.7), 70), bh = 6, y = -v.sprite.displayHeight * (v.illustrated ? 0.88 : 0.98);
     v.hpBar.clear();
     v.hpBar.fillStyle(0x000000, 0.6).fillRect(-bw / 2 - 1, y - 1, bw + 2, bh + 2);
     v.hpBar.fillStyle(v.side === "A" ? 0x5bd36b : 0xe0533d, 1).fillRect(-bw / 2, y, bw * Math.max(0, v.hp / v.maxHp), bh);
@@ -256,26 +263,38 @@ export class BoardScene extends Phaser.Scene {
     } else if (e.type === "attack" || e.type === "cast") {
       const tv = this.views.get(e.target);
       if (!tv) return;
-      // lunge towards the target
-      const dx = (tv.c.x - v.c.x) * 0.18, dy = (tv.c.y - v.c.y) * 0.18;
-      this.tweens.add({ targets: v.sprite, x: dx, y: dy, duration: 70, yoyo: true });
-      tv.hp -= e.dmg;
-      this.drawHp(tv);
-      this.tweens.add({ targets: tv.sprite, alpha: 0.4, duration: 60, yoyo: true });
+      const speed = settings.speed;
+      const sp = this.data_.byId.get(v.speciesId)!;
       const cast = e.type === "cast";
-      const strong = e.type === "attack" && e.mult > 1, weak = e.type === "attack" && e.mult < 1;
-      const txt = this.add.text(tv.c.x + Phaser.Math.Between(-10, 10), tv.c.y - tv.sprite.displayHeight, cast ? `${e.dmg}!` : `${e.dmg}`, {
-        fontFamily: FONT_LOGO, fontSize: cast ? "30px" : strong ? "24px" : "20px", fontStyle: "800",
-        color: cast ? "#ffd84a" : strong ? "#ff9a3c" : weak ? "#c9c2b8" : "#ffffff",
-      }).setOrigin(0.5).setStroke("#000", 5).setDepth(4500);
-      this.tweens.add({ targets: txt, y: txt.y - 34, alpha: 0, duration: 700, onComplete: () => txt.destroy() });
-      if (cast) this.tweens.add({ targets: v.sprite, scale: v.sprite.scale * 1.25, duration: 120, yoyo: true });
+      const land = () => {
+        tv.hp -= e.dmg;
+        this.drawHp(tv);
+        if (tv.hp > 0) void tv.anim.hit(v.c.x, v.c.y, speed);
+        const strong = e.type === "attack" && e.mult > 1, weak = e.type === "attack" && e.mult < 1;
+        const txt = this.add.text(tv.c.x + Phaser.Math.Between(-10, 10), tv.c.y - tv.sprite.displayHeight * 0.8, cast ? `${e.dmg}!` : `${e.dmg}`, {
+          fontFamily: FONT_LOGO, fontSize: cast ? "30px" : strong ? "24px" : "20px", fontStyle: "800",
+          color: cast ? "#ffd84a" : strong ? "#ff9a3c" : weak ? "#c9c2b8" : "#ffffff",
+        }).setOrigin(0.5).setStroke("#000", 5).setDepth(9500);
+        this.tweens.add({ targets: txt, y: txt.y - 34, alpha: 0, duration: 700, onComplete: () => txt.destroy() });
+      };
+      if (cast) void v.anim.cast(undefined, speed).then(land);
+      else { void v.anim.attack(tv.c.x, tv.c.y, sp.attackClass === "special", speed); this.time.delayedCall(220 / speed, land); }
     } else if (e.type === "death") {
-      this.tweens.add({ targets: v.c, alpha: 0, scale: 0.6, duration: 350, onComplete: () => v.c.setVisible(false) });
+      this.time.delayedCall(250 / settings.speed, () => void v.anim.die(settings.speed));
     }
   }
 
   private showResult(res: BattleResult) {
+    // survivors react first: winners celebrate, a draw leaves everyone dejected
+    for (const v of this.views.values()) {
+      if (!v.c.visible || v.anim.dead) continue;
+      if (res.winner === "draw") void v.anim.lose();
+      else if (v.side === res.winner) void v.anim.win();
+    }
+    this.time.delayedCall(1100, () => this.showResultPanel(res));
+  }
+
+  private showResultPanel(res: BattleResult) {
     const dmg = playerDamage(res, 1);
     const title = res.winner === "A" ? t("win") : res.winner === "B" ? t("lose") : t("draw");
     const color = res.winner === "A" ? "#ffe6a3" : res.winner === "B" ? "#ff8a7a" : "#e6e0d4";
