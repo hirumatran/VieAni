@@ -12,6 +12,11 @@ describe("rules config", () => {
   it("PO decisions: 15 s prep, 5 start gold, interest max 3, max level 10, +2 XP per round", () => {
     expect([C.PREP_SECONDS, C.START_GOLD, C.INTEREST_MAX, C.MAX_LEVEL, C.XP_PER_ROUND]).toEqual([15, 5, 3, 10, 2]);
   });
+  it("Linh Vật windows: Bắc ≤10, Trung 11–20, Nam 21–30, each containing a PvE round", () => {
+    for (const [lo, hi] of Object.values(C.CHARM_ROUND_WINDOWS)) {
+      expect(Array.from({ length: hi - lo + 1 }, (_, i) => lo + i).some(C.isPveRound)).toBe(true);
+    }
+  });
   it("PvE rounds are 1–3 then every 6 from 9", () => {
     const pve = Array.from({ length: 40 }, (_, i) => i + 1).filter(C.isPveRound);
     expect(pve).toEqual([1, 2, 3, 9, 15, 21, 27, 33, 39]);

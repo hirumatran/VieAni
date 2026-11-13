@@ -99,4 +99,6 @@ export const BOARD_OBJECTS_MAX = 2;
 /** at MAX_LEVEL, with Rồng Lạc Việt on board and all 3 charms, this many missing zodiac signs count as present */
 export const CHARM_BONUS_ZODIAC = 2;
 export const CHARM_ITEM_IDS = [51, 52, 53];
+/** round window in which each charm can be offered (Bắc Bộ, Trung Bộ, Nam Bộ) */
+export const CHARM_ROUND_WINDOWS: Record<number, [number, number]> = { 51: [1, 10], 52: [11, 20], 53: [21, 30] };
 export const ROLES = ["Đỡ Đòn", "Chiến Đấu", "Săn Mồi", "Phép Thuật", "Hỗ Trợ"] as const;

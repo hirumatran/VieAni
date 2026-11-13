@@ -4,10 +4,10 @@ import { loadData, typeMultiplier, validate } from "../src/core/data";
 const d = loadData();
 
 describe("game data", () => {
-  it("loads the v2 roster (PO review 13 Nov): 87 playable, 12 synergies, 53 items", () => {
+  it("loads the v2 roster (PO review 13 Nov): 87 playable, 17 synergies, 53 items", () => {
     expect(d.species.length).toBe(108);
     expect(d.roster.length).toBe(87);
-    expect(d.synergies.length).toBe(12);
+    expect(d.synergies.length).toBe(17);
     expect(d.items.length).toBe(53);
     expect(d.items.filter((i) => i.cat === "LV").map((i) => i.name)).toEqual(["Linh Vật Bắc Bộ", "Linh Vật Trung Bộ", "Linh Vật Nam Bộ"]);
   });

@@ -463,30 +463,30 @@
   {
    "id": 51,
    "name": "Linh Vật Bắc Bộ",
-   "tier": 5,
+   "tier": 1,
    "cat": "LV",
-   "effect": "Không cộng chỉ số. Bùa đồng hình dáng vùng Bắc Bộ (núi Tây Bắc, đồng bằng sông Hồng), khắc hoa văn mặt trống đồng và chim Lạc. Là 1 trong 3 mảnh của Ấn Thống Nhất (xem Linh Vật Nam Bộ).",
+   "effect": "Không cộng chỉ số. Bùa đồng hình dáng vùng Bắc Bộ (núi Tây Bắc, đồng bằng sông Hồng), khắc hoa văn mặt trống đồng và chim Lạc. Chỉ xuất hiện từ vòng 1 đến vòng 10 (vòng thú hoang 1, 2, 3, 9). Là 1 trong 3 mảnh của Ấn Thống Nhất (xem Linh Vật Nam Bộ).",
    "basis": "Bắc Bộ – cái nôi văn hóa Đông Sơn, trống đồng Ngọc Lũ",
    "src": ""
   },
   {
    "id": 52,
    "name": "Linh Vật Trung Bộ",
-   "tier": 5,
+   "tier": 3,
    "cat": "LV",
-   "effect": "Không cộng chỉ số. Bùa ngọc hình dải đất Trung Bộ hẹp và cong chữ S, khắc sóng biển, đèn lồng Hội An và Cá Ông. Là 1 trong 3 mảnh của Ấn Thống Nhất (xem Linh Vật Nam Bộ).",
+   "effect": "Không cộng chỉ số. Bùa ngọc hình dải đất Trung Bộ hẹp và cong chữ S, khắc sóng biển, đèn lồng Hội An và Cá Ông. Chỉ xuất hiện từ vòng 11 đến vòng 20 (vòng thú dữ 15). Là 1 trong 3 mảnh của Ấn Thống Nhất (xem Linh Vật Nam Bộ).",
    "basis": "Trung Bộ – dải đất hẹp giữa Trường Sơn và Biển Đông",
    "src": ""
   },
   {
    "id": 53,
    "name": "Linh Vật Nam Bộ",
-   "tier": 5,
+   "tier": 4,
    "cat": "LV",
-   "effect": "Không cộng chỉ số. Bùa gỗ hình châu thổ Nam Bộ với chín nhánh Cửu Long, khắc hoa sen và sếu đầu đỏ. ẤN THỐNG NHẤT: khi người chơi (1) đạt cấp tối đa 10 với Rồng Lạc Việt trên sân và (2) có đủ 3 Linh Vật Bắc – Trung – Nam trong túi, 2 con giáp còn thiếu trên sân được tính là có mặt → có thể kích hoạt mốc (12) Mười Hai Con Giáp.",
+   "effect": "Không cộng chỉ số. Bùa gỗ hình châu thổ Nam Bộ với chín nhánh Cửu Long, khắc hoa sen và sếu đầu đỏ. Chỉ xuất hiện từ vòng 21 đến vòng 30 (vòng thú dữ 21, 27). ẤN THỐNG NHẤT: khi người chơi (1) đạt cấp tối đa 10 với Rồng Lạc Việt trên sân và (2) có đủ 3 Linh Vật Bắc – Trung – Nam trong túi, 2 con giáp còn thiếu trên sân được tính là có mặt → có thể kích hoạt mốc (12) Mười Hai Con Giáp.",
    "basis": "Nam Bộ – đồng bằng sông Cửu Long chín nhánh đổ ra biển",
    "src": ""
   }
  ],
- "charmRule": "Linh Vật không chiếm ô vật phẩm của VieAni và không thể bị Hoàn Kiếm (Kim Quy) đòi lại. Cách nhận: mỗi vòng thú dữ (PvE) từ vòng 15 có 1 trong 3 lựa chọn là một Linh Vật bạn chưa có; mỗi người chơi giữ tối đa 1 bản của mỗi Linh Vật."
+ "charmRule": "Linh Vật không cộng chỉ số, không chiếm ô vật phẩm của VieAni và không thể bị Hoàn Kiếm (Kim Quy) đòi lại. Mỗi Linh Vật chỉ xuất hiện trong khung vòng của nó: Bắc Bộ vòng 1–10 (thú hoang 1, 2, 3, 9), Trung Bộ vòng 11–20 (thú dữ 15), Nam Bộ vòng 21–30 (thú dữ 21, 27). Ở mỗi vòng thú hoang/thú dữ trong khung, 1 trong 3 lựa chọn là Linh Vật đó nếu bạn chưa có – chọn nó nghĩa là bỏ một vật phẩm chiến đấu. Bỏ lỡ khung vòng thì không còn cơ hội; mỗi người giữ tối đa 1 bản mỗi Linh Vật."
 }

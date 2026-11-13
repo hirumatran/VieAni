@@ -85,31 +85,60 @@
    "basis": "Những loài thú khổng lồ – voi, tê giác, bò rừng, vượn khổng lồ, cá tra dầu"
   },
   {
-   "name": "Đại Ngàn",
+   "name": "Cao Nguyên Bắc Bộ",
    "members": [
     40,
-    26,
-    50,
-    42,
-    44,
-    18,
-    48,
-    21,
-    20,
-    30,
-    39,
     29,
+    16,
+    52,
+    68,
     104,
-    93,
     97,
     96
    ],
    "tiers": {
-    "3": "Ẩn mình 2 giây đầu trận; +10% né đòn",
-    "6": "Ẩn mình 3 giây; +20% né đòn",
-    "9": "Ẩn mình 4 giây; +30% né đòn; đòn đầu tiên sau khi hiện hình chí mạng"
+    "2": "+15 Phòng thủ ĐB; sương núi: +15% né đòn tầm xa",
+    "4": "+30 Phòng thủ ĐB; +25% né đòn tầm xa; miễn bị làm chậm",
+    "6": "+45 Phòng thủ ĐB; mỗi 10 giây sương mù phủ sân 3 giây: kẻ địch đánh xa −25% chính xác"
    },
-   "basis": "Muông thú rừng già Trường Sơn, Tây Bắc, Tây Nguyên – nhiều loài mới được khoa học phát hiện, rất khó gặp (gồm cả loài đã mất ngoài tự nhiên như gà lôi lam mào trắng)"
+   "basis": "Núi đá vôi và rừng núi phía Bắc (Hà Giang, Lạng Sơn, Cúc Phương, Pù Mát) – vượn, cầy, sóc, dê núi, chó H'Mông; hóa thạch vượn khổng lồ ở hang Lạng Sơn"
+  },
+  {
+   "name": "Trường Sơn",
+   "members": [
+    46,
+    50,
+    18,
+    21,
+    20,
+    39,
+    93
+   ],
+   "tiers": {
+    "2": "Ẩn mình 2 giây đầu trận; +10% né đòn",
+    "4": "Ẩn mình 3 giây; +20% né đòn",
+    "6": "Ẩn mình 4 giây; +30% né đòn; đòn đầu tiên sau khi hiện hình chí mạng"
+   },
+   "basis": "Dãy Trường Sơn – nơi khoa học phát hiện sao la (1992), mang lớn (1994), thỏ vằn; gà lôi lam mào trắng đã mất ngoài tự nhiên"
+  },
+  {
+   "name": "Tây Nguyên",
+   "members": [
+    15,
+    26,
+    42,
+    44,
+    48,
+    14,
+    30,
+    107
+   ],
+   "tiers": {
+    "2": "+10% tốc độ đánh",
+    "4": "+20% tốc độ đánh; tiếng cồng chiêng: mỗi 8 giây cả đội hồi 4% máu",
+    "6": "+30% tốc độ đánh; đầu trận thành viên +30% tốc độ di chuyển trong 4 giây"
+   },
+   "basis": "Rừng khộp và đại ngàn Tây Nguyên (Kon Ka Kinh, Yok Đôn, Cát Tiên) – chà vá chân xám, công, hồng hoàng, tê tê, bò xám, tê giác, sói đỏ"
   },
   {
    "name": "Biển Đông",
@@ -176,30 +205,61 @@
    "basis": "Côn trùng nhỏ, nhanh và cực kỳ đông đúc"
   },
   {
-   "name": "Làng Quê",
+   "name": "Bầy Chó Dữ",
    "members": [
-    72,
     51,
     52,
     55,
-    53,
-    65,
-    64,
-    81,
+    53
+   ],
+   "tiers": {
+    "2": "Đòn đánh của Chó có 15% gây Dại 3 giây (mục tiêu tấn công đồng đội của nó)",
+    "4": "25% gây Dại 4 giây; Trung thành: khi một đồng đội bị hạ, mọi Chó +25% Tấn công và Tốc độ đến hết trận"
+   },
+   "basis": "Ý tưởng của PO: bệnh dại lây qua vết cắn của chó. Ngoài đời hãy tiêm phòng dại cho chó mèo"
+  },
+  {
+   "name": "Hội Nhà Mèo",
+   "members": [
     57,
     56,
-    58,
+    58
+   ],
+   "tiers": {
+    "2": "Liếm lông: mỗi 4 giây mỗi Mèo hồi 5% máu cho Mèo gần nhất; cả hai +15% tốc độ đánh 3 giây",
+    "3": "Hồi 8% máu, +30% tốc độ đánh; Chín mạng: Mèo đầu tiên bị hạ hồi sinh với 20% máu"
+   },
+   "basis": "Ý tưởng của PO: mèo liếm lông cho nhau để gắn kết; dân gian nói mèo có chín mạng"
+  },
+  {
+   "name": "Bầy Gặm Nhấm",
+   "members": [
+    65,
+    64,
+    96
+   ],
+   "tiers": {
+    "2": "Gặm nhấm: mỗi đòn −3 Phòng thủ của mục tiêu (cộng dồn 10 lần)",
+    "3": "Cộng dồn 15 lần; Sinh sôi: thành viên đầu tiên bị hạ để lại 2 con non (20% chỉ số)"
+   },
+   "basis": "Chuột và sóc – bộ Gặm nhấm, răng cửa mọc suốt đời, sinh sản nhanh"
+  },
+  {
+   "name": "Săn Côn Trùng",
+   "members": [
+    72,
+    81,
     73,
     80,
     79,
     98
    ],
    "tiers": {
-    "3": "Chó: đòn đánh 15% gây Dại 3 giây · Mèo: mỗi 4 giây liếm lông hồi 5% máu cho Mèo gần nhất, cả hai +15% tốc độ đánh 3 giây · Chuột: mỗi đòn −3 Phòng thủ mục tiêu (cộng dồn 10) · loài khác +10% Tốc độ",
-    "6": "Dại 25% trong 4 giây; liếm lông hồi 8% và +30% tốc độ đánh; Chuột cộng dồn 15 lần",
-    "9": "Tình làng nghĩa xóm: thêm vào đó, khi một thành viên bị hạ, cả đội hồi 15% máu và +15% Tấn công đến hết trận"
+    "2": "+25% sát thương lên hệ Côn trùng",
+    "4": "+50% sát thương lên Côn trùng; hồi 10% máu mỗi khi hạ một Côn trùng",
+    "6": "Cả đội +25% sát thương lên Côn trùng; Côn trùng phe địch −20% né đòn"
    },
-   "basis": "Chó giữ nhà, mèo bắt chuột, chuột, cóc, thạch sùng, chim sẻ – những con vật quanh nếp nhà Việt. Ý tưởng Dại (chó) và liếm lông (mèo) của PO"
+   "basis": "Thạch sùng, thằn lằn, tắc kè, cóc, sáo sậu, chim sẻ – bắt sâu bọ quanh nhà và ngoài đồng"
   },
   {
    "name": "Gia Súc",

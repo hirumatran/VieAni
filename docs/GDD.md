@@ -132,9 +132,9 @@ when adding new VieAni.
 
 ### 6.4 Synergies (Tộc hệ)
 - Counted by **different species** on the board (2 Chó Cỏ count once). Bench does not count.
-- **12 synergies** (PO review 2, down from 31), each VieAni has 1–2: Tứ Linh, Sơn Tinh, Hộ Quốc, Săn Mồi,
-  Cự Thú, Đại Ngàn, Biển Đông, Sông Nước, Côn Trùng, Làng Quê (keeps the PO's Chó → Dại and Mèo → liếm lông ideas),
-  Gia Súc, Mười Hai Con Giáp (counted by zodiac). Thresholds and effects in `data/synergies.json` / sheet tab Tộc hệ.
+- **17 synergies** (PO review 3), each VieAni has 1–2: Tứ Linh, Sơn Tinh, Hộ Quốc, Săn Mồi, Cự Thú,
+  Cao Nguyên Bắc Bộ, Trường Sơn, Tây Nguyên (by habitat), Biển Đông, Sông Nước, Côn Trùng, Bầy Chó Dữ (Dại),
+  Hội Nhà Mèo (liếm lông), Bầy Gặm Nhấm, Săn Côn Trùng, Gia Súc, Mười Hai Con Giáp (counted by zodiac). Thresholds and effects in `data/synergies.json` / sheet tab Tộc hệ.
 - **Cộng sinh** pairs give their bonus when both species are on the board.
 
 ### 6.5 Player damage when losing a round
@@ -152,7 +152,7 @@ Stage damage: rounds 1–10 → 1, 11–20 → 3, 21–30 → 5, 31+ → 8.
 - **SAN – Đặt trên sân** (board objects, e.g. Hũ Mật, Bẫy Chông Tre): occupy a cell on your half;
   do not count towards the unit limit; max 2 per board.
 - **LV – Linh Vật** (3 charms: Bắc Bộ, Trung Bộ, Nam Bộ): no stats, no item slot, cannot be taken by Hoàn Kiếm.
-  One may be offered in each PvE boss round from round 15 (max 1 of each). **Ấn Thống Nhất:** at level 10, with Rồng
+  Each appears only in its round window – Bắc Bộ rounds 1–10, Trung Bộ 11–20, Nam Bộ 21–30 – as 1 of the 3 PvE item choices (max 1 of each). **Ấn Thống Nhất:** at level 10, with Rồng
   Lạc Việt on the board and all 3 charms, the 2 missing zodiac signs count as present → Mười Hai Con Giáp (12).
 - Effects from `data/items.json` (53 items, tiers 1–5).
 

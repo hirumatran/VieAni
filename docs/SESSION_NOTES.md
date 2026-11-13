@@ -137,3 +137,6 @@ back into `data/*.json` before rebuilding the page.
   Vật phẩm: #ERROR cells fixed ('+…' text), VP51–53 Linh Vật. Thiên địch: 27 relations (only playable VieAni). Hiệu ứng: +7 effects.
 - Renamed: Cá heo Irrawaddy → **Cá Nược (Cá Heo Sông)** (documented VN name; PO asked "Cá Ông Nược"); Thân (khỉ) carried by Chà vá chân xám while Khỉ Vàng waits.
 - Config: MAX_LEVEL 10, XP_PER_ROUND 2, CHARM_BONUS_ZODIAC 2. 30 tests pass. Skills/synergy effects are DATA ONLY – the battle engine still uses the placeholder skill until T11/T12.
+- PO review 3 (13 Nov): Đại Ngàn → Cao Nguyên Bắc Bộ / Trường Sơn / Tây Nguyên (by habitat); Làng Quê → Bầy Chó Dữ / Hội Nhà Mèo /
+  Bầy Gặm Nhấm (+ Sóc); lizards, toad, sparrow, starling → new Săn Côn Trùng. Now **17 synergies**. Linh Vật windows: Bắc vòng 1–10,
+  Trung 11–20, Nam 21–30 (config CHARM_ROUND_WINDOWS); tiers 1/3/4.
