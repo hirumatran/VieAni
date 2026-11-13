@@ -225,3 +225,27 @@ back into `data/*.json` before rebuilding the page.
 - Cards and the detail view show the **V-code** (V001…V087 = sheet ID = in-game code) instead of the internal #dex (which
   has gaps after the removed / later species, e.g. Chà vá chân xám was #011, now V009). Search also accepts V-codes.
 - Tier stars moved to the bottom-right of the picture (they overlapped the "Huyền thoại" label on 5-star cards).
+
+## End of session 13 Nov 2026 – where we are (v0.6.6, live on itch.io)
+**Done this session**
+- Data v2/v3 (PO reviews 2 + 3): 87-VieAni roster, roles, skills, 17 tộc hệ, Linh Vật charms with round windows – sheet + data in sync.
+- Art direction: clean 2D illustrations (PO generates in Gemini) → `scripts/cutout.py` → game + VieIndex. Done: **V001–V010**.
+- Prompt packs: `docs/SPRITE_PROMPTS.md` (V001–V005), `docs/SPRITE_PROMPTS_V006-V087.md` (82 VieAni, batches A–H; ⚠ lines V008, V040, V047).
+- Animations (tweens on the illustration): idle, attack, skill cast, hit, die, win, lose, ★2 silver / ★3 gold; ★ marks above heads.
+- Playable test match (Bắt Đầu): you vs bot, shop = all illustrated VieAni, gold 7 base / +3 win / +1 loss / interest ≤ +5,
+  XP + level ring, ★ merging, selling, shop lock, prep timer, test HP 40, game over; hover info card with species brief.
+- VieIndex: illustration avatars, V-codes.
+
+**How to add the next illustrations (PO workflow)**
+1. Generate `V0xx_front.png` + `V0xx_back.png` (1024 px, white background) with the prompt pack; upload to `assets/illustrations/raw/`.
+2. Ask Claude to "update the illustrations": it runs `python3 scripts/cutout.py V0xx …` (also rebuilds VieIndex), checks the
+   cut-outs, commits and pushes → the game shop + VieIndex pick them up automatically, itch.io redeploys.
+
+**Open points for the PO**
+- Keep the win/loss streak bonus (+1/+2/+3)? Starting gold 5 or 7?
+- V010 Cheo cheo: green-teal throat mark in the art (real animal: white throat stripes) – regenerate?
+- Match board is ~79 % size to fit the bottom shop: VieAni size OK?
+
+**Next development tasks**
+- T11 real skills in battle (per-skill energy cost + effects) and status effects (stun, slow, …) so the info card can show them.
+- Tộc hệ bonuses in battle; PvE rounds + items; 8-player lobby (more bots); touch tap-to-inspect for the info card.
