@@ -1,22 +1,25 @@
 import { describe, expect, it } from "vitest";
 import * as C from "../src/core/config";
 import { loadData } from "../src/core/data";
-import { Match, TEST_HP, testMatch } from "../src/core/match";
+import { Match, TEST_CODES, TEST_HP, testMatch } from "../src/core/match";
 
 const d = loadData();
 const ids = () => [1, 2, 3, 4].map((n) => d.roster[n - 1].id);
+/** every VieAni the test shop may offer (all illustrated ones) */
+const shopIds = () => TEST_CODES.map((c) => d.roster[Number(c.slice(1)) - 1].id);
 
 /** give the human a shop full of one species */
 const rig = (m: Match, id: number) => { m.human.shop = [id, id, id, id, id]; };
 
 describe("Test match (V001–V004)", () => {
-  it("only offers V001–V004 and draws them out of the shared pool", () => {
+  it("only offers illustrated VieAni and draws them out of the shared pool", () => {
     const m = testMatch(d, 1);
-    expect(m.species.map((s) => s.vi)).toEqual(["Báo Gấm", "Bò Biển (Cá Nàng Tiên)", "Bò Xám", "Cá Nược (Cá Heo Sông)"]);
-    for (const p of m.players) for (const id of p.shop) expect(ids()).toContain(id);
+    expect(TEST_CODES.length).toBeGreaterThanOrEqual(10);
+    expect(m.species.slice(0, 4).map((s) => s.vi)).toEqual(["Báo Gấm", "Bò Biển (Cá Nàng Tiên)", "Bò Xám", "Cá Nược (Cá Heo Sông)"]);
+    for (const p of m.players) for (const id of p.shop) expect(shopIds()).toContain(id);
     const inShops = m.players.flatMap((p) => p.shop).length;
     const left = [...m.pool.values()].reduce((a, b) => a + b, 0);
-    expect(left + inShops).toBe(12 + 12 + 10 + 12); // T3 = 12 copies, Bò Xám T4 = 10
+    expect(left + inShops).toBe(m.species.reduce((n, s) => n + C.POOL_COPIES[s.tier], 0)); // copies by tier (T3 12, T4 10, T5 6)
     expect(m.human.hp).toBe(TEST_HP);
     expect(m.human.gold).toBe(C.START_GOLD);
   });
@@ -111,7 +114,7 @@ describe("Test match (V001–V004)", () => {
       expect(r.income.result).toBe(r.winner === "A" ? 3 : 1);
       expect(r.income.interest).toBe(Math.min(5, Math.floor(goldBefore / 10)));
       expect(p.gold - goldBefore).toBe(r.income.base + r.income.interest + r.income.streak + r.income.result);
-      for (const q of m.players) for (const u of q.team.units()) expect(ids()).toContain(u.speciesId);
+      for (const q of m.players) for (const u of q.team.units()) expect(shopIds()).toContain(u.speciesId);
       const pool = [...m.pool.values()];
       expect(pool.every((n) => n >= 0)).toBe(true);
     }

@@ -4,7 +4,7 @@ import * as C from "../core/config";
 import type { GameData } from "../core/data";
 import { settings, t } from "../core/i18n";
 import { MATCH_BENCH_CORNERS, MATCH_BOARD_CORNERS, MATCH_SHOP_TOP, SCREEN_H, SCREEN_W } from "../core/layout";
-import { testMatch, type Match, type RoundReport } from "../core/match";
+import { TEST_CODES, testMatch, type Match, type RoundReport } from "../core/match";
 import type { Team } from "../core/team";
 import { texturesFor, vcode } from "../anim/illustrations";
 import { button, CREAM, FONT_LOGO, FONT_UI, GOLD, toast, WOOD } from "../ui/widgets";
@@ -45,7 +45,7 @@ export class MatchScene extends BoardScene {
   init(data?: { fresh?: boolean }) {
     if (data?.fresh || !this.match || this.match.over) {
       this.match = testMatch(this.data_, Math.floor(Math.random() * 1e9));
-      this.pendingToast = t("testNote");
+      this.pendingToast = t("testNote")(TEST_CODES.length, TEST_CODES[TEST_CODES.length - 1] ?? "");
     }
   }
 

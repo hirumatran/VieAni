@@ -6,9 +6,13 @@ import { mirror, playerDamage, simulate, type BattleResult, type Placed } from "
 import type { GameData, Species } from "./data";
 import { Rng } from "./rng";
 import { Team, type OwnedUnit, type Spot } from "./team";
+import manifest from "../../../assets/illustrations/manifest.json";
 
-/** test scenario: only these roster codes are in the shop, and players start with less HP so a match is short */
-export const TEST_CODES = ["V001", "V002", "V003", "V004"];
+/** test scenario: only illustrated VieAni are in the shop, and players start with less HP so a match is short */
+/** roster codes (V001…) that have both illustrations – the test shop offers exactly these, so new uploads join automatically */
+export const TEST_CODES = Object.keys(manifest as Record<string, { front?: unknown; back?: unknown }>)
+  .filter((c) => (manifest as Record<string, { front?: unknown; back?: unknown }>)[c].front && (manifest as Record<string, { front?: unknown; back?: unknown }>)[c].back)
+  .sort();
 export const TEST_HP = 40;
 
 export interface PlayerState {

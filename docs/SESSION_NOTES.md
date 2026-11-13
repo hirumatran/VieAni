@@ -211,3 +211,9 @@ back into `data/*.json` before rebuilding the page.
   "Đã tuyệt chủng (hóa thạch)" for Gigantopithecus), then the VieIndex note, population (first sentence, tier 3–4) and threats,
   from `data/vn_info.json` (sources listed in VieIndex). Stats moved to two columns so the card still fits the screen.
 - IUCN wording: CR Cực kỳ nguy cấp · EN Nguy cấp · VU Sắp nguy cấp · NT Sắp bị đe dọa · LC Ít quan tâm (as in VieIndex) · DD Thiếu dữ liệu.
+
+## Illustrations V005–V010 (13 Nov, v0.6.5)
+- PO uploaded V005–V010 (front + back). Cut out with `scripts/cutout.py` – all 12 clean.
+- The test shop now offers **every VieAni that has both illustrations** (`TEST_CODES` is read from
+  `assets/illustrations/manifest.json`), so each new upload + cut-out joins the match automatically. Now: V001–V010
+  (Cá Ông is tier 5 → 5 gold, 6 copies in the pool).
