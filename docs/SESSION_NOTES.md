@@ -180,3 +180,4 @@ back into `data/*.json` before rebuilding the page.
   task T11) – the per-skill energy cost (e.g. 90 NL) and the tộc hệ bonuses are not applied in battle yet, and there are no
   buffs/debuffs in the simulation yet, so the status list only shows what the simulation really does. Touch screens: hover needs a
   mouse; tap-to-inspect is a later task.
+- Prompt pack for V006–V087 (82 VieAni, batches A–H): `docs/SPRITE_PROMPTS_V006-V087.md`. ⚠ lines: V008 Owston's civet tail, V040 Gigantopithecus (reconstruction), V047 Chó Lài (no breed standard).
