@@ -48,7 +48,8 @@ main{padding:18px 16px 40px}
 .sprite{width:86%;height:86%;image-rendering:pixelated;image-rendering:crisp-edges;filter:drop-shadow(0 2px 0 rgba(0,0,0,.25))}
 .glyph{width:62%;aspect-ratio:1;border-radius:50%;display:grid;place-items:center;
   font-weight:800;font-size:34px;color:#fff;background:rgba(255,255,255,.72);border:3px solid rgba(255,255,255,.9)}
-.tier{position:absolute;top:8px;right:10px;color:#fff;font-size:12px;letter-spacing:1px;text-shadow:0 1px 2px #0006}
+.sprite.illu{width:96%;height:96%;object-fit:contain;image-rendering:auto;filter:drop-shadow(0 3px 3px rgba(0,0,0,.25))}
+.tier{position:absolute;bottom:8px;right:10px;color:#fff;font-size:12px;letter-spacing:1px;text-shadow:0 1px 2px #0006}
 .status{position:absolute;top:8px;left:8px;font:700 11px/1 inherit;font-family:inherit;padding:4px 7px;border-radius:6px;background:#000a;color:#fff}
 .info{padding:10px 12px 14px}
 .no{font-size:13px;color:var(--muted);font-weight:600}
@@ -146,13 +147,15 @@ DATA.synergies.forEach(g=>g.members.forEach(i=>(SYN_OF[i]??=[]).push(g)));
 const color = t => `var(--t-${t})`;
 const ink = t => t==="Electric" ? "#2b1d14" : "#fff";
 const SPRITES = __SPRITES__;
-const sprite = s => SPRITES[s.id] ? `<img class="sprite" src="${SPRITES[s.id]}" alt="">` : esc(initials(s));
+const ILLU = new Set(__ILLUSTRATED__);
+const sprite = s => SPRITES[s.id] ? `<img class="sprite${ILLU.has(s.id)?" illu":""}" src="${SPRITES[s.id]}" alt="${esc(s.vi)}">` : esc(initials(s));
 const esc = s => String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const initials = s => s.vi.replace(/\(.*\)/,"").trim().split(/\s+/).slice(0,2).map(w=>w[0]).join("").toUpperCase();
 const bg = s => s.types.length>1
   ? `linear-gradient(135deg, ${color(s.types[0])} 0 55%, ${color(s.types[1])} 100%)`
   : color(s.types[0]);
 const pad = n => "#"+String(n).padStart(3,"0");
+const vcodeOf = s => s.code || pad(s.dex);
 const stars = n => "★".repeat(n);
 const statusLabel = s => s.tier===5 ? "Huyền thoại" : s.tier===4 ? "Đã mất" : s.tier===1 ? "Thân thuộc" : s.tier===2 ? "Hoang dã"
   : (/^(CR|EN|VU|DD)\b/.test(s.iucn||"") ? s.iucn.split(" ")[0] : "Nguy cấp");
@@ -200,7 +203,7 @@ function render(){
     if(active.size && !s.types.some(t=>active.has(t))) return false;
     if(tierF && String(s.tier)!==tierF) return false;
     if(!q) return true;
-    return [s.en,s.vi,s.sci,pad(s.dex),String(s.dex)].some(v=>v&&v.toLowerCase().includes(q.replace(/^#0*/,"")||q));
+    return [s.en,s.vi,s.sci,s.code,pad(s.dex),String(s.dex)].some(v=>v&&v.toLowerCase().includes(q.replace(/^#0*/,"")||q));
   });
   const cmp={dex:(a,b)=>a.dex-b.dex, en:(a,b)=>a.en.localeCompare(b.en,"en"),
     vi:(a,b)=>a.vi.localeCompare(b.vi,"vi"), tier:(a,b)=>STATUS_TIER(b)-STATUS_TIER(a)||a.dex-b.dex}[sort];
@@ -213,7 +216,7 @@ function render(){
         <div class="glyph">${sprite(s)}</div>
       </div>
       <div class="info">
-        <div class="no">${pad(s.dex)}</div>
+        <div class="no">${vcodeOf(s)}</div>
         <div class="name">${esc(s.vi)}</div>
         <div class="vi">${esc(s.en)}</div>
         <div class="types">${s.types.map(badge).join("")}</div>
@@ -254,7 +257,7 @@ document.getElementById("grid").addEventListener("click",e=>{
       <button class="close" aria-label="Đóng">✕</button>
     </div>
     <div class="d-body">
-      <div class="no">${pad(s.dex)} · Bậc ${STATUS_TIER(s)} ${stars(STATUS_TIER(s))}</div>
+      <div class="no">${vcodeOf(s)} · Bậc ${STATUS_TIER(s)} ${stars(STATUS_TIER(s))}</div>
       <h2>${esc(s.vi)}</h2>
       <div class="vi" style="font-size:16px">${esc(s.en)}</div>
       ${s.sci?`<div class="sci">${esc(s.sci)}</div>`:""}

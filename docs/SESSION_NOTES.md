@@ -217,3 +217,11 @@ back into `data/*.json` before rebuilding the page.
 - The test shop now offers **every VieAni that has both illustrations** (`TEST_CODES` is read from
   `assets/illustrations/manifest.json`), so each new upload + cut-out joins the match automatically. Now: V001–V010
   (Cá Ông is tier 5 → 5 gold, 6 copies in the pool).
+
+## VieIndex avatars = illustrations (13 Nov, v0.6.6)
+- VieIndex now uses the clean illustration (front view, from `assets/illustrations/cut/`) as the avatar of every VieAni that
+  has one (V001–V010 so far); the others keep the old pixel sprite until their illustration arrives.
+- `scripts/cutout.py` rebuilds `vieindex.html` automatically after each cut-out, so new uploads appear in VieIndex too.
+- Cards and the detail view show the **V-code** (V001…V087 = sheet ID = in-game code) instead of the internal #dex (which
+  has gaps after the removed / later species, e.g. Chà vá chân xám was #011, now V009). Search also accepts V-codes.
+- Tier stars moved to the bottom-right of the picture (they overlapped the "Huyền thoại" label on 5-star cards).

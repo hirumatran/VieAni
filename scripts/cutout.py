@@ -104,6 +104,9 @@ def main(only):
         man.setdefault(code, {})[view] = {"size": SIZE, "foot": foot}
         print(code, view, "->", CUT / f"{code}_{view}.png")
     man_p.write_text(json.dumps(man, indent=1))
+    # VieIndex shows the new illustrations as avatars: rebuild it
+    import subprocess
+    subprocess.run([sys.executable, str(ROOT / "scripts/build_vieindex.py")], check=True)
 
 
 if __name__ == "__main__":
