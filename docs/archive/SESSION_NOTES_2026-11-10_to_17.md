@@ -1,0 +1,372 @@
+# VieAni – session notes (handoff)
+
+Last session: 11/11/2026 (started 10/11/2026). Branch: `claude/vibrant-feynman-rjzlhw` (not merged to `main` yet).
+Start the next session with this repo selected and ask Claude to read this file.
+
+## What exists
+
+| Path | What it is |
+|---|---|
+| `data/vieindex.json` | Game data for 50 VieAni: names, IUCN, habitat, types, `typeChart`, `legendaryRule`, stats, attack type/class, range |
+| `data/synergies.json` | 17 Tộc hệ (synergies): members by id, activation levels, effects, basis |
+| `data/relations.json` | Thiên địch (predator → prey) and Cộng sinh (symbiosis) pairs with multiplier, effect, basis |
+| `data/vn_info.json` | Vietnamese info-card text: notes for all 50; population, habitat, location, threats, how to help and sources for the 37 real species |
+| `src/vieindex.template.html` | VieIndex page template (search, type filters, sort, popup, type chart dialog) |
+| `vieindex.html` | Built page – open in a browser. Rebuild after any data change |
+| `assets/sprites/<id>.png` | Draft 32×32 sprites drawn by `scripts/sprites.py` |
+| `assets/sprites/custom/<id>.png` | Your own sprites; override the drawn ones and are never overwritten |
+| `assets/palette/vieani.{gpl,hex,png}` | Shared 32-colour palette (load `.gpl` in Aseprite / Pixelorama) |
+
+## Commands
+
+```bash
+python3 scripts/build_vieindex.py            # rebuild vieindex.html after editing data
+python3 scripts/pixelize.py sketch.jpg --id 20 [--flip] [--colors 8]   # sketch -> draft sprite
+python3 scripts/sprites.py                 # redraw the built-in sprites
+python3 scripts/draft_stats.py [--force]   # (re)draft stats; --force overwrites hand edits
+```
+
+## Roster expansion (11/11)
+
+108 VieAni (was 50). Tier now follows the group: 1 Thân thuộc (everyday/pets/insects, 42),
+2 Hoang dã (wild, not threatened, 14), 3 Nguy cấp (threatened, 33), 4 Đã mất (6), 5 Huyền thoại (13).
+Stat totals by tier: 400 / 440 / 480 / 510 / 530. Every VieAni has a `skill`; zodiac animals have `zodiac`.
+31 synergies (incl. Bầy Chó rabies 15%, Bầy Mèo grooming heal + attack speed, Mười Hai Con Giáp by
+zodiac column); 30 relations, incl. type-wide predators (`bType`: Thạch Sùng/Thằn Lằn hit Côn trùng
+anywhere). `scripts/expand_roster.py` holds the added data; `scripts/export_sheet.py` exports sheet rows.
+
+## Folklore, items, sketch board (11/11, part 3)
+
+- `data/folklore.json`: 20 story-based skills + sources (`story`, `storySrc`, `storyAccuracy` on species);
+  6 new-legendary ideas (Mộc Tinh, Thủy Tinh, Thiên Lôi, Trâu Vàng, Chằn Tinh/Đại Bàng, Rồng Con).
+- `data/items.json`: 50 items, 5 tiers, categories TC/PT/HT/TD/NEM/SAN. `data/mechanics.json`: status glossary.
+- Sheet tabs added: Vật phẩm, Hiệu ứng; VieAni tab column X = Điển tích.
+- Sketch board: `scripts/fetch_refs.py` (photos → refs/, git-ignored; credits in data/ref_credits.json),
+  `scripts/build_ref_board.py OUT` → 22-page PDF. Workflow in `docs/SPRITE_WORKFLOW.md`;
+  `pixelize.py --batch DIR --size 64` converts V001… sketches.
+- Cloud env "vinmon" allows iNaturalist, Wikimedia (incl. thumb.), vi/en Wikipedia; fandom blocks bots.
+
+## Design decisions so far
+
+- 10 types: Legendary, Fire, Water, Electric, Grass, Ground, Rock, Sky, Insect, Poison.
+- Type chart = Pokémon Gen 6+ (Sky = Flying, Insect = Bug); Pokémon's 0× immunities
+  (Electric→Ground, Ground→Sky) softened to 0.5× for auto-battle.
+- Legendary: deals ×1.25 and takes ×0.75 against every type.
+- Stats: Pokémon-style six stats; total by tier 400 / 440 / 480 / 510 / 530 (Legendary).
+- Dex numbers are temporary (A–Z by English name). Cards show Vietnamese name first.
+
+## Google Sheet (design master for editing)
+
+"VieIndex – Dữ liệu VieAni" in the user's Google Drive (created 11/11/2026), 4 tabs:
+VieAni (auto ID V001…, Vietnamese types, tier, 2 synergy columns, stats, auto total, stat basis),
+Bảng khắc hệ (editable type matrix + Legendary ×1.25/×0.75 + quick lookup),
+Thiên địch & Cộng sinh, Tộc hệ (member list/count auto-updates).
+Sheet locale is en_US so formulas work (numbers show 1.25). If the sheet is edited, sync changes
+back into `data/*.json` before rebuilding the page.
+
+## Open items / ideas for next time
+
+1. Decide: keep immunities at 0.5× or use 0× like Pokémon.
+2. ~~Differentiate identical stats~~ – done 11/11: every VieAni now has a unique stat line with a
+   biology note (`statNote`); totals still fixed by tier.
+3. ~~Thin types~~ – now Fire 4, Electric 2, Insect 11 (added Kiến Lửa, Đom Đóm, Cá Đuối Điện, insects).
+4. ~~Vietnamese type badges~~ – done on page and sheet.
+5. ~~Verify province names~~ – done 11/11: all mergers used are confirmed (Res. 202/2025/QH15);
+   Đồng Nai is now **TP. Đồng Nai** (centrally run city from 30/4/2026); Cát Tiên NP managed by
+   TP. Đồng Nai from 10/2026 (Decision 2058/QĐ-TTg) – still partly in Lâm Đồng until a boundary change.
+   Still open: Xuân Thủy spoonbill "36–93/year" original report not reachable (labelled as unverified
+   on the card); older/unpublished population figures are labelled with their survey year.
+   Sites blocked in this cloud session: chinhphu.vn, vietnamnews.vn, mae.gov.vn, wikipedia.org.
+6. Replace draft sprites with real art (sketch → `pixelize.py` → clean up in Aseprite/Pixelorama).
+7. Next game steps: auto-chess board, shop/tiers, synergies (e.g. Sơn Tinh bride-price trio,
+   the three doucs "Chà vá" set), damage formula.
+8. Merge the branch into `main` (open a pull request) when ready.
+9. New sprites (ids 51–108) are rough drafts – crab and insect legs especially.
+10. Balance pass: T1 swarms (Côn Trùng 11 members, Đồng Quê 11) may be too strong at high counts.
+
+## Project plan (added 11 Nov 2026)
+- Full plan: `docs/PROJECT_PLAN.md` (milestones, scope, stack, budget, 43 tasks, risks).
+- Tracker: Google Sheet tab "Kế hoạch dự án" (status dropdown; overdue rows turn red).
+- Targets: Alpha Fri 15 Jan 2027 and public Beta Fri 26 Feb 2027 – both web-only on itch.io; native apps after beta. Tết buffer 4–14 Feb.
+- T01 done 11 Nov: project renamed Vinmon → VieAni, encyclopedia Vindex → VieIndex; TypeScript + Phaser; private repo → itch.io (butler); store accounts skipped.
+- itch.io account created by PO: https://hirumatran.itch.io/ (ITCH_USER = hirumatran).
+- T02 done (11 Nov): `docs/GDD.md` v1.1 after PO review – prep 15 s, start gold 5, interest max +3, max level 12 (full Con Giáp), 15–20 min matches, 8 random Vietnamese landscape backgrounds (`data/backgrounds.json`, new task T44). Open: 'Thư thả' no-timer setting (suggested). Numbers mirrored in `game/src/core/config.ts`.
+- T03 done (11 Nov): `game/` = Vite + TypeScript + Phaser 4.2.1, Vitest (9 tests pass), `npm run build` OK.
+  Board scene shows the 8×8 board + bench + 5 sprites. Assets served from `../assets` (publicDir), base "./" for itch.io.
+  Phone portrait is small – landscape/phone layout is T33.
+- T44 started (11 Nov): procedural pixel-art drafts of the 8 backgrounds – `scripts/draft_backgrounds.py` → `assets/backgrounds/<id>.png` (180×200, game scales ×4) + own palette `assets/palette/backgrounds.hex`. Not yet shown in the game. Hạ Long v2 wide pixel version: `scripts/draft_bg_wide.py`.
+- Art direction decided: painted backgrounds (Gemini, by PO) + pixel sprites. Prompts: `docs/BACKGROUND_PROMPTS.md`. Pixel drafts = placeholders. Landscape 16:9 layout still to be confirmed by PO.
+- First Gemini background from PO: `assets/backgrounds/painted/bg_ha_long.webp` (1365×768, has Gemini ✦ mark bottom-right). Board on it, Underlords-style camera: `scripts/board_overlay.py BG OUT --units` (board corners + bench in 1280×720 screen px = numbers for the game).
+- T04 (11 Nov): itch.io page https://hirumatran.itch.io/vieani (PO created, HTML/Draft). Workflow `.github/workflows/itch.yml` builds `game/` and pushes `game/dist` with butler to `hirumatran/vieani:html5` on every push to main or this branch (needs secret BUTLER_API_KEY).
+- Board overlay: transparent cells, bigger board (corners 352/928 top y58, 256/1024 bottom y604; bench y632–706), sprites ×1.3 cell.
+- T04 done 11 Nov: first successful butler upload (run 3). PO to tick "played in the browser" + embed 720×800 on itch edit page.
+- v0.2.0 (11 Nov): game switched to landscape 16:9 (1280×720). `game/src/core/layout.ts` = board/bench corners + homography (perspective grid); BoardScene draws the painted background, transparent cells and bench. itch embed must be 1280×720.
+- v0.3.0 (11 Nov): start screen `TitleScene` – Hạ Long background (slow drift), logo "VieAni – Huyền Thoại Dã Thú" (Google Fonts Baloo 2 + Be Vietnam Pro), buttons Bắt Đầu / Luyện Tập (both → board for now) / VieIndex (opens vieindex.html in an overlay; shipped in the build by a Vite plugin) / Cài Đặt (sound, speed ×1/×2, relaxed mode – stored in localStorage) / Đăng Nhập (toast "after beta"). VI/EN switch (`src/core/i18n.ts`). Board scene has "← Menu".
+- v0.4.0 (11 Nov): T09 + T10 done.
+  - `game/src/core/battle.ts`: deterministic simulation (10 ticks/s, 45 s cap → draw). HP = 200+10·HP, damage = 40·A/D·type·prey·roll(0.9–1.1)·star, interval = clamp(2·100/(Spe+50), 0.6–2.5 s), move 1 cell/0.4 s with BFS pathing, Chebyshev range, targeting nearest (ties: lowest HP, uid), Thiên địch prey within 3 cells (or unlimited for Thạch Sùng/Thằn Lằn vs insects) + damage mult. Energy +10/attack, +5/hit; at 100 a PLACEHOLDER skill (2× strike) until T11. `playerDamage()` and `mirror()`.
+  - Sim check (300 random 5v5, ★1): median 24.5 s, p90 45 s (≈10% timeouts/draws), A/B wins even.
+  - `game/src/core/team.ts`: own half + bench, board limit, swap, save/load (localStorage "vieani.practice.team").
+  - BoardScene: drag & drop (mouse/touch) with cell highlight via inverse homography (`Grid.cellAt`), "Trên sân n/5" (practice level 5), "⚔ Đấu thử" vs random tier≤3 team → replay (moves, lunges, damage numbers, HP bars, deaths) → THẮNG/THUA/HÒA + HP lost → "Về bàn".
+  - 29 unit tests.
+- Next: T11 skill templates + T12 status effects (→ M1), T13 Cộng sinh, T14 balance report.
+- PO is sketching sprites on iPad directly in the board PDF.
+
+## Naming rule (PO, 11 Nov 2026)
+- Always **VieAni** (never Vinmon) and **VieIndex** (never Vindex) – in code, data, file names, docs, sheet and Drive. Only the rename-history notes keep the old names. The local checkout folder and the cloud environment are still called "vinmon" (outside the repo).
+
+## Branch rule (PO, 11 Nov 2026)
+- **All work happens on `main`** (repo hirumatran/VieAni). The old branch `claude/vibrant-feynman-rjzlhw` was merged into main and is no longer used. Pushes to main auto-publish to itch.io.
+
+## End of day 11 Nov 2026 – where we are
+- Google Sheet renamed **"VieIndex – Dữ liệu VieAni"** (https://docs.google.com/spreadsheets/d/1VaVYNbxFFHY_s3qoXF0eDwNFNCJEpNgc2Es8LBGtsGU/edit).
+  New tabs: **Luật chơi** (all GDD numbers, XP table, shop odds with sum check, pool copies) and **Bối cảnh** (8 backgrounds + image status).
+  VieAni tab: new formula columns Y "Máu trong trận (★1)" = 200+10·HP and Z "Giây giữa 2 đòn" = clamp(200/(Tốc độ+50), 0.6–2.5).
+- The game reads `data/*.json` + `game/src/core/config.ts`, NOT the sheet. When the PO edits the sheet (lineup, types,
+  synergies, rules), the next session must pull the sheet back into the repo (sheet → data/*.json + config.ts),
+  check it with `npm test` (data validation), and push. Ask the PO which tabs changed.
+- PO will work on: VieAni line-up, types, synergies; more Gemini backgrounds (prompts in docs/BACKGROUND_PROMPTS.md).
+- Next dev tasks: T11 skills + T12 status effects (→ M1), T13, T14.
+
+## PO review 2 – 13 Nov 2026 (sheet + data v2)
+- Source of truth for the redesign: `scripts/design_v2.py` (roles, ranges, 12 synergies, 3 skills per VieAni, Linh Vật);
+  `scripts/apply_v2.py OUT` regenerates data/*.json (+ sheet payloads). Species now carry `status` (keep/later/removed),
+  `role`, `skills{active,passive,star3}`; `GameData.roster` = playable 87.
+- Sheet: VieAni tab = 87 rows (IDs renumbered V001–V087 by formula); 21 rows moved to tab "Lưu trữ (bản sau / đã xoá)".
+  New columns used: B action, G role (dropdown), U range, X active, Y passive, Z ★3. Tộc hệ = 12 rows (formulas).
+  Luật chơi: max level 10, +2 XP/round, XP/odds to level 10, Linh Vật rule, roles, skill format + damage budget.
+  Vật phẩm: #ERROR cells fixed ('+…' text), VP51–53 Linh Vật. Thiên địch: 27 relations (only playable VieAni). Hiệu ứng: +7 effects.
+- Renamed: Cá heo Irrawaddy → **Cá Nược (Cá Heo Sông)** (documented VN name; PO asked "Cá Ông Nược"); Thân (khỉ) carried by Chà vá chân xám while Khỉ Vàng waits.
+- Config: MAX_LEVEL 10, XP_PER_ROUND 2, CHARM_BONUS_ZODIAC 2. 30 tests pass. Skills/synergy effects are DATA ONLY – the battle engine still uses the placeholder skill until T11/T12.
+- PO review 3 (13 Nov): Đại Ngàn → Cao Nguyên Bắc Bộ / Trường Sơn / Tây Nguyên (by habitat); Làng Quê → Bầy Chó Dữ / Hội Nhà Mèo /
+  Bầy Gặm Nhấm (+ Sóc); lizards, toad, sparrow, starling → new Săn Côn Trùng. Now **17 synergies**. Linh Vật windows: Bắc vòng 1–10,
+  Trung 11–20, Nam 21–30 (config CHARM_ROUND_WINDOWS); tiers 1/3/4.
+
+## Illustrations + animations (13 Nov)
+- Art direction: clean 2D illustrations generated by the PO (prompts: docs/SPRITE_PROMPTS.md), raw files in assets/illustrations/raw/V###_{front,back}.png
+  (white background, V-code = sheet ID = position in the roster).
+- `python3 scripts/cutout.py [V001]` → assets/illustrations/cut/ (background removed by border flood-fill, 512×512, feet on the bottom line,
+  plus _star2 silver outline and _star3 golden glow layers) + assets/illustrations/manifest.json.
+- `game/src/anim/VieAniView.ts`: tween-based animations for ANY VieAni (illustration or pixel fallback): idle, attack (slash / projectile),
+  cast (aura ring, sparks, burst), hit (flash + knock-back), die (topple, dust, spirit wisp), win (hops), lose (droop, dim), reset, setStar(1/2/3).
+  `game/src/anim/illustrations.ts` picks the illustration (back view on our side, front view for the opponent) or falls back to the pixel sprite.
+- Title screen → "🎬 Xưởng hoạt ảnh" (AnimLabScene) previews every animation for V001 on both sides. Practice battles now use VieAniView;
+  Báo Gấm is in the demo roster (save key bumped to vieani.practice.team.v2).
+
+## Test match V001–V004 (13 Nov, v0.6.0)
+- PO: V001 too big on the board → illustration size 1.9 → **1.33 × cell width** (70 %), bench 1.45 → 1.0; same in the animation lab.
+- V002–V004 cut out (`scripts/cutout.py` now also removes pure-white holes enclosed by the drawing, e.g. inside the dugong's tail).
+- **Bắt Đầu** on the title screen opens the test match (`MatchScene` + pure logic in `game/src/core/match.ts`, 7 tests):
+  - you vs one bot; shop shows **only V001–V004**; shared pool (T3 = 12 copies, Bò Xám T4 = 10), 5 slots weighted by copies left
+    (tier odds by level are ignored here because there is no tier 1–2 VieAni in the test set);
+  - real config rules: start 5 gold, cost = tier, reroll 2, buy 4 XP for 4, +2 XP and income per round
+    (base 2/3/4 then 5, interest 1 per 10 gold max 3, streak bonus, +1 per win), board limit = level, max level 10;
+  - 3 identical VieAni of the same ★ merge automatically (★2 silver outline, ★3 golden glow); full bench may still buy a copy that completes a ★2;
+  - sell = drag a VieAni onto the shop panel (refund tier × copies);
+  - prep timer 15 s (off in Settings → relaxed mode); free board slots are auto-filled from the bench at the fight;
+  - bot uses the same rules: buys copies it owns first, keeps 10 gold for interest from round 5, buys XP from round 3, places tanks front / mages back;
+  - **test HP 40** (not 100) so one match is ~10 rounds; damage = stage damage + tiers of surviving enemies.
+  - Not in the test yet: PvE rounds, items, synergies/tộc hệ bonuses, 8 players.
+
+## Hover info card (13 Nov, v0.6.1)
+- PO: hovering a VieAni shows its info card, same layout as the VieIndex card (`game/src/ui/InfoCard.ts`). Works for our units
+  (board + bench), the opponent's units, during prep and during the battle, and on shop cards. Practice mode has it too.
+- Shows: type-coloured art band with the front illustration, IUCN/status label, tier, #dex · V-code · role, name + English
+  name, ★ level, type badges, attack type/class/range, **live HP and energy (mana)**, the 6 base stats as bars, active skill
+  (name, energy cost, effect, damage ★1/★2/★3) and passive, tộc hệ chips (different members on that side's board / next threshold;
+  gold = threshold reached), and **status** chips: ★ multiplier, bench, current target, last hit multiplier (type advantage /
+  Thiên địch), full energy, knocked out.
+- Battle events now carry the attacker's and target's energy (`en`, `tEn`) so the card's mana bar matches the simulation.
+- Honest limits (shown in small print on the card): the test battle still uses the placeholder skill (×2 strike at 100 energy,
+  task T11) – the per-skill energy cost (e.g. 90 NL) and the tộc hệ bonuses are not applied in battle yet, and there are no
+  buffs/debuffs in the simulation yet, so the status list only shows what the simulation really does. Touch screens: hover needs a
+  mouse; tap-to-inspect is a later task.
+- Prompt pack for V006–V087 (82 VieAni, batches A–H): `docs/SPRITE_PROMPTS_V006-V087.md`. ⚠ lines: V008 Owston's civet tail, V040 Gigantopithecus (reconstruction), V047 Chó Lài (no breed standard).
+
+## PO test feedback (13 Nov, v0.6.2)
+1. **Gold:** base income **+7 every round** (was 2/3/4 then 5); **+3 for a win, +1 for a loss** (draw = loss); **interest +1 per 10 gold,
+   max +5** (at 50 gold). Win/loss streak bonus (+1/+2/+3 at 2/4/6 in a row) is kept – not in the PO's list, remove if not wanted.
+   Starting gold stays 5. Config: `BASE_INCOME`, `WIN_BONUS`, `LOSS_BONUS`, `INTEREST_MAX`; GDD §economy updated.
+2. **Shop hover:** the VieAni on a shop card wiggles on its feet while the mouse is over the card; its info card (short shop
+   version: ★1 HP, price, stats, skills, tộc hệ) opens in the empty space right of the board.
+3. **Shop moved to the bottom:** strip under the bench – [Làm mới / Mua XP] [5 portrait cards] [Sẵn sàng]. To make room, the
+   match board + bench are scaled to ~79 % and moved up (`MATCH_BOARD_CORNERS`, `MATCH_BENCH_CORNERS` in layout.ts); practice
+   mode keeps the full-size board. Sell = drag a VieAni down onto the shop strip.
+
+## ★ marks above every VieAni (13 Nov, v0.6.3)
+- PO report: "opponent has 3 ★1 of the same VieAni on the board, not merged". Checked with a new test
+  (`game/test/merge_invariant.test.ts`: 200 simulated matches, human + bot checked after every round): merging never fails.
+  The real problem: on the smaller match board the ★2 silver outline is < 1 px wide, so a ★2 looks like a ★1
+  (e.g. the bot's Bò Xám ★2 + ★1 + ★1 looked like three ★1).
+- Fix: every VieAni now shows its ★ level above the head (★ bronze, ★★ silver, ★★★ gold), on the board, the bench and in battle,
+  for both sides.
+
+## Shop lock, level ring, species brief on the card (13 Nov, v0.6.4)
+- **Shop lock** (padlock button next to "CỬA HÀNG"): locked offers are kept for the next round (bought slots stay empty);
+  the lock stays on until clicked again, or until a paid reroll (which replaces the offers and releases the lock). Locked =
+  blue button + blue frame around the cards. Rule in `Match.finishRound` / `Match.reroll`, test in `match.test.ts`.
+- **Level + XP**: circular XP ring with the level number inside, "XP n/m" and "còn k XP lên cấp L" beside it; the number pops
+  on level-up.
+- **Info card**: the name now sits on the picture, and right under it comes the species brief (PO): conservation pills
+  (IUCN category in Vietnamese + "Có thể đã tuyệt chủng" / "Đã mất ở Việt Nam" for tier-4; "Linh vật huyền thoại" for legends;
+  "Đã tuyệt chủng (hóa thạch)" for Gigantopithecus), then the VieIndex note, population (first sentence, tier 3–4) and threats,
+  from `data/vn_info.json` (sources listed in VieIndex). Stats moved to two columns so the card still fits the screen.
+- IUCN wording: CR Cực kỳ nguy cấp · EN Nguy cấp · VU Sắp nguy cấp · NT Sắp bị đe dọa · LC Ít quan tâm (as in VieIndex) · DD Thiếu dữ liệu.
+
+## Illustrations V005–V010 (13 Nov, v0.6.5)
+- PO uploaded V005–V010 (front + back). Cut out with `scripts/cutout.py` – all 12 clean.
+- The test shop now offers **every VieAni that has both illustrations** (`TEST_CODES` is read from
+  `assets/illustrations/manifest.json`), so each new upload + cut-out joins the match automatically. Now: V001–V010
+  (Cá Ông is tier 5 → 5 gold, 6 copies in the pool).
+
+## VieIndex avatars = illustrations (13 Nov, v0.6.6)
+- VieIndex now uses the clean illustration (front view, from `assets/illustrations/cut/`) as the avatar of every VieAni that
+  has one (V001–V010 so far); the others keep the old pixel sprite until their illustration arrives.
+- `scripts/cutout.py` rebuilds `vieindex.html` automatically after each cut-out, so new uploads appear in VieIndex too.
+- Cards and the detail view show the **V-code** (V001…V087 = sheet ID = in-game code) instead of the internal #dex (which
+  has gaps after the removed / later species, e.g. Chà vá chân xám was #011, now V009). Search also accepts V-codes.
+- Tier stars moved to the bottom-right of the picture (they overlapped the "Huyền thoại" label on 5-star cards).
+
+## End of session 13 Nov 2026 – where we are (v0.6.6, live on itch.io)
+**Done this session**
+- Data v2/v3 (PO reviews 2 + 3): 87-VieAni roster, roles, skills, 17 tộc hệ, Linh Vật charms with round windows – sheet + data in sync.
+- Art direction: clean 2D illustrations (PO generates in Gemini) → `scripts/cutout.py` → game + VieIndex. Done: **V001–V010**.
+- Prompt packs: `docs/SPRITE_PROMPTS.md` (V001–V005), `docs/SPRITE_PROMPTS_V006-V087.md` (82 VieAni, batches A–H; ⚠ lines V008, V040, V047).
+- Animations (tweens on the illustration): idle, attack, skill cast, hit, die, win, lose, ★2 silver / ★3 gold; ★ marks above heads.
+- Playable test match (Bắt Đầu): you vs bot, shop = all illustrated VieAni, gold 7 base / +3 win / +1 loss / interest ≤ +5,
+  XP + level ring, ★ merging, selling, shop lock, prep timer, test HP 40, game over; hover info card with species brief.
+- VieIndex: illustration avatars, V-codes.
+
+**How to add the next illustrations (PO workflow)**
+1. Generate `V0xx_front.png` + `V0xx_back.png` (1024 px, white background) with the prompt pack; upload to `assets/illustrations/raw/`.
+2. Ask Claude to "update the illustrations": it runs `python3 scripts/cutout.py V0xx …` (also rebuilds VieIndex), checks the
+   cut-outs, commits and pushes → the game shop + VieIndex pick them up automatically, itch.io redeploys.
+
+**PO decisions (13 Nov, after wrap-up)**
+- Win/loss streak bonus (+1/+2/+3 at 2/4/6 in a row): **keep**. Starting gold: **5** (unchanged).
+- Match board at ~79 % size: **OK**.
+- V010 Cheo cheo throat stripes **must be white**. They were white in the PO's art: the cut-out had punched them out as
+  "background holes" so the background showed through (looked green-teal). Fixed in `scripts/cutout.py`: an enclosed pure-white
+  area is only removed when ≥ 8 % of the pixels around it are dark line art (real holes 15–49 %, white fur 0 %, measured on
+  V001–V010). Re-cut V001–V010: only V010_front changed.
+
+**Next development tasks**
+- T11 real skills in battle (per-skill energy cost + effects) and status effects (stun, slow, …) so the info card can show them.
+- Tộc hệ bonuses in battle; PvE rounds + items; 8-player lobby (more bots); touch tap-to-inspect for the info card.
+
+## All 87 illustrations (17 Nov 2026, v0.7.0)
+- PO uploaded V011–V087 raw art. Cut out all 154 + V042's second form (`scripts/cutout.py` now runs on 4 cores, ~1.5 min).
+  All checked on contact sheets: clean. Some drawings include a bit of ground (rock under V055 goat / V067 horse, grass under
+  V069 snail, soft shadows under V052 egret and some dogs) – kept as drawn.
+- Non-square uploads (V037, V049) are fine: the cut-out crops and scales them.
+- **Two-form VieAni (PO):** V042 Cá Chép uploaded as `V042_fish_*` + `V042_dragon_*`. The fish is its look everywhere and at
+  every ★; the dragon is only used when it transforms in battle – passive "Cá Chép Hóa Rồng": still standing after 20 s
+  (★3 "Long Môn": 12 s) → plays a transformation, becomes Rồng Con until the end of that battle; the info card then shows the
+  dragon + status "Đã hóa Rồng Con". Config: `TRANSFORMS` (config.ts), cut-out: `FORMS` (alt form files `*_alt.png`).
+  Only the look changes for now; its ×1,3/1,4/1,5 stats + Bay come with the skill system (T11).
+- The test match shop now contains all 87 VieAni, so it uses the **real shop odds by level** (SHOP_ODDS: level 1 = tier 1
+  only … level 10 = 5/10/25/35/25 %), test added. VieIndex shows the illustrations for all 87.
+
+## Status aura options – waiting for the PO's choice (17 Nov, v0.7.1)
+PO: glow for legendary, smoke for extinct, red alert for endangered – 3 options each. Preview screen: title →
+"✨ Hiệu ứng trạng thái" (`AuraLabScene`, effects in `game/src/anim/aura.ts`, `attachAura(scene, view, kind, option)`).
+| Group | A | B | C |
+|---|---|---|---|
+| Huyền thoại (tier 5) | golden aura pulsing behind the body | golden ring at the feet + rising light motes | 3 golden stars orbiting |
+| Đã mất (tier 4) | grey smoke rising from the feet | ghost: pale-blue, flickering see-through + wisps | ash: faded colours + dark ash and embers rising |
+| Nguy cấp (tier 3) | red warning ring on the ground + pulse waves | blinking red "!" warning sign above the head | red glow beating like a heartbeat |
+Not yet applied in the match – after the PO picks, apply by tier on board, bench and in battle.
+
+## Status auras chosen + lighter game textures (17 Nov, v0.7.2)
+- **PO choice:** Huyền thoại **A** (golden aura pulsing behind the body) · Đã mất **A** (grey smoke rising from the feet) ·
+  Nguy cấp **C** (red glow beating like a heartbeat). Applied by tier (5 / 4 / 3) to every VieAni on the board, bench and in
+  battle, both sides (`AURA_CHOICE` + `auraKindForTier` in config.ts, effects in `anim/aura.ts`). The glow behind the body follows
+  the VieAni's size (bench ↔ board). The preview screen now marks the chosen options.
+- **Weight fix:** with all 87 VieAni the match loaded 528 PNGs = 46 MB, and the itch.io build also shipped the raw uploads
+  (~200 MB, ~830 files – itch.io allows 1000 files for HTML5). Now:
+  - `scripts/web_textures.py` makes one 256-px WebP sheet per VieAni view (frames: body, ★2 outline, ★3 glow) in
+    `assets/illustrations/web/` (176 files); `scripts/cutout.py` runs it automatically after a cut-out.
+  - The build copies only `sprites/`, `backgrounds/`, `palette/`, `illustrations/web/` and the manifest
+    (`vite.config.ts`, `copyPublicDir: false`). Raw uploads and the 512-px masters stay in the repo (VieIndex is built from them).
+  - Pixel sprites are only loaded for VieAni without an illustration (none at the moment).
+
+## Tộc hệ icons + panel (17 Nov, v0.7.3)
+- **Icons** (`assets/icons/synergies/*.svg`, made by `scripts/synergy_icons.py`): one white symbol per tộc hệ on a jewel-coloured
+  tile with radial light, a faint Đông Sơn drum-ring pattern, a gold inner frame and a dark bronze border. First hand-drawn version
+  was rejected by the PO ("quite ugly") → v2 uses symbols from **game-icons.net (CC BY 3.0, Lorc, Delapouite & contributors)** –
+  credit in `assets/icons/synergies/CREDITS.md` (must stay with the game); the used symbols are vendored in
+  `scripts/data/game_icons_subset.json`. Mười Hai Con Giáp = our own 12-ray Đông Sơn drum star.
+  | Tộc hệ | Symbol | Tộc hệ | Symbol |
+  |---|---|---|---|
+  | Tứ Linh | coiled dragon | Biển Đông | great wave |
+  | Sơn Tinh | mountain emblem | Sông Nước | lotus |
+  | Hộ Quốc | ornate shield | Côn Trùng | dragonfly |
+  | Săn Mồi | fangs | Bầy Chó Dữ | wolf-dog head |
+  | Cự Thú | elephant head | Hội Nhà Mèo | cat |
+  | Cao Nguyên Bắc Bộ | karst spires | Bầy Gặm Nhấm | mouse |
+  | Trường Sơn | forest | Săn Côn Trùng | gecko |
+  | Tây Nguyên | gong | Gia Súc | water-buffalo horns |
+  | Mười Hai Con Giáp | 12-ray drum star | | |
+- **In the match:** every tộc hệ formed on our board (first threshold reached) shows on the right: name, "count / next threshold",
+  tier pips and its icon, strongest first. Click → details: what it is, each tier's ability (reached tiers in gold), who counts on
+  the board and who is still missing; click outside to close. Counting (`core/synergy.ts`, tests): different species;
+  Mười Hai Con Giáp counts different zodiac signs. Effects are not applied in battle yet (noted in the panel).
+
+## Items in the match + item icons (17 Nov, v0.8.0)
+- VieIndex: tộc hệ icons on every card and in the detail view (Mười Hai Con Giáp shown for VieAni with a zodiac sign).
+- **Item rewards** (PO: push up the pace): choose 1 of 3 at rounds 1, 2, 3 and every 3rd round after (plus the GDD PvE rounds).
+  Tier rises with the round in the test match: T1 rounds 1–3, T2 4–6, T3 7–9, T4 10–12, T5 from 13 (`isItemRound`,
+  `testItemTier` in config.ts). Bot takes its first choice and equips its strongest units.
+- **33 of the 50 battle items work in battle** (`game/src/core/items.ts` ITEM_RULES, tests in `test/items.test.ts`): stats, type
+  bonuses/resistances, armour pierce, crit, bleed, lightning, multi-shot, infinite range, heals/regen, Quả Thị / Lá Đa Thần
+  revives, Hịch Tướng Sĩ rally, team items (Trống Đồng ×2 with Chim Lạc, Cồng Chiêng, Móng Rùa Kim Quy, Cờ Lau), Bánh Chưng +
+  Bánh Giầy pair, Lì Xì (+1 gold per won round), Hạt Dưa (+2 % max HP per won round, max 30 %). The other 17 need systems
+  that do not exist yet (throwing, board objects, illusions, summons, row sweeps, crowd control) and do not drop yet (NOT_YET);
+  Linh Vật charms come with the full PvE rounds.
+- **UI:** bag (10 slots) + 2 team slots under the left HUD; drag a bag item onto one of our VieAni to equip (swaps with what it
+  carried); team items go to the team slots. Items come back to the bag when the carrier is sold; merging keeps one item on the
+  ★-up copy. Item badge next to the ★ marks (both sides), "VẬT PHẨM ĐANG MANG" list on the right (who carries what + team items),
+  tooltips, and "Mang: …" on the hover card. Heals / bleed / lightning / extra shots / revives show as floating numbers.
+- **Item icons** (`scripts/item_icons.py` → `assets/icons/items/<id>.svg`): round tiles coloured by tier (1 grey, 2 green,
+  3 blue, 4 purple, 5 gold) with game-icons.net symbols (CC BY 3.0, credit in `assets/icons/items/CREDITS.md`); Nón Lá,
+  Bánh Chưng and the Trống Đồng star drawn here.
+
+## No PvE, item rounds, Linh Vật + Ấn Thống Nhất demo (17 Nov, v0.9.0)
+- **PO:** no PvE/monster rounds. Item reward (choose 1 of 3) after rounds **1, 4, 8, 12, 16, 20, 24, 28, 32, 36**; tier
+  1,1,2,2,3,3,4,4,5,5 (`ITEM_ROUNDS`, `ITEM_ROUND_TIERS` in config.ts). Charm texts in data/items.json + design_v2.py updated
+  (Bắc Bộ rounds 1/4/8, Trung Bộ 12/16/20, Nam Bộ 24/28).
+- **Linh Vật charms** in the match: one of the 3 reward choices in their window if not owned; no stats, no item slot; shown
+  top-right (3 slots, tooltip with the 3 conditions). **Ấn Thống Nhất** = level 10 + Rồng Lạc Việt on the board + all 3 charms
+  → Mười Hai Con Giáp counts 2 missing signs (panel shows "+ 2 nhờ Ấn Thống Nhất (…)"; slot box turns gold). Tests: `unity.test.ts`.
+- **Balance change (needed for the rounds above, PO to confirm):** a 1v1 match ended around round 16 (median, 60 bot-vs-bot
+  matches; only 10 % reached round 24) → loser damage is now **(stage + 1 per surviving enemy) × 0.5** (`SURVIVOR_DAMAGE`,
+  `DAMAGE_SCALE`): median round 33, 100 % reach round 24, 65 % round 30. Test HP back to 100.
+  | rule | median last round | reach r24 | reach r30 |
+  |---|---|---|---|
+  | stage + tiers (old) | 16 | 10 % | 0 % |
+  | (stage + tiers) × 0.4 | 29 | 88 % | 43 % |
+  | **(stage + 1/unit) × 0.5 (new)** | **33** | **100 %** | **65 %** |
+- **Zodiac strategy + demo:** `Match.zodiacTurn` (computer player: takes every charm, collects one VieAni per sign + Rồng Lạc
+  Việt, keeps the board full, levels, rerolls late). It reaches Ấn Thống Nhất with 12 signs in ~25 % of matches (10/40),
+  rounds 28–40. Title → "🐉 Mô phỏng Ấn Thống Nhất" plays matches in the background until it happens, then opens the match at
+  that moment (bottom side = that computer player) with a summary of the key rounds.
+- Note: tộc hệ effects are not applied in battle yet, so 12/12 does not make the team stronger yet – the zodiac player usually
+  arrives with low HP (e.g. 7/100). Worth checking once tộc hệ bonuses work.
+
+## Tộc hệ in battle + balance chart + real sizes (17 Nov, v0.10.0)
+- **All 17 tộc hệ now work in battle** (`game/src/core/battle.ts` + `synergyRules.ts`, tests `synergy_battle.test.ts`): stat
+  bonuses, crit (Săn Mồi), dodge / ranged dodge / fog, stealth (Trường Sơn), Dại (Bầy Chó Dữ – bitten enemy attacks its own
+  allies; Gia Súc 4 / zodiac 9 immune), regen (Sông Nước), gongs (Tây Nguyên), cat licking + buff, Gặm Nhấm defence shred,
+  Sơn Tinh water resistance, Hộ Quốc shield + heal, revives (Côn Trùng 9, Mèo 3, Con Giáp 12), killer heals, Biển Đông water
+  damage, Gia Súc (6) +1 gold per won round. Ấn Thống Nhất bonus is used in battle. Not simulated yet (shown in the panel):
+  Cự Thú taunt/stun immunity, Biển Đông push-back, Gặm Nhấm babies, Tứ Linh CC immunity (only vs Dại).
+- **Balance simulation:** `cd game && npm run balance` (N=300 battles per pair, ~2 min) → `docs/balance/synergy_balance.json`;
+  chart: `python3 scripts/synergy_chart.py` → `docs/balance/synergy_chart.html/.png`. Comp = 8 VieAni ★2 of that tộc hệ (random
+  tier 1–3 fillers if fewer members), only that tộc hệ active; draws at 45 s go to the side with more HP left.
+  Result (17 Nov): matchup totals follow unit tier (Tứ Linh 97 %, Hộ Quốc 94 % … Săn Côn Trùng 12 %). Contribution of the tộc hệ
+  itself (vs same-tier teams, on − off): Săn Mồi +62, Cao Nguyên +55, Hộ Quốc +49, Bầy Chó Dữ +47, Tứ Linh +44, Con Giáp +43,
+  Biển Đông +39, Gia Súc +39, Tây Nguyên +33, Trường Sơn +32, Sơn Tinh +29, Cự Thú +28, Côn Trùng +20, Hội Nhà Mèo +16,
+  Bầy Gặm Nhấm +9, Săn Côn Trùng +6 (only vs insects), Sông Nước +5.
+- **Real-size scaling** (`scripts/sizes.py` → `data/sizes.json`, used in BoardScene): legendary + Cự Thú members 1.0; others
+  0.5–0.9 linear in log10(typical adult mass), everything under 1 g = 0.5. Mass + source per VieAni in sizes.json; "rough"
+  marks estimates (domestic breeds without a standard, insects, some invertebrates; Thỏ vằn has no published weight – uses its
+  closest relative). Shop cards keep one size for readability.

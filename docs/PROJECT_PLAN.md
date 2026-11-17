@@ -133,3 +133,19 @@ Parallel community track: T05 → T06 → T07 → T42.
   https://luatvietnam.vn/doanh-nghiep/dieu-kien-thu-tuc-de-cung-cap-dich-vu-tro-choi-dien-tu-g2-g3-g4-561-101208-article.html
 - For the later native phase: Google Play testing rule https://support.google.com/googleplay/android-developer/answer/14151465 ;
   Apple fee https://developer.apple.com/programs/whats-included/ ; Steam Direct https://partner.steamgames.com/steamdirect
+
+## Progress (17 Nov 2026, v0.10.0)
+Ahead of plan on the game loop; skills are the main gap.
+| Task | Status |
+|---|---|
+| T01–T04, T09, T10 | done (11 Nov) |
+| T13 Thiên địch / Cộng sinh | Thiên địch done; Cộng sinh not yet |
+| T14 balance simulator | done for tộc hệ (`npm run balance`, `docs/balance/`); per-VieAni report still to do |
+| T15/T23/T28/T37 art | done – all 87 VieAni illustrated (PO, Gemini) + cut-out pipeline |
+| T16 economy, T17 star-up | done (1-vs-1 match) |
+| T18 synergy engine | done – 17 tộc hệ in battle (4 sub-effects wait for T11/T12) |
+| T19 items | 33/50 items in battle; rewards at rounds 1,4,8…36 (PvE removed by PO) |
+| T20 round flow | done for 1-vs-1 (prep, battle, damage, game over); 8-player ranking with T21 |
+| T24 UI | mostly done: HUD, shop, tộc hệ panel, item bag, info cards, VieIndex in game |
+| T44 backgrounds | 1 painted background (Hạ Long); 7 to go |
+| T11 skills, T12 status effects, T21 bots, T25 audio, T26 tutorial, T33 phone | open – next |
