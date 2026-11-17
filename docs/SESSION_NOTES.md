@@ -351,3 +351,22 @@ Not yet applied in the match – after the PO picks, apply by tier on board, ben
   that moment (bottom side = that computer player) with a summary of the key rounds.
 - Note: tộc hệ effects are not applied in battle yet, so 12/12 does not make the team stronger yet – the zodiac player usually
   arrives with low HP (e.g. 7/100). Worth checking once tộc hệ bonuses work.
+
+## Tộc hệ in battle + balance chart + real sizes (17 Nov, v0.10.0)
+- **All 17 tộc hệ now work in battle** (`game/src/core/battle.ts` + `synergyRules.ts`, tests `synergy_battle.test.ts`): stat
+  bonuses, crit (Săn Mồi), dodge / ranged dodge / fog, stealth (Trường Sơn), Dại (Bầy Chó Dữ – bitten enemy attacks its own
+  allies; Gia Súc 4 / zodiac 9 immune), regen (Sông Nước), gongs (Tây Nguyên), cat licking + buff, Gặm Nhấm defence shred,
+  Sơn Tinh water resistance, Hộ Quốc shield + heal, revives (Côn Trùng 9, Mèo 3, Con Giáp 12), killer heals, Biển Đông water
+  damage, Gia Súc (6) +1 gold per won round. Ấn Thống Nhất bonus is used in battle. Not simulated yet (shown in the panel):
+  Cự Thú taunt/stun immunity, Biển Đông push-back, Gặm Nhấm babies, Tứ Linh CC immunity (only vs Dại).
+- **Balance simulation:** `cd game && npm run balance` (N=300 battles per pair, ~2 min) → `docs/balance/synergy_balance.json`;
+  chart: `python3 scripts/synergy_chart.py` → `docs/balance/synergy_chart.html/.png`. Comp = 8 VieAni ★2 of that tộc hệ (random
+  tier 1–3 fillers if fewer members), only that tộc hệ active; draws at 45 s go to the side with more HP left.
+  Result (17 Nov): matchup totals follow unit tier (Tứ Linh 97 %, Hộ Quốc 94 % … Săn Côn Trùng 12 %). Contribution of the tộc hệ
+  itself (vs same-tier teams, on − off): Săn Mồi +62, Cao Nguyên +55, Hộ Quốc +49, Bầy Chó Dữ +47, Tứ Linh +44, Con Giáp +43,
+  Biển Đông +39, Gia Súc +39, Tây Nguyên +33, Trường Sơn +32, Sơn Tinh +29, Cự Thú +28, Côn Trùng +20, Hội Nhà Mèo +16,
+  Bầy Gặm Nhấm +9, Săn Côn Trùng +6 (only vs insects), Sông Nước +5.
+- **Real-size scaling** (`scripts/sizes.py` → `data/sizes.json`, used in BoardScene): legendary + Cự Thú members 1.0; others
+  0.5–0.9 linear in log10(typical adult mass), everything under 1 g = 0.5. Mass + source per VieAni in sizes.json; "rough"
+  marks estimates (domestic breeds without a standard, insects, some invertebrates; Thỏ vằn has no published weight – uses its
+  closest relative). Shop cards keep one size for readability.

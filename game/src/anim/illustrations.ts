@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import manifest from "../../../assets/illustrations/manifest.json";
+import sizes from "../../../data/sizes.json";
 import type { GameData, Species } from "../core/data";
 import type { ViewTextures } from "./VieAniView";
 
@@ -51,4 +52,10 @@ export function texturesFor(scene: Phaser.Scene, d: GameData, s: Species, view: 
     return { tex: sheet(k), illustrated: true, alt: scene.textures.exists(a) ? sheet(a) : undefined };
   }
   return { tex: { body: `sp${s.id}` }, illustrated: false };
+}
+
+/** size on the board by real body size (data/sizes.json, scripts/sizes.py): 1.0 = legendary / giant, 0.5 = tiniest */
+export function sizeScale(d: GameData, s: Species): number {
+  const c = vcode(d, s);
+  return (c && (sizes as Record<string, { scale: number }>)[c]?.scale) || 1;
 }

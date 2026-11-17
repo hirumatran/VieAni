@@ -395,7 +395,8 @@ export class Match {
       const survivors = units.map((u) => ({ uid: u.uid, side: u.side, hp: 1, tier: this.sp(u.speciesId).tier }));
       return { units, res: { winner, ticks: 0, events: [], survivors, start: [] } };
     }
-    return { units, res: simulate(this.d, units, seed, { A: this.human.teamItems, B: this.bot.teamItems }) };
+    return { units, res: simulate(this.d, units, seed, { A: this.human.teamItems, B: this.bot.teamItems },
+      { zodiacBonus: { A: this.zodiacBonus(this.human), B: this.zodiacBonus(this.bot) } }) };
   }
 
   /** damage, streaks, income, XP, next round, fresh shops */
@@ -412,6 +413,8 @@ export class Match {
       p.streak = won ? Math.max(1, p.streak + 1) : lost ? Math.min(-1, p.streak - 1) : 0;
       // items that pay off after a won round, if their carrier is still standing: Lì Xì (+gold), Hạt Dưa (+2 % max HP, max 30)
       let itemGold = 0;
+      // Gia Súc (6) Được mùa: +1 gold per won round
+      if (won && (synergyStates(this.d, p.team.toPlaced().map((u) => u.speciesId)).find((x) => x.syn.name === "Gia Súc")?.level ?? -1) >= 2) itemGold += 1;
       if (won) {
         const standing = new Set(res.survivors.filter((x) => x.side === (i === 0 ? "A" : "B")).map((x) => x.uid));
         for (const u of p.team.units()) {

@@ -13,6 +13,7 @@ import type { CardSubject } from "../ui/InfoCard";
 import { activeSynergies, type SynergyState } from "../core/synergy";
 import synIndex from "../../../assets/icons/synergies/index.json";
 import { DROPPABLE } from "../core/items";
+import { NOT_MODELLED } from "../core/synergyRules";
 
 /** tộc hệ icons (scripts/synergy_icons.py): name -> svg slug + tile colour */
 const SYN_ICON = synIndex as Record<string, { icon: string; colour: string; symbol: string }>;
@@ -279,7 +280,8 @@ export class MatchScene extends BoardScene {
       const others = a.syn.members.filter((m) => !a.present.some((s) => s.id === m)).map((m) => this.data_.byId.get(m)!.vi.replace(/\s*\(.*\)/, ""));
       if (others.length) { const w2 = txt(P, y, `Còn thiếu: ${others.join(", ")}`, 11.5, "#a89a8a"); y += w2.height + 4; }
     }
-    const foot = txt(P, y + 4, "Bản thử: hiệu ứng tộc hệ chưa được tính trong trận đấu.", 10.5, "#8a7a6a"); y += foot.height + 4 + P;
+    const nm = NOT_MODELLED[a.syn.name];
+    const foot = txt(P, y + 4, nm ? `Đã tính trong trận, trừ: ${nm}.` : "Đã tính trong trận đấu.", 10.5, "#8a7a6a"); y += foot.height + 4 + P;
     g.fillStyle(0x000000, 0.45).fillRoundedRect(4, 6, W, y, 14);
     g.fillStyle(0x1b120c, 0.97).fillRoundedRect(0, 0, W, y, 14);
     g.lineStyle(3, Phaser.Display.Color.HexStringToColor(ic?.colour ?? "#e7c05f").color, 1).strokeRoundedRect(0, 0, W, y, 14);

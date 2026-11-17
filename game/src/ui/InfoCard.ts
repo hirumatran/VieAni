@@ -263,7 +263,7 @@ export class InfoCard {
       sx += tx.width + 20;
     }
     y += 26;
-    const foot = text(PAD, y, "Bản thử: khi đầy năng lượng tung đòn ×2 (kỹ năng riêng & tộc hệ chưa áp dụng trong trận).", 10.5, MUTED, false, W - 2 * PAD);
+    const foot = text(PAD, y, "Bản thử: khi đầy năng lượng tung đòn ×2 (kỹ năng riêng chưa áp dụng; tộc hệ và vật phẩm đã tính).", 10.5, MUTED, false, W - 2 * PAD);
     y += foot.height + PAD - 4;
     } else y += PAD - 6;
     this.h = y;

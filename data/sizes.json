@@ -1,0 +1,644 @@
+{
+ "V001": {
+  "vi": "Báo Gấm",
+  "massKg": 16,
+  "scale": 0.8,
+  "note": "11,5–23 kg",
+  "source": "https://en.wikipedia.org/wiki/Clouded_leopard",
+  "rough": false
+ },
+ "V002": {
+  "vi": "Bò Biển (Cá Nàng Tiên)",
+  "massKg": 400,
+  "scale": 0.9,
+  "note": "230–500 kg",
+  "source": "https://en.wikipedia.org/wiki/Dugong",
+  "rough": false
+ },
+ "V003": {
+  "vi": "Bò Xám",
+  "scale": 1.0,
+  "why": "Cự Thú (khổng lồ)"
+ },
+ "V004": {
+  "vi": "Cá Nược (Cá Heo Sông)",
+  "massKg": 120,
+  "scale": 0.86,
+  "note": "đến khoảng 130 kg",
+  "source": "https://en.wikipedia.org/wiki/Irrawaddy_dolphin",
+  "rough": false
+ },
+ "V005": {
+  "vi": "Cá Ông",
+  "scale": 1.0,
+  "why": "Huyền thoại"
+ },
+ "V006": {
+  "vi": "Cá Sấu Nước Ngọt",
+  "massKg": 100,
+  "scale": 0.86,
+  "note": "con trưởng thành 2–3 m",
+  "source": "https://en.wikipedia.org/wiki/Siamese_crocodile",
+  "rough": true
+ },
+ "V007": {
+  "vi": "Cá Tra Dầu",
+  "scale": 1.0,
+  "why": "Cự Thú (khổng lồ)"
+ },
+ "V008": {
+  "vi": "Cầy vằn bắc",
+  "massKg": 3,
+  "scale": 0.75,
+  "note": "2–4 kg",
+  "source": "https://en.wikipedia.org/wiki/Owston%27s_palm_civet",
+  "rough": false
+ },
+ "V009": {
+  "vi": "Chà vá chân xám",
+  "massKg": 10,
+  "scale": 0.79,
+  "note": "đực ~10,9 kg, cái ~8,2 kg",
+  "source": "https://en.wikipedia.org/wiki/Gray-shanked_douc",
+  "rough": false
+ },
+ "V010": {
+  "vi": "Cheo cheo lưng bạc",
+  "massKg": 2,
+  "scale": 0.74,
+  "note": "cheo cheo (Tragulus) 1,5–2,5 kg",
+  "source": "https://en.wikipedia.org/wiki/Silver-backed_chevrotain",
+  "rough": true
+ },
+ "V011": {
+  "vi": "Chim Lạc",
+  "scale": 1.0,
+  "why": "Huyền thoại"
+ },
+ "V012": {
+  "vi": "Cò quắm lớn",
+  "massKg": 4.2,
+  "scale": 0.76,
+  "note": "~4,2 kg",
+  "source": "https://en.wikipedia.org/wiki/Giant_ibis",
+  "rough": false
+ },
+ "V013": {
+  "vi": "Cò thìa",
+  "massKg": 1.6,
+  "scale": 0.73,
+  "note": "",
+  "source": "https://en.wikipedia.org/wiki/Black-faced_spoonbill",
+  "rough": true
+ },
+ "V014": {
+  "vi": "Công",
+  "massKg": 4.5,
+  "scale": 0.76,
+  "note": "trống 3,8–5 kg",
+  "source": "https://en.wikipedia.org/wiki/Green_peafowl",
+  "rough": false
+ },
+ "V015": {
+  "vi": "Cu li nhỏ",
+  "massKg": 0.45,
+  "scale": 0.69,
+  "note": "0,36–0,58 kg",
+  "source": "https://en.wikipedia.org/wiki/Pygmy_slow_loris",
+  "rough": false
+ },
+ "V016": {
+  "vi": "Đồi mồi",
+  "massKg": 60,
+  "scale": 0.84,
+  "note": "45–70 kg",
+  "source": "https://en.wikipedia.org/wiki/Hawksbill_sea_turtle",
+  "rough": false
+ },
+ "V017": {
+  "vi": "Gà chín cựa",
+  "scale": 1.0,
+  "why": "Huyền thoại"
+ },
+ "V018": {
+  "vi": "Gà lôi lam mào trắng",
+  "massKg": 1.1,
+  "scale": 0.72,
+  "note": "",
+  "source": "https://en.wikipedia.org/wiki/Edwards%27s_pheasant",
+  "rough": true
+ },
+ "V019": {
+  "vi": "Gấu chó",
+  "massKg": 45,
+  "scale": 0.83,
+  "note": "25–65 kg",
+  "source": "https://en.wikipedia.org/wiki/Sun_bear",
+  "rough": false
+ },
+ "V020": {
+  "vi": "Hồ Tinh",
+  "scale": 1.0,
+  "why": "Huyền thoại"
+ },
+ "V021": {
+  "vi": "Hồng hoàng",
+  "massKg": 3,
+  "scale": 0.75,
+  "note": "2,15–4 kg",
+  "source": "https://en.wikipedia.org/wiki/Great_hornbill",
+  "rough": false
+ },
+ "V022": {
+  "vi": "Hổ Đông Dương",
+  "massKg": 170,
+  "scale": 0.87,
+  "note": "đực 150–195 kg",
+  "source": "https://en.wikipedia.org/wiki/Indochinese_tiger",
+  "rough": false
+ },
+ "V023": {
+  "vi": "Kim Quy",
+  "scale": 1.0,
+  "why": "Huyền thoại"
+ },
+ "V024": {
+  "vi": "Lân",
+  "scale": 1.0,
+  "why": "Huyền thoại"
+ },
+ "V025": {
+  "vi": "Mang lớn",
+  "massKg": 40,
+  "scale": 0.83,
+  "note": "30–50 kg",
+  "source": "https://en.wikipedia.org/wiki/Large-antlered_muntjac",
+  "rough": false
+ },
+ "V026": {
+  "vi": "Nghê",
+  "scale": 1.0,
+  "why": "Huyền thoại"
+ },
+ "V027": {
+  "vi": "Ngựa chín hồng mao",
+  "scale": 1.0,
+  "why": "Huyền thoại"
+ },
+ "V028": {
+  "vi": "Ngựa sắt Thánh Gióng",
+  "scale": 1.0,
+  "why": "Huyền thoại"
+ },
+ "V029": {
+  "vi": "Phượng Hoàng",
+  "scale": 1.0,
+  "why": "Huyền thoại"
+ },
+ "V030": {
+  "vi": "Rẽ mỏ thìa",
+  "massKg": 0.033,
+  "scale": 0.61,
+  "note": "29–34 g",
+  "source": "https://en.wikipedia.org/wiki/Spoon-billed_sandpiper",
+  "rough": false
+ },
+ "V031": {
+  "vi": "Rồng Lạc Việt",
+  "scale": 1.0,
+  "why": "Huyền thoại"
+ },
+ "V032": {
+  "vi": "Sao la",
+  "massKg": 90,
+  "scale": 0.85,
+  "note": "80–100 kg",
+  "source": "https://en.wikipedia.org/wiki/Saola",
+  "rough": false
+ },
+ "V033": {
+  "vi": "Sếu đầu đỏ",
+  "massKg": 7.3,
+  "scale": 0.78,
+  "note": "6,8–7,8 kg (chim bay cao nhất, ~1,8 m)",
+  "source": "https://en.wikipedia.org/wiki/Sarus_crane",
+  "rough": false
+ },
+ "V034": {
+  "vi": "Tê giác Java (Việt Nam)",
+  "scale": 1.0,
+  "why": "Cự Thú (khổng lồ)"
+ },
+ "V035": {
+  "vi": "Tê tê Java",
+  "massKg": 6,
+  "scale": 0.77,
+  "note": "4–10 kg",
+  "source": "https://en.wikipedia.org/wiki/Sunda_pangolin",
+  "rough": false
+ },
+ "V036": {
+  "vi": "Thỏ vằn Trường Sơn",
+  "massKg": 1.5,
+  "scale": 0.73,
+  "note": "chưa có số đo; loài gần nhất (thỏ vằn Sumatra) ~1,5 kg",
+  "source": "https://en.wikipedia.org/wiki/Sumatran_striped_rabbit",
+  "rough": true
+ },
+ "V037": {
+  "vi": "Voi châu Á",
+  "scale": 1.0,
+  "why": "Cự Thú (khổng lồ)"
+ },
+ "V038": {
+  "vi": "Voi chín ngà",
+  "scale": 1.0,
+  "why": "Huyền thoại"
+ },
+ "V039": {
+  "vi": "Vượn đen má trắng",
+  "massKg": 7,
+  "scale": 0.77,
+  "note": "",
+  "source": "https://en.wikipedia.org/wiki/Northern_white-cheeked_gibbon",
+  "rough": false
+ },
+ "V040": {
+  "vi": "Vượn khổng lồ",
+  "scale": 1.0,
+  "why": "Cự Thú (khổng lồ)"
+ },
+ "V041": {
+  "vi": "Bọ Ngựa",
+  "massKg": 0.003,
+  "scale": 0.53,
+  "note": "bọ ngựa lớn 2–5 g",
+  "source": "https://en.wikipedia.org/wiki/Mantis",
+  "rough": true
+ },
+ "V042": {
+  "vi": "Cá Chép",
+  "massKg": 5,
+  "scale": 0.76,
+  "note": "thường 2–14 kg",
+  "source": "https://en.wikipedia.org/wiki/Common_carp",
+  "rough": false
+ },
+ "V043": {
+  "vi": "Châu Chấu",
+  "massKg": 0.0005,
+  "scale": 0.5,
+  "note": "",
+  "source": "https://en.wikipedia.org/wiki/Oxya",
+  "rough": true
+ },
+ "V044": {
+  "vi": "Chim Sẻ",
+  "massKg": 0.024,
+  "scale": 0.6,
+  "note": "~24 g",
+  "source": "https://en.wikipedia.org/wiki/Eurasian_tree_sparrow",
+  "rough": false
+ },
+ "V045": {
+  "vi": "Chó Cỏ",
+  "massKg": 13,
+  "scale": 0.79,
+  "note": "giống bản địa, không có tiêu chuẩn",
+  "source": "https://vi.wikipedia.org/wiki/Chó_cỏ",
+  "rough": true
+ },
+ "V046": {
+  "vi": "Chó H'Mông Cộc Đuôi",
+  "massKg": 20,
+  "scale": 0.81,
+  "note": "15–25 kg",
+  "source": "https://en.wikipedia.org/wiki/H%27Mong_dog",
+  "rough": true
+ },
+ "V047": {
+  "vi": "Chó Lài",
+  "massKg": 15,
+  "scale": 0.8,
+  "note": "không có tiêu chuẩn giống",
+  "source": "https://en.wikipedia.org/wiki/L%C3%A0i_dog",
+  "rough": true
+ },
+ "V048": {
+  "vi": "Chó Phú Quốc",
+  "massKg": 16,
+  "scale": 0.8,
+  "note": "12–20 kg",
+  "source": "https://en.wikipedia.org/wiki/Phu_Quoc_ridgeback",
+  "rough": false
+ },
+ "V049": {
+  "vi": "Chuồn Chuồn",
+  "massKg": 0.0007,
+  "scale": 0.5,
+  "note": "",
+  "source": "https://en.wikipedia.org/wiki/Dragonfly",
+  "rough": true
+ },
+ "V050": {
+  "vi": "Chuột Cống",
+  "massKg": 0.35,
+  "scale": 0.68,
+  "note": "250–500 g",
+  "source": "https://en.wikipedia.org/wiki/Brown_rat",
+  "rough": false
+ },
+ "V051": {
+  "vi": "Chuột Nhắt",
+  "massKg": 0.02,
+  "scale": 0.59,
+  "note": "~20 g",
+  "source": "https://en.wikipedia.org/wiki/House_mouse",
+  "rough": false
+ },
+ "V052": {
+  "vi": "Cò Trắng",
+  "massKg": 0.45,
+  "scale": 0.69,
+  "note": "350–550 g",
+  "source": "https://en.wikipedia.org/wiki/Little_egret",
+  "rough": false
+ },
+ "V053": {
+  "vi": "Cóc Nhà",
+  "massKg": 0.07,
+  "scale": 0.63,
+  "note": "",
+  "source": "https://en.wikipedia.org/wiki/Duttaphrynus_melanostictus",
+  "rough": true
+ },
+ "V054": {
+  "vi": "Cua Đồng",
+  "massKg": 0.03,
+  "scale": 0.61,
+  "note": "",
+  "source": "https://en.wikipedia.org/wiki/Somanniathelphusa",
+  "rough": true
+ },
+ "V055": {
+  "vi": "Dê",
+  "massKg": 30,
+  "scale": 0.82,
+  "note": "dê cỏ 25–35 kg",
+  "source": "https://en.wikipedia.org/wiki/Goat",
+  "rough": true
+ },
+ "V056": {
+  "vi": "Đom Đóm",
+  "massKg": 2e-05,
+  "scale": 0.5,
+  "note": "",
+  "source": "https://en.wikipedia.org/wiki/Firefly",
+  "rough": true
+ },
+ "V057": {
+  "vi": "Gà Đông Tảo",
+  "massKg": 5,
+  "scale": 0.76,
+  "note": "gà trống 4,5–5,5 kg",
+  "source": "https://en.wikipedia.org/wiki/%C4%90%C3%B4ng_T%E1%BA%A3o_chicken",
+  "rough": false
+ },
+ "V058": {
+  "vi": "Gián",
+  "massKg": 0.001,
+  "scale": 0.5,
+  "note": "~1 g",
+  "source": "https://en.wikipedia.org/wiki/American_cockroach",
+  "rough": false
+ },
+ "V059": {
+  "vi": "Heo Ỉ",
+  "massKg": 50,
+  "scale": 0.84,
+  "note": "Wikipedia: đực ~50 kg, cái ~48 kg; TL giống bản địa: 60–70 kg",
+  "source": "https://en.wikipedia.org/wiki/Vietnamese_Pot-bellied",
+  "rough": false
+ },
+ "V060": {
+  "vi": "Heo Móng Cái",
+  "massKg": 80,
+  "scale": 0.85,
+  "note": "chưa có số liệu khối lượng trưởng thành; phối giống > 60 kg",
+  "source": "https://thuvienphapluat.vn/TCVN/Nong-nghiep/Tieu-chuan-Viet-Nam-TCVN-1467-1982-lon-cai-giong-mong-cai-phan-cap-chat-luong-900682.aspx",
+  "rough": true
+ },
+ "V061": {
+  "vi": "Kiến Lửa",
+  "massKg": 1e-06,
+  "scale": 0.5,
+  "note": "thợ ~1 mg",
+  "source": "https://en.wikipedia.org/wiki/Solenopsis_geminata",
+  "rough": true
+ },
+ "V062": {
+  "vi": "Kiến Vàng",
+  "massKg": 5e-06,
+  "scale": 0.5,
+  "note": "",
+  "source": "https://en.wikipedia.org/wiki/Oecophylla_smaragdina",
+  "rough": true
+ },
+ "V063": {
+  "vi": "Mèo Mun",
+  "massKg": 4,
+  "scale": 0.76,
+  "note": "mèo nhà 3,5–4,5 kg",
+  "source": "https://en.wikipedia.org/wiki/Cat",
+  "rough": false
+ },
+ "V064": {
+  "vi": "Mèo Mướp",
+  "massKg": 4,
+  "scale": 0.76,
+  "note": "mèo nhà 3,5–4,5 kg",
+  "source": "https://en.wikipedia.org/wiki/Cat",
+  "rough": false
+ },
+ "V065": {
+  "vi": "Mèo Tam Thể",
+  "massKg": 4,
+  "scale": 0.76,
+  "note": "mèo nhà 3,5–4,5 kg",
+  "source": "https://en.wikipedia.org/wiki/Cat",
+  "rough": false
+ },
+ "V066": {
+  "vi": "Muỗi Vằn",
+  "massKg": 2e-06,
+  "scale": 0.5,
+  "note": "~2 mg",
+  "source": "https://en.wikipedia.org/wiki/Aedes_aegypti",
+  "rough": true
+ },
+ "V067": {
+  "vi": "Ngựa Ta",
+  "massKg": 200,
+  "scale": 0.88,
+  "note": "ngựa nội nhỏ (nhóm poni Đông Nam Á); TCVN 9271:2012 phối giống ≥ 180 kg",
+  "source": "https://thuvienphapluat.vn/TCVN/Nong-nghiep/TCVN-9271-2012-Ngua-giong-Yeu-cau-ky-thuat-905839.aspx",
+  "rough": true
+ },
+ "V068": {
+  "vi": "Ong Mật",
+  "massKg": 8e-05,
+  "scale": 0.5,
+  "note": "~80 mg",
+  "source": "https://en.wikipedia.org/wiki/Apis_cerana",
+  "rough": true
+ },
+ "V069": {
+  "vi": "Ốc Bươu Vàng",
+  "massKg": 0.04,
+  "scale": 0.61,
+  "note": "",
+  "source": "https://en.wikipedia.org/wiki/Pomacea_canaliculata",
+  "rough": true
+ },
+ "V070": {
+  "vi": "Sáo Sậu",
+  "massKg": 0.1,
+  "scale": 0.64,
+  "note": "",
+  "source": "https://en.wikipedia.org/wiki/Black-collared_starling",
+  "rough": true
+ },
+ "V071": {
+  "vi": "Thằn Lằn Bóng",
+  "massKg": 0.03,
+  "scale": 0.61,
+  "note": "",
+  "source": "https://en.wikipedia.org/wiki/Eutropis_multifasciata",
+  "rough": true
+ },
+ "V072": {
+  "vi": "Thạch Sùng",
+  "massKg": 0.004,
+  "scale": 0.54,
+  "note": "3–5 g",
+  "source": "https://en.wikipedia.org/wiki/Common_house_gecko",
+  "rough": false
+ },
+ "V073": {
+  "vi": "Trâu",
+  "scale": 1.0,
+  "why": "Cự Thú (khổng lồ)"
+ },
+ "V074": {
+  "vi": "Ve Sầu",
+  "massKg": 0.0015,
+  "scale": 0.51,
+  "note": "",
+  "source": "https://en.wikipedia.org/wiki/Cicada",
+  "rough": true
+ },
+ "V075": {
+  "vi": "Vịt Cỏ",
+  "massKg": 1.5,
+  "scale": 0.73,
+  "note": "",
+  "source": "https://en.wikipedia.org/wiki/Domestic_duck",
+  "rough": true
+ },
+ "V076": {
+  "vi": "Cá Đuối Điện",
+  "massKg": 0.07,
+  "scale": 0.63,
+  "note": "dài tối đa ~18 cm (FishBase); khối lượng tính từ công thức dài–nặng của FishBase",
+  "source": "https://fishbase.se/summary/13689",
+  "rough": true
+ },
+ "V077": {
+  "vi": "Cú Mèo",
+  "massKg": 0.14,
+  "scale": 0.65,
+  "note": "100–170 g",
+  "source": "https://en.wikipedia.org/wiki/Collared_scops_owl",
+  "rough": false
+ },
+ "V078": {
+  "vi": "Diều Hâu",
+  "massKg": 0.8,
+  "scale": 0.71,
+  "note": "0,6–1,1 kg",
+  "source": "https://en.wikipedia.org/wiki/Black_kite",
+  "rough": false
+ },
+ "V079": {
+  "vi": "Heo Rừng",
+  "massKg": 80,
+  "scale": 0.85,
+  "note": "50–100 kg",
+  "source": "https://en.wikipedia.org/wiki/Wild_boar",
+  "rough": false
+ },
+ "V080": {
+  "vi": "Hoẵng",
+  "massKg": 24,
+  "scale": 0.81,
+  "note": "20–28 kg",
+  "source": "https://en.wikipedia.org/wiki/Indian_muntjac",
+  "rough": false
+ },
+ "V081": {
+  "vi": "Mực",
+  "massKg": 1,
+  "scale": 0.71,
+  "note": "",
+  "source": "https://en.wikipedia.org/wiki/Cuttlefish",
+  "rough": true
+ },
+ "V082": {
+  "vi": "Rắn Hổ Mang",
+  "massKg": 1,
+  "scale": 0.71,
+  "note": "dài 1,3–1,5 m",
+  "source": "https://en.wikipedia.org/wiki/Monocled_cobra",
+  "rough": true
+ },
+ "V083": {
+  "vi": "Sóc Bụng Đỏ",
+  "massKg": 0.4,
+  "scale": 0.69,
+  "note": "300–500 g",
+  "source": "https://en.wikipedia.org/wiki/Pallas%27s_squirrel",
+  "rough": false
+ },
+ "V084": {
+  "vi": "Sứa",
+  "massKg": 1,
+  "scale": 0.71,
+  "note": "rất khác nhau giữa các loài",
+  "source": "https://en.wikipedia.org/wiki/Jellyfish",
+  "rough": true
+ },
+ "V085": {
+  "vi": "Tắc Kè",
+  "massKg": 0.25,
+  "scale": 0.67,
+  "note": "150–400 g",
+  "source": "https://en.wikipedia.org/wiki/Tokay_gecko",
+  "rough": false
+ },
+ "V086": {
+  "vi": "Trăn Gấm",
+  "massKg": 50,
+  "scale": 0.84,
+  "note": "dài 5–6 m+",
+  "source": "https://en.wikipedia.org/wiki/Reticulated_python",
+  "rough": true
+ },
+ "V087": {
+  "vi": "Sói Đỏ",
+  "massKg": 16,
+  "scale": 0.8,
+  "note": "12–20 kg",
+  "source": "https://en.wikipedia.org/wiki/Dhole",
+  "rough": false
+ }
+}

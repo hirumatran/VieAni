@@ -8,7 +8,7 @@ import { Rng } from "../core/rng";
 import { Team, type OwnedUnit, type Spot } from "../core/team";
 import { button, coverImage, CREAM, FONT_LOGO, FONT_UI, toast } from "../ui/widgets";
 import { typeColour, VieAniView } from "../anim/VieAniView";
-import { hasIllustration, preloadIllustrations, texturesFor, vcode } from "../anim/illustrations";
+import { hasIllustration, preloadIllustrations, sizeScale, texturesFor, vcode } from "../anim/illustrations";
 import type { ViewTextures } from "../anim/VieAniView";
 import { attachAura } from "../anim/aura";
 import { InfoCard, type CardSubject } from "../ui/InfoCard";
@@ -176,7 +176,9 @@ export class BoardScene extends Phaser.Scene {
 
   protected place(v: View, s: Spot, animate: boolean, ms = 160) {
     const { x, y, w: cell } = this.spotPos(s);
-    const w = s.where === "bench" ? cell * (v.illustrated ? ILLU_BENCH_SCALE : 1) : cell * (v.illustrated ? ILLU_SCALE : SPRITE_SCALE);
+    // real-size scaling (PO 17 Nov 2026): legendary / giants 1.0 … tiniest 0.5
+    const real = sizeScale(this.data_, this.data_.byId.get(v.speciesId)!);
+    const w = (s.where === "bench" ? cell * (v.illustrated ? ILLU_BENCH_SCALE : 1) : cell * (v.illustrated ? ILLU_SCALE : SPRITE_SCALE)) * real;
     if (s.where === "board") { v.row = s.row; v.col = s.col; }
     v.anim.setSize(w);
     v.c.setDepth(y);
@@ -411,6 +413,12 @@ export class BoardScene extends Phaser.Scene {
       const sp = this.data_.byId.get(v.speciesId)!;
       const cast = e.type === "cast";
       v.energy = e.en;
+      if (e.type === "attack" && e.miss) {
+        // dodged (Trường Sơn / Côn Trùng / Cao Nguyên)
+        void v.anim.attack(tv.c.x, tv.c.y, this.data_.byId.get(v.speciesId)!.attackClass === "special", settings.speed);
+        this.time.delayedCall(220 / settings.speed, () => this.floatText(tv, "Né!", "#bfe6ff", 17));
+        return;
+      }
       v.target = e.target;
       if (e.type === "attack") v.lastMult = e.mult;
       const land = () => {
@@ -418,7 +426,7 @@ export class BoardScene extends Phaser.Scene {
         tv.energy = e.tEn;
         this.drawHp(tv);
         if (tv.hp > 0) void tv.anim.hit(v.c.x, v.c.y, speed);
-        const strong = e.type === "attack" && e.mult > 1, weak = e.type === "attack" && e.mult < 1;
+        const strong = e.type === "attack" && (e.mult > 1 || !!e.crit), weak = e.type === "attack" && e.mult < 1;
         const txt = this.add.text(tv.c.x + Phaser.Math.Between(-10, 10), tv.c.y - tv.sprite.displayHeight * 0.8, cast ? `${e.dmg}!` : `${e.dmg}`, {
           fontFamily: FONT_LOGO, fontSize: cast ? "30px" : strong ? "24px" : "20px", fontStyle: "800",
           color: cast ? "#ffd84a" : strong ? "#ff9a3c" : weak ? "#c9c2b8" : "#ffffff",
@@ -436,6 +444,20 @@ export class BoardScene extends Phaser.Scene {
       if (e.delta < 0 && v.hp > 0) void v.anim.hit(undefined, undefined, settings.speed);
       const look = { heal: ["#7dff8a", `+${e.delta}`], bleed: ["#ff6a6a", `${e.delta}`], zap: ["#ffe14a", `⚡${-e.delta}`], shot: ["#ffffff", `${-e.delta}`] }[e.kind];
       this.floatText(v, look[1], look[0], e.kind === "heal" ? 18 : 17);
+    } else if (e.type === "status") {
+      const ms = e.ticks * msPerTick;
+      if (e.kind === "rabid") {
+        // Dại: purple tint, attacks its own allies for a while
+        this.floatText(v, "Dại!", "#d58cff", 20);
+        v.anim.body.setTint(0xc59bff);
+        this.time.delayedCall(ms, () => { if (!v.anim.dead) v.anim.body.clearTint(); });
+      } else if (e.kind === "stealth") {
+        // Ẩn mình (Trường Sơn): see-through, cannot be targeted
+        v.anim.rig.setAlpha(0.35);
+        this.time.delayedCall(ms, () => v.anim.rig.setAlpha(1));
+      } else if (e.kind === "shield") {
+        this.floatText(v, `🛡 ${e.amount ?? ""}`, "#9fd4ff", 18);
+      }
     } else if (e.type === "revive") {
       // Quả Thị / Lá Đa Thần: back on the board
       this.time.delayedCall(10, () => {
