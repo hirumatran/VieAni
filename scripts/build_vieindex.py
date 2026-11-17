@@ -42,9 +42,14 @@ data["synergies"] = json.loads((root / "data/synergies.json").read_text(encoding
 data["relations"] = json.loads((root / "data/relations.json").read_text(encoding="utf-8"))["relations"]
 data["items"] = json.loads((root / "data/items.json").read_text(encoding="utf-8"))
 data["mechanics"] = json.loads((root / "data/mechanics.json").read_text(encoding="utf-8"))
+# tộc hệ icons (scripts/synergy_icons.py) as data URIs: name -> svg
+syn_index = json.loads((root / "assets/icons/synergies/index.json").read_text(encoding="utf-8"))
+syn_icons = {name: "data:image/svg+xml;base64," + base64.b64encode((root / f"assets/icons/synergies/{v['icon']}.svg").read_bytes()).decode()
+             for name, v in syn_index.items()}
 tpl = (root / "src/vieindex.template.html").read_text(encoding="utf-8")
 out = (tpl.replace("__DATA__", json.dumps(data, ensure_ascii=False).replace("</", "<\\/"))
           .replace("__SPRITES__", json.dumps(sprites))
-          .replace("__ILLUSTRATED__", json.dumps(illustrated)))
+          .replace("__ILLUSTRATED__", json.dumps(illustrated))
+          .replace("__SYN_ICONS__", json.dumps(syn_icons)))
 (root / "vieindex.html").write_text(out, encoding="utf-8")
 print("wrote vieindex.html", len(data["species"]), "species,", len(illustrated), "illustrations,", len(sprites) - len(illustrated), "pixel sprites")

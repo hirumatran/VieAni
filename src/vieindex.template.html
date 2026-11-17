@@ -48,7 +48,8 @@ main{padding:18px 16px 40px}
 .sprite{width:86%;height:86%;image-rendering:pixelated;image-rendering:crisp-edges;filter:drop-shadow(0 2px 0 rgba(0,0,0,.25))}
 .glyph{width:62%;aspect-ratio:1;border-radius:50%;display:grid;place-items:center;
   font-weight:800;font-size:34px;color:#fff;background:rgba(255,255,255,.72);border:3px solid rgba(255,255,255,.9)}
-.sprite.illu{width:96%;height:96%;object-fit:contain;image-rendering:auto;filter:drop-shadow(0 3px 3px rgba(0,0,0,.25))}
+.glyph:has(.illu){position:relative}
+.sprite.illu{position:absolute;inset:2%;width:96%;height:96%;object-fit:contain;image-rendering:auto;filter:drop-shadow(0 3px 3px rgba(0,0,0,.25))}
 .tier{position:absolute;bottom:8px;right:10px;color:#fff;font-size:12px;letter-spacing:1px;text-shadow:0 1px 2px #0006}
 .status{position:absolute;top:8px;left:8px;font:700 11px/1 inherit;font-family:inherit;padding:4px 7px;border-radius:6px;background:#000a;color:#fff}
 .info{padding:10px 12px 14px}
@@ -56,6 +57,10 @@ main{padding:18px 16px 40px}
 .name{font-weight:800;font-size:16px;margin:2px 0 0;line-height:1.2}
 .vi{font-size:13px;color:var(--muted);margin:2px 0 8px}
 .types{display:flex;gap:5px;flex-wrap:wrap}
+.syns{display:flex;gap:4px;margin-top:8px;flex-wrap:wrap}
+img.syn{width:26px;height:26px;filter:drop-shadow(0 1px 1px #0005)}
+li.synli{list-style:none;display:flex;gap:10px;align-items:flex-start;margin:0 0 8px -20px}
+img.synbig{width:40px;height:40px;flex:none;filter:drop-shadow(0 1px 2px #0006)}
 .type{font:600 11px/1 inherit;font-family:inherit;padding:5px 9px;border-radius:6px;color:#fff}
 .empty{text-align:center;color:var(--muted);padding:60px 0}
 dialog{border:0;border-radius:18px;padding:0;max-width:560px;width:calc(100% - 32px);background:var(--card);color:var(--ink);box-shadow:0 10px 40px #0007}
@@ -148,6 +153,11 @@ const color = t => `var(--t-${t})`;
 const ink = t => t==="Electric" ? "#2b1d14" : "#fff";
 const SPRITES = __SPRITES__;
 const ILLU = new Set(__ILLUSTRATED__);
+const SYN_ICON = __SYN_ICONS__;
+const ZODIAC_SYN = DATA.synergies.find(g=>g.byZodiac);
+/** the tộc hệ a VieAni belongs to (Mười Hai Con Giáp via its zodiac sign) */
+const synOf = s => [...(SYN_OF[s.id]||[]), ...(s.zodiac&&ZODIAC_SYN?[ZODIAC_SYN]:[])];
+const synIcon = (g, cls="syn") => SYN_ICON[g.name] ? `<img class="${cls}" src="${SYN_ICON[g.name]}" alt="${esc(g.name)}" title="${esc(g.name)}">` : "";
 const sprite = s => SPRITES[s.id] ? `<img class="sprite${ILLU.has(s.id)?" illu":""}" src="${SPRITES[s.id]}" alt="${esc(s.vi)}">` : esc(initials(s));
 const esc = s => String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const initials = s => s.vi.replace(/\(.*\)/,"").trim().split(/\s+/).slice(0,2).map(w=>w[0]).join("").toUpperCase();
@@ -220,6 +230,7 @@ function render(){
         <div class="name">${esc(s.vi)}</div>
         <div class="vi">${esc(s.en)}</div>
         <div class="types">${s.types.map(badge).join("")}</div>
+        <div class="syns">${synOf(s).map(g=>synIcon(g)).join("")}</div>
       </div>
     </button>`).join("");
   document.getElementById("empty").hidden=list.length>0;
@@ -228,7 +239,7 @@ function render(){
 
 const nameList = ids => ids.map(i=>BYID[i]?.vi).filter(Boolean).join(", ");
 function gameInfo(s){
-  const syn=(SYN_OF[s.id]||[]).map(g=>`<li><b>${esc(g.name)}</b> (${g.members.length} thành viên) – ${Object.entries(g.tiers).map(([k,v])=>`(${k}) ${esc(v)}`).join("; ")}</li>`).join("");
+  const syn=synOf(s).map(g=>`<li class="synli">${synIcon(g,"synbig")}<div><b>${esc(g.name)}</b> ${g.byZodiac?`(con giáp ${esc(s.zodiac)})`:`(${g.members.length} thành viên)`} – ${Object.entries(g.tiers).map(([k,v])=>`(${k}) ${esc(v)}`).join("; ")}</div></li>`).join("");
   const rel=DATA.relations.filter(r=>r.a.includes(s.id)||r.b.includes(s.id)||(r.bType&&s.types.includes(r.bType))).map(r=>{
     const me=r.a.includes(s.id);
     const tgt=r.bType?`mọi VieAni hệ ${tv(r.bType)}`:nameList(r.b);
@@ -239,7 +250,6 @@ function gameInfo(s){
     ${s.story?`<div class="h3">Điển tích</div><p style="margin:0;line-height:1.5">${esc(s.story)}</p>
       <div class="small">${esc(s.storyAccuracy||"")}${(s.storySrc||[]).map(([t,u])=>` · <a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a>`).join("")}</div>`:""}
     ${syn?`<div class="h3">Tộc hệ</div><ul class="help">${syn}</ul>`:""}
-    ${s.zodiac?`<div class="small">Thuộc tộc hệ <b>Mười Hai Con Giáp</b> (con giáp ${esc(s.zodiac)}).</div>`:""}
     ${rel?`<div class="h3">Thiên địch & Cộng sinh</div><ul class="help">${rel}</ul>`:""}`;
 }
 const dlg=document.getElementById("dlg");
