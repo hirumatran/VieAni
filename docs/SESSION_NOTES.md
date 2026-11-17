@@ -265,3 +265,13 @@ back into `data/*.json` before rebuilding the page.
   Only the look changes for now; its ×1,3/1,4/1,5 stats + Bay come with the skill system (T11).
 - The test match shop now contains all 87 VieAni, so it uses the **real shop odds by level** (SHOP_ODDS: level 1 = tier 1
   only … level 10 = 5/10/25/35/25 %), test added. VieIndex shows the illustrations for all 87.
+
+## Status aura options – waiting for the PO's choice (17 Nov, v0.7.1)
+PO: glow for legendary, smoke for extinct, red alert for endangered – 3 options each. Preview screen: title →
+"✨ Hiệu ứng trạng thái" (`AuraLabScene`, effects in `game/src/anim/aura.ts`, `attachAura(scene, view, kind, option)`).
+| Group | A | B | C |
+|---|---|---|---|
+| Huyền thoại (tier 5) | golden aura pulsing behind the body | golden ring at the feet + rising light motes | 3 golden stars orbiting |
+| Đã mất (tier 4) | grey smoke rising from the feet | ghost: pale-blue, flickering see-through + wisps | ash: faded colours + dark ash and embers rising |
+| Nguy cấp (tier 3) | red warning ring on the ground + pulse waves | blinking red "!" warning sign above the head | red glow beating like a heartbeat |
+Not yet applied in the match – after the PO picks, apply by tier on board, bench and in battle.

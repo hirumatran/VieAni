@@ -6,6 +6,7 @@ import { BoardScene } from "./scenes/BoardScene";
 import { TitleScene } from "./scenes/TitleScene";
 import { AnimLabScene } from "./scenes/AnimLabScene";
 import { MatchScene } from "./scenes/MatchScene";
+import { AuraLabScene } from "./scenes/AuraLabScene";
 
 const data = loadData();
 const problems = validate(data);
@@ -28,7 +29,7 @@ async function boot() {
     backgroundColor: "#1b120c",
     pixelArt: true,
     scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH, width: SCREEN_W, height: SCREEN_H },
-    scene: [new TitleScene(), new BoardScene(data), new AnimLabScene(data), new MatchScene(data)],
+    scene: [new TitleScene(), new BoardScene(data), new AnimLabScene(data), new MatchScene(data), new AuraLabScene(data)],
   });
   (window as unknown as { __game: Phaser.Game }).__game = game;
 }

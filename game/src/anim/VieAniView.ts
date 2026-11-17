@@ -32,6 +32,8 @@ export class VieAniView {
   private starTweens: Phaser.Tweens.Tween[] = [];
   private sparkleTimer?: Phaser.Time.TimerEvent;
   private size = 64;
+  /** current display size in px (for effects attached from outside, e.g. status auras) */
+  get px() { return this.size; }
   star = 1;
   dead = false;
 
