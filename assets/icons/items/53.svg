@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <radialGradient id="bgi53" cx=".4" cy=".34" r=".72"><stop offset="0" stop-color="#b3947a"/><stop offset=".6" stop-color="#8a5a32"/>
+      <stop offset="1" stop-color="#4c321c"/></radialGradient>
+    <linearGradient id="fgi53" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#f1e6cf"/></linearGradient>
+    <filter id="shi53" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="3" stdDeviation="2.5" flood-color="#000" flood-opacity=".5"/></filter>
+    <mask id="mi53"><g fill="#fff"><path fill="none" stroke="#fff" stroke-width="30" stroke-linecap="round" stroke-linejoin="round" d="M256 60 V230 M256 230 L120 440 M256 230 L170 450 M256 230 L220 455 M256 230 L256 460 M256 230 L292 455 M256 230 L342 450 M256 230 L392 440 M256 160 L170 330 M256 160 L342 330"/></g></mask>
+  </defs>
+  <circle cx="64" cy="64" r="61" fill="#291b0f"/>
+  <circle cx="64" cy="64" r="57" fill="url(#bgi53)"/>
+  <circle cx="64" cy="64" r="51" fill="none" stroke="#f3d27a" stroke-opacity=".7" stroke-width="1.6"/>
+  <path d="M20 52 A46 46 0 0 1 108 52" fill="none" stroke="#fff" stroke-opacity=".18" stroke-width="7" stroke-linecap="round"/>
+  <g filter="url(#shi53)"><g transform="translate(27 27) scale(0.14453 0.14453)">
+    <rect width="512" height="512" fill="url(#fgi53)" mask="url(#mi53)"/></g></g>
+</svg>

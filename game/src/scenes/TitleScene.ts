@@ -62,6 +62,7 @@ export class TitleScene extends Phaser.Scene {
     this.languageSwitch();
     button(this, 120, SCREEN_H - 40, 210, 42, "🎬 Xưởng hoạt ảnh", () => this.scene.start("animlab", { code: "V001" }));
     button(this, 345, SCREEN_H - 40, 220, 42, "✨ Hiệu ứng trạng thái", () => this.scene.start("auralab"));
+    button(this, 590, SCREEN_H - 40, 250, 42, "🐉 Mô phỏng Ấn Thống Nhất", () => this.scene.start("match", { demo: true }));
     this.add.text(SCREEN_W - 14, SCREEN_H - 12, `${t("alphaNote")} · v${VERSION}`, { fontFamily: FONT_UI, fontSize: "14px", color: CREAM })
       .setOrigin(1, 1).setShadow(1, 1, "#000", 3);
   }

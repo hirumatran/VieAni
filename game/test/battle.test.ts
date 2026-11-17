@@ -84,9 +84,11 @@ describe("simulate", () => {
 });
 
 describe("player damage and mirroring", () => {
-  it("loser takes stage damage + tiers of surviving enemy units", () => {
+  it("loser takes (stage damage + 1 per surviving enemy VieAni) × 0.5, rounded, at least 1 (17 Nov 2026)", () => {
     const res = { winner: "B" as const, ticks: 0, events: [], survivors: [{ uid: 1, side: "B" as const, hp: 1, tier: 3 }, { uid: 2, side: "B" as const, hp: 1, tier: 1 }] };
-    expect(playerDamage(res, 14)).toEqual({ A: 3 + 3 + 1, B: 0 });
+    expect(playerDamage(res, 14)).toEqual({ A: Math.round((3 + 2) * 0.5), B: 0 });
+    expect(playerDamage({ ...res, survivors: [] }, 1)).toEqual({ A: 1, B: 0 });
+    expect(playerDamage({ ...res, survivors: Array(8).fill(res.survivors[0]) }, 31)).toEqual({ A: 8, B: 0 });
   });
   it("mirrors the opponent's half by rotating 180°", () => {
     expect(mirror(7, 0)).toEqual([0, 7]);

@@ -13,17 +13,13 @@ describe("rules config", () => {
     expect([C.PREP_SECONDS, C.START_GOLD, C.INTEREST_MAX, C.MAX_LEVEL, C.XP_PER_ROUND]).toEqual([15, 5, 5, 10, 2]);
     expect([C.BASE_INCOME, C.WIN_BONUS, C.LOSS_BONUS]).toEqual([7, 3, 1]);
   });
-  it("Linh Vật windows: Bắc ≤10, Trung 11–20, Nam 21–30, each containing a PvE round", () => {
-    for (const [lo, hi] of Object.values(C.CHARM_ROUND_WINDOWS)) {
-      expect(Array.from({ length: hi - lo + 1 }, (_, i) => lo + i).some(C.isPveRound)).toBe(true);
-    }
-  });
-  it("PvE rounds are 1–3 then every 6 from 9", () => {
-    const pve = Array.from({ length: 40 }, (_, i) => i + 1).filter(C.isPveRound);
-    expect(pve).toEqual([1, 2, 3, 9, 15, 21, 27, 33, 39]);
+  it("PO 17 Nov 2026: no PvE; item rewards at rounds 1, 4, 8 … 36; every Linh Vật window has reward rounds", () => {
+    expect(C.ITEM_ROUNDS).toEqual([1, 4, 8, 12, 16, 20, 24, 28, 32, 36]);
+    const inWindow = Object.values(C.CHARM_ROUND_WINDOWS).map(([lo, hi]) => C.ITEM_ROUNDS.filter((r) => r >= lo && r <= hi));
+    expect(inWindow).toEqual([[1, 4, 8], [12, 16, 20], [24, 28]]);
   });
   it("stage damage and item tier by round", () => {
     expect([1, 11, 21, 31].map(C.stageDamage)).toEqual([1, 3, 5, 8]);
-    expect([1, 9, 15, 21, 27].map(C.itemTierForRound)).toEqual([1, 2, 3, 4, 5]);
+    expect([1, 4, 8, 12, 16, 20, 24, 28, 32, 36].map(C.itemTierForRound)).toEqual([1, 1, 2, 2, 3, 3, 4, 4, 5, 5]);
   });
 });

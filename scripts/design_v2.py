@@ -464,19 +464,19 @@ u(108, "Săn Mồi", 1, ["Săn Mồi", "Tây Nguyên"],
 CHARMS = [
     ("VP51", "Linh Vật Bắc Bộ", 1, "Linh vật",
      "Không cộng chỉ số. Bùa đồng hình dáng vùng Bắc Bộ (núi Tây Bắc, đồng bằng sông Hồng), khắc hoa văn mặt trống đồng và chim Lạc. "
-     "Chỉ xuất hiện từ vòng 1 đến vòng 10 (vòng thú hoang 1, 2, 3, 9). Là 1 trong 3 mảnh của Ấn Thống Nhất (xem Linh Vật Nam Bộ).",
+     "Chỉ xuất hiện trong phần thưởng vòng 1, 4, 8 (khung vòng 1–10). Là 1 trong 3 mảnh của Ấn Thống Nhất (xem Linh Vật Nam Bộ).",
      "Bắc Bộ – cái nôi văn hóa Đông Sơn, trống đồng Ngọc Lũ"),
     ("VP52", "Linh Vật Trung Bộ", 3, "Linh vật",
      "Không cộng chỉ số. Bùa ngọc hình dải đất Trung Bộ hẹp và cong chữ S, khắc sóng biển, đèn lồng Hội An và Cá Ông. "
-     "Chỉ xuất hiện từ vòng 11 đến vòng 20 (vòng thú dữ 15). Là 1 trong 3 mảnh của Ấn Thống Nhất (xem Linh Vật Nam Bộ).",
+     "Chỉ xuất hiện trong phần thưởng vòng 12, 16, 20 (khung vòng 11–20). Là 1 trong 3 mảnh của Ấn Thống Nhất (xem Linh Vật Nam Bộ).",
      "Trung Bộ – dải đất hẹp giữa Trường Sơn và Biển Đông"),
     ("VP53", "Linh Vật Nam Bộ", 4, "Linh vật",
-     "Không cộng chỉ số. Bùa gỗ hình châu thổ Nam Bộ với chín nhánh Cửu Long, khắc hoa sen và sếu đầu đỏ. Chỉ xuất hiện từ vòng 21 đến vòng 30 (vòng thú dữ 21, 27). "
+     "Không cộng chỉ số. Bùa gỗ hình châu thổ Nam Bộ với chín nhánh Cửu Long, khắc hoa sen và sếu đầu đỏ. Chỉ xuất hiện trong phần thưởng vòng 24, 28 (khung vòng 21–30). "
      "ẤN THỐNG NHẤT: khi người chơi (1) đạt cấp tối đa 10 với Rồng Lạc Việt trên sân và (2) có đủ 3 Linh Vật Bắc – Trung – Nam trong túi, "
      "2 con giáp còn thiếu trên sân được tính là có mặt → có thể kích hoạt mốc (12) Mười Hai Con Giáp.",
      "Nam Bộ – đồng bằng sông Cửu Long chín nhánh đổ ra biển"),
 ]
 CHARM_RULE = ("Linh Vật không cộng chỉ số, không chiếm ô vật phẩm của VieAni và không thể bị Hoàn Kiếm (Kim Quy) đòi lại. "
-              "Mỗi Linh Vật chỉ xuất hiện trong khung vòng của nó: Bắc Bộ vòng 1–10 (thú hoang 1, 2, 3, 9), Trung Bộ vòng 11–20 (thú dữ 15), "
-              "Nam Bộ vòng 21–30 (thú dữ 21, 27). Ở mỗi vòng thú hoang/thú dữ trong khung, 1 trong 3 lựa chọn là Linh Vật đó nếu bạn chưa có – "
+              "Mỗi Linh Vật chỉ xuất hiện trong khung vòng của nó: Bắc Bộ vòng 1–10 (phần thưởng vòng 1, 4, 8), Trung Bộ vòng 11–20 (vòng 12, 16, 20), "
+              "Nam Bộ vòng 21–30 (vòng 24, 28). Ở mỗi vòng phần thưởng trong khung, 1 trong 3 lựa chọn là Linh Vật đó nếu bạn chưa có – "
               "chọn nó nghĩa là bỏ một vật phẩm chiến đấu. Bỏ lỡ khung vòng thì không còn cơ hội; mỗi người giữ tối đa 1 bản mỗi Linh Vật.")

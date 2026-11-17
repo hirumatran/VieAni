@@ -329,3 +329,25 @@ Not yet applied in the match – after the PO picks, apply by tier on board, ben
 - **Item icons** (`scripts/item_icons.py` → `assets/icons/items/<id>.svg`): round tiles coloured by tier (1 grey, 2 green,
   3 blue, 4 purple, 5 gold) with game-icons.net symbols (CC BY 3.0, credit in `assets/icons/items/CREDITS.md`); Nón Lá,
   Bánh Chưng and the Trống Đồng star drawn here.
+
+## No PvE, item rounds, Linh Vật + Ấn Thống Nhất demo (17 Nov, v0.9.0)
+- **PO:** no PvE/monster rounds. Item reward (choose 1 of 3) after rounds **1, 4, 8, 12, 16, 20, 24, 28, 32, 36**; tier
+  1,1,2,2,3,3,4,4,5,5 (`ITEM_ROUNDS`, `ITEM_ROUND_TIERS` in config.ts). Charm texts in data/items.json + design_v2.py updated
+  (Bắc Bộ rounds 1/4/8, Trung Bộ 12/16/20, Nam Bộ 24/28).
+- **Linh Vật charms** in the match: one of the 3 reward choices in their window if not owned; no stats, no item slot; shown
+  top-right (3 slots, tooltip with the 3 conditions). **Ấn Thống Nhất** = level 10 + Rồng Lạc Việt on the board + all 3 charms
+  → Mười Hai Con Giáp counts 2 missing signs (panel shows "+ 2 nhờ Ấn Thống Nhất (…)"; slot box turns gold). Tests: `unity.test.ts`.
+- **Balance change (needed for the rounds above, PO to confirm):** a 1v1 match ended around round 16 (median, 60 bot-vs-bot
+  matches; only 10 % reached round 24) → loser damage is now **(stage + 1 per surviving enemy) × 0.5** (`SURVIVOR_DAMAGE`,
+  `DAMAGE_SCALE`): median round 33, 100 % reach round 24, 65 % round 30. Test HP back to 100.
+  | rule | median last round | reach r24 | reach r30 |
+  |---|---|---|---|
+  | stage + tiers (old) | 16 | 10 % | 0 % |
+  | (stage + tiers) × 0.4 | 29 | 88 % | 43 % |
+  | **(stage + 1/unit) × 0.5 (new)** | **33** | **100 %** | **65 %** |
+- **Zodiac strategy + demo:** `Match.zodiacTurn` (computer player: takes every charm, collects one VieAni per sign + Rồng Lạc
+  Việt, keeps the board full, levels, rerolls late). It reaches Ấn Thống Nhất with 12 signs in ~25 % of matches (10/40),
+  rounds 28–40. Title → "🐉 Mô phỏng Ấn Thống Nhất" plays matches in the background until it happens, then opens the match at
+  that moment (bottom side = that computer player) with a summary of the key rounds.
+- Note: tộc hệ effects are not applied in battle yet, so 12/12 does not make the team stronger yet – the zodiac player usually
+  arrives with low HP (e.g. 7/100). Worth checking once tộc hệ bonuses work.

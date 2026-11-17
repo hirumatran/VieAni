@@ -16,6 +16,14 @@ TIER = {1: "#7d8590", 2: "#3f9a5c", 3: "#2f74c0", 4: "#8e47c4", 5: "#c99216"}
 NON_LA = '<path fill="#fff" d="M256 70 L470 330 Q256 380 42 330Z"/><path fill="none" stroke="#fff" stroke-width="22" d="M150 330 Q256 470 362 330"/>'
 BANH_CHUNG = ('<rect x="96" y="96" width="320" height="320" rx="34" fill="#fff"/>'
               '<g stroke="#000" stroke-opacity=".55" stroke-width="22"><path d="M210 96 V416 M302 96 V416 M96 210 H416 M96 302 H416"/></g>')
+# Linh Vật charms: Bắc Bộ bronze (Đông Sơn drum star), Trung Bộ jade (S-shaped land + waves), Nam Bộ wood (nine-branch delta)
+CHARM_COL = {51: "#b07a3a", 52: "#2f9a78", 53: "#8a5a32"}
+S_LAND = ('<path fill="none" stroke="#fff" stroke-width="58" stroke-linecap="round" d="M300 70 C150 110 170 210 260 250 C350 290 360 380 210 440"/>'
+          '<path fill="none" stroke="#fff" stroke-width="20" stroke-linecap="round" d="M60 420 q30 -22 60 0 t60 0 M330 120 q30 -22 60 0 t60 0"/>')
+DELTA = ('<path fill="none" stroke="#fff" stroke-width="30" stroke-linecap="round" stroke-linejoin="round" d="M256 60 V230 '
+         'M256 230 L120 440 M256 230 L170 450 M256 230 L220 455 M256 230 L256 460 M256 230 L292 455 M256 230 L342 450 M256 230 L392 440 '
+         'M256 160 L170 330 M256 160 L342 330"/>')
+CHARMS = {51: "DRUM12", 52: S_LAND, 53: DELTA}
 SYMBOL = {
     1: "wood-stick", 2: "sickle", 3: "slingshot", 4: "round-shield", 5: NON_LA, 6: "cloak", 7: BANH_CHUNG, 8: "dumpling-bao",
     9: "bowl-of-rice", 12: "herbs-bundle", 13: "handheld-fan", 14: "barbed-spear", 15: "machete", 24: "envelope",
@@ -55,6 +63,11 @@ def main():
         body = drum_star(14) if sym == "DRUM" else sym if sym.startswith("<") else GI["icons"][sym].replace("currentColor", "#fff")
         (OUT / f"{iid}.svg").write_text(tile(TIER[it["tier"]], body, f"i{iid}"), encoding="utf-8")
         index[iid] = {"name": it["name"], "tier": it["tier"], "cat": it["cat"], "symbol": sym if not sym.startswith("<") else "custom"}
+    for iid, sym in CHARMS.items():
+        it = items[iid]
+        body = drum_star(12) if sym == "DRUM12" else sym
+        (OUT / f"{iid}.svg").write_text(tile(CHARM_COL[iid], body, f"i{iid}"), encoding="utf-8")
+        index[iid] = {"name": it["name"], "tier": it["tier"], "cat": "LV", "symbol": "custom"}
     (OUT / "index.json").write_text(json.dumps(index, ensure_ascii=False, indent=1), encoding="utf-8")
     (OUT / "CREDITS.md").write_text("# Item icons – credits\n\nSymbols from **game-icons.net** by Lorc, Delapouite and contributors, "
                                     "**CC BY 3.0** – recoloured on VieAni tiles. Nón Lá, Bánh Chưng and the Trống Đồng star: VieAni project.\n",

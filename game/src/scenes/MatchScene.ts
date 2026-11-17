@@ -4,7 +4,7 @@ import * as C from "../core/config";
 import type { GameData } from "../core/data";
 import { settings, t } from "../core/i18n";
 import { MATCH_BENCH_CORNERS, MATCH_BOARD_CORNERS, MATCH_SHOP_TOP, SCREEN_H, SCREEN_W } from "../core/layout";
-import { TEST_CODES, testMatch, type Match, type RoundReport } from "../core/match";
+import { RONG_LAC_VIET, TEST_CODES, testMatch, type Match, type RoundReport } from "../core/match";
 import type { Team } from "../core/team";
 import { texturesFor, vcode } from "../anim/illustrations";
 import { button, CREAM, FONT_LOGO, FONT_UI, GOLD, toast, WOOD } from "../ui/widgets";
@@ -16,7 +16,7 @@ import { DROPPABLE } from "../core/items";
 
 /** tộc hệ icons (scripts/synergy_icons.py): name -> svg slug + tile colour */
 const SYN_ICON = synIndex as Record<string, { icon: string; colour: string; symbol: string }>;
-const SYN_X = 1236, SYN_Y0 = 84, SYN_STEP = 54, SYN_ICON_PX = 44;
+const SYN_X = 1236, SYN_Y0 = 96, SYN_STEP = 54, SYN_ICON_PX = 44;
 /** item bag panel (left, under the HUD) */
 const BAG = { y: 418, h: 136, slot: 36, team: 28, teamX: 176 };
 const ITEM_CAT: Record<string, string> = { TC: "Tấn công", PT: "Phòng thủ", HT: "Hỗ trợ", TD: "Toàn đội", NEM: "Ném", SAN: "Đặt trên sân", LV: "Linh vật" };
@@ -53,11 +53,46 @@ export class MatchScene extends BoardScene {
     super(d, "match", MATCH_BOARD_CORNERS, MATCH_BENCH_CORNERS);
   }
 
-  init(data?: { fresh?: boolean }) {
+  /** demo of Ấn Thống Nhất: the bottom side was played by the computer ("zodiac" strategy) until it got all 12 signs */
+  private demo: { round: number; seed: number; tries: number; log: string[]; shown?: boolean } | null = null;
+
+  init(data?: { fresh?: boolean; demo?: boolean }) {
+    if (data?.demo) { this.runDemo(); return; }
+    if (data?.fresh) this.demo = null;
     if (data?.fresh || !this.match || this.match.over) {
+      this.demo = null;
       this.match = testMatch(this.data_, Math.floor(Math.random() * 1e9));
       this.pendingToast = t("testNote")(TEST_CODES.length, TEST_CODES[TEST_CODES.length - 1] ?? "");
     }
+  }
+
+  /** play whole matches without graphics (computer on both sides) until the bottom player activates Ấn Thống Nhất with 12 signs */
+  private runDemo() {
+    const start = Math.floor(Math.random() * 1e6);
+    for (let tries = 1; tries <= 200; tries++) {
+      const seed = start + tries;
+      const m = testMatch(this.data_, seed);
+      const log: string[] = [];
+      const seen = { rong: false, lv: false, charms: 0 };
+      while (!m.over && m.round <= 45) {
+        m.zodiacTurn(m.human);
+        m.botTurn();
+        const p = m.human;
+        if (p.charms.length > seen.charms) { seen.charms = p.charms.length; log.push(`Vòng ${m.round}: nhận ${m.item(p.charms[p.charms.length - 1]).name}`); }
+        if (!seen.rong && p.team.units().some((u) => u.speciesId === RONG_LAC_VIET)) { seen.rong = true; log.push(`Vòng ${m.round}: mua được Rồng Lạc Việt`); }
+        if (!seen.lv && p.level >= C.MAX_LEVEL) { seen.lv = true; log.push(`Vòng ${m.round}: đạt cấp 10`); }
+        m.finishRound(m.battle(seed * 1000 + m.round).res);
+        if (p.unityRound != null) {
+          if (p.itemOffer) m.zodiacTurn(p); // take this round's reward the same way
+          log.push(`Vòng ${p.unityRound}: ẤN THỐNG NHẤT – đủ 12 con giáp`);
+          this.match = m;
+          this.demo = { round: p.unityRound, seed, tries, log };
+          return;
+        }
+      }
+    }
+    this.match = testMatch(this.data_, start);
+    this.demo = null;
   }
 
   protected loadTeam(): Team {
@@ -120,6 +155,7 @@ export class MatchScene extends BoardScene {
     this.cards = [];
     this.synRows = []; this.synSig = ""; this.synPopup = undefined; this.synOpen = "";
     this.equipObjs = []; this.equipSig = ""; this.itemModal = undefined; this.itemTip = undefined;
+    this.charmObjs = []; this.charmSig = "";
     this.buildBag();
     // a click on empty space closes the tộc hệ details
     this.input.on("pointerdown", (p: Phaser.Input.Pointer, over: Phaser.GameObjects.GameObject[]) => {
@@ -133,6 +169,7 @@ export class MatchScene extends BoardScene {
     if (this.pendingToast) { toast(this, this.pendingToast); this.pendingToast = ""; }
     this.syncItems();
     this.showItemChoice();
+    this.showDemoBanner();
   }
 
   protected updateCounter() {
@@ -146,7 +183,7 @@ export class MatchScene extends BoardScene {
       const ic = SYN_ICON[g.name]?.icon;
       if (ic && !this.textures.exists(`syn:${ic}`)) this.load.svg(`syn:${ic}`, `icons/synergies/${ic}.svg`, { width: 96, height: 96 });
     }
-    for (const id of DROPPABLE) if (!this.textures.exists(`item:${id}`)) this.load.svg(`item:${id}`, `icons/items/${id}.svg`, { width: 72, height: 72 });
+    for (const id of [...DROPPABLE, ...C.CHARM_ITEM_IDS]) if (!this.textures.exists(`item:${id}`)) this.load.svg(`item:${id}`, `icons/items/${id}.svg`, { width: 72, height: 72 });
   }
 
   // ------------------------------------------------------------------ tộc hệ (synergies) on the right (PO, 17 Nov 2026)
@@ -158,8 +195,9 @@ export class MatchScene extends BoardScene {
   /** one row per formed tộc hệ: label + count + tier pips, then its icon; click = details */
   private refreshSynergies() {
     if (!this.sys.isActive() && !this.sys.isVisible()) return;
-    const act = activeSynergies(this.data_, this.team.toPlaced().map((u) => u.speciesId));
+    const act = activeSynergies(this.data_, this.team.toPlaced().map((u) => u.speciesId), this.match.zodiacBonus(this.match.human));
     const sig = act.map((a) => `${a.syn.name}:${a.count}`).join("|");
+    this.refreshCharms();
     if (sig === this.synSig && this.synRows.every((r) => r.active)) return;
     this.synSig = sig;
     for (const r of this.synRows) r.destroy();
@@ -234,7 +272,7 @@ export class MatchScene extends BoardScene {
       y += body.height + 8;
     });
     const who = a.syn.byZodiac
-      ? `Con giáp trên sân: ${[...new Set(a.present.map((s) => s.zodiac))].join(", ")}`
+      ? `Con giáp trên sân: ${[...new Set(a.present.map((s) => s.zodiac))].join(", ")}` + (a.bonus ? `  + ${a.bonus} nhờ Ấn Thống Nhất (${missingSigns(a).join(", ")})` : "")
       : `Trên sân: ${a.present.map((s) => s.vi.replace(/\s*\(.*\)/, "")).join(", ")}`;
     const w1 = txt(P, y, who, 12, CREAM, true); y += w1.height + 4;
     if (!a.syn.byZodiac) {
@@ -395,6 +433,82 @@ export class MatchScene extends BoardScene {
     }
   }
 
+  // ------------------------------------------------------------------ Linh Vật charms + Ấn Thống Nhất (top right)
+  private charmObjs: Phaser.GameObjects.GameObject[] = [];
+  private charmSig = "";
+
+  private refreshCharms() {
+    if (!this.txt.round?.active) return;
+    const m = this.match, p = m.human, on = m.unityActive(p);
+    const sig = p.charms.join(",") + (on ? "!" : "");
+    if (sig === this.charmSig && this.charmObjs.every((o) => o.active)) return;
+    this.charmSig = sig;
+    for (const o of this.charmObjs) o.destroy();
+    this.charmObjs = [];
+    const x0 = SCREEN_W - 14 - 3 * 34, y = 40;
+    const g = this.add.graphics().setDepth(5001);
+    g.fillStyle(WOOD, 0.88).fillRoundedRect(x0 - 112, y - 19, 3 * 34 + 120, 38, 10)
+      .lineStyle(2, on ? 0xffd84a : GOLD, on ? 1 : 0.6).strokeRoundedRect(x0 - 112, y - 19, 3 * 34 + 120, 38, 10);
+    this.charmObjs.push(g);
+    const label = this.add.text(x0 - 104, y, on ? "ẤN THỐNG NHẤT ✓" : `Linh Vật ${p.charms.length}/3`, { fontFamily: FONT_UI, fontSize: "12px", color: on ? "#ffd84a" : CREAM, fontStyle: "bold" })
+      .setOrigin(0, 0.5).setDepth(5002);
+    this.charmObjs.push(label);
+    C.CHARM_ITEM_IDS.forEach((id, k) => {
+      const x = x0 + k * 34 + 15;
+      const have = p.charms.includes(id);
+      const im = this.add.image(x, y, `item:${id}`).setDisplaySize(30, 30).setDepth(5002).setAlpha(have ? 1 : 0.22);
+      im.setInteractive({ useHandCursor: true });
+      im.on("pointerover", () => this.showCharmTip(id, x, y + 24));
+      im.on("pointerout", () => this.hideItemTip());
+      this.charmObjs.push(im);
+    });
+    if (on) {
+      const glow = this.add.rectangle(x0 - 112 + (3 * 34 + 120) / 2, y, 3 * 34 + 120, 38).setStrokeStyle(3, 0xffd84a, 1).setDepth(5003);
+      this.tweens.add({ targets: glow, alpha: 0.2, duration: 700, yoyo: true, repeat: -1 });
+      this.charmObjs.push(glow);
+    }
+  }
+
+  private showCharmTip(id: number, x: number, y: number) {
+    this.hideItemTip();
+    const it = this.itemData(id), m = this.match, p = m.human;
+    const [lo, hi] = C.CHARM_ROUND_WINDOWS[id];
+    const rounds = C.ITEM_ROUNDS.filter((r) => r >= lo && r <= hi).join(", ");
+    const need = [
+      `${p.level >= C.MAX_LEVEL ? "✓" : "✗"} Cấp 10 (đang ${p.level})`,
+      `${p.team.toPlaced().some((u) => u.speciesId === RONG_LAC_VIET) ? "✓" : "✗"} Rồng Lạc Việt trên sân`,
+      `${C.CHARM_ITEM_IDS.every((c) => p.charms.includes(c)) ? "✓" : "✗"} Đủ 3 Linh Vật (${p.charms.length}/3)`,
+    ].join("\n");
+    const W = 300, box = this.add.container(0, 0).setDepth(9600);
+    const title = this.add.text(12, 10, it.name + (p.charms.includes(id) ? "  ✓" : ""), { fontFamily: FONT_UI, fontSize: "15px", color: "#ffe6a3", fontStyle: "bold" });
+    const sub = this.add.text(12, 31, `Xuất hiện ở phần thưởng vòng ${rounds}`, { fontFamily: FONT_UI, fontSize: "11.5px", color: "#cdbb98", fontStyle: "bold" });
+    const body = this.add.text(12, 52, `Ấn Thống Nhất – 2 con giáp còn thiếu trên sân được tính là có mặt khi:\n${need}`, { fontFamily: FONT_UI, fontSize: "12.5px", color: CREAM, wordWrap: { width: W - 24 }, lineSpacing: 3 });
+    const h = 52 + body.height + 12;
+    const g = this.add.graphics();
+    g.fillStyle(0x1b120c, 0.97).fillRoundedRect(0, 0, W, h, 10).lineStyle(2, GOLD, 0.9).strokeRoundedRect(0, 0, W, h, 10);
+    box.add([g, title, sub, body]);
+    box.setPosition(Phaser.Math.Clamp(x - W / 2, 6, SCREEN_W - W - 6), y);
+    this.itemTip = box;
+  }
+
+  /** demo: what the computer did on the way, shown at the start */
+  private showDemoBanner() {
+    const d = this.demo;
+    if (!d || d.shown) return;
+    d.shown = true;
+    const box = this.add.container(0, 0).setDepth(9100); // under the tộc hệ details (9200)
+    const W = 520, lines = [`Máy tự chơi phía dưới (chiến thuật Ấn Thống Nhất) – đạt ở vòng ${d.round}`, ...d.log];
+    const txt = this.add.text(18, 14, lines.join("\n"), { fontFamily: FONT_UI, fontSize: "14px", color: CREAM, fontStyle: "bold", lineSpacing: 5, wordWrap: { width: W - 36 } });
+    txt.setColor("#fff3d6");
+    const h = txt.height + 28;
+    const g = this.add.graphics();
+    g.fillStyle(0x1b120c, 0.94).fillRoundedRect(0, 0, W, h, 12).lineStyle(3, 0xffd84a, 1).strokeRoundedRect(0, 0, W, h, 12);
+    const close = this.add.text(W - 14, 8, "✕", { fontFamily: FONT_UI, fontSize: "16px", color: "#ffe6a3" }).setOrigin(1, 0).setInteractive({ useHandCursor: true });
+    close.on("pointerup", () => box.destroy());
+    box.add([g, txt, close]);
+    box.setPosition(SCREEN_W / 2 - W / 2 - 40, 60);
+  }
+
   private refreshAll() {
     this.drawCards();
     this.refreshHud();
@@ -494,7 +608,7 @@ export class MatchScene extends BoardScene {
     const box = this.add.container(0, 0).setDepth(9600);
     const W = 250;
     const title = this.add.text(12, 10, it.name, { fontFamily: FONT_UI, fontSize: "15px", color: "#ffe6a3", fontStyle: "bold" });
-    const sub = this.add.text(12, 31, `Bậc ${it.tier} · ${ITEM_CAT[it.cat] ?? it.cat}`, { fontFamily: FONT_UI, fontSize: "11.5px", color: "#cdbb98", fontStyle: "bold" });
+    const sub = this.add.text(12, 31, it.cat === "LV" ? "Linh Vật · không chiếm ô vật phẩm" : `Bậc ${it.tier} · ${ITEM_CAT[it.cat] ?? it.cat}`, { fontFamily: FONT_UI, fontSize: "11.5px", color: "#cdbb98", fontStyle: "bold" });
     const body = this.add.text(12, 50, it.effect, { fontFamily: FONT_UI, fontSize: "12.5px", color: CREAM, wordWrap: { width: W - 24 }, lineSpacing: 2 });
     const h = 50 + body.height + 12;
     const g = this.add.graphics();
@@ -578,7 +692,7 @@ export class MatchScene extends BoardScene {
       g.fillStyle(0x1b120c, 0.97).fillRoundedRect(-CW / 2, -CH / 2, CW, CH, 16).lineStyle(3, GOLD, 0.9).strokeRoundedRect(-CW / 2, -CH / 2, CW, CH, 16);
       const ic = this.add.image(0, -CH / 2 + 62, `item:${id}`).setDisplaySize(92, 92);
       const name = this.add.text(0, -CH / 2 + 118, it.name, { fontFamily: FONT_UI, fontSize: "18px", color: "#ffe6a3", fontStyle: "bold", align: "center", wordWrap: { width: CW - 30 } }).setOrigin(0.5, 0);
-      const sub = this.add.text(0, name.y + name.height + 4, `Bậc ${it.tier} · ${ITEM_CAT[it.cat] ?? it.cat}` + (this.match.isTeamItem(id) ? " – không cần người mang" : ""),
+      const sub = this.add.text(0, name.y + name.height + 4, it.cat === "LV" ? "LINH VẬT – mảnh Ấn Thống Nhất" : `Bậc ${it.tier} · ${ITEM_CAT[it.cat] ?? it.cat}` + (this.match.isTeamItem(id) ? " – không cần người mang" : ""),
         { fontFamily: FONT_UI, fontSize: "12px", color: "#cdbb98", fontStyle: "bold", align: "center", wordWrap: { width: CW - 30 } }).setOrigin(0.5, 0);
       const eff = this.add.text(0, sub.y + sub.height + 10, it.effect, { fontFamily: FONT_UI, fontSize: "13.5px", color: CREAM, align: "center", wordWrap: { width: CW - 34 }, lineSpacing: 3 }).setOrigin(0.5, 0);
       const hit = this.add.zone(0, 0, CW, CH).setInteractive({ useHandCursor: true });
@@ -587,7 +701,7 @@ export class MatchScene extends BoardScene {
       hit.on("pointerup", () => {
         this.match.chooseItem(this.match.human, k);
         this.itemModal?.destroy(); this.itemModal = undefined;
-        toast(this, this.match.isTeamItem(id) ? `${it.name}: đặt vào ô Toàn đội` : `${it.name} vào túi – kéo lên một VieAni để trang bị`);
+        toast(this, this.match.isCharm(id) ? `${it.name}: mảnh Ấn Thống Nhất (${this.match.human.charms.length}/3)` : this.match.isTeamItem(id) ? `${it.name}: đặt vào ô Toàn đội` : `${it.name} vào túi – kéo lên một VieAni để trang bị`);
         this.syncItems();
       });
       c.add([g, ic, name, sub, eff, hit]);
@@ -748,4 +862,11 @@ export class MatchScene extends BoardScene {
 
 function maxHpOf(m: Match) {
   return Math.max(m.startHp, m.human.hp, m.bot.hp);
+}
+
+const ZODIAC_ORDER = ["Tý", "Sửu", "Dần", "Mão", "Thìn", "Tỵ", "Ngọ", "Mùi", "Thân", "Dậu", "Tuất", "Hợi"];
+/** the zodiac signs Ấn Thống Nhất fills in (the first missing ones, in zodiac order) */
+function missingSigns(a: SynergyState): string[] {
+  const have = new Set(a.present.map((s) => s.zodiac));
+  return ZODIAC_ORDER.filter((z) => !have.has(z)).slice(0, a.bonus);
 }

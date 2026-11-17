@@ -1,6 +1,6 @@
 // All game-rule numbers in one place (see docs/GDD.md). Balance by editing this file.
 
-export const VERSION = "0.8.0";
+export const VERSION = "0.9.0";
 
 export const PLAYERS = 8;
 export const PLAYER_HP = 100;
@@ -68,23 +68,25 @@ export const ENERGY_PER_HIT = 5;
 export const PREY_RADIUS = 3; // Thiên địch: prefer prey within this many cells
 
 // --- rounds ---
-export const PVE_EARLY_ROUNDS = [1, 2, 3];
-export const PVE_EVERY = 6; // then rounds 9, 15, 21, ...
-export const PVE_FIRST_LATE = 9;
-
-/** item tier dropped by a PvE round */
+// PO 17 Nov 2026: no PvE (monster) rounds – every round is PvP. Items come as a 1-of-3 reward at fixed rounds.
+export const ITEM_ROUNDS = [1, 4, 8, 12, 16, 20, 24, 28, 32, 36];
+/** item tier offered in each reward round (same order as ITEM_ROUNDS) */
+export const ITEM_ROUND_TIERS = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5];
+export function isItemRound(round: number): boolean {
+  return ITEM_ROUNDS.includes(round);
+}
 export function itemTierForRound(round: number): number {
-  if (round <= 3) return 1;
-  if (round < 15) return 2;
-  if (round < 21) return 3;
-  if (round < 27) return 4;
-  return 5;
+  const i = ITEM_ROUNDS.indexOf(round);
+  return i >= 0 ? ITEM_ROUND_TIERS[i] : ITEM_ROUND_TIERS[ITEM_ROUND_TIERS.length - 1];
 }
 
-export function isPveRound(round: number): boolean {
-  return PVE_EARLY_ROUNDS.includes(round) || (round >= PVE_FIRST_LATE && (round - PVE_FIRST_LATE) % PVE_EVERY === 0);
-}
-
+/** what each surviving enemy VieAni adds to the loser's damage: its tier ("tier"), half of it ("halfTier") or 1 ("unit").
+ *  17 Nov 2026: with "tier" ×1 a match ended around round 16 (median of 60 bot-vs-bot matches) – too early for rewards up to
+ *  round 36 and the Nam Bộ charm (rounds 24/28). "unit" ×0.5: median round 33, 100 % reach round 24, 65 % round 30. */
+export let SURVIVOR_DAMAGE: "tier" | "halfTier" | "unit" = "unit";
+/** the loser's damage (stage + survivors) is multiplied by this, rounded, at least 1 */
+export let DAMAGE_SCALE = 0.5;
+export function setSurvivorDamage(m: typeof SURVIVOR_DAMAGE, scale = 1) { SURVIVOR_DAMAGE = m; DAMAGE_SCALE = scale; }
 /** damage to the losing player before adding surviving enemy unit tiers */
 export function stageDamage(round: number): number {
   if (round <= 10) return 1;
@@ -120,14 +122,5 @@ export function auraKindForTier(tier: number): "legend" | "extinct" | "endangere
   return tier === 5 ? "legend" : tier === 4 ? "extinct" : tier === 3 ? "endangered" : null;
 }
 
-// --- items in the test match (PO 17 Nov 2026: items to push up the pace) ---
+// --- items in the match ---
 export const ITEM_CHOICES = 3;
-/** rounds with an item reward (choose 1 of 3): the GDD PvE rounds (1, 2, 3, 9, 15, …) plus every 3rd round */
-export function isItemRound(round: number): boolean {
-  return isPveRound(round) || round % 3 === 0;
-}
-/** item tier offered in the short test match: T1 rounds 1–3, T2 4–6, T3 7–9, T4 10–12, T5 from 13
- *  (the full game uses itemTierForRound with PvE rounds 1–3, 9, 15, 21, 27) */
-export function testItemTier(round: number): number {
-  return Math.min(5, 1 + Math.floor((round - 1) / 3));
-}

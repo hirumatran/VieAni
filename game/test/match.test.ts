@@ -135,7 +135,7 @@ describe("Test match (V001–V004)", () => {
     m.botTurn();
     expect(m.bot.itemOffer).toBeNull();
     const carried = m.bot.team.units().filter((u) => u.item != null).length + m.bot.teamItems.length;
-    expect(carried + m.bot.items.length).toBe(1);
+    expect(carried + m.bot.items.length + m.bot.charms.length).toBe(1);
   });
 
   it("levels up with XP (board limit = level)", () => {

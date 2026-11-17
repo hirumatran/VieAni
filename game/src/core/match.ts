@@ -8,13 +8,18 @@ import { Rng } from "./rng";
 import { Team, type OwnedUnit, type Spot } from "./team";
 import manifest from "../../../assets/illustrations/manifest.json";
 import { DROPPABLE, ITEM_RULES } from "./items";
+import { synergyStates } from "./synergy";
 
-/** test scenario: only illustrated VieAni are in the shop, and players start with less HP so a match is short */
+/** species id of Rồng Lạc Việt (needed on the board for Ấn Thống Nhất) */
+export const RONG_LAC_VIET = 1;
+
+/** test scenario: only illustrated VieAni are in the shop (all 87 now) */
 /** roster codes (V001…) that have both illustrations – the test shop offers exactly these, so new uploads join automatically */
 export const TEST_CODES = Object.keys(manifest as Record<string, { front?: unknown; back?: unknown }>)
   .filter((c) => (manifest as Record<string, { front?: unknown; back?: unknown }>)[c].front && (manifest as Record<string, { front?: unknown; back?: unknown }>)[c].back)
   .sort();
-export const TEST_HP = 40;
+/** PO 17 Nov 2026: rewards run to round 36 and charms to round 30, so the match uses the full 100 HP again (was 40) */
+export const TEST_HP = C.PLAYER_HP;
 
 export interface PlayerState {
   hp: number;
@@ -34,6 +39,10 @@ export interface PlayerState {
   teamItems: number[];
   /** item reward waiting to be chosen (3 ids) */
   itemOffer: number[] | null;
+  /** Linh Vật charms owned (ids 51–53) – no stats, no item slot */
+  charms: number[];
+  /** round in which Ấn Thống Nhất was first active (null = not yet) */
+  unityRound: number | null;
 }
 
 export interface RoundReport {
@@ -64,7 +73,7 @@ export class Match {
     this.species = species;
     this.rng = new Rng(seed);
     for (const s of species) this.pool.set(s.id, C.POOL_COPIES[s.tier] ?? 10);
-    const mk = (): PlayerState => ({ hp: startHp, gold: C.START_GOLD, level: 1, xp: 0, streak: 0, team: new Team(1), shop: [], locked: false, items: [], teamItems: [], itemOffer: null });
+    const mk = (): PlayerState => ({ hp: startHp, gold: C.START_GOLD, level: 1, xp: 0, streak: 0, team: new Team(1), shop: [], locked: false, items: [], teamItems: [], itemOffer: null, charms: [], unityRound: null });
     this.players = [mk(), mk()];
     for (const p of this.players) this.rollShop(p);
     if (C.isItemRound(1)) for (const p of this.players) this.rollItems(p);
@@ -76,15 +85,31 @@ export class Match {
 
   /** offer ITEM_CHOICES different items of this round's tier (only items the battle can already use) */
   rollItems(p: PlayerState) {
-    const tier = C.testItemTier(this.round);
+    const tier = C.itemTierForRound(this.round);
     const pool = DROPPABLE.filter((id) => this.item(id).tier === tier);
     const offer: number[] = [];
     while (offer.length < Math.min(C.ITEM_CHOICES, pool.length)) {
       const id = pool[this.rng.int(0, pool.length - 1)];
       if (!offer.includes(id)) offer.push(id);
     }
+    // Linh Vật: in its round window, one of the 3 choices is that charm (if the player does not have it yet)
+    const charm = C.CHARM_ITEM_IDS.find((id) => {
+      const [lo, hi] = C.CHARM_ROUND_WINDOWS[id];
+      return this.round >= lo && this.round <= hi && !p.charms.includes(id);
+    });
+    if (charm != null) offer[this.rng.int(0, offer.length - 1)] = charm;
     p.itemOffer = offer;
   }
+
+  isCharm(id: number) { return this.item(id).cat === "LV"; }
+
+  /** Ấn Thống Nhất: max level + Rồng Lạc Việt on the board + all 3 Linh Vật → 2 missing zodiac signs count as present */
+  unityActive(p: PlayerState): boolean {
+    return p.level >= C.MAX_LEVEL && C.CHARM_ITEM_IDS.every((id) => p.charms.includes(id))
+      && p.team.toPlaced().some((u) => u.speciesId === RONG_LAC_VIET);
+  }
+
+  zodiacBonus(p: PlayerState) { return this.unityActive(p) ? C.CHARM_BONUS_ZODIAC : 0; }
 
   chooseItem(p: PlayerState, index: number): number | null {
     const id = p.itemOffer?.[index];
@@ -96,6 +121,7 @@ export class Match {
 
   /** into a free team slot (team items) or the bag; false if there is no room */
   addItem(p: PlayerState, id: number): boolean {
+    if (this.isCharm(id)) { if (!p.charms.includes(id)) p.charms.push(id); return true; }
     if (this.isTeamItem(id) && p.teamItems.length < C.TEAM_ITEM_SLOTS) { p.teamItems.push(id); return true; }
     if (p.items.length < C.INVENTORY_MAX) { p.items.push(id); return true; }
     return false;
@@ -305,6 +331,59 @@ export class Match {
     this.botItems(p);
   }
 
+  // ------------------------------------------------------------------ "Ấn Thống Nhất" strategy (demo of the charm rule)
+  /** distinct zodiac signs on the board (+ Ấn Thống Nhất bonus) = Mười Hai Con Giáp count */
+  zodiacCount(p: PlayerState): number {
+    return synergyStates(this.d, p.team.toPlaced().map((u) => u.speciesId), this.zodiacBonus(p)).find((x) => x.syn.byZodiac)!.count;
+  }
+
+  /**
+   * A player that goes for the 12 zodiac signs: always takes the Linh Vật, buys one VieAni per zodiac sign (Rồng Lạc Việt
+   * first) plus copies of them for ★2/★3, levels fast, rerolls for missing signs and fields one VieAni per sign.
+   */
+  zodiacTurn(p: PlayerState) {
+    if (p.itemOffer) {
+      const i = p.itemOffer.findIndex((id) => this.isCharm(id));
+      this.chooseItem(p, i >= 0 ? i : 0);
+    }
+    const signOf = (id: number) => this.sp(id).zodiac ?? null;
+    const units = () => p.team.units();
+    const ownedSigns = () => new Set(units().map((u) => signOf(u.speciesId)).filter(Boolean));
+    const ownedIds = () => new Set(units().map((u) => u.speciesId));
+    const newSign = (id: number) => (id === RONG_LAC_VIET ? !ownedIds().has(id) : !!signOf(id) && !ownedSigns().has(signOf(id)!));
+    const reserve = () => (p.level >= 8 ? 0 : 10); // interest early, all-in late
+    const needRong = () => !ownedIds().has(RONG_LAC_VIET);
+    for (let rolls = 0; rolls < 15; rolls++) {
+      for (let slot = 0; slot < p.shop.length; slot++) {
+        const id = p.shop[slot];
+        if (id == null || !this.canBuy(p, slot)) continue;
+        const spare = p.gold - this.cost(id) >= reserve();
+        const copy = ownedIds().has(id);                              // towards ★2/★3
+        const filler = units().length < p.level + 2 && spare;        // keep the board full while the zodiac set grows
+        if (newSign(id) || (copy && spare) || filler) this.buy(p, slot);
+      }
+      // level when the board can already be filled
+      while (p.level < C.MAX_LEVEL && units().length >= p.level && p.gold - C.XP_BUY_COST >= reserve()) this.buyXp(p);
+      const missing = 12 - ownedSigns().size;
+      const chase = p.level >= 8 && (missing > 2 || needRong());
+      if (!chase || p.gold < C.REROLL_COST + (needRong() ? 5 : 1)) break;
+      this.reroll(p);
+    }
+    // field: Rồng Lạc Việt, then the best copy of every other sign, then the strongest others to fill the level
+    const all = units().sort((a, b) => Number(b.speciesId === RONG_LAC_VIET) - Number(a.speciesId === RONG_LAC_VIET) || this.sellValue(b) - this.sellValue(a));
+    const field: OwnedUnit[] = [];
+    const seen = new Set<string>();
+    for (const u of all) { const z = signOf(u.speciesId); if (z && !seen.has(z) && field.length < p.level) { seen.add(z); field.push(u); } }
+    for (const u of all) if (field.length < p.level && !field.includes(u)) field.push(u);
+    const team = new Team(p.level);
+    for (const u of field) { const s = this.spotFor(team, u); if (s) team.place(u, s); }
+    // bench: zodiac VieAni first (future signs / copies), sell the rest if it overflows
+    const rest = all.filter((u) => !field.includes(u)).sort((a, b) => Number(!!signOf(b.speciesId)) - Number(!!signOf(a.speciesId)) || this.sellValue(b) - this.sellValue(a));
+    for (const u of rest) if (!team.addToBench(u)) { this.returnItem(p, u); p.gold += this.sellValue(u); this.pool.set(u.speciesId, this.pool.get(u.speciesId)! + copies(u.star)); }
+    p.team = team;
+    this.botItems(p);
+  }
+
   // ------------------------------------------------------------------ round
   /** human = side A (bottom), bot = side B (top, mirrored) */
   battle(seed: number): { units: Placed[]; res: BattleResult } {
@@ -353,6 +432,7 @@ export class Match {
       const up = this.addXp(p, C.XP_PER_ROUND);
       if (i === 0) { income = inc; levelUp = up; }
     });
+    for (const p of this.players) if (p.unityRound == null && this.unityActive(p) && this.zodiacCount(p) >= 12) p.unityRound = this.round;
     const report: RoundReport = { round: this.round, winner: res.winner, damage, income, levelUp };
     this.round++;
     for (const p of this.players) if (!p.locked) this.rollShop(p);

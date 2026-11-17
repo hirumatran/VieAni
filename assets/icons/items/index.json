@@ -196,5 +196,23 @@
   "tier": 5,
   "cat": "TC",
   "symbol": "vertical-banner"
+ },
+ "51": {
+  "name": "Linh Vật Bắc Bộ",
+  "tier": 1,
+  "cat": "LV",
+  "symbol": "custom"
+ },
+ "52": {
+  "name": "Linh Vật Trung Bộ",
+  "tier": 3,
+  "cat": "LV",
+  "symbol": "custom"
+ },
+ "53": {
+  "name": "Linh Vật Nam Bộ",
+  "tier": 4,
+  "cat": "LV",
+  "symbol": "custom"
  }
 }

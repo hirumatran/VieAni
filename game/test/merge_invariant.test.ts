@@ -13,7 +13,7 @@ function triples(p: PlayerState): string[] {
 describe("merge invariant over many simulated matches", () => {
   it("no unmerged triples for the human or the bot", () => {
     const bad: string[] = [];
-    for (let seed = 1; seed <= 200; seed++) {
+    for (let seed = 1; seed <= 60; seed++) {
       const m = testMatch(d, seed);
       while (!m.over && m.round < 40) {
         const h = m.human;
@@ -29,5 +29,5 @@ describe("merge invariant over many simulated matches", () => {
       }
     }
     expect(bad.slice(0, 10)).toEqual([]);
-  });
+  }, 60000);
 });

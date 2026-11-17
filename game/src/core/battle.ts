@@ -381,11 +381,13 @@ export function simulate(d: GameData, units: Placed[], seed: number, teamItems: 
 
 /** damage the losing player takes (GDD §6.5); on a draw both take damage from the other side's survivors */
 export function playerDamage(res: BattleResult, round: number): { A: number; B: number } {
-  const sum = (side: Side) => res.survivors.filter((s) => s.side === side).reduce((n, s) => n + s.tier, 0);
+  const per = (t: number) => (C.SURVIVOR_DAMAGE === "unit" ? 1 : C.SURVIVOR_DAMAGE === "halfTier" ? t / 2 : t);
+  const sum = (side: Side) => Math.ceil(res.survivors.filter((s) => s.side === side).reduce((n, s) => n + per(s.tier), 0));
   const base = C.stageDamage(round);
-  if (res.winner === "A") return { A: 0, B: base + sum("A") };
-  if (res.winner === "B") return { A: base + sum("B"), B: 0 };
-  return { A: base + sum("B"), B: base + sum("A") };
+  const hurt = (side: Side) => Math.max(1, Math.round((base + sum(side)) * C.DAMAGE_SCALE));
+  if (res.winner === "A") return { A: 0, B: hurt("A") };
+  if (res.winner === "B") return { A: hurt("B"), B: 0 };
+  return { A: hurt("B"), B: hurt("A") };
 }
 
 /** mirror an opponent's own-half placement (rows 4..7) onto the top half, rotated 180° */

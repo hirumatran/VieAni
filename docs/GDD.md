@@ -30,15 +30,13 @@ board, and watch them fight. Win by being the last of 8 players standing.
 Battle ends when one side has no units left. If both sides still have units at 45 s, it is a
 **draw: both players take damage** (counted from the other side's surviving units).
 
-### Round types
-| Rounds | Type | Opponent |
-|---|---|---|
-| 1, 2, 3 | **PvE – Thú hoang** (wild animals) | Fixed packs of wild VieAni (e.g. 2 Chuột Đồng → 3 Chuột → Heo Rừng + 2 Chuột) |
-| 9, 15, 21, 27, 33, 39… (every 6) | **PvE – Thú dữ** (boss packs) | Stronger packs (Sói Đỏ pack, Hổ, Cá Sấu, …) |
-| all other rounds | **PvP** | A random living player, never the same one twice in a row. Odd number alive → one player fights a "ghost" copy of another player's team |
+### Round types (PO, 17 Nov 2026: no PvE)
+Every round is **PvP** (a random living player, never the same one twice in a row; odd number alive → one player fights a
+"ghost" copy of another player's team). There are no PvE / monster rounds.
 
-**PvE rewards = items.** Win: choose 1 of 3 items. Lose: get 1 random item.
-Item tier by round: R1–3 → tier 1, R9 → tier 2, R15 → tier 3, R21 → tier 4, R27+ → tier 5.
+**Item rewards:** after rounds **1, 4, 8, 12, 16, 20, 24, 28, 32, 36** every player chooses 1 of 3 items.
+Item tier: rounds 1, 4 → tier 1 · 8, 12 → 2 · 16, 20 → 3 · 24, 28 → 4 · 32, 36 → 5.
+Linh Vật charms are offered as one of the 3 choices in their window (Bắc Bộ: rounds 1, 4, 8 · Trung Bộ: 12, 16, 20 · Nam Bộ: 24, 28).
 
 ## 3. Economy
 | Rule | Value |
@@ -138,7 +136,7 @@ when adding new VieAni.
 - **Cộng sinh** pairs give their bonus when both species are on the board.
 
 ### 6.5 Player damage when losing a round
-Damage = **stage damage + sum of the tiers of the winner's surviving units**.
+Damage = **(stage damage + 1 per surviving enemy VieAni) × 0.5**, rounded, at least 1 (17 Nov 2026; was stage damage + sum of the survivors' tiers, which ended a match around round 16 – too early for item rewards up to round 36 and the Nam Bộ charm at rounds 24/28. New rule: median match ends around round 33 in 60 bot-vs-bot simulations).
 Stage damage: rounds 1–10 → 1, 11–20 → 3, 21–30 → 5, 31+ → 8.
 (Example: round 14, opponent has a tier-3 and a tier-1 left → 3 + 3 + 1 = 7 damage.)
 
@@ -152,7 +150,7 @@ Stage damage: rounds 1–10 → 1, 11–20 → 3, 21–30 → 5, 31+ → 8.
 - **SAN – Đặt trên sân** (board objects, e.g. Hũ Mật, Bẫy Chông Tre): occupy a cell on your half;
   do not count towards the unit limit; max 2 per board.
 - **LV – Linh Vật** (3 charms: Bắc Bộ, Trung Bộ, Nam Bộ): no stats, no item slot, cannot be taken by Hoàn Kiếm.
-  Each appears only in its round window – Bắc Bộ rounds 1–10, Trung Bộ 11–20, Nam Bộ 21–30 – as 1 of the 3 PvE item choices (max 1 of each). **Ấn Thống Nhất:** at level 10, with Rồng
+  Each appears only in its round window – Bắc Bộ rounds 1–10, Trung Bộ 11–20, Nam Bộ 21–30 – as 1 of the 3 item-reward choices (max 1 of each). **Ấn Thống Nhất:** at level 10, with Rồng
   Lạc Việt on the board and all 3 charms, the 2 missing zodiac signs count as present → Mười Hai Con Giáp (12).
 - Effects from `data/items.json` (53 items, tiers 1–5).
 
