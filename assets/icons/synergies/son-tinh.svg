@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <radialGradient id="bgson-tinh" cx=".42" cy=".36" r=".75"><stop offset="0" stop-color="#af8f71"/><stop offset=".55" stop-color="#8a5a2e"/>
+      <stop offset="1" stop-color="#4c3219"/></radialGradient>
+    <linearGradient id="glson-tinh" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".22"/>
+      <stop offset=".45" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    <linearGradient id="fgson-tinh" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#f1e6cf"/></linearGradient>
+    <filter id="shson-tinh" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="3" stdDeviation="2.5" flood-color="#000" flood-opacity=".5"/></filter>
+    <filter id="nzson-tinh" x="0" y="0" width="1" height="1"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="7"/>
+      <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .14 0"/><feComposite in2="SourceGraphic" operator="in"/></filter>
+    <mask id="mson-tinh"><g fill="#fff"><path fill="#fff" d="M256.22 18.375c-132.32 0-239.783 107.43-239.783 239.75S123.9 497.905 256.22 497.905S496 390.446 496 258.126S388.54 18.375 256.22 18.375m0 17.875c102.773 0 189.092 69.664 214.374 164.406l-79.313-81.47l-6.967-7.155l-6.688 7.47l-77.22 86.438a1913 1913 0 0 0-34.467-30.063l-6.563-5.625l-6.125 6.156a3510 3510 0 0 0-55.438 57.094l-76.437-83.375l-6.875-7.5l-6.875 7.5l-71.188 77.313C51.364 119.34 143.983 36.25 256.22 36.25m102.25 147.28l-3.845 35.376l21.563-32l10.75 16.688l9.968-8.47l27.188 26.814L417 187.344l19.5 5.062l39.188 40.25l.843-.812a224 224 0 0 1 1.564 26.28c0 37.033-9.06 71.917-25.063 102.595c-46.25-53.48-92.512-100.116-138.75-142.283l11-12.312l33.19-22.594zm-220.16 22.75l26.438 18.782l20.22 22.032c-39.47 42.024-78.63 85.836-115.94 130.344c-21.98-34.443-34.718-75.38-34.718-119.313v-.78l16.25-17.658L87.81 219.5l-17.187 54.063l41.813-51.22l27.312 32.72l-1.438-48.782zm141.375 61.657l53.157 60.938l-7.688-54.563L386.312 315a1632 1632 0 0 1 56.75 62.78l.188-.186C403.853 439.216 334.868 480.03 256.22 480.03c-71.76 0-135.483-33.992-176.033-86.75c19.135-22.91 38.775-45.645 58.72-68.06l56.155-33.814l-29.312 76.75l61.53-73.375l6.25 32.19l19.532-36.783l47.844 69.5l-21.22-91.75z"/></g></mask>
+  </defs>
+  <rect x="3" y="3" width="122" height="122" rx="24" fill="#291b0e"/>
+  <rect x="6" y="6" width="116" height="116" rx="21" fill="url(#bgson-tinh)"/>
+  <rect x="6" y="6" width="116" height="116" rx="21" fill="#000" filter="url(#nzson-tinh)"/>
+  <g opacity=".16" fill="none" stroke="#fff" stroke-width="1.2"><circle cx="64" cy="64" r="50"/><circle cx="64" cy="64" r="38"/></g><path d="M110.9 61.2L110.9 66.8L105.0 64.0ZM110.4 71.7L109.1 77.2L104.0 73.1ZM107.5 81.8L105.0 86.9L100.9 81.8ZM102.4 91.0L98.9 95.5L96.1 89.6ZM95.5 98.9L91.0 102.4L89.6 96.1ZM86.9 105.0L81.8 107.5L81.8 100.9ZM77.2 109.1L71.7 110.4L73.1 104.0ZM66.8 110.9L61.2 110.9L64.0 105.0ZM56.3 110.4L50.8 109.1L54.9 104.0ZM46.2 107.5L41.1 105.0L46.2 100.9ZM37.0 102.4L32.5 98.9L38.4 96.1ZM29.1 95.5L25.6 91.0L31.9 89.6ZM23.0 86.9L20.5 81.8L27.1 81.8ZM18.9 77.2L17.6 71.7L24.0 73.1ZM17.1 66.8L17.1 61.2L23.0 64.0ZM17.6 56.3L18.9 50.8L24.0 54.9ZM20.5 46.2L23.0 41.1L27.1 46.2ZM25.6 37.0L29.1 32.5L31.9 38.4ZM32.5 29.1L37.0 25.6L38.4 31.9ZM41.1 23.0L46.2 20.5L46.2 27.1ZM50.8 18.9L56.3 17.6L54.9 24.0ZM61.2 17.1L66.8 17.1L64.0 23.0ZM71.7 17.6L77.2 18.9L73.1 24.0ZM81.8 20.5L86.9 23.0L81.8 27.1ZM91.0 25.6L95.5 29.1L89.6 31.9ZM98.9 32.5L102.4 37.0L96.1 38.4ZM105.0 41.1L107.5 46.2L100.9 46.2ZM109.1 50.8L110.4 56.3L104.0 54.9Z" fill="#fff" opacity=".14"/>
+  <rect x="6" y="6" width="116" height="58" rx="21" fill="url(#glson-tinh)"/>
+  <rect x="11" y="11" width="106" height="106" rx="17" fill="none" stroke="#f3d27a" stroke-opacity=".75" stroke-width="1.6"/>
+  <g filter="url(#shson-tinh)"><g transform="translate(25 25) scale(0.15234 0.15234)">
+    <rect width="512" height="512" fill="url(#fgson-tinh)" mask="url(#mson-tinh)"/></g></g>
+</svg>

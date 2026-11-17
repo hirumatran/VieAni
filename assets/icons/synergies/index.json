@@ -1,0 +1,104 @@
+{
+ "Tứ Linh": {
+  "icon": "tu-linh",
+  "colour": "#c9962a",
+  "symbol": "rồng cuộn – đứng đầu Tứ Linh (Long, Lân, Quy, Phụng)",
+  "source": "dragon-spiral"
+ },
+ "Sơn Tinh": {
+  "icon": "son-tinh",
+  "colour": "#8a5a2e",
+  "symbol": "núi thiêng – Sơn Tinh dâng núi chặn nước",
+  "source": "mountains"
+ },
+ "Hộ Quốc": {
+  "icon": "ho-quoc",
+  "colour": "#b3262d",
+  "symbol": "khiên giữ nước",
+  "source": "bordered-shield"
+ },
+ "Săn Mồi": {
+  "icon": "san-moi",
+  "colour": "#d8661c",
+  "symbol": "nanh thú săn",
+  "source": "fangs"
+ },
+ "Cự Thú": {
+  "icon": "cu-thu",
+  "colour": "#4f6672",
+  "symbol": "đầu voi – thú khổng lồ",
+  "source": "elephant-head"
+ },
+ "Cao Nguyên Bắc Bộ": {
+  "icon": "cao-nguyen-bac-bo",
+  "colour": "#3c4aa8",
+  "symbol": "núi đá vôi phía Bắc",
+  "source": "peaks"
+ },
+ "Trường Sơn": {
+  "icon": "truong-son",
+  "colour": "#2b7a3d",
+  "symbol": "đại ngàn Trường Sơn",
+  "source": "forest"
+ },
+ "Tây Nguyên": {
+  "icon": "tay-nguyen",
+  "colour": "#0f7f73",
+  "symbol": "cồng chiêng Tây Nguyên",
+  "source": "gong"
+ },
+ "Biển Đông": {
+  "icon": "bien-dong",
+  "colour": "#1d56a8",
+  "symbol": "sóng Biển Đông",
+  "source": "big-wave"
+ },
+ "Sông Nước": {
+  "icon": "song-nuoc",
+  "colour": "#2a9fd0",
+  "symbol": "hoa sen – ao làng, đồng nước",
+  "source": "lotus"
+ },
+ "Côn Trùng": {
+  "icon": "con-trung",
+  "colour": "#6fa83a",
+  "symbol": "chuồn chuồn",
+  "source": "dragonfly"
+ },
+ "Bầy Chó Dữ": {
+  "icon": "bay-cho-du",
+  "colour": "#7a2230",
+  "symbol": "đầu chó dữ",
+  "source": "wolf-head"
+ },
+ "Hội Nhà Mèo": {
+  "icon": "hoi-nha-meo",
+  "colour": "#7a2aa0",
+  "symbol": "mèo",
+  "source": "cat"
+ },
+ "Bầy Gặm Nhấm": {
+  "icon": "bay-gam-nham",
+  "colour": "#c94f7c",
+  "symbol": "chuột",
+  "source": "mouse"
+ },
+ "Săn Côn Trùng": {
+  "icon": "san-con-trung",
+  "colour": "#8a8a22",
+  "symbol": "tắc kè / thằn lằn bắt sâu bọ",
+  "source": "gecko"
+ },
+ "Gia Súc": {
+  "icon": "gia-suc",
+  "colour": "#a8703a",
+  "symbol": "sừng trâu – vật nuôi nhà nông",
+  "source": "bull-horns"
+ },
+ "Mười Hai Con Giáp": {
+  "icon": "muoi-hai-con-giap",
+  "colour": "#2f3e46",
+  "symbol": "ngôi sao 12 cánh kiểu mặt trống đồng – 12 con giáp",
+  "source": "custom"
+ }
+}

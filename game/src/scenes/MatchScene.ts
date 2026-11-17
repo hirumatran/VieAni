@@ -10,6 +10,12 @@ import { texturesFor, vcode } from "../anim/illustrations";
 import { button, CREAM, FONT_LOGO, FONT_UI, GOLD, toast, WOOD } from "../ui/widgets";
 import { BoardScene, type View } from "./BoardScene";
 import type { CardSubject } from "../ui/InfoCard";
+import { activeSynergies, type SynergyState } from "../core/synergy";
+import synIndex from "../../../assets/icons/synergies/index.json";
+
+/** tộc hệ icons (scripts/synergy_icons.py): name -> svg slug + tile colour */
+const SYN_ICON = synIndex as Record<string, { icon: string; colour: string; symbol: string }>;
+const SYN_X = 1236, SYN_Y0 = 84, SYN_STEP = 54, SYN_ICON_PX = 44;
 
 // shop strip along the bottom (PO, 13 Nov 2026): [Làm mới / Mua XP] [5 cards] [Sẵn sàng]; drop a VieAni on it to sell
 const STRIP_X = 10, STRIP_W = SCREEN_W - 20, STRIP_H = SCREEN_H - MATCH_SHOP_TOP - 6;
@@ -107,6 +113,13 @@ export class MatchScene extends BoardScene {
     this.sellZone = this.add.container(0, 0, [zg, this.sellText]).setDepth(top + 10).setVisible(false);
 
     this.cards = [];
+    this.synRows = []; this.synSig = ""; this.synPopup = undefined; this.synOpen = "";
+    // a click on empty space closes the tộc hệ details
+    this.input.on("pointerdown", (p: Phaser.Input.Pointer, over: Phaser.GameObjects.GameObject[]) => {
+      if (!this.synPopup || over.some((o) => o.getData?.("synRow"))) return; // a row click toggles by itself
+      const b = this.synPopup.getBounds();
+      if (!b.contains(p.x, p.y)) this.closeSynPopup();
+    });
     this.drawCards();
     this.refreshHud();
     this.startTimer();
@@ -115,6 +128,117 @@ export class MatchScene extends BoardScene {
 
   protected updateCounter() {
     this.counter?.setText(t("onBoard")(this.team.boardCount, this.team.maxOnBoard));
+    this.refreshSynergies();
+  }
+
+  preload() {
+    super.preload();
+    for (const g of this.data_.synergies) {
+      const ic = SYN_ICON[g.name]?.icon;
+      if (ic && !this.textures.exists(`syn:${ic}`)) this.load.svg(`syn:${ic}`, `icons/synergies/${ic}.svg`, { width: 96, height: 96 });
+    }
+  }
+
+  // ------------------------------------------------------------------ tộc hệ (synergies) on the right (PO, 17 Nov 2026)
+  private synRows: Phaser.GameObjects.Container[] = [];
+  private synSig = "";
+  private synPopup?: Phaser.GameObjects.Container;
+  private synOpen = "";
+
+  /** one row per formed tộc hệ: label + count + tier pips, then its icon; click = details */
+  private refreshSynergies() {
+    if (!this.sys.isActive() && !this.sys.isVisible()) return;
+    const act = activeSynergies(this.data_, this.team.toPlaced().map((u) => u.speciesId));
+    const sig = act.map((a) => `${a.syn.name}:${a.count}`).join("|");
+    if (sig === this.synSig && this.synRows.every((r) => r.active)) return;
+    this.synSig = sig;
+    for (const r of this.synRows) r.destroy();
+    this.synRows = [];
+    act.forEach((a, i) => {
+      const ic = SYN_ICON[a.syn.name];
+      const row = this.add.container(SYN_X, SYN_Y0 + i * SYN_STEP).setDepth(5002);
+      const next = a.thresholds.find((th) => th > a.count) ?? a.thresholds[a.thresholds.length - 1];
+      const label = this.add.text(-SYN_ICON_PX / 2 - 12, -10, a.syn.name, { fontFamily: FONT_UI, fontSize: "14px", color: CREAM, fontStyle: "bold" }).setOrigin(1, 0.5);
+      const cnt = this.add.text(-SYN_ICON_PX / 2 - 12, 9, `${a.count} / ${next}`, { fontFamily: FONT_UI, fontSize: "12px", color: "#ffe6a3", fontStyle: "bold" }).setOrigin(1, 0.5);
+      const pw = Math.max(label.width, cnt.width + 14 * a.thresholds.length + 6) + 22;
+      const bg = this.add.graphics();
+      bg.fillStyle(WOOD, 0.88).fillRoundedRect(-SYN_ICON_PX / 2 - pw, -SYN_ICON_PX / 2 + 2, pw + 10, SYN_ICON_PX - 4, 10);
+      bg.lineStyle(2, Phaser.Display.Color.HexStringToColor(ic?.colour ?? "#e7c05f").color, 0.9).strokeRoundedRect(-SYN_ICON_PX / 2 - pw, -SYN_ICON_PX / 2 + 2, pw + 10, SYN_ICON_PX - 4, 10);
+      // tier pips: filled = reached
+      const pips = this.add.graphics();
+      a.thresholds.forEach((_, k) => {
+        const px = -SYN_ICON_PX / 2 - 12 - cnt.width - 10 - (a.thresholds.length - 1 - k) * 12;
+        pips.fillStyle(k <= a.level ? 0xffd84a : 0x5a4a3a, 1).fillCircle(px, 9, 4);
+      });
+      const icon = this.add.image(0, 0, `syn:${ic?.icon}`).setDisplaySize(SYN_ICON_PX, SYN_ICON_PX);
+      const hit = this.add.zone(-pw / 2 + 4, 0, pw + SYN_ICON_PX + 10, SYN_ICON_PX).setInteractive({ useHandCursor: true });
+      hit.setData("synRow", true);
+      hit.on("pointerup", () => this.toggleSynPopup(a, SYN_Y0 + i * SYN_STEP));
+      hit.on("pointerover", () => row.setScale(1.04));
+      hit.on("pointerout", () => row.setScale(1));
+      row.add([bg, label, cnt, pips, icon, hit]);
+      this.synRows.push(row);
+    });
+    // keep an open details panel up to date (or close it if that tộc hệ is gone)
+    if (this.synOpen) {
+      const i = act.findIndex((a) => a.syn.name === this.synOpen);
+      this.closeSynPopup();
+      if (i >= 0) this.openSynPopup(act[i], SYN_Y0 + i * SYN_STEP);
+    }
+  }
+
+  private toggleSynPopup(a: SynergyState, y: number) {
+    const same = this.synOpen === a.syn.name;
+    this.closeSynPopup();
+    if (!same) this.openSynPopup(a, y);
+  }
+
+  private closeSynPopup() {
+    this.synPopup?.destroy();
+    this.synPopup = undefined;
+    this.synOpen = "";
+  }
+
+  /** details: icon, name, what it is, each tier's ability (reached tiers in gold), who counts */
+  private openSynPopup(a: SynergyState, rowY: number) {
+    const W = 360, P = 14, ic = SYN_ICON[a.syn.name];
+    const box = this.add.container(0, 0).setDepth(9200);
+    const g = this.add.graphics();
+    box.add(g);
+    const txt = (x: number, y: number, s: string, size: number, color: string, bold = false, wrap = W - 2 * P) => {
+      const tx = this.add.text(x, y, s, { fontFamily: FONT_UI, fontSize: `${size}px`, color, fontStyle: bold ? "bold" : "normal", wordWrap: { width: wrap }, lineSpacing: 2 });
+      box.add(tx); return tx;
+    };
+    box.add(this.add.image(P + 26, P + 26, `syn:${ic?.icon}`).setDisplaySize(52, 52));
+    txt(P + 62, P + 2, a.syn.name, 19, "#ffe6a3", true, W - P - 70);
+    txt(P + 62, P + 28, `Đang có ${a.count} · mốc ${a.thresholds.join(" / ")}`, 12.5, CREAM, true, W - P - 70);
+    let y = P + 62;
+    if (a.syn.basis) { const b = txt(P, y, a.syn.basis, 11.5, "#cdbb98"); y += b.height + 8; }
+    a.thresholds.forEach((th, k) => {
+      const on = k <= a.level;
+      const head = txt(P, y, `(${th})`, 13, on ? "#ffd84a" : "#8a7a6a", true, 40);
+      const body = txt(P + 34, y, a.syn.tiers[String(th)], 13, on ? "#fff3d6" : "#a89a8a", on, W - 2 * P - 34);
+      if (on) { g.fillStyle(0xe7c05f, 0.14).fillRoundedRect(P - 6, y - 3, W - 2 * P + 12, body.height + 6, 6); }
+      void head;
+      y += body.height + 8;
+    });
+    const who = a.syn.byZodiac
+      ? `Con giáp trên sân: ${[...new Set(a.present.map((s) => s.zodiac))].join(", ")}`
+      : `Trên sân: ${a.present.map((s) => s.vi.replace(/\s*\(.*\)/, "")).join(", ")}`;
+    const w1 = txt(P, y, who, 12, CREAM, true); y += w1.height + 4;
+    if (!a.syn.byZodiac) {
+      const others = a.syn.members.filter((m) => !a.present.some((s) => s.id === m)).map((m) => this.data_.byId.get(m)!.vi.replace(/\s*\(.*\)/, ""));
+      if (others.length) { const w2 = txt(P, y, `Còn thiếu: ${others.join(", ")}`, 11.5, "#a89a8a"); y += w2.height + 4; }
+    }
+    const foot = txt(P, y + 4, "Bản thử: hiệu ứng tộc hệ chưa được tính trong trận đấu.", 10.5, "#8a7a6a"); y += foot.height + 4 + P;
+    g.fillStyle(0x000000, 0.45).fillRoundedRect(4, 6, W, y, 14);
+    g.fillStyle(0x1b120c, 0.97).fillRoundedRect(0, 0, W, y, 14);
+    g.lineStyle(3, Phaser.Display.Color.HexStringToColor(ic?.colour ?? "#e7c05f").color, 1).strokeRoundedRect(0, 0, W, y, 14);
+    box.setPosition(SYN_X - SYN_ICON_PX / 2 - 230 - W, Phaser.Math.Clamp(rowY - 30, 8, MATCH_SHOP_TOP - y - 8));
+    // the row label sits at most ~230 px left of the icon; keep the panel fully left of it but on screen
+    box.x = Math.max(8, box.x);
+    this.synPopup = box;
+    this.synOpen = a.syn.name;
   }
 
   private refreshHud() {

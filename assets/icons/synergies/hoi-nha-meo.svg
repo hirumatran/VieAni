@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <radialGradient id="bghoi-nha-meo" cx=".42" cy=".36" r=".75"><stop offset="0" stop-color="#a56ebe"/><stop offset=".55" stop-color="#7a2aa0"/>
+      <stop offset="1" stop-color="#431758"/></radialGradient>
+    <linearGradient id="glhoi-nha-meo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".22"/>
+      <stop offset=".45" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    <linearGradient id="fghoi-nha-meo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#f1e6cf"/></linearGradient>
+    <filter id="shhoi-nha-meo" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="3" stdDeviation="2.5" flood-color="#000" flood-opacity=".5"/></filter>
+    <filter id="nzhoi-nha-meo" x="0" y="0" width="1" height="1"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="7"/>
+      <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .14 0"/><feComposite in2="SourceGraphic" operator="in"/></filter>
+    <mask id="mhoi-nha-meo"><g fill="#fff"><path fill="#fff" d="m463.46 37.008l-30.694 50.738l-7.043-2.28c-27.146-8.797-71.525-7.15-97.6.11L321.22 87.5l-28.68-48.543c-33.63 69.254-32.264 117.56-14.79 148.574c18.71 33.208 57.378 49.09 99.117 48.574c48.743-.606 88.968-19.665 107.035-54.194c16.918-32.332 15.684-80.456-20.443-144.902zM323.935 137.594c18.45.1 29.36 15.338 31.462 36.644c-37.11 17.91-53.963 3.398-61.173-26.545c11.382-7.063 21.324-10.144 29.71-10.1zm109.26 0c8.385-.045 18.328 3.036 29.71 10.1c-7.21 29.942-24.064 44.454-61.174 26.544c2.104-21.306 13.014-36.545 31.463-36.644zm-293.553 50.96q-1.839-.014-3.66.018c-30.175.536-56.142 10.59-75.743 26.574c-43.444 35.43-57.27 100.752-12.824 166.192c20.293 33.995 44.432 54.24 70.797 64.187c32.85 12.395 66.655 8.823 99.94 4.114s65.854-10.63 96.896-8.42c31.04 2.212 62.09 10.18 90.505 41.165c19.374 21.125 46.887-1.627 23.82-24.156c-35.024-34.207-72.527-47.42-109.377-50.04s-72.2 4.698-104.207 9.228s-60.272 6.552-84.558-2.61c-14.39-5.43-28.308-14.802-41.55-31.142h351.744c13.673-52.293 14.867-106.368 1.873-142.072c-19.765 8.49-42.412 12.9-66.2 13.197h-.002c-29.85.37-59.458-6.925-82.907-22.823a426 426 0 0 0-14.292 9.685l-5.734 4.057l-5.49-4.382c-46.63-37.2-91.028-52.48-129.03-52.773z"/></g></mask>
+  </defs>
+  <rect x="3" y="3" width="122" height="122" rx="24" fill="#250d30"/>
+  <rect x="6" y="6" width="116" height="116" rx="21" fill="url(#bghoi-nha-meo)"/>
+  <rect x="6" y="6" width="116" height="116" rx="21" fill="#000" filter="url(#nzhoi-nha-meo)"/>
+  <g opacity=".16" fill="none" stroke="#fff" stroke-width="1.2"><circle cx="64" cy="64" r="50"/><circle cx="64" cy="64" r="38"/></g><path d="M110.9 61.2L110.9 66.8L105.0 64.0ZM110.4 71.7L109.1 77.2L104.0 73.1ZM107.5 81.8L105.0 86.9L100.9 81.8ZM102.4 91.0L98.9 95.5L96.1 89.6ZM95.5 98.9L91.0 102.4L89.6 96.1ZM86.9 105.0L81.8 107.5L81.8 100.9ZM77.2 109.1L71.7 110.4L73.1 104.0ZM66.8 110.9L61.2 110.9L64.0 105.0ZM56.3 110.4L50.8 109.1L54.9 104.0ZM46.2 107.5L41.1 105.0L46.2 100.9ZM37.0 102.4L32.5 98.9L38.4 96.1ZM29.1 95.5L25.6 91.0L31.9 89.6ZM23.0 86.9L20.5 81.8L27.1 81.8ZM18.9 77.2L17.6 71.7L24.0 73.1ZM17.1 66.8L17.1 61.2L23.0 64.0ZM17.6 56.3L18.9 50.8L24.0 54.9ZM20.5 46.2L23.0 41.1L27.1 46.2ZM25.6 37.0L29.1 32.5L31.9 38.4ZM32.5 29.1L37.0 25.6L38.4 31.9ZM41.1 23.0L46.2 20.5L46.2 27.1ZM50.8 18.9L56.3 17.6L54.9 24.0ZM61.2 17.1L66.8 17.1L64.0 23.0ZM71.7 17.6L77.2 18.9L73.1 24.0ZM81.8 20.5L86.9 23.0L81.8 27.1ZM91.0 25.6L95.5 29.1L89.6 31.9ZM98.9 32.5L102.4 37.0L96.1 38.4ZM105.0 41.1L107.5 46.2L100.9 46.2ZM109.1 50.8L110.4 56.3L104.0 54.9Z" fill="#fff" opacity=".14"/>
+  <rect x="6" y="6" width="116" height="58" rx="21" fill="url(#glhoi-nha-meo)"/>
+  <rect x="11" y="11" width="106" height="106" rx="17" fill="none" stroke="#f3d27a" stroke-opacity=".75" stroke-width="1.6"/>
+  <g filter="url(#shhoi-nha-meo)"><g transform="translate(25 25) scale(0.15234 0.15234)">
+    <rect width="512" height="512" fill="url(#fghoi-nha-meo)" mask="url(#mhoi-nha-meo)"/></g></g>
+</svg>

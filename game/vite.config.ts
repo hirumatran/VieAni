@@ -21,7 +21,7 @@ function vieIndexPage(): Plugin {
 
 // Only the files the game loads go into the build (17 Nov 2026: copying all of assets/ shipped the ~200 MB raw uploads and
 // the 512-px masters to itch.io, close to its 1000-file limit). Dev server still serves the whole assets/ folder.
-const SHIP = ["sprites", "backgrounds", "palette", "illustrations/web", "illustrations/manifest.json"];
+const SHIP = ["sprites", "backgrounds", "palette", "illustrations/web", "illustrations/manifest.json", "icons"];
 function shipAssets(): Plugin {
   return {
     name: "ship-assets",

@@ -288,3 +288,25 @@ Not yet applied in the match – after the PO picks, apply by tier on board, ben
   - The build copies only `sprites/`, `backgrounds/`, `palette/`, `illustrations/web/` and the manifest
     (`vite.config.ts`, `copyPublicDir: false`). Raw uploads and the 512-px masters stay in the repo (VieIndex is built from them).
   - Pixel sprites are only loaded for VieAni without an illustration (none at the moment).
+
+## Tộc hệ icons + panel (17 Nov, v0.7.3)
+- **Icons** (`assets/icons/synergies/*.svg`, made by `scripts/synergy_icons.py`): one white symbol per tộc hệ on a jewel-coloured
+  tile with radial light, a faint Đông Sơn drum-ring pattern, a gold inner frame and a dark bronze border. First hand-drawn version
+  was rejected by the PO ("quite ugly") → v2 uses symbols from **game-icons.net (CC BY 3.0, Lorc, Delapouite & contributors)** –
+  credit in `assets/icons/synergies/CREDITS.md` (must stay with the game); the used symbols are vendored in
+  `scripts/data/game_icons_subset.json`. Mười Hai Con Giáp = our own 12-ray Đông Sơn drum star.
+  | Tộc hệ | Symbol | Tộc hệ | Symbol |
+  |---|---|---|---|
+  | Tứ Linh | coiled dragon | Biển Đông | great wave |
+  | Sơn Tinh | mountain emblem | Sông Nước | lotus |
+  | Hộ Quốc | ornate shield | Côn Trùng | dragonfly |
+  | Săn Mồi | fangs | Bầy Chó Dữ | wolf-dog head |
+  | Cự Thú | elephant head | Hội Nhà Mèo | cat |
+  | Cao Nguyên Bắc Bộ | karst spires | Bầy Gặm Nhấm | mouse |
+  | Trường Sơn | forest | Săn Côn Trùng | gecko |
+  | Tây Nguyên | gong | Gia Súc | water-buffalo horns |
+  | Mười Hai Con Giáp | 12-ray drum star | | |
+- **In the match:** every tộc hệ formed on our board (first threshold reached) shows on the right: name, "count / next threshold",
+  tier pips and its icon, strongest first. Click → details: what it is, each tier's ability (reached tiers in gold), who counts on
+  the board and who is still missing; click outside to close. Counting (`core/synergy.ts`, tests): different species;
+  Mười Hai Con Giáp counts different zodiac signs. Effects are not applied in battle yet (noted in the panel).
