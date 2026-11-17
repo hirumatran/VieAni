@@ -310,3 +310,22 @@ Not yet applied in the match – after the PO picks, apply by tier on board, ben
   tier pips and its icon, strongest first. Click → details: what it is, each tier's ability (reached tiers in gold), who counts on
   the board and who is still missing; click outside to close. Counting (`core/synergy.ts`, tests): different species;
   Mười Hai Con Giáp counts different zodiac signs. Effects are not applied in battle yet (noted in the panel).
+
+## Items in the match + item icons (17 Nov, v0.8.0)
+- VieIndex: tộc hệ icons on every card and in the detail view (Mười Hai Con Giáp shown for VieAni with a zodiac sign).
+- **Item rewards** (PO: push up the pace): choose 1 of 3 at rounds 1, 2, 3 and every 3rd round after (plus the GDD PvE rounds).
+  Tier rises with the round in the test match: T1 rounds 1–3, T2 4–6, T3 7–9, T4 10–12, T5 from 13 (`isItemRound`,
+  `testItemTier` in config.ts). Bot takes its first choice and equips its strongest units.
+- **33 of the 50 battle items work in battle** (`game/src/core/items.ts` ITEM_RULES, tests in `test/items.test.ts`): stats, type
+  bonuses/resistances, armour pierce, crit, bleed, lightning, multi-shot, infinite range, heals/regen, Quả Thị / Lá Đa Thần
+  revives, Hịch Tướng Sĩ rally, team items (Trống Đồng ×2 with Chim Lạc, Cồng Chiêng, Móng Rùa Kim Quy, Cờ Lau), Bánh Chưng +
+  Bánh Giầy pair, Lì Xì (+1 gold per won round), Hạt Dưa (+2 % max HP per won round, max 30 %). The other 17 need systems
+  that do not exist yet (throwing, board objects, illusions, summons, row sweeps, crowd control) and do not drop yet (NOT_YET);
+  Linh Vật charms come with the full PvE rounds.
+- **UI:** bag (10 slots) + 2 team slots under the left HUD; drag a bag item onto one of our VieAni to equip (swaps with what it
+  carried); team items go to the team slots. Items come back to the bag when the carrier is sold; merging keeps one item on the
+  ★-up copy. Item badge next to the ★ marks (both sides), "VẬT PHẨM ĐANG MANG" list on the right (who carries what + team items),
+  tooltips, and "Mang: …" on the hover card. Heals / bleed / lightning / extra shots / revives show as floating numbers.
+- **Item icons** (`scripts/item_icons.py` → `assets/icons/items/<id>.svg`): round tiles coloured by tier (1 grey, 2 green,
+  3 blue, 4 purple, 5 gold) with game-icons.net symbols (CC BY 3.0, credit in `assets/icons/items/CREDITS.md`); Nón Lá,
+  Bánh Chưng and the Trống Đồng star drawn here.

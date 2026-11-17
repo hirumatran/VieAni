@@ -1,0 +1,200 @@
+{
+ "1": {
+  "name": "Gậy Tre",
+  "tier": 1,
+  "cat": "TC",
+  "symbol": "wood-stick"
+ },
+ "2": {
+  "name": "Liềm Gặt",
+  "tier": 1,
+  "cat": "TC",
+  "symbol": "sickle"
+ },
+ "3": {
+  "name": "Ná Cao Su",
+  "tier": 1,
+  "cat": "TC",
+  "symbol": "slingshot"
+ },
+ "4": {
+  "name": "Khiên Mây",
+  "tier": 1,
+  "cat": "PT",
+  "symbol": "round-shield"
+ },
+ "5": {
+  "name": "Nón Lá",
+  "tier": 1,
+  "cat": "PT",
+  "symbol": "custom"
+ },
+ "6": {
+  "name": "Áo Tơi Lá",
+  "tier": 1,
+  "cat": "PT",
+  "symbol": "cloak"
+ },
+ "7": {
+  "name": "Bánh Chưng",
+  "tier": 1,
+  "cat": "HT",
+  "symbol": "custom"
+ },
+ "8": {
+  "name": "Bánh Giầy",
+  "tier": 1,
+  "cat": "HT",
+  "symbol": "dumpling-bao"
+ },
+ "9": {
+  "name": "Nắm Xôi",
+  "tier": 1,
+  "cat": "HT",
+  "symbol": "bowl-of-rice"
+ },
+ "12": {
+  "name": "Lá Xông",
+  "tier": 1,
+  "cat": "HT",
+  "symbol": "herbs-bundle"
+ },
+ "13": {
+  "name": "Quạt Mo",
+  "tier": 2,
+  "cat": "HT",
+  "symbol": "handheld-fan"
+ },
+ "14": {
+  "name": "Giáo Đồng Đông Sơn",
+  "tier": 2,
+  "cat": "TC",
+  "symbol": "barbed-spear"
+ },
+ "15": {
+  "name": "Dao Quắm",
+  "tier": 2,
+  "cat": "TC",
+  "symbol": "machete"
+ },
+ "24": {
+  "name": "Lì Xì",
+  "tier": 2,
+  "cat": "HT",
+  "symbol": "envelope"
+ },
+ "25": {
+  "name": "Trống Đồng Đông Sơn",
+  "tier": 3,
+  "cat": "TD",
+  "symbol": "DRUM"
+ },
+ "26": {
+  "name": "Nỏ Thần An Dương Vương",
+  "tier": 3,
+  "cat": "TC",
+  "symbol": "crossbow"
+ },
+ "27": {
+  "name": "Cây Tre Trăm Đốt",
+  "tier": 3,
+  "cat": "TC",
+  "symbol": "bamboo"
+ },
+ "30": {
+  "name": "Hịch Tướng Sĩ",
+  "tier": 3,
+  "cat": "TD",
+  "symbol": "scroll-unfurled"
+ },
+ "31": {
+  "name": "Niêu Cơm Thạch Sanh",
+  "tier": 3,
+  "cat": "HT",
+  "symbol": "cooking-pot"
+ },
+ "34": {
+  "name": "Quả Thị",
+  "tier": 3,
+  "cat": "HT",
+  "symbol": "fruiting"
+ },
+ "35": {
+  "name": "Hạt Dưa Mai An Tiêm",
+  "tier": 3,
+  "cat": "HT",
+  "symbol": "watermelon"
+ },
+ "36": {
+  "name": "Ngọc Dã Tràng",
+  "tier": 3,
+  "cat": "HT",
+  "symbol": "oyster-pearl"
+ },
+ "37": {
+  "name": "Cồng Chiêng Tây Nguyên",
+  "tier": 3,
+  "cat": "TD",
+  "symbol": "gong"
+ },
+ "38": {
+  "name": "Gươm Thuận Thiên",
+  "tier": 4,
+  "cat": "TC",
+  "symbol": "ancient-sword"
+ },
+ "39": {
+  "name": "Gậy Sắt Thánh Gióng",
+  "tier": 4,
+  "cat": "TC",
+  "symbol": "flanged-mace"
+ },
+ "40": {
+  "name": "Lá Đa Thần",
+  "tier": 4,
+  "cat": "HT",
+  "symbol": "linden-leaf"
+ },
+ "41": {
+  "name": "Cung Tên Vàng",
+  "tier": 4,
+  "cat": "TC",
+  "symbol": "bow-arrow"
+ },
+ "42": {
+  "name": "Áo Giáp Vàng Bà Triệu",
+  "tier": 4,
+  "cat": "PT",
+  "symbol": "breastplate"
+ },
+ "43": {
+  "name": "Guốc Ngà",
+  "tier": 4,
+  "cat": "HT",
+  "symbol": "sandal"
+ },
+ "45": {
+  "name": "Búa Tầm Sét",
+  "tier": 4,
+  "cat": "TC",
+  "symbol": "thor-hammer"
+ },
+ "47": {
+  "name": "Móng Rùa Kim Quy",
+  "tier": 5,
+  "cat": "TD",
+  "symbol": "turtle-shell"
+ },
+ "48": {
+  "name": "Cờ Lau Tập Trận",
+  "tier": 5,
+  "cat": "TD",
+  "symbol": "tattered-banner"
+ },
+ "49": {
+  "name": "Cờ Sáu Chữ Vàng",
+  "tier": 5,
+  "cat": "TC",
+  "symbol": "vertical-banner"
+ }
+}

@@ -1,6 +1,6 @@
 // All game-rule numbers in one place (see docs/GDD.md). Balance by editing this file.
 
-export const VERSION = "0.7.3";
+export const VERSION = "0.8.0";
 
 export const PLAYERS = 8;
 export const PLAYER_HP = 100;
@@ -118,4 +118,16 @@ export const AURA_CHOICE = { legend: 0, extinct: 0, endangered: 2 } as const;
 /** which group a VieAni belongs to, by tier (5 Huyền thoại, 4 Đã mất, 3 Nguy cấp; tiers 1–2 have no aura) */
 export function auraKindForTier(tier: number): "legend" | "extinct" | "endangered" | null {
   return tier === 5 ? "legend" : tier === 4 ? "extinct" : tier === 3 ? "endangered" : null;
+}
+
+// --- items in the test match (PO 17 Nov 2026: items to push up the pace) ---
+export const ITEM_CHOICES = 3;
+/** rounds with an item reward (choose 1 of 3): the GDD PvE rounds (1, 2, 3, 9, 15, …) plus every 3rd round */
+export function isItemRound(round: number): boolean {
+  return isPveRound(round) || round % 3 === 0;
+}
+/** item tier offered in the short test match: T1 rounds 1–3, T2 4–6, T3 7–9, T4 10–12, T5 from 13
+ *  (the full game uses itemTierForRound with PvE rounds 1–3, 9, 15, 21, 27) */
+export function testItemTier(round: number): number {
+  return Math.min(5, 1 + Math.floor((round - 1) / 3));
 }

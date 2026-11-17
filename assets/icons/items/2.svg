@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <radialGradient id="bgi2" cx=".4" cy=".34" r=".72"><stop offset="0" stop-color="#aab0b7"/><stop offset=".6" stop-color="#7d8590"/>
+      <stop offset="1" stop-color="#45494f"/></radialGradient>
+    <linearGradient id="fgi2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#f1e6cf"/></linearGradient>
+    <filter id="shi2" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="3" stdDeviation="2.5" flood-color="#000" flood-opacity=".5"/></filter>
+    <mask id="mi2"><g fill="#fff"><path fill="#fff" d="M257.563 25.156c353.16 276.87 16.918 408.895-87.875 293.25l-40.75 37.125l50.812 50.345c217.562 181.363 524.73-252.058 77.813-380.72M110.75 364.28c-5.525 1.065-8.975 2.957-11.313 5.25c-1.956 1.922-3.248 4.556-4.25 7.564l55.188 52.844c5.468-1.008 9.264-2.796 11.28-4.688c1.997-1.872 3.095-3.864 3.095-7.53zm-24.72 30.314L30.407 445.28c-16.737 27 14.693 61.198 51.093 44.66l51.53-50.282l-47-45.062z"/></g></mask>
+  </defs>
+  <circle cx="64" cy="64" r="61" fill="#26282b"/>
+  <circle cx="64" cy="64" r="57" fill="url(#bgi2)"/>
+  <circle cx="64" cy="64" r="51" fill="none" stroke="#f3d27a" stroke-opacity=".7" stroke-width="1.6"/>
+  <path d="M20 52 A46 46 0 0 1 108 52" fill="none" stroke="#fff" stroke-opacity=".18" stroke-width="7" stroke-linecap="round"/>
+  <g filter="url(#shi2)"><g transform="translate(27 27) scale(0.14453 0.14453)">
+    <rect width="512" height="512" fill="url(#fgi2)" mask="url(#mi2)"/></g></g>
+</svg>

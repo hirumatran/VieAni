@@ -4,6 +4,7 @@
 import * as C from "./config";
 import { typeMultiplier, type GameData, type Species } from "./data";
 import { Rng } from "./rng";
+import { ELEPHANT_IDS, ITEM_RULES, PAIR, type ItemRule } from "./items";
 
 export type Side = "A" | "B"; // A = bottom half (the player), B = top half (opponent)
 
@@ -15,6 +16,10 @@ export interface Placed {
   row: number; // full board row 0..7 (A uses 4..7, B uses 0..3)
   col: number;
   side: Side;
+  /** carried item id (one per VieAni) */
+  item?: number;
+  /** permanent max-HP bonus in % (Hạt Dưa) */
+  hpBonusPct?: number;
 }
 
 export interface Fighter extends Placed {
@@ -27,6 +32,13 @@ export interface Fighter extends Placed {
   interval: number; // attack interval in ticks (float)
   targetUid: number | null;
   alive: boolean;
+  // effective stats after items
+  atk: number; def: number; spa: number; spd: number;
+  rule: ItemRule;
+  dmgMult: number; crit: number; critMult: number;
+  lowHealUsed: boolean; reviveUsed: boolean; dodged: boolean;
+  lastHitT: number;
+  bleeds: { next: number; left: number; per: number }[];
 }
 
 export type BattleEvent =
@@ -34,13 +46,18 @@ export type BattleEvent =
   // en / tEn = energy (mana) of the attacker / target right after the hit, for the info card
   | { t: number; type: "attack"; uid: number; target: number; dmg: number; mult: number; en: number; tEn: number }
   | { t: number; type: "cast"; uid: number; target: number; dmg: number; en: number; tEn: number }
-  | { t: number; type: "death"; uid: number };
+  | { t: number; type: "death"; uid: number }
+  /** HP change outside a normal hit: heals (+), bleeding, lightning, extra shots (−) */
+  | { t: number; type: "hp"; uid: number; delta: number; kind: "heal" | "bleed" | "zap" | "shot" }
+  | { t: number; type: "revive"; uid: number; hp: number; row: number; col: number };
 
 export interface BattleResult {
   winner: Side | "draw";
   ticks: number;
   events: BattleEvent[];
   survivors: { uid: number; side: Side; hp: number; tier: number }[];
+  /** max HP of every fighter at the start (after items) – for the HP bars */
+  start?: { uid: number; maxHp: number }[];
 }
 
 // ------------------------------------------------------------------ battle stats (GDD §6.1)
@@ -80,23 +97,63 @@ function preyRule(rules: Map<number, PreyRule[]>, hunter: Fighter, target: Fight
 }
 
 // ------------------------------------------------------------------ simulation
-export function simulate(d: GameData, units: Placed[], seed: number): BattleResult {
+export function simulate(d: GameData, units: Placed[], seed: number, teamItems: Partial<Record<Side, number[]>> = {}): BattleResult {
   const rng = new Rng(seed);
   const rules = preyRules(d);
   const TPS = C.TICKS_PER_SECOND;
   const maxTicks = C.BATTLE_MAX_SECONDS * TPS;
   const moveTicks = Math.round(C.MOVE_SECONDS_PER_CELL * TPS);
 
+  // team rules per side: team-slot items, plus Bánh Chưng + Bánh Giầy pair
+  const sideRules = (side: Side): ItemRule[] => {
+    const rules = (teamItems[side] ?? []).map((id) => ITEM_RULES[id]).filter(Boolean);
+    const carried = units.filter((u) => u.side === side).map((u) => u.item);
+    if (carried.includes(PAIR[0]) && carried.includes(PAIR[1])) rules.push({ teamAllPct: PAIR[2] });
+    return rules;
+  };
+  const team: Record<Side, ItemRule[]> = { A: sideRules("A"), B: sideRules("B") };
+  const onSide = (side: Side, speciesId: number) => units.some((u) => u.side === side && u.speciesId === speciesId);
+
   const fighters: Fighter[] = units
     .map((u) => {
       const sp = d.byId.get(u.speciesId);
       if (!sp) throw new Error(`unknown species ${u.speciesId}`);
-      const hp = maxHp(sp, u.star);
-      const interval = attackInterval(sp) * TPS;
+      let rule: ItemRule = (u.item != null && ITEM_RULES[u.item]) || {};
+      if (rule.rangedOnly && sp.range < 2) rule = {}; // ranged-only items do nothing on melee VieAni
+      const physical = sp.attackClass === "physical";
+      let atk = sp.stats.atk, spa = sp.stats.spa, def = sp.stats.def, spd = sp.stats.spd, spe = sp.stats.spe;
+      let hpMul = 1 + (u.hpBonusPct ?? 0) / 100 + (rule.hpPct ?? 0);
+      if (physical) atk += rule.flatAtk ?? 0; else spa += rule.flatAtk ?? 0;
+      def += rule.flatDef ?? 0; spd += rule.flatSpd ?? 0;
+      spe *= 1 + (rule.spePct ?? 0);
+      let atkPct = 0, crit = rule.crit ?? 0;
+      if (rule.nearElephantAtkPct && units.some((o) => o.side === u.side && ELEPHANT_IDS.includes(o.speciesId) && dist(o, u) <= 1)) atkPct += rule.nearElephantAtkPct;
+      let multi = rule.multiShot ?? 0;
+      for (const tr of team[u.side]) {
+        const k = tr.doubledBy != null && onSide(u.side, tr.doubledBy) ? 2 : 1;
+        let all = tr.teamAllPct ?? 0;
+        if (sp.tier === 1) all += tr.teamTier1AllPct ?? 0;
+        atkPct += (tr.teamAtkPct ?? 0) * k + all;
+        spe *= 1 + (tr.teamSpePct ?? 0) * k + all;
+        def += tr.teamDefFlat ?? 0;
+        def *= 1 + all; spd *= 1 + all; hpMul += all;
+        if (sp.range >= 2) multi += tr.teamRangedMultiShot ?? 0;
+      }
+      atk *= 1 + atkPct; spa *= 1 + atkPct;
+      const hp = Math.round(maxHp(sp, u.star) * hpMul);
+      const secs = Math.min(C.ATTACK_INTERVAL_CLAMP[1], Math.max(C.ATTACK_INTERVAL_CLAMP[0], (C.ATTACK_INTERVAL_BASE * 100) / (spe + 50)));
+      const interval = (secs / (1 + (rule.atkSpeedPct ?? 0))) * TPS;
       // first attack after half an interval, so fast units strike first
-      return { ...u, sp, maxHp: hp, hp, energy: 0, atkCd: interval / 2, moveCd: 0, interval, targetUid: null, alive: true };
+      return {
+        ...u, sp, maxHp: hp, hp, energy: 0, atkCd: interval / 2, moveCd: 0, interval, targetUid: null, alive: true,
+        atk, def, spa, spd, rule: { ...rule, multiShot: multi }, dmgMult: 1 + (rule.dmgPct ?? 0), crit, critMult: rule.critMult ?? C.CRIT_MULT,
+        lowHealUsed: false, reviveUsed: false, dodged: false, lastHitT: -999, bleeds: [],
+      };
     })
     .sort((a, b) => a.uid - b.uid);
+  const rally: Record<Side, number> = { A: 0, B: 0 };
+  const allyRevive: Record<Side, boolean> = { A: false, B: false };
+  const pendingRevives: { t: number; f: Fighter; pct: number }[] = [];
 
   const events: BattleEvent[] = [];
   const occ = new Map<string, number>(); // "r,c" -> uid
@@ -108,7 +165,7 @@ export function simulate(d: GameData, units: Placed[], seed: number): BattleResu
 
   function inRange(f: Fighter, t: Fighter) {
     const r = preyRule(rules, f, t);
-    return (r?.unlimited ?? false) || dist(f, t) <= f.sp.range;
+    return (r?.unlimited ?? false) || !!f.rule.infiniteRange || dist(f, t) <= f.sp.range;
   }
 
   function chooseTarget(f: Fighter): Fighter | undefined {
@@ -153,32 +210,129 @@ export function simulate(d: GameData, units: Placed[], seed: number): BattleResu
     return null; // boxed in: wait
   }
 
-  function hit(t: number, f: Fighter, target: Fighter, power: number, kind: "attack" | "cast") {
+  /** base damage of f on target (type, prey, items, ★) – no randomness */
+  function baseDamage(f: Fighter, target: Fighter, power: number, atkType = f.sp.attackType) {
     const physical = f.sp.attackClass === "physical";
-    const A = physical ? f.sp.stats.atk : f.sp.stats.spa;
-    const D = physical ? target.sp.stats.def : target.sp.stats.spd;
-    const typeM = typeMultiplier(d, f.sp.attackType, f.sp.types, target.sp.types);
+    const A = (physical ? f.atk : f.spa) * (1 + rally[f.side]);
+    const D = (physical ? target.def : target.spd) * (1 - (f.rule.armorPen ?? 0));
+    const typeM = typeMultiplier(d, atkType, f.sp.types, target.sp.types);
     const preyM = preyRule(rules, f, target)?.mult ?? 1;
-    const roll = rng.range(C.DAMAGE_RANDOM[0], C.DAMAGE_RANDOM[1]);
-    const dmg = Math.max(1, Math.round(C.DAMAGE_BASE * (A / D) * typeM * preyM * roll * C.STAR_MULT[f.star - 1] * power));
+    let itemM = f.dmgMult * (target.rule.fromType?.[atkType] ?? 1);
+    for (const ty of target.sp.types) itemM *= f.rule.vsType?.[ty] ?? 1;
+    if (target.sp.tier > f.sp.tier) itemM *= 1 + (f.rule.vsHigherTier ?? 0);
+    return { base: C.DAMAGE_BASE * (A / D) * typeM * preyM * itemM * C.STAR_MULT[f.star - 1] * power, typeM, preyM };
+  }
+
+  function heal(t: number, f: Fighter, pct: number) {
+    if (!f.alive || f.hp >= f.maxHp) return;
+    const amount = Math.min(f.maxHp - f.hp, Math.round(f.maxHp * pct));
+    if (amount <= 0) return;
+    f.hp += amount;
+    events.push({ t, type: "hp", uid: f.uid, delta: amount, kind: "heal" });
+  }
+
+  /** take damage; handles Nắm Xôi, knock-outs, Hịch Tướng Sĩ, revives */
+  function damage(t: number, target: Fighter, dmg: number) {
     target.hp -= dmg;
+    target.lastHitT = t;
     target.energy = Math.min(C.ENERGY_MAX, target.energy + C.ENERGY_PER_HIT);
-    const en = f.energy; // a full bar shows for a moment, then the cast event that follows reports 0
-    events.push(kind === "attack"
-      ? { t, type: "attack", uid: f.uid, target: target.uid, dmg, mult: typeM * preyM, en, tEn: target.energy }
-      : { t, type: "cast", uid: f.uid, target: target.uid, dmg, en, tEn: target.energy });
+    if (target.hp > 0 && !target.lowHealUsed && target.rule.lowHpHeal && target.hp < target.maxHp * 0.3) {
+      target.lowHealUsed = true;
+      heal(t, target, target.rule.lowHpHeal);
+    }
     if (target.hp <= 0 && target.alive) {
       target.alive = false;
+      target.bleeds = [];
       occ.delete(key(target.row, target.col));
       events.push({ t, type: "death", uid: target.uid });
+      const side = target.side;
+      // Hịch Tướng Sĩ: the first fall rallies the team
+      if (!rally[side]) rally[side] = Math.max(0, ...team[side].map((r) => r.rallyAtkPct ?? 0));
+      // Lá Đa Thần (an ally carries it) revives the first fallen ally; Quả Thị revives its carrier
+      const leaf = fighters.find((o) => o.side === side && o.alive && o.rule.reviveAlly);
+      if (leaf && !allyRevive[side]) { allyRevive[side] = true; pendingRevives.push({ t: t + 2 * TPS, f: target, pct: leaf.rule.reviveAlly! }); }
+      else if (target.rule.selfRevive && !target.reviveUsed) { target.reviveUsed = true; pendingRevives.push({ t: t + 4 * TPS, f: target, pct: target.rule.selfRevive }); }
+    }
+  }
+
+  function freeCellNear(row: number, col: number): [number, number] | null {
+    for (let r = 0; r <= C.BOARD_ROWS; r++)
+      for (let dr = -r; dr <= r; dr++)
+        for (let dc = -r; dc <= r; dc++) {
+          const nr = row + dr, nc = col + dc;
+          if (Math.max(Math.abs(dr), Math.abs(dc)) !== r || nr < 0 || nc < 0 || nr >= C.BOARD_ROWS || nc >= C.BOARD_COLS) continue;
+          if (!occ.has(key(nr, nc))) return [nr, nc];
+        }
+    return null;
+  }
+
+  function hit(t: number, f: Fighter, target: Fighter, power: number, kind: "attack" | "cast") {
+    const { base, typeM, preyM } = baseDamage(f, target, power);
+    const roll = rng.range(C.DAMAGE_RANDOM[0], C.DAMAGE_RANDOM[1]);
+    const critHit = f.crit > 0 && rng.next() < f.crit;
+    let dmg = Math.max(1, Math.round(base * roll * (critHit ? f.critMult : 1)));
+    if (kind === "cast" && target.rule.dodgeFirstCast && !target.dodged) { target.dodged = true; dmg = 0; } // Ngọc Dã Tràng
+    events.push(kind === "attack"
+      ? { t, type: "attack", uid: f.uid, target: target.uid, dmg, mult: typeM * preyM, en: f.energy, tEn: Math.min(C.ENERGY_MAX, target.energy + C.ENERGY_PER_HIT) }
+      : { t, type: "cast", uid: f.uid, target: target.uid, dmg, en: f.energy, tEn: Math.min(C.ENERGY_MAX, target.energy + C.ENERGY_PER_HIT) });
+    damage(t, target, dmg);
+    if (kind !== "attack") return;
+    // on-attack item effects
+    if (f.rule.bleed && rng.next() < f.rule.bleed && target.alive)
+      target.bleeds.push({ next: t + TPS, left: 3, per: Math.max(1, Math.round(target.maxHp * 0.03)) });
+    if (f.rule.zap && rng.next() < f.rule.zap) {
+      const near = fighters.find((o) => o.alive && o.side === target.side && o !== target && dist(o, target) <= 1);
+      for (const z of [target, near]) {
+        if (!z || !z.alive) continue;
+        const zd = Math.max(1, Math.round(baseDamage(f, z, 0.6, "Electric").base));
+        events.push({ t, type: "hp", uid: z.uid, delta: -zd, kind: "zap" });
+        damage(t, z, zd);
+      }
+    }
+    const extra = f.rule.multiShot ?? 0;
+    if (extra > 0)
+      fighters.filter((o) => o.alive && o.side === target.side && o !== target)
+        .sort((a, b) => dist(a, target) - dist(b, target) || a.uid - b.uid).slice(0, extra)
+        .forEach((o) => {
+          const sd = Math.max(1, Math.round(baseDamage(f, o, 1).base * rng.range(C.DAMAGE_RANDOM[0], C.DAMAGE_RANDOM[1])));
+          events.push({ t, type: "hp", uid: o.uid, delta: -sd, kind: "shot" });
+          damage(t, o, sd);
+        });
+  }
+
+  /** per-tick upkeep: revives, bleeding, regeneration */
+  function upkeep(t: number) {
+    for (const r of pendingRevives.filter((p) => p.t === t)) {
+      const cell = freeCellNear(r.f.row, r.f.col);
+      if (!cell) continue;
+      [r.f.row, r.f.col] = cell;
+      r.f.alive = true; r.f.hp = Math.max(1, Math.round(r.f.maxHp * r.pct)); r.f.energy = 0; r.f.atkCd = r.f.interval / 2;
+      occ.set(key(r.f.row, r.f.col), r.f.uid);
+      events.push({ t, type: "revive", uid: r.f.uid, hp: r.f.hp, row: r.f.row, col: r.f.col });
+    }
+    for (const f of fighters) {
+      if (!f.alive) continue;
+      for (const b of f.bleeds) if (b.left > 0 && t >= b.next) {
+        b.left--; b.next += TPS;
+        events.push({ t, type: "hp", uid: f.uid, delta: -b.per, kind: "bleed" });
+        damage(t, f, b.per);
+        if (!f.alive) break;
+      }
+      if (!f.alive) continue;
+      if (f.rule.regen5s && t > 0 && t % (5 * TPS) === 0) heal(t, f, f.rule.regen5s);
+      if (f.rule.idleRegen && t - f.lastHitT >= 2 * TPS && t % TPS === 0) heal(t, f, f.rule.idleRegen);
+    }
+    for (const side of ["A", "B"] as Side[]) {
+      const pct = team[side].reduce((n, r) => n + (r.teamRegen10s ?? 0), 0);
+      if (pct && t > 0 && t % (10 * TPS) === 0) for (const f of fighters) if (f.side === side && f.alive) heal(t, f, pct);
     }
   }
 
   let t = 0;
   for (; t < maxTicks; t++) {
-    const aliveA = fighters.some((f) => f.alive && f.side === "A");
-    const aliveB = fighters.some((f) => f.alive && f.side === "B");
-    if (!aliveA || !aliveB) break;
+    upkeep(t);
+    const standing = (side: Side) => fighters.some((f) => f.alive && f.side === side) || pendingRevives.some((p) => p.t > t && p.f.side === side);
+    if (!standing("A") || !standing("B")) break;
     for (const f of fighters) {
       if (!f.alive) continue;
       f.atkCd -= 1;
@@ -221,6 +375,7 @@ export function simulate(d: GameData, units: Placed[], seed: number): BattleResu
     ticks: t,
     events,
     survivors: [...aliveA, ...aliveB].map((f) => ({ uid: f.uid, side: f.side, hp: f.hp, tier: f.sp.tier })),
+    start: fighters.map((f) => ({ uid: f.uid, maxHp: f.maxHp })),
   };
 }
 

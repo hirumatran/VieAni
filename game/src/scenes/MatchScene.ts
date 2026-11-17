@@ -12,10 +12,15 @@ import { BoardScene, type View } from "./BoardScene";
 import type { CardSubject } from "../ui/InfoCard";
 import { activeSynergies, type SynergyState } from "../core/synergy";
 import synIndex from "../../../assets/icons/synergies/index.json";
+import { DROPPABLE } from "../core/items";
 
 /** tộc hệ icons (scripts/synergy_icons.py): name -> svg slug + tile colour */
 const SYN_ICON = synIndex as Record<string, { icon: string; colour: string; symbol: string }>;
 const SYN_X = 1236, SYN_Y0 = 84, SYN_STEP = 54, SYN_ICON_PX = 44;
+/** item bag panel (left, under the HUD) */
+const BAG = { y: 418, h: 136, slot: 36, team: 28, teamX: 176 };
+const ITEM_CAT: Record<string, string> = { TC: "Tấn công", PT: "Phòng thủ", HT: "Hỗ trợ", TD: "Toàn đội", NEM: "Ném", SAN: "Đặt trên sân", LV: "Linh vật" };
+const ITEM_RANGED = new Set([3, 26, 27, 41]);
 
 // shop strip along the bottom (PO, 13 Nov 2026): [Làm mới / Mua XP] [5 cards] [Sẵn sàng]; drop a VieAni on it to sell
 const STRIP_X = 10, STRIP_W = SCREEN_W - 20, STRIP_H = SCREEN_H - MATCH_SHOP_TOP - 6;
@@ -114,6 +119,8 @@ export class MatchScene extends BoardScene {
 
     this.cards = [];
     this.synRows = []; this.synSig = ""; this.synPopup = undefined; this.synOpen = "";
+    this.equipObjs = []; this.equipSig = ""; this.itemModal = undefined; this.itemTip = undefined;
+    this.buildBag();
     // a click on empty space closes the tộc hệ details
     this.input.on("pointerdown", (p: Phaser.Input.Pointer, over: Phaser.GameObjects.GameObject[]) => {
       if (!this.synPopup || over.some((o) => o.getData?.("synRow"))) return; // a row click toggles by itself
@@ -124,6 +131,8 @@ export class MatchScene extends BoardScene {
     this.refreshHud();
     this.startTimer();
     if (this.pendingToast) { toast(this, this.pendingToast); this.pendingToast = ""; }
+    this.syncItems();
+    this.showItemChoice();
   }
 
   protected updateCounter() {
@@ -137,6 +146,7 @@ export class MatchScene extends BoardScene {
       const ic = SYN_ICON[g.name]?.icon;
       if (ic && !this.textures.exists(`syn:${ic}`)) this.load.svg(`syn:${ic}`, `icons/synergies/${ic}.svg`, { width: 96, height: 96 });
     }
+    for (const id of DROPPABLE) if (!this.textures.exists(`item:${id}`)) this.load.svg(`item:${id}`, `icons/items/${id}.svg`, { width: 72, height: 72 });
   }
 
   // ------------------------------------------------------------------ tộc hệ (synergies) on the right (PO, 17 Nov 2026)
@@ -185,6 +195,7 @@ export class MatchScene extends BoardScene {
       this.closeSynPopup();
       if (i >= 0) this.openSynPopup(act[i], SYN_Y0 + i * SYN_STEP);
     }
+    this.refreshEquipped();
   }
 
   private toggleSynPopup(a: SynergyState, y: number) {
@@ -387,6 +398,202 @@ export class MatchScene extends BoardScene {
   private refreshAll() {
     this.drawCards();
     this.refreshHud();
+    this.refreshBag();
+    this.refreshEquipped();
+  }
+
+  // ------------------------------------------------------------------ items (PO, 17 Nov 2026)
+  private bagObjs: Phaser.GameObjects.GameObject[] = [];
+  private equipObjs: Phaser.GameObjects.GameObject[] = [];
+  private itemModal?: Phaser.GameObjects.Container;
+  private itemTip?: Phaser.GameObjects.Container;
+  private equipSig = "";
+
+  private itemData(id: number) { return this.data_.items.find((i) => i.id === id)!; }
+
+  /** bag (10 slots) + 2 team slots, in a panel under the left HUD; drag a bag item onto one of our VieAni to equip */
+  private buildBag() {
+    const g = this.add.graphics().setDepth(4999);
+    g.fillStyle(WOOD, 0.86).fillRoundedRect(10, BAG.y, 234, BAG.h, 14).lineStyle(2, GOLD, 0.8).strokeRoundedRect(10, BAG.y, 234, BAG.h, 14);
+    this.add.text(22, BAG.y + 10, "VẬT PHẨM", { fontFamily: FONT_LOGO, fontSize: "15px", color: "#ffe6a3", fontStyle: "800" }).setDepth(5000).setShadow(1, 1, "#000", 2);
+    this.add.text(BAG.teamX - 8, BAG.y + 13, "Toàn đội", { fontFamily: FONT_UI, fontSize: "11px", color: "#cdbb98", fontStyle: "bold" }).setOrigin(1, 0).setDepth(5000);
+    this.bagObjs = [];
+    this.refreshBag();
+  }
+
+  private slotRect(g: Phaser.GameObjects.Graphics, x: number, y: number, size: number, team = false) {
+    g.fillStyle(0x0f0a07, 0.85).fillRoundedRect(x, y, size, size, 8);
+    g.lineStyle(team ? 2 : 1.5, team ? 0x6fb6ff : 0x8a7350, team ? 0.9 : 0.7).strokeRoundedRect(x, y, size, size, 8);
+  }
+
+  private refreshBag() {
+    if (!this.txt.round?.active) return;
+    for (const o of this.bagObjs) o.destroy();
+    this.bagObjs = [];
+    const p = this.match.human;
+    const g = this.add.graphics().setDepth(5000);
+    this.bagObjs.push(g);
+    // team slots
+    for (let k = 0; k < C.TEAM_ITEM_SLOTS; k++) {
+      const x = BAG.teamX + k * (BAG.team + 6), y = BAG.y + 6;
+      this.slotRect(g, x, y, BAG.team, true);
+      const id = p.teamItems[k];
+      if (id != null) this.itemIcon(id, x + BAG.team / 2, y + BAG.team / 2, BAG.team - 4, false);
+    }
+    // bag
+    for (let k = 0; k < C.INVENTORY_MAX; k++) {
+      const x = 20 + (k % 5) * (BAG.slot + 6), y = BAG.y + 40 + Math.floor(k / 5) * (BAG.slot + 6);
+      this.slotRect(g, x, y, BAG.slot);
+      const id = p.items[k];
+      if (id != null) this.itemIcon(id, x + BAG.slot / 2, y + BAG.slot / 2, BAG.slot - 4, true, k);
+    }
+  }
+
+  /** an item icon with a tooltip; bag items can be dragged onto a VieAni */
+  private itemIcon(id: number, x: number, y: number, size: number, draggable: boolean, bagIndex = -1) {
+    const im = this.add.image(x, y, `item:${id}`).setDisplaySize(size, size).setDepth(5001);
+    this.bagObjs.push(im);
+    im.setInteractive({ useHandCursor: true, draggable });
+    im.on("pointerover", () => this.showItemTip(id, x, y - size / 2 - 6));
+    im.on("pointerout", () => this.hideItemTip());
+    if (!draggable) return im;
+    im.on("dragstart", () => { if (this.fighting) return; this.hideItemTip(); im.setDepth(9000).setScale(im.scale * 1.15); });
+    im.on("drag", (pt: Phaser.Input.Pointer) => {
+      if (this.fighting) return;
+      im.setPosition(pt.x, pt.y);
+      const v = this.viewAt(pt.x, pt.y);
+      this.highlight.clear();
+      if (v && v.side === "A") {
+        const b = v.sprite.getBounds();
+        this.highlight.lineStyle(3, 0xffd84a, 1).strokeRoundedRect(b.x + b.width * 0.15, b.y + b.height * 0.2, b.width * 0.7, b.height * 0.78, 10);
+      }
+    });
+    im.on("dragend", (pt: Phaser.Input.Pointer) => {
+      this.highlight.clear();
+      if (this.fighting) return this.refreshBag();
+      const m = this.match, p = m.human;
+      const v = this.viewAt(pt.x, pt.y);
+      const overTeam = pt.y >= BAG.y && pt.y <= BAG.y + 6 + BAG.team && pt.x >= BAG.teamX - 4;
+      if (m.isTeamItem(id)) {
+        if (m.equipTeam(p, bagIndex)) toast(this, `${this.itemData(id).name}: tác dụng cho cả đội`);
+        else toast(this, "Hết ô Toàn đội (tối đa 2)");
+      } else if (v && v.side === "A") {
+        const sp = this.data_.byId.get(v.speciesId)!;
+        m.equip(p, bagIndex, v.uid);
+        const rule = this.itemData(id);
+        toast(this, `${shortName(sp.vi)} mang ${rule.name}` + ((ITEM_RANGED.has(id) && sp.range < 2) ? " (chỉ có tác dụng với VieAni đánh xa!)" : ""));
+      } else if (overTeam) toast(this, "Chỉ vật phẩm Toàn đội mới đặt được vào ô này");
+      this.syncItems();
+    });
+    return im;
+  }
+
+  private showItemTip(id: number, x: number, y: number) {
+    this.hideItemTip();
+    const it = this.itemData(id);
+    const box = this.add.container(0, 0).setDepth(9600);
+    const W = 250;
+    const title = this.add.text(12, 10, it.name, { fontFamily: FONT_UI, fontSize: "15px", color: "#ffe6a3", fontStyle: "bold" });
+    const sub = this.add.text(12, 31, `Bậc ${it.tier} · ${ITEM_CAT[it.cat] ?? it.cat}`, { fontFamily: FONT_UI, fontSize: "11.5px", color: "#cdbb98", fontStyle: "bold" });
+    const body = this.add.text(12, 50, it.effect, { fontFamily: FONT_UI, fontSize: "12.5px", color: CREAM, wordWrap: { width: W - 24 }, lineSpacing: 2 });
+    const h = 50 + body.height + 12;
+    const g = this.add.graphics();
+    g.fillStyle(0x1b120c, 0.97).fillRoundedRect(0, 0, W, h, 10).lineStyle(2, GOLD, 0.9).strokeRoundedRect(0, 0, W, h, 10);
+    box.add([g, title, sub, body]);
+    box.setPosition(Phaser.Math.Clamp(x - W / 2, 6, SCREEN_W - W - 6), Phaser.Math.Clamp(y - h, 6, SCREEN_H - h - 6));
+    this.itemTip = box;
+  }
+
+  private hideItemTip() { this.itemTip?.destroy(); this.itemTip = undefined; }
+
+  /** after equipping / selling / merging: badges on our VieAni, bag, list on the right */
+  private syncItems() {
+    for (const u of this.team.units()) { const v = this.views.get(u.uid); if (v) { v.item = u.item; this.drawHp(v); } }
+    this.refreshBag();
+    this.refreshEquipped();
+  }
+
+  /** right side, under the tộc hệ: which VieAni carries which item (+ team items) */
+  private refreshEquipped() {
+    if (!this.txt.round?.active) return;
+    const carriers = this.team.units().filter((u) => u.item != null);
+    const sig = carriers.map((u) => `${u.uid}:${u.item}`).join("|") + "/" + this.match.human.teamItems.join(",") + "/" + this.synRows.length;
+    if (sig === this.equipSig && this.equipObjs.every((o) => o.active)) return;
+    this.equipSig = sig;
+    for (const o of this.equipObjs) o.destroy();
+    this.equipObjs = [];
+    const rows: { id: number; label: string; tex?: { key: string; frame?: number } }[] = [
+      ...this.match.human.teamItems.map((id) => ({ id, label: "Toàn đội" })),
+      ...carriers.map((u) => {
+        const sp = this.data_.byId.get(u.speciesId)!;
+        const t = texturesFor(this, this.data_, sp, "front").tex;
+        return { id: u.item!, label: shortName(sp.vi) + (this.team.locate(u.uid)?.where === "bench" ? " (chờ)" : ""), tex: { key: t.body, frame: t.bodyFrame } };
+      }),
+    ];
+    if (!rows.length) return;
+    const top = SYN_Y0 + this.synRows.length * SYN_STEP + (this.synRows.length ? 4 : -20);
+    const step = Math.min(40, (MATCH_SHOP_TOP - 10 - (top + 22)) / rows.length);
+    const head = this.add.text(SYN_X + SYN_ICON_PX / 2, top, "VẬT PHẨM ĐANG MANG", { fontFamily: FONT_UI, fontSize: "11px", color: "#ffe6a3", fontStyle: "bold" })
+      .setOrigin(1, 0).setDepth(5002).setShadow(1, 1, "#000", 2);
+    this.equipObjs.push(head);
+    rows.forEach((r, i) => {
+      const y = top + 22 + i * step + step / 2;
+      const c = this.add.container(SYN_X, y).setDepth(5002);
+      const icon = this.add.image(0, 0, `item:${r.id}`).setDisplaySize(30, 30);
+      const label = this.add.text(-24, 0, r.label, { fontFamily: FONT_UI, fontSize: "12.5px", color: CREAM, fontStyle: "bold" }).setOrigin(1, 0.5);
+      const pw = label.width + (r.tex ? 46 : 18);
+      const bg = this.add.graphics();
+      bg.fillStyle(WOOD, 0.85).fillRoundedRect(-18 - pw, -15, pw + 4, 30, 9);
+      c.add(bg);
+      if (r.tex) {
+        const pic = this.add.image(-24 - label.width - 16, 13, r.tex.key, r.tex.frame).setOrigin(0.5, 1);
+        pic.setScale(30 / Math.max(pic.width, pic.height));
+        c.add(pic);
+      }
+      c.add([label, icon]);
+      const hit = this.add.zone(-pw / 2, 0, pw + 36, 30).setInteractive({ useHandCursor: true });
+      hit.on("pointerover", () => this.showItemTip(r.id, SYN_X - 120, y - 16));
+      hit.on("pointerout", () => this.hideItemTip());
+      c.add(hit);
+      this.equipObjs.push(c);
+    });
+  }
+
+  /** item reward: choose 1 of 3 (round start); the fight button picks the first one if the player has not chosen */
+  private showItemChoice() {
+    const offer = this.match.human.itemOffer;
+    if (!offer || this.fighting) return;
+    this.itemModal?.destroy();
+    const box = this.add.container(0, 0).setDepth(9400);
+    box.add(this.add.rectangle(SCREEN_W / 2, SCREEN_H / 2, SCREEN_W, SCREEN_H, 0x000000, 0.55).setInteractive());
+    const tier = this.itemData(offer[0]).tier;
+    box.add(this.add.text(SCREEN_W / 2, 118, `Phần thưởng vòng ${this.match.round}: chọn 1 vật phẩm (bậc ${tier})`, { fontFamily: FONT_LOGO, fontSize: "28px", color: "#ffe6a3", fontStyle: "800" })
+      .setOrigin(0.5).setShadow(1, 2, "#000", 4));
+    const CW = 270, CH = 290, gap = 26;
+    offer.forEach((id, k) => {
+      const it = this.itemData(id);
+      const x = SCREEN_W / 2 + (k - (offer.length - 1) / 2) * (CW + gap), y = 330;
+      const c = this.add.container(x, y);
+      const g = this.add.graphics();
+      g.fillStyle(0x1b120c, 0.97).fillRoundedRect(-CW / 2, -CH / 2, CW, CH, 16).lineStyle(3, GOLD, 0.9).strokeRoundedRect(-CW / 2, -CH / 2, CW, CH, 16);
+      const ic = this.add.image(0, -CH / 2 + 62, `item:${id}`).setDisplaySize(92, 92);
+      const name = this.add.text(0, -CH / 2 + 118, it.name, { fontFamily: FONT_UI, fontSize: "18px", color: "#ffe6a3", fontStyle: "bold", align: "center", wordWrap: { width: CW - 30 } }).setOrigin(0.5, 0);
+      const sub = this.add.text(0, name.y + name.height + 4, `Bậc ${it.tier} · ${ITEM_CAT[it.cat] ?? it.cat}` + (this.match.isTeamItem(id) ? " – không cần người mang" : ""),
+        { fontFamily: FONT_UI, fontSize: "12px", color: "#cdbb98", fontStyle: "bold", align: "center", wordWrap: { width: CW - 30 } }).setOrigin(0.5, 0);
+      const eff = this.add.text(0, sub.y + sub.height + 10, it.effect, { fontFamily: FONT_UI, fontSize: "13.5px", color: CREAM, align: "center", wordWrap: { width: CW - 34 }, lineSpacing: 3 }).setOrigin(0.5, 0);
+      const hit = this.add.zone(0, 0, CW, CH).setInteractive({ useHandCursor: true });
+      hit.on("pointerover", () => c.setScale(1.04));
+      hit.on("pointerout", () => c.setScale(1));
+      hit.on("pointerup", () => {
+        this.match.chooseItem(this.match.human, k);
+        this.itemModal?.destroy(); this.itemModal = undefined;
+        toast(this, this.match.isTeamItem(id) ? `${it.name}: đặt vào ô Toàn đội` : `${it.name} vào túi – kéo lên một VieAni để trang bị`);
+        this.syncItems();
+      });
+      c.add([g, ic, name, sub, eff, hit]);
+      box.add(c);
+    });
+    this.itemModal = box;
   }
 
   // ------------------------------------------------------------------ shop actions
@@ -431,6 +638,7 @@ export class MatchScene extends BoardScene {
         v.anim.setStar(u.star);
         v.maxHp = v.hp = battleMaxHp(this.data_.byId.get(u.speciesId)!, u.star);
       }
+      v.item = u.item;
     }
     for (const uid of upgraded) {
       const v = this.views.get(uid), u = alive.get(uid);
@@ -480,6 +688,8 @@ export class MatchScene extends BoardScene {
   protected fight() {
     if (this.fighting) return;
     const m = this.match;
+    if (m.human.itemOffer) { m.chooseItem(m.human, 0); this.itemModal?.destroy(); this.itemModal = undefined; }
+    this.hideItemTip();
     this.sellZone.setVisible(false);
     if (m.autoFill(m.human).length) this.layout(false);
     m.botTurn();
@@ -518,7 +728,7 @@ export class MatchScene extends BoardScene {
     const { base, interest, streak, result } = rep.income;
     const layer = this.panel(title, color, [
       [rep.damage.A ? t("hpLost")(rep.damage.A) : "", rep.damage.B ? t("enemyHpLost")(rep.damage.B) : ""].filter(Boolean).join("   ·   "),
-      t("income")(base, interest, streak, result, rep.winner === "A"),
+      t("income")(base, interest, streak, result, rep.winner === "A") + (rep.income.items ? `  · Lì Xì +${rep.income.items}` : ""),
       `❤ ${t("you")} ${this.match.human.hp}   ·   ❤ ${t("opponent")} ${this.match.bot.hp}`,
     ]);
     if (rep.levelUp) this.pendingToast = t("levelUp")(this.match.human.level);

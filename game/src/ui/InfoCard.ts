@@ -71,6 +71,8 @@ export interface CardSubject {
   lastMult?: number;
   /** name of the form it changed into during this battle (e.g. "Rồng Con") */
   transformed?: string;
+  /** carried item */
+  item?: { id: number; name: string; effect: string };
   /** synergy name → [distinct members on this side's board, thresholds] */
   synergies: [string, number, number[]][];
 }
@@ -241,6 +243,14 @@ export class InfoCard {
       st.push([s.lastMult > 1 ? `Đòn khắc ×${num(s.lastMult)} (hệ / thiên địch)` : `Đòn bị kháng ×${num(s.lastMult)}`, s.lastMult > 1 ? 0x3a9a4f : 0x7b6f5e]);
     if (!s.dead && s.energy >= C.ENERGY_MAX) st.push(["Năng lượng đầy – tung kỹ năng", 0x2f74c8]);
     if (s.where === "board" && !s.fighting) st.push(["Sẵn sàng vào trận", 0x3a9a4f]);
+    if (s.item) {
+      y += 2;
+      const key = `item:${s.item.id}`;
+      if (sc.textures.exists(key)) add(sc.add.image(PAD + 13, y + 13, key).setDisplaySize(26, 26));
+      const nm = text(PAD + 32, y, `Mang: ${s.item.name}`, 12.5, GOLD_TXT, true, W - 2 * PAD - 32);
+      const ef = text(PAD + 32, y + nm.height + 1, s.item.effect, 11, INK, false, W - 2 * PAD - 32);
+      y += Math.max(28, nm.height + ef.height + 4) + 4;
+    }
     if (full) {
     y += 3;
     text(PAD, y, "Trạng thái", 12, MUTED, true);

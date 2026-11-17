@@ -7,6 +7,7 @@ import type { GameData, Species } from "./data";
 import { Rng } from "./rng";
 import { Team, type OwnedUnit, type Spot } from "./team";
 import manifest from "../../../assets/illustrations/manifest.json";
+import { DROPPABLE, ITEM_RULES } from "./items";
 
 /** test scenario: only illustrated VieAni are in the shop, and players start with less HP so a match is short */
 /** roster codes (V001…) that have both illustrations – the test shop offers exactly these, so new uploads join automatically */
@@ -27,6 +28,12 @@ export interface PlayerState {
   shop: (number | null)[];
   /** shop locked: the same offers stay for the next round (until unlocked or rerolled) */
   locked: boolean;
+  /** item bag (ids), max INVENTORY_MAX */
+  items: number[];
+  /** team items (category Toàn đội) – work without a carrier, max TEAM_ITEM_SLOTS */
+  teamItems: number[];
+  /** item reward waiting to be chosen (3 ids) */
+  itemOffer: number[] | null;
 }
 
 export interface RoundReport {
@@ -34,7 +41,7 @@ export interface RoundReport {
   winner: "A" | "B" | "draw";
   damage: { A: number; B: number };
   /** gold the human gets for the next round, split up for the result panel */
-  income: { base: number; interest: number; streak: number; result: number };
+  income: { base: number; interest: number; streak: number; result: number; items: number };
   levelUp: boolean;
 }
 
@@ -57,9 +64,66 @@ export class Match {
     this.species = species;
     this.rng = new Rng(seed);
     for (const s of species) this.pool.set(s.id, C.POOL_COPIES[s.tier] ?? 10);
-    const mk = (): PlayerState => ({ hp: startHp, gold: C.START_GOLD, level: 1, xp: 0, streak: 0, team: new Team(1), shop: [], locked: false });
+    const mk = (): PlayerState => ({ hp: startHp, gold: C.START_GOLD, level: 1, xp: 0, streak: 0, team: new Team(1), shop: [], locked: false, items: [], teamItems: [], itemOffer: null });
     this.players = [mk(), mk()];
     for (const p of this.players) this.rollShop(p);
+    if (C.isItemRound(1)) for (const p of this.players) this.rollItems(p);
+  }
+
+  // ------------------------------------------------------------------ items
+  item(id: number) { return this.d.items.find((i) => i.id === id)!; }
+  isTeamItem(id: number) { return this.item(id).cat === "TD"; }
+
+  /** offer ITEM_CHOICES different items of this round's tier (only items the battle can already use) */
+  rollItems(p: PlayerState) {
+    const tier = C.testItemTier(this.round);
+    const pool = DROPPABLE.filter((id) => this.item(id).tier === tier);
+    const offer: number[] = [];
+    while (offer.length < Math.min(C.ITEM_CHOICES, pool.length)) {
+      const id = pool[this.rng.int(0, pool.length - 1)];
+      if (!offer.includes(id)) offer.push(id);
+    }
+    p.itemOffer = offer;
+  }
+
+  chooseItem(p: PlayerState, index: number): number | null {
+    const id = p.itemOffer?.[index];
+    if (id == null) return null;
+    p.itemOffer = null;
+    this.addItem(p, id);
+    return id;
+  }
+
+  /** into a free team slot (team items) or the bag; false if there is no room */
+  addItem(p: PlayerState, id: number): boolean {
+    if (this.isTeamItem(id) && p.teamItems.length < C.TEAM_ITEM_SLOTS) { p.teamItems.push(id); return true; }
+    if (p.items.length < C.INVENTORY_MAX) { p.items.push(id); return true; }
+    return false;
+  }
+
+  /** give the bag item at `index` to a VieAni (swaps with what it carried); team items go to a team slot instead */
+  equip(p: PlayerState, index: number, uid: number): boolean {
+    const id = p.items[index];
+    if (id == null) return false;
+    if (this.isTeamItem(id)) return this.equipTeam(p, index);
+    const u = p.team.units().find((x) => x.uid === uid);
+    if (!u) return false;
+    if (u.item != null) p.items[index] = u.item; else p.items.splice(index, 1);
+    u.item = id;
+    return true;
+  }
+
+  equipTeam(p: PlayerState, index: number): boolean {
+    const id = p.items[index];
+    if (id == null || !this.isTeamItem(id) || p.teamItems.length >= C.TEAM_ITEM_SLOTS) return false;
+    p.items.splice(index, 1);
+    p.teamItems.push(id);
+    return true;
+  }
+
+  /** an item comes back from a unit that leaves (sold / merged) */
+  private returnItem(p: PlayerState, u: OwnedUnit) {
+    if (u.item != null) { this.addItem(p, u.item); u.item = undefined; }
   }
 
   get human() { return this.players[0]; }
@@ -138,7 +202,10 @@ export class Match {
     if (p.team.addToBench(u)) return this.mergeAll(p);
     // bench full: fold the new copy straight into the existing pair
     const ones = p.team.units().filter((x) => x.speciesId === id && x.star === 1);
-    p.team.remove(ones[ones.length - 1].uid);
+    const gone = ones[ones.length - 1];
+    p.team.remove(gone.uid);
+    if (gone.item != null && ones[0].item == null) { ones[0].item = gone.item; gone.item = undefined; }
+    this.returnItem(p, gone);
     ones[0].star = 2;
     return [ones[0].uid, ...this.mergeAll(p)];
   }
@@ -146,6 +213,7 @@ export class Match {
   sell(p: PlayerState, uid: number): number {
     const u = p.team.remove(uid);
     if (!u) return 0;
+    this.returnItem(p, u);
     const value = this.sellValue(u);
     p.gold += value;
     this.pool.set(u.speciesId, (this.pool.get(u.speciesId) ?? 0) + copies(u.star));
@@ -165,6 +233,10 @@ export class Match {
           const [keep, a, b] = g; // units() lists the board first, so a board copy is kept
           p.team.remove(a.uid);
           p.team.remove(b.uid);
+          for (const x of [a, b]) {
+            if (x.item != null && keep.item == null) { keep.item = x.item; x.item = undefined; }
+            this.returnItem(p, x);
+          }
           keep.star = (star + 1) as 2 | 3;
           upgraded.push(keep.uid);
           again = true;
@@ -197,6 +269,20 @@ export class Match {
   }
 
   // ------------------------------------------------------------------ bot (same rules as the player)
+  /** bot items: take the first offer, put team items in team slots, give the rest to its strongest board units */
+  private botItems(p: PlayerState) {
+    if (p.itemOffer) this.chooseItem(p, 0);
+    for (let i = p.items.length - 1; i >= 0; i--) {
+      const id = p.items[i];
+      if (this.isTeamItem(id)) { this.equipTeam(p, i); continue; }
+      const ranged = ITEM_RULES[id]?.rangedOnly;
+      const target = p.team.toPlaced().map((x) => p.team.units().find((u) => u.uid === x.uid)!)
+        .filter((u) => u.item == null && (!ranged || this.sp(u.speciesId).range >= 2))
+        .sort((a, b) => this.sellValue(b) - this.sellValue(a))[0];
+      if (target) this.equip(p, i, target.uid);
+    }
+  }
+
   botTurn(p: PlayerState = this.bot) {
     const reserve = this.round >= 5 ? 10 : 0; // keep 10 gold for interest from round 5
     const owned = () => new Set(p.team.units().map((u) => u.speciesId));
@@ -214,8 +300,9 @@ export class Match {
     const all = p.team.units().sort((a, b) => this.sellValue(b) - this.sellValue(a));
     const team = new Team(p.level);
     for (const u of all.slice(0, p.level)) { const s = this.spotFor(team, u); if (s) team.place(u, s); }
-    for (const u of all.slice(p.level)) if (!team.addToBench(u)) { p.gold += this.sellValue(u); this.pool.set(u.speciesId, this.pool.get(u.speciesId)! + copies(u.star)); }
+    for (const u of all.slice(p.level)) if (!team.addToBench(u)) { this.returnItem(p, u); p.gold += this.sellValue(u); this.pool.set(u.speciesId, this.pool.get(u.speciesId)! + copies(u.star)); }
     p.team = team;
+    this.botItems(p);
   }
 
   // ------------------------------------------------------------------ round
@@ -227,9 +314,9 @@ export class Match {
     if (!a.length || !b.length) {
       const winner = a.length ? "A" : b.length ? "B" : "draw";
       const survivors = units.map((u) => ({ uid: u.uid, side: u.side, hp: 1, tier: this.sp(u.speciesId).tier }));
-      return { units, res: { winner, ticks: 0, events: [], survivors } };
+      return { units, res: { winner, ticks: 0, events: [], survivors, start: [] } };
     }
-    return { units, res: simulate(this.d, units, seed) };
+    return { units, res: simulate(this.d, units, seed, { A: this.human.teamItems, B: this.bot.teamItems }) };
   }
 
   /** damage, streaks, income, XP, next round, fresh shops */
@@ -238,25 +325,38 @@ export class Match {
     const [h, b] = this.players;
     h.hp = Math.max(0, h.hp - damage.A);
     b.hp = Math.max(0, b.hp - damage.B);
-    let income = { base: 0, interest: 0, streak: 0, result: 0 };
+    let income = { base: 0, interest: 0, streak: 0, result: 0, items: 0 };
     let levelUp = false;
     this.players.forEach((p, i) => {
       const won = res.winner === (i === 0 ? "A" : "B");
       const lost = res.winner === (i === 0 ? "B" : "A");
       p.streak = won ? Math.max(1, p.streak + 1) : lost ? Math.min(-1, p.streak - 1) : 0;
+      // items that pay off after a won round, if their carrier is still standing: Lì Xì (+gold), Hạt Dưa (+2 % max HP, max 30)
+      let itemGold = 0;
+      if (won) {
+        const standing = new Set(res.survivors.filter((x) => x.side === (i === 0 ? "A" : "B")).map((x) => x.uid));
+        for (const u of p.team.units()) {
+          if (u.item == null || !standing.has(u.uid)) continue;
+          const r = ITEM_RULES[u.item];
+          itemGold += r?.goldOnWin ?? 0;
+          if (r?.hpPctPerWin) u.hpBonus = Math.min(30, (u.hpBonus ?? 0) + r.hpPctPerWin);
+        }
+      }
       const inc = {
+        items: itemGold,
         base: C.BASE_INCOME,
         interest: this.interest(p),
         streak: C.STREAK_BONUS.filter(([n]) => Math.abs(p.streak) >= n).reduce((m, [, g]) => Math.max(m, g), 0),
         result: won ? C.WIN_BONUS : C.LOSS_BONUS,
       };
-      p.gold += inc.base + inc.interest + inc.streak + inc.result;
+      p.gold += inc.base + inc.interest + inc.streak + inc.result + inc.items;
       const up = this.addXp(p, C.XP_PER_ROUND);
       if (i === 0) { income = inc; levelUp = up; }
     });
     const report: RoundReport = { round: this.round, winner: res.winner, damage, income, levelUp };
     this.round++;
     for (const p of this.players) if (!p.locked) this.rollShop(p);
+    if (C.isItemRound(this.round)) for (const p of this.players) { if (p.itemOffer) this.chooseItem(p, 0); this.rollItems(p); }
     return report;
   }
 }

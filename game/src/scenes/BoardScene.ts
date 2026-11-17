@@ -34,6 +34,9 @@ export interface View {
   hpBar: Phaser.GameObjects.Graphics;
   /** ★ marks above the head – the ★2 / ★3 outline alone is too thin to read on the board */
   stars: Phaser.GameObjects.Text;
+  /** carried item id + its small badge next to the ★ marks */
+  item?: number;
+  itemBadge?: Phaser.GameObjects.Image;
   maxHp: number;
   hp: number;
   row: number;
@@ -153,7 +156,7 @@ export class BoardScene extends Phaser.Scene {
     const stars = this.add.text(0, 0, "", { fontFamily: FONT_UI, fontSize: "15px", fontStyle: "bold" }).setOrigin(0.5, 1).setStroke("#1b120c", 4);
     anim.c.add([hpBar, stars]);
     const maxHp = battleMaxHp(sp, u.star);
-    const v: View = { uid: u.uid, speciesId: u.speciesId, side, c: anim.c, sprite: anim.body, anim, illustrated, hpBar, stars, maxHp, hp: maxHp, row: 0, col: 0, energy: 0, alt };
+    const v: View = { uid: u.uid, speciesId: u.speciesId, side, c: anim.c, sprite: anim.body, anim, illustrated, hpBar, stars, item: u.item, maxHp, hp: maxHp, row: 0, col: 0, energy: 0, alt };
     this.views.set(u.uid, v);
     if (side === "A") anim.body.setInteractive({ draggable: true, useHandCursor: true, pixelPerfect: false });
     anim.body.setData("uid", u.uid);
@@ -199,6 +202,12 @@ export class BoardScene extends Phaser.Scene {
     const n = v.anim.star;
     v.stars.setText("★".repeat(n)).setColor(n === 3 ? "#ffcc3c" : n === 2 ? "#e4ecf6" : "#d9a066")
       .setFontSize(n === 1 ? 13 : 16).setPosition(0, y - 1);
+    // carried item: small round icon left of the ★ marks
+    const key = v.item != null ? `item:${v.item}` : "";
+    if (key && this.textures.exists(key)) {
+      if (!v.itemBadge || !v.itemBadge.active) { v.itemBadge = this.add.image(0, 0, key); v.c.add(v.itemBadge); }
+      v.itemBadge.setTexture(key).setDisplaySize(20, 20).setPosition(-v.stars.width / 2 - 13, y - 9).setVisible(true);
+    } else v.itemBadge?.setVisible(false);
   }
 
   protected updateCounter() {
@@ -316,7 +325,8 @@ export class BoardScene extends Phaser.Scene {
       .map((g) => [g.name, g.members.filter((m) => ids.has(m)).length, Object.keys(g.tiers).map(Number).sort((a, b) => a - b)] as [string, number, number[]]);
     const tgt = v.target != null ? this.views.get(v.target) : undefined;
     return {
-      sp, code: vcode(this.data_, sp), ...cardTex(this, this.data_, sp, !!v.transformed), transformed: v.transformed, star: v.anim.star as 1 | 2 | 3, side: v.side,
+      sp, code: vcode(this.data_, sp), ...cardTex(this, this.data_, sp, !!v.transformed), transformed: v.transformed,
+      item: v.item != null ? (({ id, name, effect }) => ({ id, name, effect }))(this.data_.items.find((i) => i.id === v.item)!) : undefined, star: v.anim.star as 1 | 2 | 3, side: v.side,
       hp: v.hp, maxHp: v.maxHp, energy: v.energy, where: this.whereOf(v), fighting: this.fighting, dead: v.anim.dead,
       targetName: tgt && !tgt.anim.dead ? this.data_.byId.get(tgt.speciesId)!.vi.replace(/\s*\(.*\)\s*/, "") : undefined,
       lastMult: v.lastMult, synergies,
@@ -357,9 +367,12 @@ export class BoardScene extends Phaser.Scene {
     for (const v of this.views.values()) v.sprite.disableInteractive();
     for (const u of this.team.bench) if (u) this.views.get(u.uid)?.c.setVisible(false); // bench hidden during the fight
     for (const e of enemy) this.place(this.spawn(e, "B"), { where: "board", row: e.row, col: e.col }, false);
+    const r = res ?? simulate(this.data_, [...mine, ...enemy], seed);
+    // items can raise max HP: start every bar from the simulation's numbers
+    for (const s of r.start ?? []) { const v = this.views.get(s.uid); if (v) { v.maxHp = v.hp = s.maxHp; } }
     for (const v of this.views.values()) if (v.c.visible) { v.hpBar.setVisible(true); this.drawHp(v); }
 
-    this.replay(res ?? simulate(this.data_, [...mine, ...enemy], seed));
+    this.replay(r);
   }
 
   protected replay(res: BattleResult) {
@@ -416,7 +429,31 @@ export class BoardScene extends Phaser.Scene {
       else { void v.anim.attack(tv.c.x, tv.c.y, sp.attackClass === "special", speed); this.time.delayedCall(220 / speed, land); }
     } else if (e.type === "death") {
       this.time.delayedCall(250 / settings.speed, () => void v.anim.die(settings.speed));
+    } else if (e.type === "hp") {
+      // item effects: heal (+), bleeding, lightning, extra shots (−)
+      v.hp = Math.min(v.maxHp, v.hp + e.delta);
+      this.drawHp(v);
+      if (e.delta < 0 && v.hp > 0) void v.anim.hit(undefined, undefined, settings.speed);
+      const look = { heal: ["#7dff8a", `+${e.delta}`], bleed: ["#ff6a6a", `${e.delta}`], zap: ["#ffe14a", `⚡${-e.delta}`], shot: ["#ffffff", `${-e.delta}`] }[e.kind];
+      this.floatText(v, look[1], look[0], e.kind === "heal" ? 18 : 17);
+    } else if (e.type === "revive") {
+      // Quả Thị / Lá Đa Thần: back on the board
+      this.time.delayedCall(10, () => {
+        v.anim.reset();
+        v.hp = e.hp;
+        this.place(v, { where: "board", row: e.row, col: e.col }, false);
+        v.c.setVisible(true); v.hpBar.setVisible(true); this.drawHp(v);
+        v.anim.burst(v.c.x, v.c.y - v.sprite.displayHeight * 0.4, 0x7dff8a, 16);
+        this.floatText(v, "Hồi sinh!", "#9dffb0", 22);
+      });
     }
+  }
+
+  protected floatText(v: View, text: string, color: string, size = 18) {
+    const txt = this.add.text(v.c.x + Phaser.Math.Between(-12, 12), v.c.y - v.sprite.displayHeight * 0.75, text, {
+      fontFamily: FONT_LOGO, fontSize: `${size}px`, fontStyle: "800", color,
+    }).setOrigin(0.5).setStroke("#000", 4).setDepth(9500);
+    this.tweens.add({ targets: txt, y: txt.y - 30, alpha: 0, duration: 750, onComplete: () => txt.destroy() });
   }
 
   protected showResult(res: BattleResult) {

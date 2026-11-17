@@ -103,6 +103,41 @@ describe("Test match (V001–V004)", () => {
     expect((t10.get(4) ?? 0) / total).toBeGreaterThan(0.28);
   });
 
+  it("offers items on item rounds, equips them and gives them back when the carrier is sold or merged", () => {
+    const m = testMatch(d, 9);
+    const p = m.human;
+    expect(p.itemOffer?.length).toBe(3); // round 1 is an item round
+    for (const id of p.itemOffer!) expect(m.item(id).tier).toBe(1);
+    const got = m.chooseItem(p, 0)!;
+    expect(p.itemOffer).toBeNull();
+    const inBag = !m.isTeamItem(got);
+    expect(p.items.length + p.teamItems.length).toBe(1);
+    p.gold = 50;
+    const a = ids()[0];
+    rig(m, a); m.buy(p, 0);
+    const u = p.team.units()[0];
+    if (inBag) {
+      expect(m.equip(p, 0, u.uid)).toBe(true);
+      expect(u.item).toBe(got);
+      expect(p.items).toEqual([]);
+      // merging: the kept copy keeps the item
+      rig(m, a); m.buy(p, 1); m.buy(p, 2);
+      expect(p.team.units().map((x) => [x.star, x.item])).toEqual([[2, got]]);
+      // selling: the item comes back to the bag
+      m.sell(p, p.team.units()[0].uid);
+      expect(p.items).toEqual([got]);
+    }
+  });
+
+  it("the bot takes its item and gives it to a board unit", () => {
+    const m = testMatch(d, 10);
+    m.bot.gold = 20;
+    m.botTurn();
+    expect(m.bot.itemOffer).toBeNull();
+    const carried = m.bot.team.units().filter((u) => u.item != null).length + m.bot.teamItems.length;
+    expect(carried + m.bot.items.length).toBe(1);
+  });
+
   it("levels up with XP (board limit = level)", () => {
     const m = testMatch(d, 5);
     const p = m.human;
@@ -129,7 +164,7 @@ describe("Test match (V001–V004)", () => {
       expect(r.income.base).toBe(7);
       expect(r.income.result).toBe(r.winner === "A" ? 3 : 1);
       expect(r.income.interest).toBe(Math.min(5, Math.floor(goldBefore / 10)));
-      expect(p.gold - goldBefore).toBe(r.income.base + r.income.interest + r.income.streak + r.income.result);
+      expect(p.gold - goldBefore).toBe(r.income.base + r.income.interest + r.income.streak + r.income.result + r.income.items);
       for (const q of m.players) for (const u of q.team.units()) expect(shopIds()).toContain(u.speciesId);
       const pool = [...m.pool.values()];
       expect(pool.every((n) => n >= 0)).toBe(true);

@@ -2,7 +2,13 @@
 import { BENCH_SLOTS, BOARD_COLS, BOARD_ROWS, HALF_ROWS } from "./config";
 import type { Placed, Side } from "./battle";
 
-export interface OwnedUnit { uid: number; speciesId: number; star: 1 | 2 | 3 }
+export interface OwnedUnit {
+  uid: number; speciesId: number; star: 1 | 2 | 3;
+  /** carried item id */
+  item?: number;
+  /** permanent max-HP bonus in % (Hạt Dưa) */
+  hpBonus?: number;
+}
 export type Spot = { where: "board"; row: number; col: number } | { where: "bench"; slot: number };
 
 const OWN_FIRST_ROW = BOARD_ROWS - HALF_ROWS; // 4
@@ -83,7 +89,7 @@ export class Team {
   toPlaced(side: Side = "A"): Placed[] {
     return [...this.board].map(([key, u]) => {
       const [row, col] = key.split(",").map(Number);
-      return { uid: u.uid, speciesId: u.speciesId, star: u.star, row, col, side };
+      return { uid: u.uid, speciesId: u.speciesId, star: u.star, row, col, side, item: u.item, hpBonusPct: u.hpBonus };
     });
   }
 
