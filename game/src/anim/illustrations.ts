@@ -17,17 +17,19 @@ export function hasIllustration(d: GameData, s: Species, view: View): boolean {
   return !!(c && M[c]?.[view]);
 }
 
-/** queue the illustration textures of the given species (both views) */
+/** size of one frame in the game sheets (assets/illustrations/web, made by scripts/web_textures.py) */
+const FRAME = 256;
+
+/** queue the illustration sheets of the given species (both views + an alternate form if it has one) */
 export function preloadIllustrations(scene: Phaser.Scene, d: GameData, list: Species[]) {
   for (const s of list) {
     const c = vcode(d, s);
     if (!c || !M[c]) continue;
     for (const v of ["front", "back"] as View[]) {
-      if (!M[c][v]) continue;
-      for (const suf of ["", "_star2", "_star3"]) scene.load.image(`il:${c}_${v}${suf}`, `illustrations/cut/${c}_${v}${suf}.png`);
-      // alternate form shown when it transforms in battle (Cá Chép → Rồng Con)
-      if (M[c][`alt_${v}`])
-        for (const suf of ["", "_star2", "_star3"]) scene.load.image(`il:${c}_${v}_alt${suf}`, `illustrations/cut/${c}_${v}_alt${suf}.png`);
+      const keys = M[c][v] ? [`${c}_${v}`] : [];
+      if (M[c][`alt_${v}`]) keys.push(`${c}_${v}_alt`); // alternate form shown when it transforms in battle (Cá Chép → Rồng Con)
+      for (const k of keys)
+        if (!scene.textures.exists(`il:${k}`)) scene.load.spritesheet(`il:${k}`, `illustrations/web/${k}.webp`, { frameWidth: FRAME, frameHeight: FRAME });
     }
   }
 }
@@ -37,16 +39,16 @@ export function smooth(scene: Phaser.Scene, keys: string[]) {
   for (const k of keys) if (scene.textures.exists(k)) scene.textures.get(k).setFilter(Phaser.Textures.FilterMode.LINEAR);
 }
 
+const sheet = (k: string): ViewTextures => ({ body: k, star2: k, star3: k, bodyFrame: 0, star2Frame: 1, star3Frame: 2 });
+
 /** textures for a VieAni seen from `view`; falls back to the pixel sprite */
 export function texturesFor(scene: Phaser.Scene, d: GameData, s: Species, view: View): { tex: ViewTextures; illustrated: boolean; alt?: ViewTextures } {
   const c = vcode(d, s);
   const k = `il:${c}_${view}`;
   if (c && scene.textures.exists(k)) {
-    smooth(scene, [k, k + "_star2", k + "_star3"]);
     const a = `${k}_alt`;
-    let alt: ViewTextures | undefined;
-    if (scene.textures.exists(a)) { smooth(scene, [a, a + "_star2", a + "_star3"]); alt = { body: a, star2: a + "_star2", star3: a + "_star3" }; }
-    return { tex: { body: k, star2: k + "_star2", star3: k + "_star3" }, illustrated: true, alt };
+    smooth(scene, [k, a]);
+    return { tex: sheet(k), illustrated: true, alt: scene.textures.exists(a) ? sheet(a) : undefined };
   }
   return { tex: { body: `sp${s.id}` }, illustrated: false };
 }

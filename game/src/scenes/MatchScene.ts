@@ -169,7 +169,7 @@ export class MatchScene extends BoardScene {
       g.lineStyle(3, col, 1).strokeRoundedRect(-CARD_W / 2, -CARD_H / 2, CARD_W, CARD_H, 10);
       const { tex } = texturesFor(this, this.data_, sp, "front");
       const feetY = -CARD_H / 2 + ART_H + 4;
-      const img = this.add.image(0, feetY, tex.body).setOrigin(0.5, 1);
+      const img = this.add.image(0, feetY, tex.body, tex.bodyFrame).setOrigin(0.5, 1);
       const base = Math.min(108 / img.width, 108 / img.height);
       img.setScale(base);
       const code = vcode(this.data_, sp) ?? "";
@@ -210,7 +210,7 @@ export class MatchScene extends BoardScene {
     const synergies = this.data_.synergies.filter((g) => g.members.includes(id))
       .map((g) => [g.name, g.members.filter((m) => onBoard.has(m)).length, Object.keys(g.tiers).map(Number).sort((a, b) => a - b)] as [string, number, number[]]);
     return {
-      sp, code: vcode(this.data_, sp), tex: texturesFor(this, this.data_, sp, "front").tex.body, star: 1, side: "A",
+      sp, code: vcode(this.data_, sp), tex: texturesFor(this, this.data_, sp, "front").tex.body, texFrame: texturesFor(this, this.data_, sp, "front").tex.bodyFrame, star: 1, side: "A",
       hp: null, maxHp: battleMaxHp(sp, 1), energy: 0, where: "shop", fighting: false, dead: false, synergies,
     };
   }

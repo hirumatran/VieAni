@@ -57,6 +57,7 @@ export interface CardSubject {
   sp: Species;
   code: string | null;
   tex: string | null;
+  texFrame?: number;
   star: 1 | 2 | 3;
   side: "A" | "B";
   /** null = not a unit (e.g. a shop card) */
@@ -115,7 +116,7 @@ export class InfoCard {
     g.fillStyle(TYPE_HEX[sp.types[0]] ?? 0x888888, 1).fillRoundedRect(0, 0, W, ART, { tl: 14, tr: 14, bl: 0, br: 0 });
     if (sp.types[1]) g.fillStyle(TYPE_HEX[sp.types[1]], 1).fillTriangle(W, ART * 0.15, W, ART, W * 0.45, ART);
     if (s.tex) {
-      const img = add(sc.add.image(W / 2, ART + 4, s.tex).setOrigin(0.5, 1));
+      const img = add(sc.add.image(W / 2, ART + 4, s.tex, s.texFrame).setOrigin(0.5, 1));
       img.setScale((ART + 6) / img.height);
     }
     const pill = (x: number, str: string, right = false) => {

@@ -1,6 +1,6 @@
 // All game-rule numbers in one place (see docs/GDD.md). Balance by editing this file.
 
-export const VERSION = "0.7.1";
+export const VERSION = "0.7.2";
 
 export const PLAYERS = 8;
 export const PLAYER_HP = 100;
@@ -111,3 +111,11 @@ export const ROLES = ["Đỡ Đòn", "Chiến Đấu", "Săn Mồi", "Phép Thu�
 export const TRANSFORMS: Record<string, { name: string; seconds: [number, number, number] }> = {
   V042: { name: "Rồng Con", seconds: [20, 20, 12] },
 };
+
+// --- status auras (PO choice 17 Nov 2026; options in anim/aura.ts, preview: title → "Hiệu ứng trạng thái") ---
+/** option index per group: 0 = A, 1 = B, 2 = C. Legendary A golden aura · Extinct A grey smoke · Endangered C red heartbeat */
+export const AURA_CHOICE = { legend: 0, extinct: 0, endangered: 2 } as const;
+/** which group a VieAni belongs to, by tier (5 Huyền thoại, 4 Đã mất, 3 Nguy cấp; tiers 1–2 have no aura) */
+export function auraKindForTier(tier: number): "legend" | "extinct" | "endangered" | null {
+  return tier === 5 ? "legend" : tier === 4 ? "extinct" : tier === 3 ? "endangered" : null;
+}

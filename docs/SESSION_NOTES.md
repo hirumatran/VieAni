@@ -275,3 +275,16 @@ PO: glow for legendary, smoke for extinct, red alert for endangered – 3 option
 | Đã mất (tier 4) | grey smoke rising from the feet | ghost: pale-blue, flickering see-through + wisps | ash: faded colours + dark ash and embers rising |
 | Nguy cấp (tier 3) | red warning ring on the ground + pulse waves | blinking red "!" warning sign above the head | red glow beating like a heartbeat |
 Not yet applied in the match – after the PO picks, apply by tier on board, bench and in battle.
+
+## Status auras chosen + lighter game textures (17 Nov, v0.7.2)
+- **PO choice:** Huyền thoại **A** (golden aura pulsing behind the body) · Đã mất **A** (grey smoke rising from the feet) ·
+  Nguy cấp **C** (red glow beating like a heartbeat). Applied by tier (5 / 4 / 3) to every VieAni on the board, bench and in
+  battle, both sides (`AURA_CHOICE` + `auraKindForTier` in config.ts, effects in `anim/aura.ts`). The glow behind the body follows
+  the VieAni's size (bench ↔ board). The preview screen now marks the chosen options.
+- **Weight fix:** with all 87 VieAni the match loaded 528 PNGs = 46 MB, and the itch.io build also shipped the raw uploads
+  (~200 MB, ~830 files – itch.io allows 1000 files for HTML5). Now:
+  - `scripts/web_textures.py` makes one 256-px WebP sheet per VieAni view (frames: body, ★2 outline, ★3 glow) in
+    `assets/illustrations/web/` (176 files); `scripts/cutout.py` runs it automatically after a cut-out.
+  - The build copies only `sprites/`, `backgrounds/`, `palette/`, `illustrations/web/` and the manifest
+    (`vite.config.ts`, `copyPublicDir: false`). Raw uploads and the 512-px masters stay in the repo (VieIndex is built from them).
+  - Pixel sprites are only loaded for VieAni without an illustration (none at the moment).

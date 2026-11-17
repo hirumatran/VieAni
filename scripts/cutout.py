@@ -142,8 +142,10 @@ def main(only):
             man.setdefault(code, {})[key] = {"size": SIZE, "foot": foot}
     man = {k: man[k] for k in sorted(man)}
     man_p.write_text(json.dumps(man, indent=1))
-    # VieIndex shows the new illustrations as avatars: rebuild it
+    # game sheets (256-px WebP, 3 frames) for the new cut-outs, then VieIndex (uses them as avatars)
     import subprocess
+    codes = sorted({out_name(r)[0] for r in todo})
+    subprocess.run([sys.executable, str(ROOT / "scripts/web_textures.py"), *codes], check=True)
     subprocess.run([sys.executable, str(ROOT / "scripts/build_vieindex.py")], check=True)
 
 

@@ -1,15 +1,16 @@
 import Phaser from "phaser";
 import { maxHp as battleMaxHp, mirror, playerDamage, simulate, type BattleEvent, type BattleResult, type Placed } from "../core/battle";
-import { BENCH_SLOTS, BOARD_COLS, BOARD_ROWS, HALF_ROWS, MOVE_SECONDS_PER_CELL, TICKS_PER_SECOND, TRANSFORMS, VERSION } from "../core/config";
-import type { GameData } from "../core/data";
+import { AURA_CHOICE, auraKindForTier, BENCH_SLOTS, BOARD_COLS, BOARD_ROWS, HALF_ROWS, MOVE_SECONDS_PER_CELL, TICKS_PER_SECOND, TRANSFORMS, VERSION } from "../core/config";
+import type { GameData, Species } from "../core/data";
 import { settings, t } from "../core/i18n";
 import { BACKGROUNDS, BENCH_CORNERS, BOARD_CORNERS, Grid, SCREEN_H, SCREEN_W, type Pt } from "../core/layout";
 import { Rng } from "../core/rng";
 import { Team, type OwnedUnit, type Spot } from "../core/team";
 import { button, coverImage, CREAM, FONT_LOGO, FONT_UI, toast } from "../ui/widgets";
 import { typeColour, VieAniView } from "../anim/VieAniView";
-import { preloadIllustrations, texturesFor, vcode } from "../anim/illustrations";
+import { hasIllustration, preloadIllustrations, texturesFor, vcode } from "../anim/illustrations";
 import type { ViewTextures } from "../anim/VieAniView";
+import { attachAura } from "../anim/aura";
 import { InfoCard, type CardSubject } from "../ui/InfoCard";
 
 const ENEMY_TINT = 0x96e6dc;
@@ -70,7 +71,9 @@ export class BoardScene extends Phaser.Scene {
     const bg = BACKGROUNDS[Math.floor(Math.random() * BACKGROUNDS.length)];
     this.bgKey = "bg:" + bg;
     this.load.image(this.bgKey, bg);
-    for (const s of this.data_.species) this.load.image(`sp${s.id}`, `sprites/${String(s.id).padStart(2, "0")}.png`);
+    // old pixel sprites only as a fallback for VieAni that have no illustration yet
+    for (const s of this.data_.species)
+      if (!hasIllustration(this.data_, s, "front")) this.load.image(`sp${s.id}`, `sprites/${String(s.id).padStart(2, "0")}.png`);
     preloadIllustrations(this, this.data_, this.data_.roster);
   }
 
@@ -143,6 +146,9 @@ export class BoardScene extends Phaser.Scene {
     const { tex, illustrated, alt } = texturesFor(this, this.data_, sp, side === "A" ? "back" : "front");
     const anim = new VieAniView(this, 0, 0, tex, side === "A" ? 1 : -1, typeColour(sp.attackType), !illustrated && side === "B");
     anim.setStar(u.star);
+    // status aura by tier (PO choice): legendary golden aura, extinct grey smoke, endangered red heartbeat
+    const aura = auraKindForTier(sp.tier);
+    if (aura) attachAura(this, anim, aura, AURA_CHOICE[aura]);
     const hpBar = this.add.graphics().setVisible(false);
     const stars = this.add.text(0, 0, "", { fontFamily: FONT_UI, fontSize: "15px", fontStyle: "bold" }).setOrigin(0.5, 1).setStroke("#1b120c", 4);
     anim.c.add([hpBar, stars]);
@@ -310,7 +316,7 @@ export class BoardScene extends Phaser.Scene {
       .map((g) => [g.name, g.members.filter((m) => ids.has(m)).length, Object.keys(g.tiers).map(Number).sort((a, b) => a - b)] as [string, number, number[]]);
     const tgt = v.target != null ? this.views.get(v.target) : undefined;
     return {
-      sp, code: vcode(this.data_, sp), tex: v.transformed ? texturesFor(this, this.data_, sp, "front").alt?.body ?? null : texturesFor(this, this.data_, sp, "front").tex.body, transformed: v.transformed, star: v.anim.star as 1 | 2 | 3, side: v.side,
+      sp, code: vcode(this.data_, sp), ...cardTex(this, this.data_, sp, !!v.transformed), transformed: v.transformed, star: v.anim.star as 1 | 2 | 3, side: v.side,
       hp: v.hp, maxHp: v.maxHp, energy: v.energy, where: this.whereOf(v), fighting: this.fighting, dead: v.anim.dead,
       targetName: tgt && !tgt.anim.dead ? this.data_.byId.get(tgt.speciesId)!.vi.replace(/\s*\(.*\)\s*/, "") : undefined,
       lastMult: v.lastMult, synergies,
@@ -448,4 +454,11 @@ export class BoardScene extends Phaser.Scene {
     g.fillStyle(tint, alpha).fillPoints(pts, true);
     g.lineStyle(2, tint, 0.8).strokePoints(pts, true);
   }
+}
+
+/** texture for the info card picture: front view, or the alternate form once it has transformed */
+function cardTex(scene: Phaser.Scene, d: GameData, sp: Species, transformed: boolean): { tex: string | null; texFrame?: number } {
+  const t = texturesFor(scene, d, sp, "front");
+  const v = transformed && t.alt ? t.alt : t.tex;
+  return { tex: v.body, texFrame: v.bodyFrame };
 }

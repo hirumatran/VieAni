@@ -35,19 +35,21 @@ export function attachAura(scene: Phaser.Scene, v: VieAniView, kind: AuraKind, o
     const p = scene.add.image(x, y, tex).setTint(tint).setScale(scale).setBlendMode(blend).setDepth(v.c.depth + 1);
     scene.tweens.add({ ...to, targets: p, onComplete: () => p.destroy() });
   };
-  /** glow image behind the creature inside its rig (moves, squashes and lunges with it) */
+  /** glow image behind the creature inside its rig (moves, squashes and lunges with it, follows its size) */
   const behind = (tex: string, tint: number, alpha: number) => {
-    const im = scene.add.image(0, -s() * 0.42, tex).setTint(tint).setBlendMode(Phaser.BlendModes.ADD).setAlpha(alpha);
-    im.setDisplaySize(s() * 1.05, s() * 1.05);
-    v.rig.addAt(im, 0); objs.push(im);
+    const im = scene.add.image(0, 0, tex).setTint(tint).setBlendMode(Phaser.BlendModes.ADD).setAlpha(alpha);
+    v.addBehind(im); im.setData("base", im.scale); objs.push(im);
     return im;
   };
+  /** a pulse relative to the glow's current size (bench ↔ board resizes it) */
+  const pulse = (im: Phaser.GameObjects.Image, k: number) => ({ getEnd: () => (im.getData("base") as number) * k, getStart: () => im.scale });
 
   if (kind === "legend") {
     if (option === 0) {
       const g = behind("fx:orb", 0xffd84a, 0.55);
-      const base = g.scale;
-      tweens.push(scene.tweens.add({ targets: g, scale: base * 1.18, alpha: 0.85, duration: 1100, yoyo: true, repeat: -1, ease: "Sine.easeInOut" }));
+      const k = { t: 0 }; // 0 → 1 → 0: size +18 %, brightness 0.55 → 0.85
+      tweens.push(scene.tweens.add({ targets: k, t: 1, duration: 1100, yoyo: true, repeat: -1, ease: "Sine.easeInOut",
+        onUpdate: () => { if (g.active) g.setScale((g.getData("base") as number) * (1 + 0.18 * k.t)).setAlpha(0.55 + 0.3 * k.t); } }));
     } else if (option === 1) {
       const ring = scene.add.image(0, 0, "fx:ring").setTint(0xffd84a).setBlendMode(Phaser.BlendModes.ADD).setAlpha(0.8);
       ring.setDisplaySize(s() * 0.95, s() * 0.26); v.c.addAt(ring, 0); objs.push(ring);
@@ -106,12 +108,10 @@ export function attachAura(scene: Phaser.Scene, v: VieAniView, kind: AuraKind, o
       tweens.push(scene.tweens.add({ targets: sign, alpha: 0.35, duration: 450, yoyo: true, repeat: -1, ease: "Stepped", easeParams: [1] }));
     } else {
       const g = behind("fx:orb", 0xff2020, 0);
-      const base = g.scale;
-      // double beat: lub-dub, pause
+      // double beat: lub-dub, pause (scale follows the glow's current base size)
+      const beat = (a: number, k: number, ms: number) => ({ alpha: a, scale: pulse(g, k), duration: ms });
       tweens.push(scene.tweens.chain({ targets: g, loop: -1, tweens: [
-        { alpha: 0.95, scale: base * 1.15, duration: 110 }, { alpha: 0.35, scale: base, duration: 140 },
-        { alpha: 0.85, scale: base * 1.12, duration: 110 }, { alpha: 0.15, scale: base, duration: 260 },
-        { alpha: 0.15, duration: 450 },
+        beat(0.95, 1.15, 110), beat(0.35, 1, 140), beat(0.85, 1.12, 110), beat(0.15, 1, 260), beat(0.15, 1, 450),
       ] }) as unknown as Phaser.Tweens.Tween);
     }
   }

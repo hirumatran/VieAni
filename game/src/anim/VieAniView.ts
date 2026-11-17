@@ -12,7 +12,8 @@ import Phaser from "phaser";
  *             HP bars etc. can be added to `c` by the owner.
  * The body's origin is at the feet (0.5, 1): the creature stands on the container's position.
  */
-export interface ViewTextures { body: string; star2?: string; star3?: string }
+/** texture keys (+ optional frame: the game ships one 3-frame sheet per VieAni view: body, ★2 outline, ★3 glow) */
+export interface ViewTextures { body: string; star2?: string; star3?: string; bodyFrame?: number; star2Frame?: number; star3Frame?: number }
 
 const TYPE_COL: Record<string, number> = {
   Fire: 0xff7a2a, Water: 0x4aa8ff, Electric: 0xffe14a, Grass: 0x5ccf5a, Ground: 0xc8964a, Rock: 0xa89a80,
@@ -47,20 +48,30 @@ export class VieAniView {
     this.c = scene.add.container(x, y);
     this.shadow = scene.add.ellipse(0, 0, 40, 10, 0x1a120c, 0.4);
     this.rig = scene.add.container(0, 0);
-    if (tex.star3) this.star3 = scene.add.image(0, 0, tex.star3).setOrigin(0.5, 1).setVisible(false);
-    if (tex.star2) this.star2 = scene.add.image(0, 0, tex.star2).setOrigin(0.5, 1).setVisible(false);
-    this.body = scene.add.image(0, 0, tex.body).setOrigin(0.5, 1).setFlipX(flip);
-    this.flash = scene.add.image(0, 0, tex.body).setOrigin(0.5, 1).setFlipX(flip)
+    if (tex.star3) this.star3 = scene.add.image(0, 0, tex.star3, tex.star3Frame).setOrigin(0.5, 1).setVisible(false);
+    if (tex.star2) this.star2 = scene.add.image(0, 0, tex.star2, tex.star2Frame).setOrigin(0.5, 1).setVisible(false);
+    this.body = scene.add.image(0, 0, tex.body, tex.bodyFrame).setOrigin(0.5, 1).setFlipX(flip);
+    this.flash = scene.add.image(0, 0, tex.body, tex.bodyFrame).setOrigin(0.5, 1).setFlipX(flip)
       .setBlendMode(Phaser.BlendModes.ADD).setAlpha(0);
     const layers = [this.star3, this.star2, this.body, this.flash].filter(Boolean) as Phaser.GameObjects.Image[];
     this.rig.add(layers);
     this.c.add([this.shadow, this.rig]);
   }
 
+  /** extra layers behind the body that follow the size (status auras): k = size factor, yk = centre height factor */
+  private extras: { im: Phaser.GameObjects.Image; k: number; yk: number }[] = [];
+  addBehind(im: Phaser.GameObjects.Image, k = 1.05, yk = 0.42) {
+    this.rig.addAt(im, 0);
+    this.extras.push({ im, k, yk });
+    im.setDisplaySize(this.size * k, this.size * k).setY(-this.size * yk);
+    return im;
+  }
+
   /** display size in screen px (the square texture is scaled to w×w) */
   setSize(w: number) {
     this.size = w;
     for (const im of [this.body, this.flash, this.star2, this.star3]) im?.setDisplaySize(w, w);
+    for (const e of this.extras) if (e.im.active) { e.im.setDisplaySize(w * e.k, w * e.k).setY(-w * e.yk); e.im.setData("base", e.im.scale); }
     this.shadow.setSize(w * 0.55, w * 0.13);
     return this;
   }
@@ -177,9 +188,9 @@ export class VieAniView {
     return this.seq([
       { targets: this.rig, scaleX: 0.86, scaleY: 1.14, duration: 260, ease: "Sine.easeIn" },
       { targets: this.flash, alpha: 1, duration: 150, onComplete: () => {
-        this.body.setTexture(tex.body); this.flash.setTexture(tex.body);
-        if (tex.star2) this.star2?.setTexture(tex.star2);
-        if (tex.star3) this.star3?.setTexture(tex.star3);
+        this.body.setTexture(tex.body, tex.bodyFrame); this.flash.setTexture(tex.body, tex.bodyFrame);
+        if (tex.star2) this.star2?.setTexture(tex.star2, tex.star2Frame);
+        if (tex.star3) this.star3?.setTexture(tex.star3, tex.star3Frame);
         this.setSize(this.size);
         this.burst(x, y, colour, 18); this.burst(x, y, 0xffffff, 10);
       } },
