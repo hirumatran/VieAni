@@ -73,14 +73,20 @@ export class Match {
   sellValue(u: OwnedUnit) { return this.cost(u.speciesId) * copies(u.star); }
 
   // ------------------------------------------------------------------ shop
-  /** put unbought offers back and draw a new shop, weighted by the copies left in the pool */
+  /** put unbought offers back and draw a new shop: tier by the level's SHOP_ODDS (tiers with no copies left or no species
+   *  in this match are skipped and the odds renormalised), then a species of that tier weighted by the copies left */
   rollShop(p: PlayerState) {
     for (const id of p.shop) if (id != null) this.pool.set(id, this.pool.get(id)! + 1);
     p.shop = [];
+    const odds = C.SHOP_ODDS[Math.min(p.level, C.SHOP_ODDS.length) - 1];
     for (let i = 0; i < C.SHOP_SLOTS; i++) {
-      const w = this.species.map((s) => this.pool.get(s.id)!);
+      const left = (tier: number) => this.species.filter((s) => s.tier === tier && this.pool.get(s.id)! > 0);
+      let w = odds.map((o, t) => (left(t + 1).length ? o : 0));
+      // early levels can only roll tiers that may be missing from a small test set: fall back to any tier with copies left
+      if (w.every((n) => n <= 0)) w = odds.map((_, t) => left(t + 1).reduce((n, s) => n + this.pool.get(s.id)!, 0));
       if (w.every((n) => n <= 0)) { p.shop.push(null); continue; }
-      const id = this.species[this.rng.weighted(w)].id;
+      const cands = left(this.rng.weighted(w) + 1);
+      const id = cands[this.rng.weighted(cands.map((s) => this.pool.get(s.id)!))].id;
       this.pool.set(id, this.pool.get(id)! - 1);
       p.shop.push(id);
     }

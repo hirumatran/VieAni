@@ -87,6 +87,22 @@ describe("Test match (V001–V004)", () => {
     expect(p.shop.every((id) => id != null)).toBe(true);
   });
 
+  it("rolls tiers by the level's shop odds (level 1 = only tier 1, level 10 includes tier 5)", () => {
+    const m = testMatch(d, 8);
+    const p = m.human;
+    const tiers = (lvl: number, n = 300) => {
+      p.level = lvl; const seen = new Map<number, number>();
+      for (let i = 0; i < n; i++) { m.rollShop(p); for (const id of p.shop) if (id != null) { const t = m.sp(id).tier; seen.set(t, (seen.get(t) ?? 0) + 1); } }
+      return seen;
+    };
+    expect([...tiers(1).keys()]).toEqual([1]);
+    const t10 = tiers(10);
+    expect(t10.get(5) ?? 0).toBeGreaterThan(0);
+    // level 10 odds 5/10/25/35/25 → tier 4 should be the most common (≈35 %)
+    const total = [...t10.values()].reduce((a, b) => a + b, 0);
+    expect((t10.get(4) ?? 0) / total).toBeGreaterThan(0.28);
+  });
+
   it("levels up with XP (board limit = level)", () => {
     const m = testMatch(d, 5);
     const p = m.human;

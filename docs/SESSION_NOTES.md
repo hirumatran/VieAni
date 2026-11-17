@@ -252,3 +252,16 @@ back into `data/*.json` before rebuilding the page.
 **Next development tasks**
 - T11 real skills in battle (per-skill energy cost + effects) and status effects (stun, slow, …) so the info card can show them.
 - Tộc hệ bonuses in battle; PvE rounds + items; 8-player lobby (more bots); touch tap-to-inspect for the info card.
+
+## All 87 illustrations (17 Nov 2026, v0.7.0)
+- PO uploaded V011–V087 raw art. Cut out all 154 + V042's second form (`scripts/cutout.py` now runs on 4 cores, ~1.5 min).
+  All checked on contact sheets: clean. Some drawings include a bit of ground (rock under V055 goat / V067 horse, grass under
+  V069 snail, soft shadows under V052 egret and some dogs) – kept as drawn.
+- Non-square uploads (V037, V049) are fine: the cut-out crops and scales them.
+- **Two-form VieAni (PO):** V042 Cá Chép uploaded as `V042_fish_*` + `V042_dragon_*`. The fish is its look everywhere and at
+  every ★; the dragon is only used when it transforms in battle – passive "Cá Chép Hóa Rồng": still standing after 20 s
+  (★3 "Long Môn": 12 s) → plays a transformation, becomes Rồng Con until the end of that battle; the info card then shows the
+  dragon + status "Đã hóa Rồng Con". Config: `TRANSFORMS` (config.ts), cut-out: `FORMS` (alt form files `*_alt.png`).
+  Only the look changes for now; its ×1,3/1,4/1,5 stats + Bay come with the skill system (T11).
+- The test match shop now contains all 87 VieAni, so it uses the **real shop odds by level** (SHOP_ODDS: level 1 = tier 1
+  only … level 10 = 5/10/25/35/25 %), test added. VieIndex shows the illustrations for all 87.

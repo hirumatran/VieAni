@@ -68,6 +68,8 @@ export interface CardSubject {
   dead: boolean;
   targetName?: string;
   lastMult?: number;
+  /** name of the form it changed into during this battle (e.g. "Rồng Con") */
+  transformed?: string;
   /** synergy name → [distinct members on this side's board, thresholds] */
   synergies: [string, number, number[]][];
 }
@@ -229,6 +231,7 @@ export class InfoCard {
     // status
     const st: [string, number][] = [];
     if (s.dead) st.push(["Gục ngã", 0x6b5a4c]);
+    if (s.transformed && !s.dead) st.push([`Đã hóa ${s.transformed}`, 0xc9972b]);
     if (s.star > 1) st.push([`★${s.star}: máu & sát thương ×${num(C.STAR_MULT[s.star - 1])}`, 0x6c7a8c]);
     if (s.where === "bench") st.push(["Hàng chờ – không vào trận", 0x6b5a4c]);
     if (s.where === "shop") st.push(["Trong cửa hàng", 0x6b5a4c]);

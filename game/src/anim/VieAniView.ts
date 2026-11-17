@@ -164,6 +164,28 @@ export class VieAniView {
     ]).then(() => { this.c.setVisible(false); });
   }
 
+  /** change into another form mid-battle (e.g. Cá Chép → Rồng Con): squeeze, white-out, swap the drawing, burst */
+  transform(tex: ViewTextures, colour = 0xffd84a): Promise<void> {
+    const x = this.c.x, y = this.c.y - this.size * 0.45;
+    const ring = this.scene.add.image(this.c.x, this.c.y, "fx:ring").setTint(colour).setDepth(this.c.depth - 1).setScale(0.2, 0.06);
+    this.scene.tweens.add({ targets: ring, scaleX: this.size / 50, scaleY: this.size / 180, alpha: 0, duration: 900, onComplete: () => ring.destroy() });
+    for (let i = 0; i < 14; i++)
+      this.time(i * 35, () => this.spark(x + Phaser.Math.Between(-this.size * 0.45, this.size * 0.45), this.c.y - 4, colour, 0.8, -this.size * 1.1, 700));
+    this.flash.setTint(0xffffff);
+    return this.seq([
+      { targets: this.rig, scaleX: 0.86, scaleY: 1.14, duration: 260, ease: "Sine.easeIn" },
+      { targets: this.flash, alpha: 1, duration: 150, onComplete: () => {
+        this.body.setTexture(tex.body); this.flash.setTexture(tex.body);
+        if (tex.star2) this.star2?.setTexture(tex.star2);
+        if (tex.star3) this.star3?.setTexture(tex.star3);
+        this.setSize(this.size);
+        this.burst(x, y, colour, 18); this.burst(x, y, 0xffffff, 10);
+      } },
+      { targets: this.flash, alpha: 0, duration: 320 },
+      { targets: this.rig, scaleX: 1, scaleY: 1, duration: 320, ease: "Back.easeOut" },
+    ]).then(() => { this.flash.clearTint(); });
+  }
+
   /** round won: two happy hops with sparkles */
   win(): Promise<void> {
     this.idle(false);

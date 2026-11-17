@@ -10,7 +10,7 @@ export function vcode(d: GameData, s: Species): string | null {
 }
 
 type View = "front" | "back";
-const M = manifest as Record<string, Partial<Record<View, { size: number; foot: number[] }>>>;
+const M = manifest as Record<string, Partial<Record<string, { size: number; foot: number[] }>>>;
 
 export function hasIllustration(d: GameData, s: Species, view: View): boolean {
   const c = vcode(d, s);
@@ -25,6 +25,9 @@ export function preloadIllustrations(scene: Phaser.Scene, d: GameData, list: Spe
     for (const v of ["front", "back"] as View[]) {
       if (!M[c][v]) continue;
       for (const suf of ["", "_star2", "_star3"]) scene.load.image(`il:${c}_${v}${suf}`, `illustrations/cut/${c}_${v}${suf}.png`);
+      // alternate form shown when it transforms in battle (Cá Chép → Rồng Con)
+      if (M[c][`alt_${v}`])
+        for (const suf of ["", "_star2", "_star3"]) scene.load.image(`il:${c}_${v}_alt${suf}`, `illustrations/cut/${c}_${v}_alt${suf}.png`);
     }
   }
 }
@@ -35,12 +38,15 @@ export function smooth(scene: Phaser.Scene, keys: string[]) {
 }
 
 /** textures for a VieAni seen from `view`; falls back to the pixel sprite */
-export function texturesFor(scene: Phaser.Scene, d: GameData, s: Species, view: View): { tex: ViewTextures; illustrated: boolean } {
+export function texturesFor(scene: Phaser.Scene, d: GameData, s: Species, view: View): { tex: ViewTextures; illustrated: boolean; alt?: ViewTextures } {
   const c = vcode(d, s);
   const k = `il:${c}_${view}`;
   if (c && scene.textures.exists(k)) {
     smooth(scene, [k, k + "_star2", k + "_star3"]);
-    return { tex: { body: k, star2: k + "_star2", star3: k + "_star3" }, illustrated: true };
+    const a = `${k}_alt`;
+    let alt: ViewTextures | undefined;
+    if (scene.textures.exists(a)) { smooth(scene, [a, a + "_star2", a + "_star3"]); alt = { body: a, star2: a + "_star2", star3: a + "_star3" }; }
+    return { tex: { body: k, star2: k + "_star2", star3: k + "_star3" }, illustrated: true, alt };
   }
   return { tex: { body: `sp${s.id}` }, illustrated: false };
 }

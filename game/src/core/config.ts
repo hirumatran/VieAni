@@ -1,6 +1,6 @@
 // All game-rule numbers in one place (see docs/GDD.md). Balance by editing this file.
 
-export const VERSION = "0.6.6";
+export const VERSION = "0.7.0";
 
 export const PLAYERS = 8;
 export const PLAYER_HP = 100;
@@ -104,3 +104,10 @@ export const CHARM_ITEM_IDS = [51, 52, 53];
 /** round window in which each charm can be offered (Bắc Bộ, Trung Bộ, Nam Bộ) */
 export const CHARM_ROUND_WINDOWS: Record<number, [number, number]> = { 51: [1, 10], 52: [11, 20], 53: [21, 30] };
 export const ROLES = ["Đỡ Đòn", "Chiến Đấu", "Săn Mồi", "Phép Thuật", "Hỗ Trợ"] as const;
+
+// --- mid-battle transformations (alternate illustration form) ---
+/** Cá Chép (V042) passive "Cá Chép Hóa Rồng": alive after 20 s in battle → Rồng Con until the end; ★3 "Long Môn": after 12 s.
+ *  Only the look changes for now – the ×1,3/1,4/1,5 stats and Bay come with the skill system (task T11). */
+export const TRANSFORMS: Record<string, { name: string; seconds: [number, number, number] }> = {
+  V042: { name: "Rồng Con", seconds: [20, 20, 12] },
+};

@@ -100,21 +100,47 @@ def outline_layer(im: Image.Image, colour, width, blur=0, alpha=255):
     return layer
 
 
+# VieAni drawn in two forms (raw files V###_<form>_<view>.png): the base form is its look everywhere (shop, bench,
+# VieIndex, every ★); the alternate form is only shown when it transforms during a battle (PO, 17 Nov 2026: Cá Chép V042
+# stays a fish; its passive "Cá Chép Hóa Rồng" turns it into the dragon mid-battle).
+FORMS = {"V042": {"base": "fish", "alt": "dragon"}}
+
+
+def out_name(raw: pathlib.Path):
+    """raw file -> (code, manifest key, output stem) ; None to skip"""
+    parts = raw.stem.split("_")
+    code, view = parts[0], parts[-1]
+    form = "_".join(parts[1:-1])
+    if view not in ("front", "back"): return None
+    if not form: return code, view, f"{code}_{view}"
+    f = FORMS.get(code, {})
+    if form == f.get("base"): return code, view, f"{code}_{view}"
+    if form == f.get("alt"): return code, f"alt_{view}", f"{code}_{view}_alt"
+    print("skip (unknown form):", raw.name); return None
+
+
+def process(raw: pathlib.Path):
+    code, key, stem = out_name(raw)
+    im, foot = cutout(raw)
+    im.save(CUT / f"{stem}.png", optimize=True)
+    outline_layer(im, (214, 224, 238), 7).save(CUT / f"{stem}_star2.png", optimize=True)
+    gold = outline_layer(im, (255, 196, 60), 16, blur=7)
+    gold.alpha_composite(outline_layer(im, (255, 236, 150), 6))
+    gold.save(CUT / f"{stem}_star3.png", optimize=True)
+    print(code, key, "->", CUT / f"{stem}.png", flush=True)
+    return code, key, foot
+
+
 def main(only):
+    from multiprocessing import Pool
     CUT.mkdir(parents=True, exist_ok=True)
     man_p = ROOT / "assets/illustrations/manifest.json"
     man = json.loads(man_p.read_text()) if man_p.exists() else {}
-    for raw in sorted(RAW.glob("V*_*.png")):
-        code, view = raw.stem.split("_", 1)
-        if only and code not in only: continue
-        im, foot = cutout(raw)
-        im.save(CUT / f"{code}_{view}.png", optimize=True)
-        outline_layer(im, (214, 224, 238), 7).save(CUT / f"{code}_{view}_star2.png", optimize=True)
-        gold = outline_layer(im, (255, 196, 60), 16, blur=7)
-        gold.alpha_composite(outline_layer(im, (255, 236, 150), 6))
-        gold.save(CUT / f"{code}_{view}_star3.png", optimize=True)
-        man.setdefault(code, {})[view] = {"size": SIZE, "foot": foot}
-        print(code, view, "->", CUT / f"{code}_{view}.png")
+    todo = [r for r in sorted(RAW.glob("V*_*.png")) if out_name(r) and (not only or out_name(r)[0] in only)]
+    with Pool() as pool:
+        for code, key, foot in pool.imap_unordered(process, todo):
+            man.setdefault(code, {})[key] = {"size": SIZE, "foot": foot}
+    man = {k: man[k] for k in sorted(man)}
     man_p.write_text(json.dumps(man, indent=1))
     # VieIndex shows the new illustrations as avatars: rebuild it
     import subprocess

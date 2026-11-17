@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 import { maxHp as battleMaxHp, mirror, playerDamage, simulate, type BattleEvent, type BattleResult, type Placed } from "../core/battle";
-import { BENCH_SLOTS, BOARD_COLS, BOARD_ROWS, HALF_ROWS, MOVE_SECONDS_PER_CELL, VERSION } from "../core/config";
+import { BENCH_SLOTS, BOARD_COLS, BOARD_ROWS, HALF_ROWS, MOVE_SECONDS_PER_CELL, TICKS_PER_SECOND, TRANSFORMS, VERSION } from "../core/config";
 import type { GameData } from "../core/data";
 import { settings, t } from "../core/i18n";
 import { BACKGROUNDS, BENCH_CORNERS, BOARD_CORNERS, Grid, SCREEN_H, SCREEN_W, type Pt } from "../core/layout";
@@ -9,6 +9,7 @@ import { Team, type OwnedUnit, type Spot } from "../core/team";
 import { button, coverImage, CREAM, FONT_LOGO, FONT_UI, toast } from "../ui/widgets";
 import { typeColour, VieAniView } from "../anim/VieAniView";
 import { preloadIllustrations, texturesFor, vcode } from "../anim/illustrations";
+import type { ViewTextures } from "../anim/VieAniView";
 import { InfoCard, type CardSubject } from "../ui/InfoCard";
 
 const ENEMY_TINT = 0x96e6dc;
@@ -40,6 +41,9 @@ export interface View {
   energy: number;
   target?: number;
   lastMult?: number;
+  /** alternate form textures (seen from this side) and whether it has transformed in this battle */
+  alt?: ViewTextures;
+  transformed?: string;
 }
 
 /** Battle screen: drag VieAni between bench and board (task T09), then replay a simulated fight (T10). */
@@ -136,14 +140,14 @@ export class BoardScene extends Phaser.Scene {
   protected spawn(u: OwnedUnit | Placed, side: "A" | "B") {
     const sp = this.data_.byId.get(u.speciesId)!;
     // our side is seen from behind (back view), the opponent from the front
-    const { tex, illustrated } = texturesFor(this, this.data_, sp, side === "A" ? "back" : "front");
+    const { tex, illustrated, alt } = texturesFor(this, this.data_, sp, side === "A" ? "back" : "front");
     const anim = new VieAniView(this, 0, 0, tex, side === "A" ? 1 : -1, typeColour(sp.attackType), !illustrated && side === "B");
     anim.setStar(u.star);
     const hpBar = this.add.graphics().setVisible(false);
     const stars = this.add.text(0, 0, "", { fontFamily: FONT_UI, fontSize: "15px", fontStyle: "bold" }).setOrigin(0.5, 1).setStroke("#1b120c", 4);
     anim.c.add([hpBar, stars]);
     const maxHp = battleMaxHp(sp, u.star);
-    const v: View = { uid: u.uid, speciesId: u.speciesId, side, c: anim.c, sprite: anim.body, anim, illustrated, hpBar, stars, maxHp, hp: maxHp, row: 0, col: 0, energy: 0 };
+    const v: View = { uid: u.uid, speciesId: u.speciesId, side, c: anim.c, sprite: anim.body, anim, illustrated, hpBar, stars, maxHp, hp: maxHp, row: 0, col: 0, energy: 0, alt };
     this.views.set(u.uid, v);
     if (side === "A") anim.body.setInteractive({ draggable: true, useHandCursor: true, pixelPerfect: false });
     anim.body.setData("uid", u.uid);
@@ -306,7 +310,7 @@ export class BoardScene extends Phaser.Scene {
       .map((g) => [g.name, g.members.filter((m) => ids.has(m)).length, Object.keys(g.tiers).map(Number).sort((a, b) => a - b)] as [string, number, number[]]);
     const tgt = v.target != null ? this.views.get(v.target) : undefined;
     return {
-      sp, code: vcode(this.data_, sp), tex: texturesFor(this, this.data_, sp, "front").tex.body, star: v.anim.star as 1 | 2 | 3, side: v.side,
+      sp, code: vcode(this.data_, sp), tex: v.transformed ? texturesFor(this, this.data_, sp, "front").alt?.body ?? null : texturesFor(this, this.data_, sp, "front").tex.body, transformed: v.transformed, star: v.anim.star as 1 | 2 | 3, side: v.side,
       hp: v.hp, maxHp: v.maxHp, energy: v.energy, where: this.whereOf(v), fighting: this.fighting, dead: v.anim.dead,
       targetName: tgt && !tgt.anim.dead ? this.data_.byId.get(tgt.speciesId)!.vi.replace(/\s*\(.*\)\s*/, "") : undefined,
       lastMult: v.lastMult, synergies,
@@ -356,6 +360,23 @@ export class BoardScene extends Phaser.Scene {
     const speed = settings.speed;
     const msPerTick = 100 / speed;
     for (const e of res.events) this.time.delayedCall(e.t * msPerTick + 400, () => this.apply(e, msPerTick));
+    // transformations (Cá Chép → Rồng Con): if still standing at the passive's time, it changes form until the end
+    for (const v of this.views.values()) {
+      const code = vcode(this.data_, this.data_.byId.get(v.speciesId)!);
+      const tf = code ? TRANSFORMS[code] : undefined;
+      if (!tf || !v.alt || !v.c.visible) continue;
+      const at = tf.seconds[v.anim.star - 1] * TICKS_PER_SECOND;
+      const died = res.events.find((e) => e.type === "death" && e.uid === v.uid);
+      if (res.ticks < at || (died && died.t <= at)) continue;
+      this.time.delayedCall(at * msPerTick + 400, () => {
+        if (v.anim.dead) return;
+        v.transformed = tf.name;
+        void v.anim.transform(v.alt!);
+        const txt = this.add.text(v.c.x, v.c.y - v.sprite.displayHeight, `Hóa ${tf.name}!`, { fontFamily: FONT_LOGO, fontSize: "24px", color: "#ffd84a", fontStyle: "800" })
+          .setOrigin(0.5).setStroke("#000", 5).setDepth(9500);
+        this.tweens.add({ targets: txt, y: txt.y - 40, alpha: 0, duration: 1400, delay: 300, onComplete: () => txt.destroy() });
+      });
+    }
     this.time.delayedCall(res.ticks * msPerTick + 1200, () => this.showResult(res));
   }
 
