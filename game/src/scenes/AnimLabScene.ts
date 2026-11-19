@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import { typeColour, VieAniView } from "../anim/VieAniView";
+import { tierColour, VieAniView } from "../anim/VieAniView";
 import { preloadIllustrations, texturesFor, vcode } from "../anim/illustrations";
 import type { GameData, Species } from "../core/data";
 import { BOARD_COLS, BOARD_ROWS, HALF_ROWS } from "../core/config";
@@ -36,7 +36,7 @@ export class AnimLabScene extends Phaser.Scene {
         const pts = this.board.cellQuad(r, c).map(([x, y]) => new Phaser.Math.Vector2(x, y));
         g.fillStyle(tint, (r + c) % 2 ? 0.13 : 0.24).fillPoints(pts, true).lineStyle(2, tint, 0.8).strokePoints(pts, true);
       }
-    const col = typeColour(this.sp.attackType);
+    const col = tierColour(this.sp.tier);
     const mk = (row: number, colIdx: number, view: "front" | "back") => {
       const [x, y] = this.board.foot(row, colIdx);
       const { tex, illustrated } = texturesFor(this, this.data_, this.sp, view);
@@ -51,7 +51,7 @@ export class AnimLabScene extends Phaser.Scene {
     const sp = settings.speed;
     const both = (fn: (v: VieAniView, o: VieAniView) => Promise<void> | void) => { fn(this.ours, this.theirs); fn(this.theirs, this.ours); };
     const actions: [string, () => void][] = [
-      ["Tấn công", () => both((v, o) => v.attack(o.c.x, o.c.y, this.sp.attackClass === "special", sp).then(() => o.hit(v.c.x, v.c.y)))],
+      ["Tấn công", () => both((v, o) => v.attack(o.c.x, o.c.y, this.sp.range >= 2, sp).then(() => o.hit(v.c.x, v.c.y)))],
       ["Kỹ năng", () => both((v) => v.cast(col, sp))],
       ["Trúng đòn", () => both((v) => v.hit())],
       ["Thắng", () => both((v) => v.win())],

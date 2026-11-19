@@ -2,7 +2,7 @@
 // Phaser scene replays. Same teams + same seed => exactly the same events on every device.
 
 import * as C from "./config";
-import { typeMultiplier, type GameData, type Species } from "./data";
+import type { GameData, Species } from "./data";
 import { Rng } from "./rng";
 import { ELEPHANT_IDS, ITEM_RULES, PAIR, type ItemRule } from "./items";
 import { at, isMember, sideSynergies, type SideSynergies } from "./synergyRules";
@@ -33,8 +33,9 @@ export interface Fighter extends Placed {
   interval: number; // attack interval in ticks (float)
   targetUid: number | null;
   alive: boolean;
-  // effective stats after items
-  atk: number; def: number; spa: number; spd: number;
+  // effective stats after items + tộc hệ (v3: Tấn Công, Giáp %, Tốc Độ Đánh via interval)
+  atk: number; armor: number; armorPen: number;
+  moveTicks: number;
   rule: ItemRule;
   dmgMult: number; crit: number; critMult: number;
   lowHealUsed: boolean; reviveUsed: boolean; dodged: boolean;
@@ -49,10 +50,12 @@ export interface Fighter extends Placed {
   haste: number; buffPct: number; buffUntil: number;
   defShred: number;
   regenPct: number;
-  /** extra damage multiplier for this fighter's Water attacks (Biển Đông) and vs Insects (Săn Côn Trùng) */
-  waterDmg: number; vsInsect: number;
-  /** damage taken from Water attacks (Sơn Tinh) */
+  /** damage multiplier vs Côn Trùng members (Săn Côn Trùng) */
+  vsInsect: number;
+  /** damage taken from Biển Đông / Sông Nước members (Sơn Tinh: ×0.5 / ×0) */
   waterTaken: number;
+  /** members of these tộc hệ (cached for the retargeted rules) */
+  water: boolean; insect: boolean;
 }
 
 export type BattleEvent =
@@ -71,19 +74,20 @@ export interface BattleResult {
   winner: Side | "draw";
   ticks: number;
   events: BattleEvent[];
-  survivors: { uid: number; side: Side; hp: number; tier: number }[];
+  survivors: { uid: number; side: Side; hp: number; tier: number; star?: number }[];
   /** max HP of every fighter at the start (after items) – for the HP bars */
   start?: { uid: number; maxHp: number }[];
 }
 
-// ------------------------------------------------------------------ battle stats (GDD §6.1)
+// ------------------------------------------------------------------ battle stats (v3, PO 19 Nov 2026)
+/** Máu at a star level */
 export function maxHp(sp: Species, star: 1 | 2 | 3) {
-  return Math.round((C.HP_BASE + C.HP_PER_STAT * sp.stats.hp) * C.STAR_MULT[star - 1]);
+  return Math.round(sp.stats.hp * C.STAR_MULT[star - 1]);
 }
 
-/** attack interval in seconds */
-export function attackInterval(sp: Species) {
-  const s = (C.ATTACK_INTERVAL_BASE * 100) / (sp.stats.spe + 50);
+/** seconds between two attacks (from Tốc Độ Đánh = attacks per second) */
+export function attackInterval(sp: Species, bonusPct = 0) {
+  const s = 1 / (sp.stats.aspd * (1 + bonusPct));
   return Math.min(C.ATTACK_INTERVAL_CLAMP[1], Math.max(C.ATTACK_INTERVAL_CLAMP[0], s));
 }
 
@@ -91,6 +95,7 @@ const dist = (a: { row: number; col: number }, b: { row: number; col: number }) 
   Math.max(Math.abs(a.row - b.row), Math.abs(a.col - b.col)); // Chebyshev: diagonal = 1
 
 // ------------------------------------------------------------------ Thiên địch (natural predator)
+let INSECT_IDS = new Set<number>();
 interface PreyRule { prey: Set<number>; preyType?: string; mult: number; unlimited: boolean }
 
 function preyRules(d: GameData): Map<number, PreyRule[]> {
@@ -109,7 +114,8 @@ function preyRules(d: GameData): Map<number, PreyRule[]> {
 }
 
 function preyRule(rules: Map<number, PreyRule[]>, hunter: Fighter, target: Fighter): PreyRule | undefined {
-  return rules.get(hunter.speciesId)?.find((r) => r.prey.has(target.speciesId) || (r.preyType && target.sp.types.includes(r.preyType as never)));
+  // v3: no types – a type-wide prey ("Insect") means the members of the Côn Trùng tộc hệ
+  return rules.get(hunter.speciesId)?.find((r) => r.prey.has(target.speciesId) || (r.preyType === "Insect" && INSECT_IDS.has(target.speciesId)));
 }
 
 // ------------------------------------------------------------------ simulation
@@ -123,9 +129,9 @@ export interface SimOptions {
 export function simulate(d: GameData, units: Placed[], seed: number, teamItems: Partial<Record<Side, number[]>> = {}, opts: SimOptions = {}): BattleResult {
   const rng = new Rng(seed);
   const rules = preyRules(d);
+  INSECT_IDS = new Set(d.synergies.find((g) => g.name === "Côn Trùng")?.members ?? []);
   const TPS = C.TICKS_PER_SECOND;
   const maxTicks = C.BATTLE_MAX_SECONDS * TPS;
-  const moveTicks = Math.round(C.MOVE_SECONDS_PER_CELL * TPS);
 
   // team rules per side: team-slot items, plus Bánh Chưng + Bánh Giầy pair
   const sideRules = (side: Side): ItemRule[] => {
@@ -151,63 +157,63 @@ export function simulate(d: GameData, units: Placed[], seed: number, teamItems: 
       if (!sp) throw new Error(`unknown species ${u.speciesId}`);
       let rule: ItemRule = (u.item != null && ITEM_RULES[u.item]) || {};
       if (rule.rangedOnly && sp.range < 2) rule = {}; // ranged-only items do nothing on melee VieAni
-      const physical = sp.attackClass === "physical";
-      let atk = sp.stats.atk, spa = sp.stats.spa, def = sp.stats.def, spd = sp.stats.spd, spe = sp.stats.spe;
+      const S = u.side;
+      let atk = sp.stats.atk + (rule.flatAtk ?? 0);
+      let armor = sp.stats.armor + (rule.armor ?? 0);
       let hpMul = 1 + (u.hpBonusPct ?? 0) / 100 + (rule.hpPct ?? 0);
-      if (physical) atk += rule.flatAtk ?? 0; else spa += rule.flatAtk ?? 0;
-      def += rule.flatDef ?? 0; spd += rule.flatSpd ?? 0;
-      spe *= 1 + (rule.spePct ?? 0);
-      let atkPct = 0, crit = rule.crit ?? 0;
-      if (rule.nearElephantAtkPct && units.some((o) => o.side === u.side && ELEPHANT_IDS.includes(o.speciesId) && dist(o, u) <= 1)) atkPct += rule.nearElephantAtkPct;
+      let aspd = (rule.atkSpeedPct ?? 0) + (rule.aspdPct ?? 0);
+      let atkPct = 0, all = 0, crit = rule.crit ?? 0, critMult = rule.critMult ?? C.CRIT_MULT;
+      if (rule.nearElephantAtkPct && units.some((o) => o.side === S && ELEPHANT_IDS.includes(o.speciesId) && dist(o, u) <= 1)) atkPct += rule.nearElephantAtkPct;
       let multi = rule.multiShot ?? 0;
-      for (const tr of team[u.side]) {
-        const k = tr.doubledBy != null && onSide(u.side, tr.doubledBy) ? 2 : 1;
-        let all = tr.teamAllPct ?? 0;
-        if (sp.tier === 1) all += tr.teamTier1AllPct ?? 0;
-        atkPct += (tr.teamAtkPct ?? 0) * k + all;
-        spe *= 1 + (tr.teamSpePct ?? 0) * k + all;
-        def += tr.teamDefFlat ?? 0;
-        def *= 1 + all; spd *= 1 + all; hpMul += all;
+      // team items
+      for (const tr of team[S]) {
+        const k = tr.doubledBy != null && onSide(S, tr.doubledBy) ? 2 : 1;
+        all += (tr.teamAllPct ?? 0) + (sp.tier === 1 ? tr.teamTier1AllPct ?? 0 : 0);
+        atkPct += (tr.teamAtkPct ?? 0) * k;
+        aspd += (tr.teamAspdPct ?? 0) * k;
+        armor += tr.teamArmor ?? 0;
         if (sp.range >= 2) multi += tr.teamRangedMultiShot ?? 0;
       }
-      // ----- tộc hệ
-      const S = u.side;
-      let all = 0, critT = 0, critMult = rule.critMult ?? C.CRIT_MULT, atkSpeed = rule.atkSpeedPct ?? 0;
+      // ----- tộc hệ (v3 numbers: "Phòng thủ" bonuses became Giáp points, "Tốc độ" became Tốc Độ Đánh)
       all += at(mlv(S, "Tứ Linh", sp), [0.15, 0.15]) + at(lv(S, "Tứ Linh"), [0, 0.15]);
       const zl = lv(S, "Mười Hai Con Giáp");
       all += zl >= 3 ? 0.25 : at(mlv(S, "Mười Hai Con Giáp", sp), [0.05, 0.1, 0.15]);
-      const hq = at(lv(S, "Hộ Quốc"), [15, 30, 45]); def += hq; spd += hq;
-      critT += at(mlv(S, "Săn Mồi", sp), [0.15, 0.3, 0.45]);
+      armor += at(lv(S, "Hộ Quốc"), [5, 10, 15]);
+      crit += at(mlv(S, "Săn Mồi", sp), [0.15, 0.3, 0.45]);
       if (mlv(S, "Săn Mồi", sp) >= 1) critMult = Math.max(critMult, mlv(S, "Săn Mồi", sp) >= 2 ? 2 : 1.75);
       hpMul += at(mlv(S, "Cự Thú", sp), [0.15, 0.3, 0.45]);
-      spd += at(mlv(S, "Cao Nguyên Bắc Bộ", sp), [15, 30, 45]) + at(mlv(S, "Biển Đông", sp), [15, 30, 45]);
-      atkSpeed += at(mlv(S, "Tây Nguyên", sp), [0.1, 0.2, 0.3]);
-      spe *= 1 + at(mlv(S, "Côn Trùng", sp), [0.15, 0.25, 0.25]);
+      armor += at(mlv(S, "Cao Nguyên Bắc Bộ", sp), [5, 10, 15]) + at(mlv(S, "Biển Đông", sp), [5, 10, 15]);
+      atkPct += at(mlv(S, "Biển Đông", sp), [0, 0.15, 0.3]);
+      aspd += at(mlv(S, "Tây Nguyên", sp), [0.1, 0.2, 0.3]) + at(mlv(S, "Côn Trùng", sp), [0.15, 0.25, 0.25]);
+      aspd -= at(lv(other(S), "Sông Nước"), [0, 0, 0.15]);
       const gs = mlv(S, "Gia Súc", sp);
-      hpMul += at(gs, [0.1, 0.2, 0.3]); def += at(gs, [10, 20, 30]);
-      if (all) { atkPct += all; def *= 1 + all; spd *= 1 + all; spe *= 1 + all; hpMul += all; }
-      crit += critT;
-      atk *= 1 + atkPct; spa *= 1 + atkPct;
+      hpMul += at(gs, [0.1, 0.2, 0.3]); armor += at(gs, [4, 8, 12]);
+      const sct = mlv(S, "Săn Côn Trùng", sp);
+      atkPct += at(sct, [0.1, 0.15, 0.2]); // buff 19 Nov: also stronger against everyone
+      if (all) { atkPct += all; hpMul += all; aspd += all; armor *= 1 + all; }
+      atk *= 1 + atkPct;
       const hp = Math.round(maxHp(sp, u.star) * hpMul);
-      const secs = Math.min(C.ATTACK_INTERVAL_CLAMP[1], Math.max(C.ATTACK_INTERVAL_CLAMP[0], (C.ATTACK_INTERVAL_BASE * 100) / (spe + 50)));
-      const interval = (secs / (1 + atkSpeed)) * TPS;
-      const insect = sp.types.includes("Insect");
+      const interval = attackInterval(sp, aspd) * TPS;
       const ts = mlv(S, "Trường Sơn", sp);
+      const insect = isMember(d, "Côn Trùng", sp);
       // first attack after half an interval, so fast units strike first
       return {
         ...u, sp, maxHp: hp, hp, energy: 0, atkCd: interval / 2, moveCd: 0, interval, targetUid: null, alive: true,
-        atk, def, spa, spd, rule: { ...rule, multiShot: multi }, dmgMult: 1 + (rule.dmgPct ?? 0), crit, critMult,
+        atk, armor: Math.min(C.ARMOR_CAP, Math.max(0, armor)), armorPen: rule.armorPen ?? 0,
+        moveTicks: Math.round((C.ROLE_MOVE_SECONDS[sp.role ?? ""] ?? C.MOVE_SECONDS_PER_CELL) * TPS),
+        rule: { ...rule, multiShot: multi }, dmgMult: 1 + (rule.dmgPct ?? 0), crit, critMult,
         lowHealUsed: false, reviveUsed: false, dodged: false, lastHitT: -999, bleeds: [],
         dodge: at(ts, [0.1, 0.2, 0.3]) + (insect ? at(mlv(S, "Côn Trùng", sp), [0, 0.15, 0.15]) : 0),
         rangedDodge: at(mlv(S, "Cao Nguyên Bắc Bộ", sp), [0.15, 0.25, 0.25]),
         stealthUntil: at(ts, [2, 3, 4]) * TPS, revealCrit: ts >= 2,
         rabidUntil: -1, rabidImmune: gs >= 1 || (zl >= 2 && !!sp.zodiac) || u.item === 11,
         shield: 0, shieldUsed: false,
-        haste: 1 - at(lv(other(S), "Sông Nước"), [0, 0, 0.15]), buffPct: 0, buffUntil: -1, defShred: 0,
-        regenPct: Math.max(at(mlv(S, "Sông Nước", sp), [0.01, 0.015, 0.02]), at(lv(S, "Sông Nước"), [0, 0.015, 0.02])),
-        waterDmg: 1 + at(mlv(S, "Biển Đông", sp), [0, 0.15, 0.3]),
-        vsInsect: 1 + at(mlv(S, "Săn Côn Trùng", sp), [0.25, 0.5, 0.5]) + at(lv(S, "Săn Côn Trùng"), [0, 0, 0.25]),
+        haste: 1, buffPct: 0, buffUntil: -1, defShred: 0,
+        // buff 19 Nov: Sông Nước regen 2 / 3 / 4 % per second (was 1 / 1,5 / 2)
+        regenPct: Math.max(at(mlv(S, "Sông Nước", sp), [0.02, 0.03, 0.04]), at(lv(S, "Sông Nước"), [0, 0.03, 0.04])),
+        vsInsect: 1 + at(sct, [0.25, 0.5, 0.5]) + at(lv(S, "Săn Côn Trùng"), [0, 0, 0.25]),
         waterTaken: [1, 0.5, 0][Math.max(0, mlv(S, "Sơn Tinh", sp) + 1)],
+        water: isMember(d, "Biển Đông", sp) || isMember(d, "Sông Nước", sp), insect,
       };
     })
     .sort((a, b) => a.uid - b.uid);
@@ -277,19 +283,17 @@ export function simulate(d: GameData, units: Placed[], seed: number, teamItems: 
     return null; // boxed in: wait
   }
 
-  /** base damage of f on target (type, prey, items, ★) – no randomness */
-  function baseDamage(f: Fighter, target: Fighter, power: number, atkType = f.sp.attackType) {
-    const physical = f.sp.attackClass === "physical";
-    const A = (physical ? f.atk : f.spa) * (1 + rally[f.side]);
-    const D = Math.max(5, (physical ? target.def - 3 * target.defShred : target.spd)) * (1 - (f.rule.armorPen ?? 0));
-    const typeM = typeMultiplier(d, atkType, f.sp.types, target.sp.types);
+  /** base damage of f on target (Tấn Công × ★ × power × (1 − Giáp %) × prey × items) – no randomness */
+  function baseDamage(f: Fighter, target: Fighter, power: number) {
+    const A = f.atk * (1 + rally[f.side]);
+    const armor = Math.max(0, Math.min(C.ARMOR_CAP, target.armor - f.armorPen - 2 * target.defShred));
     const preyM = preyRule(rules, f, target)?.mult ?? 1;
-    let itemM = f.dmgMult * (target.rule.fromType?.[atkType] ?? 1);
-    for (const ty of target.sp.types) itemM *= f.rule.vsType?.[ty] ?? 1;
+    let itemM = f.dmgMult;
+    for (const [name, m] of Object.entries(f.rule.vsSyn ?? {})) if (isMember(d, name, target.sp)) itemM *= m;
+    if (f.water) { itemM *= target.waterTaken; for (const m of Object.values(target.rule.fromWater ?? {})) itemM *= m; }
     if (target.sp.tier > f.sp.tier) itemM *= 1 + (f.rule.vsHigherTier ?? 0);
-    if (atkType === "Water") itemM *= f.waterDmg * target.waterTaken;
-    if (target.sp.types.includes("Insect")) itemM *= f.vsInsect;
-    return { base: C.DAMAGE_BASE * (A / D) * typeM * preyM * itemM * C.STAR_MULT[f.star - 1] * power, typeM, preyM };
+    if (target.insect) itemM *= f.vsInsect;
+    return { base: A * (1 - armor / 100) * preyM * itemM * C.STAR_MULT[f.star - 1] * power, typeM: 1, preyM };
   }
 
   function heal(t: number, f: Fighter, pct: number) {
@@ -305,7 +309,7 @@ export function simulate(d: GameData, units: Placed[], seed: number, teamItems: 
     if (target.shield > 0) { const a = Math.min(target.shield, dmg); target.shield -= a; dmg -= a; }
     target.hp -= dmg;
     target.lastHitT = t;
-    target.energy = Math.min(C.ENERGY_MAX, target.energy + C.ENERGY_PER_HIT);
+    target.energy = Math.min(target.sp.stats.energy, target.energy + C.ENERGY_PER_HIT);
     if (target.hp > 0 && !target.lowHealUsed && target.rule.lowHpHeal && target.hp < target.maxHp * 0.3) {
       target.lowHealUsed = true;
       heal(t, target, target.rule.lowHpHeal);
@@ -336,11 +340,11 @@ export function simulate(d: GameData, units: Placed[], seed: number, teamItems: 
       if (lv(side, "Hộ Quốc") >= 2 && firstOnce(side + ":hoquoc")) for (const o of fighters) if (o.side === side && o.alive) heal(t, o, 0.15);
       // Bầy Chó Dữ (4) Trung thành: an ally falls → dogs +25 % attack and speed (once)
       if (lv(side, "Bầy Chó Dữ") >= 1 && firstOnce(side + ":loyal"))
-        for (const o of fighters) if (o.side === side && o.alive && isMember(d, "Bầy Chó Dữ", o.sp)) { o.atk *= 1.25; o.spa *= 1.25; o.haste *= 1.25; }
+        for (const o of fighters) if (o.side === side && o.alive && isMember(d, "Bầy Chó Dữ", o.sp)) { o.atk *= 1.25; o.haste *= 1.25; }
       // killer heals: Săn Mồi (6) 15 %, Săn Côn Trùng (4) 10 % for an Insect
       if (by && by.alive && by.side !== side) {
         if (mlv(by.side, "Săn Mồi", by.sp) >= 2) heal(t, by, 0.15);
-        if (mlv(by.side, "Săn Côn Trùng", by.sp) >= 1 && target.sp.types.includes("Insect")) heal(t, by, 0.1);
+        if (mlv(by.side, "Săn Côn Trùng", by.sp) >= 1 && target.insect) heal(t, by, 0.1);
       }
     }
   }
@@ -364,7 +368,7 @@ export function simulate(d: GameData, units: Placed[], seed: number, teamItems: 
         miss += target.rangedDodge;
         if (lv(target.side, "Cao Nguyên Bắc Bộ") >= 2 && t >= 10 * TPS && t % (10 * TPS) < 3 * TPS) miss += 0.25;
       }
-      if (target.sp.types.includes("Insect") && lv(f.side, "Săn Côn Trùng") >= 2) miss -= 0.2;
+      if (target.insect && lv(f.side, "Săn Côn Trùng") >= 2) miss -= 0.2;
       if (miss > 0 && rng.next() < miss) {
         events.push({ t, type: "attack", uid: f.uid, target: target.uid, dmg: 0, mult: 1, en: f.energy, tEn: target.energy, miss: true });
         return;
@@ -377,14 +381,14 @@ export function simulate(d: GameData, units: Placed[], seed: number, teamItems: 
     let dmg = Math.max(1, Math.round(base * roll * (critHit ? f.critMult : 1)));
     if (kind === "cast" && target.rule.dodgeFirstCast && !target.dodged) { target.dodged = true; dmg = 0; } // Ngọc Dã Tràng
     events.push(kind === "attack"
-      ? { t, type: "attack", uid: f.uid, target: target.uid, dmg, mult: typeM * preyM, en: f.energy, tEn: Math.min(C.ENERGY_MAX, target.energy + C.ENERGY_PER_HIT), crit: critHit || undefined }
-      : { t, type: "cast", uid: f.uid, target: target.uid, dmg, en: f.energy, tEn: Math.min(C.ENERGY_MAX, target.energy + C.ENERGY_PER_HIT) });
+      ? { t, type: "attack", uid: f.uid, target: target.uid, dmg, mult: typeM * preyM, en: f.energy, tEn: Math.min(target.sp.stats.energy, target.energy + C.ENERGY_PER_HIT), crit: critHit || undefined }
+      : { t, type: "cast", uid: f.uid, target: target.uid, dmg, en: f.energy, tEn: Math.min(target.sp.stats.energy, target.energy + C.ENERGY_PER_HIT) });
     damage(t, target, dmg, f);
-    if (f.sp.attackType === "Water" && mlv(target.side, "Sơn Tinh", target.sp) >= 1) target.def += 5; // núi cao thêm
+    if (f.water && mlv(target.side, "Sơn Tinh", target.sp) >= 1) target.armor = Math.min(C.ARMOR_CAP, target.armor + 2); // núi cao thêm
     if (kind !== "attack" || !target.alive) return;
     // Bầy Gặm Nhấm: each hit −3 Phòng thủ (stacks 10 / 15)
     const gn = mlv(f.side, "Bầy Gặm Nhấm", f.sp);
-    if (gn >= 0) target.defShred = Math.min(gn >= 1 ? 15 : 10, target.defShred + 1);
+    if (gn >= 0) target.defShred = Math.min(gn >= 1 ? 15 : 10, target.defShred + 1); // −2 Giáp per stack (buff 19 Nov)
     // Bầy Chó Dữ: dog bites may cause Dại (the target attacks its own allies)
     const dog = mlv(f.side, "Bầy Chó Dữ", f.sp);
     const ctrlImmune = lv(target.side, "Tứ Linh") >= 1 && isMember(d, "Tứ Linh", target.sp) && t < 4 * TPS;
@@ -400,7 +404,7 @@ export function simulate(d: GameData, units: Placed[], seed: number, teamItems: 
       const near = fighters.find((o) => o.alive && o.side === target.side && o !== target && dist(o, target) <= 1);
       for (const z of [target, near]) {
         if (!z || !z.alive) continue;
-        const zd = Math.max(1, Math.round(baseDamage(f, z, 0.6, "Electric").base));
+        const zd = Math.max(1, Math.round(baseDamage(f, z, 0.6).base));
         events.push({ t, type: "hp", uid: z.uid, delta: -zd, kind: "zap" });
         damage(t, z, zd);
       }
@@ -450,7 +454,7 @@ export function simulate(d: GameData, units: Placed[], seed: number, teamItems: 
         for (const c of cats) {
           const mate = cats.filter((o) => o !== c).sort((a, b) => dist(a, c) - dist(b, c) || a.uid - b.uid)[0];
           if (!mate) continue;
-          heal(t, mate, cl >= 1 ? 0.08 : 0.05);
+          heal(t, mate, cl >= 1 ? 0.12 : 0.08); // buff 19 Nov (was 5 / 8 %)
           for (const x of [c, mate]) { x.buffPct = cl >= 1 ? 0.3 : 0.15; x.buffUntil = t + 3 * TPS; }
         }
       }
@@ -480,7 +484,7 @@ export function simulate(d: GameData, units: Placed[], seed: number, teamItems: 
           f.atkCd += f.interval;
           f.energy += C.ENERGY_PER_ATTACK;
           hit(t, f, target, 1, "attack");
-          if (f.energy >= C.ENERGY_MAX && target.alive) {
+          if (f.energy >= f.sp.stats.energy && target.alive) {
             // placeholder skill until the skill templates (task T11): a strong strike for 2× damage
             f.energy = 0;
             hit(t, f, target, 2, "cast");
@@ -496,7 +500,7 @@ export function simulate(d: GameData, units: Placed[], seed: number, teamItems: 
             occ.set(key(f.row, f.col), f.uid);
             events.push({ t, type: "move", uid: f.uid, row: f.row, col: f.col });
             // Tây Nguyên (6): members +30 % movement speed for the first 4 s
-            f.moveCd = t < 4 * TPS && mlv(f.side, "Tây Nguyên", f.sp) >= 2 ? Math.round(moveTicks / 1.3) : moveTicks;
+            f.moveCd = t < 4 * TPS && mlv(f.side, "Tây Nguyên", f.sp) >= 2 ? Math.round(f.moveTicks / 1.3) : f.moveTicks;
           }
         }
       }
@@ -510,20 +514,19 @@ export function simulate(d: GameData, units: Placed[], seed: number, teamItems: 
     winner,
     ticks: t,
     events,
-    survivors: [...aliveA, ...aliveB].map((f) => ({ uid: f.uid, side: f.side, hp: f.hp, tier: f.sp.tier })),
+    survivors: [...aliveA, ...aliveB].map((f) => ({ uid: f.uid, side: f.side, hp: f.hp, tier: f.sp.tier, star: f.star })),
     start: fighters.map((f) => ({ uid: f.uid, maxHp: f.maxHp })),
   };
 }
 
-/** damage the losing player takes (GDD §6.5); on a draw both take damage from the other side's survivors */
-export function playerDamage(res: BattleResult, round: number): { A: number; B: number } {
-  const per = (t: number) => (C.SURVIVOR_DAMAGE === "unit" ? 1 : C.SURVIVOR_DAMAGE === "halfTier" ? t / 2 : t);
-  const sum = (side: Side) => Math.ceil(res.survivors.filter((s) => s.side === side).reduce((n, s) => n + per(s.tier), 0));
-  const base = C.stageDamage(round);
-  const hurt = (side: Side) => Math.max(1, Math.round((base + sum(side)) * C.DAMAGE_SCALE));
-  if (res.winner === "A") return { A: 0, B: hurt("A") };
-  if (res.winner === "B") return { A: hurt("B"), B: 0 };
-  return { A: hurt("B"), B: hurt("A") };
+/** damage the losing player takes (PO 19 Nov 2026): Σ over the winner's surviving VieAni of tier + (★ − 1), then halved
+ *  (rounded up) so a match lasts ~30 rounds and the rewards up to round 36 / the Nam Bộ charm stay reachable.
+ *  On a draw both players take damage from the other side's survivors. */
+export function playerDamage(res: BattleResult, _round = 0): { A: number; B: number } {
+  const sum = (side: Side) => Math.ceil(res.survivors.filter((s) => s.side === side).reduce((n, s) => n + s.tier + ((s.star ?? 1) - 1), 0) / 2);
+  if (res.winner === "A") return { A: 0, B: sum("A") };
+  if (res.winner === "B") return { A: sum("B"), B: 0 };
+  return { A: sum("B"), B: sum("A") };
 }
 
 /** mirror an opponent's own-half placement (rows 4..7) onto the top half, rotated 180° */

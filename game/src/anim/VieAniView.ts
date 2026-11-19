@@ -20,6 +20,8 @@ const TYPE_COL: Record<string, number> = {
   Sky: 0x9ad8ff, Insect: 0xa8d040, Poison: 0xb05ad0, Legendary: 0xffd84a,
 };
 export const typeColour = (t: string) => TYPE_COL[t] ?? 0xffffff;
+/** effect colour by tier (v3: no types) – grey, green, blue, purple, gold */
+export const tierColour = (tier: number) => ({ 1: 0xc8d0da, 2: 0x6fd38a, 3: 0x6fb6ff, 4: 0xc58cff, 5: 0xffd84a } as Record<number, number>)[tier] ?? 0xffffff;
 
 export class VieAniView {
   readonly c: Phaser.GameObjects.Container;

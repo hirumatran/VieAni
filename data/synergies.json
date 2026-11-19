@@ -23,8 +23,8 @@
     7
    ],
    "tiers": {
-    "2": "Giảm 50% sát thương nhận từ đòn hệ Nước",
-    "3": "Miễn nhiễm sát thương hệ Nước; mỗi đòn Nước nhắm vào thành viên cho +5 Phòng thủ (cộng dồn)"
+    "2": "Giảm 50% sát thương nhận từ VieAni Biển Đông và Sông Nước (nước dâng)",
+    "3": "Miễn nhiễm sát thương từ VieAni Biển Đông và Sông Nước; mỗi đòn của chúng nhắm vào thành viên cho +2 Giáp (núi cao thêm)"
    },
    "basis": "Ba lễ vật voi chín ngà, gà chín cựa, ngựa chín hồng mao giúp Sơn Tinh cưới Mỵ Nương; nước dâng bao nhiêu, núi cao bấy nhiêu"
   },
@@ -39,9 +39,9 @@
     38
    ],
    "tiers": {
-    "2": "Cả đội +15 Phòng thủ và Phòng thủ ĐB",
-    "4": "+30; đồng đội tụt dưới 30% máu nhận khiên bằng 20% máu tối đa (1 lần)",
-    "6": "+45; khi đồng đội đầu tiên bị hạ, cả đội hồi 15% máu ('giữ nước')"
+    "2": "Cả đội +5 Giáp",
+    "4": "Cả đội +10 Giáp; đồng đội tụt dưới 30% máu nhận khiên bằng 20% máu tối đa (1 lần)",
+    "6": "Cả đội +15 Giáp; khi đồng đội đầu tiên bị hạ, cả đội hồi 15% máu ('giữ nước')"
    },
    "basis": "Linh vật và chiến mã giữ nước: Cá Ông cứu ngư dân, Nghê canh đình, Ngựa sắt Thánh Gióng, Kim Quy giúp Cổ Loa, voi chiến Bà Triệu, chim Lạc trên trống đồng"
   },
@@ -97,9 +97,9 @@
     96
    ],
    "tiers": {
-    "2": "+15 Phòng thủ ĐB; sương núi: +15% né đòn tầm xa",
-    "4": "+30 Phòng thủ ĐB; +25% né đòn tầm xa; miễn bị làm chậm",
-    "6": "+45 Phòng thủ ĐB; mỗi 10 giây sương mù phủ sân 3 giây: kẻ địch đánh xa −25% chính xác"
+    "2": "+5 Giáp; sương núi: +15% né đòn tầm xa",
+    "4": "+10 Giáp; +25% né đòn tầm xa",
+    "6": "+15 Giáp; mỗi 10 giây sương mù phủ sân 3 giây: kẻ địch đánh xa thêm 25% trượt"
    },
    "basis": "Núi đá vôi và rừng núi phía Bắc (Hà Giang, Lạng Sơn, Cúc Phương, Pù Mát) – vượn, cầy, sóc, dê núi, chó H'Mông; hóa thạch vượn khổng lồ ở hang Lạng Sơn"
   },
@@ -152,9 +152,9 @@
     102
    ],
    "tiers": {
-    "2": "+15 Phòng thủ ĐB",
-    "4": "+30 Phòng thủ ĐB; đòn hệ Nước +15% sát thương",
-    "6": "+45 Phòng thủ ĐB; đòn hệ Nước +30%; mỗi 8 giây sóng biển đẩy lùi hàng đầu địch 1 ô"
+    "2": "+5 Giáp",
+    "4": "+10 Giáp; +15% Tấn Công",
+    "6": "+15 Giáp; +30% Tấn Công; mỗi 8 giây sóng biển đẩy lùi hàng đầu địch 1 ô"
    },
    "basis": "Loài và linh vật của biển Việt Nam"
   },
@@ -177,9 +177,9 @@
     70
    ],
    "tiers": {
-    "3": "Thành viên hồi 1% máu mỗi giây",
-    "6": "Cả đội hồi 1,5% máu mỗi giây",
-    "9": "Cả đội hồi 2% máu mỗi giây; mưa dầm: kẻ địch −15% Tốc độ"
+    "3": "Thành viên hồi 2% máu mỗi giây",
+    "6": "Cả đội hồi 3% máu mỗi giây",
+    "9": "Cả đội hồi 4% máu mỗi giây; mưa dầm: kẻ địch −15% Tốc Độ Đánh"
    },
    "basis": "Sông Mê Kông, đồng ruộng, đầm lầy, ao làng – nơi cá, cò, sếu, vịt, cua, ốc sinh sống"
   },
@@ -198,8 +198,8 @@
     89
    ],
    "tiers": {
-    "3": "Côn trùng +15% Tốc độ",
-    "6": "+25% Tốc độ và 15% né đòn",
+    "3": "Côn trùng +15% Tốc Độ Đánh",
+    "6": "+25% Tốc Độ Đánh và 15% né đòn",
     "9": "Sức sống: Côn trùng bị hạ có 30% hồi sinh với 30% máu"
    },
    "basis": "Côn trùng nhỏ, nhanh và cực kỳ đông đúc"
@@ -214,7 +214,7 @@
    ],
    "tiers": {
     "2": "Đòn đánh của Chó có 15% gây Dại 3 giây (mục tiêu tấn công đồng đội của nó)",
-    "4": "25% gây Dại 4 giây; Trung thành: khi một đồng đội bị hạ, mọi Chó +25% Tấn công và Tốc độ đến hết trận"
+    "4": "25% gây Dại 4 giây; Trung thành: khi một đồng đội bị hạ, mọi Chó +25% Tấn Công và Tốc Độ Đánh đến hết trận"
    },
    "basis": "Ý tưởng của PO: bệnh dại lây qua vết cắn của chó. Ngoài đời hãy tiêm phòng dại cho chó mèo"
   },
@@ -226,8 +226,8 @@
     58
    ],
    "tiers": {
-    "2": "Liếm lông: mỗi 4 giây mỗi Mèo hồi 5% máu cho Mèo gần nhất; cả hai +15% tốc độ đánh 3 giây",
-    "3": "Hồi 8% máu, +30% tốc độ đánh; Chín mạng: Mèo đầu tiên bị hạ hồi sinh với 20% máu"
+    "2": "Liếm lông: mỗi 4 giây mỗi Mèo hồi 8% máu cho Mèo gần nhất; cả hai +15% Tốc Độ Đánh 3 giây",
+    "3": "Hồi 12% máu, +30% Tốc Độ Đánh; Chín mạng: Mèo đầu tiên bị hạ hồi sinh với 20% máu"
    },
    "basis": "Ý tưởng của PO: mèo liếm lông cho nhau để gắn kết; dân gian nói mèo có chín mạng"
   },
@@ -239,7 +239,7 @@
     96
    ],
    "tiers": {
-    "2": "Gặm nhấm: mỗi đòn −3 Phòng thủ của mục tiêu (cộng dồn 10 lần)",
+    "2": "Gặm nhấm: mỗi đòn −2 Giáp của mục tiêu (cộng dồn 10 lần)",
     "3": "Cộng dồn 15 lần; Sinh sôi: thành viên đầu tiên bị hạ để lại 2 con non (20% chỉ số)"
    },
    "basis": "Chuột và sóc – bộ Gặm nhấm, răng cửa mọc suốt đời, sinh sản nhanh"
@@ -255,9 +255,9 @@
     98
    ],
    "tiers": {
-    "2": "+25% sát thương lên hệ Côn trùng",
-    "4": "+50% sát thương lên Côn trùng; hồi 10% máu mỗi khi hạ một Côn trùng",
-    "6": "Cả đội +25% sát thương lên Côn trùng; Côn trùng phe địch −20% né đòn"
+    "2": "+10% Tấn Công; +25% sát thương lên VieAni Côn Trùng",
+    "4": "+15% Tấn Công; +50% sát thương lên Côn Trùng; hồi 10% máu mỗi khi hạ một Côn Trùng",
+    "6": "+20% Tấn Công; cả đội +25% sát thương lên Côn Trùng; Côn Trùng phe địch −20% né đòn"
    },
    "basis": "Thạch sùng, thằn lằn, tắc kè, cóc, sáo sậu, chim sẻ – bắt sâu bọ quanh nhà và ngoài đồng"
   },
@@ -273,9 +273,9 @@
     70
    ],
    "tiers": {
-    "2": "+10% Máu và +10 Phòng thủ",
-    "4": "+20% Máu và +20 Phòng thủ; miễn nhiễm Dại",
-    "6": "+30% Máu và +30 Phòng thủ; Được mùa: +1 vàng mỗi vòng thắng"
+    "2": "+10% Máu và +4 Giáp",
+    "4": "+20% Máu và +8 Giáp; miễn nhiễm Dại",
+    "6": "+30% Máu và +12 Giáp; Được mùa: +1 vàng mỗi vòng thắng"
    },
    "basis": "Trâu, heo, dê, ngựa, gà, vịt – vật nuôi của nhà nông"
   },

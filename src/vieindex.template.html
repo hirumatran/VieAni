@@ -127,7 +127,6 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:0 16px 30px}
       <option value="4">Bậc 4 – Đã mất</option>
       <option value="5">Bậc 5 – Huyền thoại</option>
     </select>
-    <button class="chartbtn" id="chartBtn">Bảng khắc hệ</button>
     <button class="chartbtn" id="itemBtn">Vật phẩm</button>
     <span class="count" id="count"></span>
   </div>
@@ -161,9 +160,12 @@ const synIcon = (g, cls="syn") => SYN_ICON[g.name] ? `<img class="${cls}" src="$
 const sprite = s => SPRITES[s.id] ? `<img class="sprite${ILLU.has(s.id)?" illu":""}" src="${SPRITES[s.id]}" alt="${esc(s.vi)}">` : esc(initials(s));
 const esc = s => String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const initials = s => s.vi.replace(/\(.*\)/,"").trim().split(/\s+/).slice(0,2).map(w=>w[0]).join("").toUpperCase();
-const bg = s => s.types.length>1
-  ? `linear-gradient(135deg, ${color(s.types[0])} 0 55%, ${color(s.types[1])} 100%)`
-  : color(s.types[0]);
+// v3 (PO 19 Nov 2026): no types – cards are coloured by tier (grey, green, blue, purple, gold)
+const TIER_COL = {1:"#7d8590",2:"#3f9a5c",3:"#2f74c0",4:"#8e47c4",5:"#c99216"};
+const bg = s => `linear-gradient(160deg, color-mix(in srgb, ${TIER_COL[s.tier]} 70%, white) 0%, ${TIER_COL[s.tier]} 55%, color-mix(in srgb, ${TIER_COL[s.tier]} 70%, black) 100%)`;
+const ROLES = ["Đỡ Đòn","Chiến Đấu","Săn Mồi","Phép Thuật","Hỗ Trợ"];
+const ROLE_HINT = {"Đỡ Đòn":"đứng trước, chịu đòn","Chiến Đấu":"vừa đánh vừa chịu đòn","Săn Mồi":"lao vào kẻ yếu, chạy nhanh","Phép Thuật":"đứng sau, kỹ năng mạnh","Hỗ Trợ":"đứng sau, giúp đồng đội"};
+const roleBadge = s => s.role ? `<span class="type" style="background:${TIER_COL[s.tier]};color:#fff">${esc(s.role)}</span>` : "";
 const pad = n => "#"+String(n).padStart(3,"0");
 const vcodeOf = s => s.code || pad(s.dex);
 const stars = n => "★".repeat(n);
@@ -178,25 +180,18 @@ const fmt = m => "×" + (+m.toFixed(4)).toString();
 const badge = t => `<span class="type" style="background:${color(t)};color:${ink(t)}">${tv(t)}</span>`;
 const STAT_LABEL = {hp:"Máu (HP)",atk:"Tấn công",def:"Phòng thủ",spa:"Tấn công ĐB",spd:"Phòng thủ ĐB",spe:"Tốc độ"};
 function statBars(s){
-  const st=s.stats; if(!st) return "";
-  const c=color(s.types.find(t=>t!=="Legendary")||s.types[0]);
-  return `<div class="stats">${Object.entries(STAT_LABEL).map(([k,l])=>`<b>${l}</b><span>${st[k]}</span><div class="bar"><i style="width:${Math.min(100,st[k]/150*100)}%;background:${c}"></i></div>`).join("")}
-    <b>Tổng</b><span>${Object.values(st).reduce((a,b)=>a+b,0)}</span><div></div></div>`;
-}
-function matchups(s){
-  const groups={};
-  ATK_TYPES.forEach(t=>{const m=taken(t,s); if(Math.abs(m-1)>1e-9)(groups[m]??=[]).push(t);});
-  const keys=Object.keys(groups).map(Number).sort((a,b)=>b-a);
-  const row=(lbl,list)=>list.length?`<div class="mx"><span class="lbl">${lbl}</span>${list.map(m=>`<span class="lbl">${fmt(m)}</span>${groups[m].map(badge).join("")}`).join(" ")}</div>`:"";
-  return row("Yếu trước",keys.filter(m=>m>1)) + row("Kháng",keys.filter(m=>m<1))
-    + (s.types.includes("Legendary")?`<div class="small">Huyền thoại: nhận ${fmt(LEG.taken)} sát thương từ mọi hệ (đã tính ở trên) và gây ${fmt(LEG.dealt)} lên mọi hệ.</div>`:"");
+  const st=s.stats; if(!st||st.aspd==null) return "";
+  const c=TIER_COL[s.tier];
+  const rows=[["Máu",st.hp,st.hp/1400],["Tấn Công",st.atk,st.atk/110],["Tốc Độ Đánh",`${String(st.aspd).replace(".",",")} lần/giây`,st.aspd/1.1],
+    ["Giáp",`−${st.armor}% sát thương`,st.armor/60],["Năng lượng",`${st.energy} để tung kỹ năng`,st.energy/150]];
+  return `<div class="stats">${rows.map(([l,v,f])=>`<b>${l}</b><span>${v}</span><div class="bar"><i style="width:${Math.min(100,f*100)}%;background:${c}"></i></div>`).join("")}</div>`;
 }
 
 let active = new Set();
 const chips = document.getElementById("chips");
-const counts = Object.fromEntries(DATA.types.map(t=>[t,DATA.species.filter(s=>s.types.includes(t)).length]));
+const counts = Object.fromEntries(ROLES.map(r=>[r,DATA.species.filter(s=>s.role===r).length]));
 chips.innerHTML = `<button class="chip all on" data-t="">Tất cả</button>` +
-  DATA.types.map(t=>`<button class="chip" data-t="${t}" style="background:${color(t)};color:${ink(t)}">${tv(t)} ${counts[t]}</button>`).join("");
+  ROLES.map(r=>`<button class="chip" data-t="${r}" style="background:#5a4636;color:#fff">${r} ${counts[r]}</button>`).join("");
 chips.addEventListener("click",e=>{
   const b=e.target.closest(".chip"); if(!b) return;
   const t=b.dataset.t;
@@ -210,7 +205,7 @@ function render(){
   const sort=document.getElementById("sort").value;
   const tierF=document.getElementById("tierSel").value;
   let list=DATA.species.filter(s=>{
-    if(active.size && !s.types.some(t=>active.has(t))) return false;
+    if(active.size && !active.has(s.role)) return false;
     if(tierF && String(s.tier)!==tierF) return false;
     if(!q) return true;
     return [s.en,s.vi,s.sci,s.code,pad(s.dex),String(s.dex)].some(v=>v&&v.toLowerCase().includes(q.replace(/^#0*/,"")||q));
@@ -229,7 +224,7 @@ function render(){
         <div class="no">${vcodeOf(s)}</div>
         <div class="name">${esc(s.vi)}</div>
         <div class="vi">${esc(s.en)}</div>
-        <div class="types">${s.types.map(badge).join("")}</div>
+        <div class="types">${roleBadge(s)}</div>
         <div class="syns">${synOf(s).map(g=>synIcon(g)).join("")}</div>
       </div>
     </button>`).join("");
@@ -240,9 +235,9 @@ function render(){
 const nameList = ids => ids.map(i=>BYID[i]?.vi).filter(Boolean).join(", ");
 function gameInfo(s){
   const syn=synOf(s).map(g=>`<li class="synli">${synIcon(g,"synbig")}<div><b>${esc(g.name)}</b> ${g.byZodiac?`(con giáp ${esc(s.zodiac)})`:`(${g.members.length} thành viên)`} – ${Object.entries(g.tiers).map(([k,v])=>`(${k}) ${esc(v)}`).join("; ")}</div></li>`).join("");
-  const rel=DATA.relations.filter(r=>r.a.includes(s.id)||r.b.includes(s.id)||(r.bType&&s.types.includes(r.bType))).map(r=>{
+  const rel=DATA.relations.filter(r=>r.a.includes(s.id)||r.b.includes(s.id)||(r.bType==="Insect"&&(SYN_OF[s.id]||[]).some(g=>g.name==="Côn Trùng"))).map(r=>{
     const me=r.a.includes(s.id);
-    const tgt=r.bType?`mọi VieAni hệ ${tv(r.bType)}`:nameList(r.b);
+    const tgt=r.bType?"mọi VieAni Côn Trùng":nameList(r.b);
     const txt=r.kind==="Cộng sinh"?`Cộng sinh với ${esc(me?nameList(r.b):nameList(r.a))}: ${esc(r.effect)}`
       : me?`Thiên địch của ${esc(tgt)}: ${esc(r.effect)}`:`Bị săn bởi ${esc(nameList(r.a))} (${esc(r.effect)})`;
     return `<li>${txt}</li>`;}).join("");
@@ -271,7 +266,7 @@ document.getElementById("grid").addEventListener("click",e=>{
       <h2>${esc(s.vi)}</h2>
       <div class="vi" style="font-size:16px">${esc(s.en)}</div>
       ${s.sci?`<div class="sci">${esc(s.sci)}</div>`:""}
-      <div class="types">${s.types.map(badge).join("")}</div>
+      <div class="types">${roleBadge(s)}</div>
       <dl>
         ${row("Bậc",`${s.tier} – ${L.tier[s.tier]}`)}
         ${row("Sách Đỏ IUCN",iucnVi)}
@@ -287,16 +282,15 @@ document.getElementById("grid").addEventListener("click",e=>{
       <ul class="help">${V.help.map(h=>`<li>${esc(h)}</li>`).join("")}${s.tier>=2?`<li>${esc(M.helpCommon)}</li>`:""}</ul>`:""}
       ${V.src&&V.src.length?`<div class="h3">Nguồn</div><ul class="src">${V.src.map(([t,u])=>`<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a></li>`).join("")}</ul>
       <div class="small">${esc(M.disclaimer)} Cập nhật ${esc(M.updated)}.</div>`:""}
-      ${s.stats?`<div class="h3">Chiến đấu (bản nháp)</div>
-      <div class="mx"><span class="lbl">Đòn đánh</span>${badge(s.attackType)} ${s.attackClass==="physical"?"vật lý":"đặc biệt"} · tầm ${s.range}${s.types.includes("Legendary")?` · ${fmt(LEG.dealt)} sát thương lên mọi hệ`:""}</div>
-      ${statBars(s)}
-      <div class="h3">Sát thương nhận vào</div>${matchups(s)}`:""}
+      ${s.stats?`<div class="h3">Chiến đấu (★1)</div>
+      <div class="mx"><span class="lbl">${esc(s.role||"")}</span> ${esc(ROLE_HINT[s.role]||"")} · ${s.range>=2?`đánh xa (${s.range} ô)`:"cận chiến"}</div>
+      ${statBars(s)}`:""}
     </div>`;
   dlg.showModal();
 });
 dlg.addEventListener("click",e=>{ if(e.target===dlg||e.target.closest(".close")) dlg.close(); });
 const chartDlg=document.getElementById("chartDlg");
-document.getElementById("chartBtn").addEventListener("click",()=>{
+document.getElementById("chartBtn")?.addEventListener("click",()=>{
   const DEF=DATA.types;
   const cell=(a,d)=>{ if(d==="Legendary") return `<td class="lg" title="Legendary takes ${fmt(LEG.taken)} from all">¾</td>`;
     const m=vs(a,d); return m>1?`<td class="se">2</td>`:m<1?`<td class="nv">½</td>`:`<td></td>`; };

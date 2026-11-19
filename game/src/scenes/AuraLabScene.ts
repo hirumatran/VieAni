@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 import { attachAura, AURA_OPTIONS, AURA_TITLES, type AuraKind } from "../anim/aura";
-import { typeColour, VieAniView } from "../anim/VieAniView";
+import { tierColour, VieAniView } from "../anim/VieAniView";
 import { preloadIllustrations, texturesFor, vcode } from "../anim/illustrations";
 import type { GameData, Species } from "../core/data";
 import { BACKGROUNDS, SCREEN_H, SCREEN_W } from "../core/layout";
@@ -44,7 +44,7 @@ export class AuraLabScene extends Phaser.Scene {
       this.add.text(32, y - 92, `Ví dụ: ${sp.vi.replace(/\s*\(.*\)/, "")}`, { fontFamily: FONT_UI, fontSize: "15px", color: CREAM });
       COL_X.forEach((x, oi) => {
         const { tex } = texturesFor(this, this.data_, sp, "front");
-        const v = new VieAniView(this, x, y, tex, -1, typeColour(sp.attackType));
+        const v = new VieAniView(this, x, y, tex, -1, tierColour(sp.tier));
         v.setSize(SIZE); v.idle(); v.c.setDepth(10 + ri);
         attachAura(this, v, row.kind, oi);
         const chosen = AURA_CHOICE[row.kind] === oi;

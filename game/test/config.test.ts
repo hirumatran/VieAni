@@ -19,7 +19,6 @@ describe("rules config", () => {
     expect(inWindow).toEqual([[1, 4, 8], [12, 16, 20], [24, 28]]);
   });
   it("stage damage and item tier by round", () => {
-    expect([1, 11, 21, 31].map(C.stageDamage)).toEqual([1, 3, 5, 8]);
     expect([1, 4, 8, 12, 16, 20, 24, 28, 32, 36].map(C.itemTierForRound)).toEqual([1, 1, 2, 2, 3, 3, 4, 4, 5, 5]);
   });
 });

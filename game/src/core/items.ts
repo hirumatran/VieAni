@@ -1,21 +1,25 @@
 // Item rules for the battle (17 Nov 2026). Texts are in data/items.json; here each item that the simulation can already
 // handle gets numbers. Only these drop in the match – items that need systems we do not have yet (throwing, traps placed on
 // the board, illusions, summons, row sweeps, crowd-control) and the Linh Vật charms are listed in NOT_YET.
-import type { TypeName } from "./data";
 
 export interface ItemRule {
   /** "Tấn công" goes to the stat the VieAni attacks with (Tấn công for physical, Tấn công ĐB for special attackers) */
+  /** + Tấn Công */
   flatAtk?: number;
-  flatDef?: number;
-  flatSpd?: number;
+  /** + Giáp (% less damage taken) */
+  armor?: number;
   hpPct?: number;
-  spePct?: number;
+  /** + Tốc Độ Đánh in % */
+  aspdPct?: number;
   atkSpeedPct?: number;
   dmgPct?: number;
   crit?: number;
   critMult?: number;
-  vsType?: Partial<Record<TypeName, number>>;
-  fromType?: Partial<Record<TypeName, number>>;
+  /** damage multiplier against members of these tộc hệ (v3: replaces the type rules) */
+  vsSyn?: Record<string, number>;
+  /** damage taken from Biển Đông / Sông Nước members (v3: replaces "from Water / Fire") */
+  fromWater?: Record<string, number>;
+  /** ignores this many Giáp points */
   armorPen?: number;
   vsHigherTier?: number;
   rangedOnly?: boolean;
@@ -40,8 +44,8 @@ export interface ItemRule {
   nearElephantAtkPct?: number;
   // ----- team items (category TD) – active without a carrier, in the team slots
   teamAtkPct?: number;
-  teamSpePct?: number;
-  teamDefFlat?: number;
+  teamAspdPct?: number;
+  teamArmor?: number;
   teamAllPct?: number;
   teamTier1AllPct?: number;
   teamRangedMultiShot?: number;
@@ -59,20 +63,20 @@ export interface ItemRule {
 
 export const ITEM_RULES: Record<number, ItemRule> = {
   1: { flatAtk: 10 },                                             // Gậy Tre
-  2: { vsType: { Grass: 1.25 } },                                 // Liềm Gặt
+  2: { vsSyn: { "Côn Trùng": 1.25, "Bầy Gặm Nhấm": 1.25 } }, // v3: harvest pests instead of "vs Cỏ"                                 // Liềm Gặt
   3: { rangedOnly: true, dmgPct: 0.15, atkSpeedPct: 0.1 },        // Ná Cao Su
-  4: { flatDef: 15 },                                             // Khiên Mây
-  5: { flatSpd: 10, fromType: { Fire: 0.85, Water: 0.85 } },      // Nón Lá
-  6: { fromType: { Water: 0.7 } },                                // Áo Tơi Lá
+  4: { armor: 10 },                                             // Khiên Mây
+  5: { armor: 5, fromWater: { rain: 0.85 } },      // Nón Lá
+  6: { fromWater: { rain: 0.7 } },                                // Áo Tơi Lá
   7: { hpPct: 0.15 },                                             // Bánh Chưng (+5 % team stats with Bánh Giầy: see PAIR)
-  8: { flatSpd: 15 },                                             // Bánh Giầy
+  8: { armor: 8 },                                             // Bánh Giầy
   9: { lowHpHeal: 0.25 },                                         // Nắm Xôi
   12: { regen5s: 0.03 },                                          // Lá Xông
-  13: { spePct: 0.15 },                                           // Quạt Mo
-  14: { flatAtk: 20, armorPen: 0.1 },                             // Giáo Đồng Đông Sơn
+  13: { aspdPct: 0.15 },                                           // Quạt Mo
+  14: { flatAtk: 20, armorPen: 10 },                             // Giáo Đồng Đông Sơn
   15: { flatAtk: 15, bleed: 0.2 },                                // Dao Quắm
   24: { goldOnWin: 1 },                                           // Lì Xì
-  25: { teamAtkPct: 0.15, teamSpePct: 0.15, doubledBy: 2 },       // Trống Đồng Đông Sơn (×2 with Chim Lạc)
+  25: { teamAtkPct: 0.15, teamAspdPct: 0.15, doubledBy: 2 },       // Trống Đồng Đông Sơn (×2 with Chim Lạc)
   26: { rangedOnly: true, multiShot: 2 },                         // Nỏ Thần An Dương Vương
   27: { rangedOnly: true, infiniteRange: true },                  // Cây Tre Trăm Đốt
   30: { rallyAtkPct: 0.2 },                                       // Hịch Tướng Sĩ
@@ -80,15 +84,15 @@ export const ITEM_RULES: Record<number, ItemRule> = {
   34: { selfRevive: 0.3 },                                        // Quả Thị
   35: { hpPctPerWin: 2 },                                         // Hạt Dưa Mai An Tiêm (max +30 %)
   36: { dodgeFirstCast: true },                                   // Ngọc Dã Tràng
-  37: { teamSpePct: 0.1, teamRegen10s: 0.05 },                    // Cồng Chiêng Tây Nguyên
+  37: { teamAspdPct: 0.1, teamRegen10s: 0.05 },                    // Cồng Chiêng Tây Nguyên
   38: { flatAtk: 40, crit: 0.25, critMult: 2 },                   // Gươm Thuận Thiên
   39: { flatAtk: 30, hpPct: 0.2 },                                // Gậy Sắt Thánh Gióng
   40: { reviveAlly: 0.5 },                                        // Lá Đa Thần
   41: { rangedOnly: true, crit: 0.3 },                            // Cung Tên Vàng
-  42: { flatDef: 30, nearElephantAtkPct: 0.2 },                   // Áo Giáp Vàng Bà Triệu
-  43: { spePct: 0.25 },                                           // Guốc Ngà
+  42: { armor: 20, nearElephantAtkPct: 0.2 },                   // Áo Giáp Vàng Bà Triệu
+  43: { aspdPct: 0.25 },                                           // Guốc Ngà
   45: { zap: 0.2 },                                               // Búa Tầm Sét
-  47: { teamDefFlat: 15, teamRangedMultiShot: 1 },                // Móng Rùa Kim Quy
+  47: { teamArmor: 10, teamRangedMultiShot: 1 },                // Móng Rùa Kim Quy
   48: { teamAllPct: 0.1, teamTier1AllPct: 0.1 },                  // Cờ Lau Tập Trận (tier-1 VieAni +20 % in total)
   49: { vsHigherTier: 0.3 },                                      // Cờ Sáu Chữ Vàng
 };

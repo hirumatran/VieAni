@@ -20,12 +20,11 @@
    ],
    "dex": 42,
    "stats": {
-    "hp": 75,
-    "atk": 80,
-    "def": 60,
-    "spa": 55,
-    "spd": 70,
-    "spe": 140
+    "hp": 730,
+    "atk": 76,
+    "aspd": 0.9,
+    "armor": 16,
+    "energy": 100
    },
    "attackType": "Grass",
    "attackClass": "physical",
@@ -46,6 +45,14 @@
     },
     "passive": "Sọc Ngụy Trang: 15% / 20% / 25% né đòn",
     "star3": "Bóng Đêm Trường Sơn: sau Phóng Vằn ẩn mình 2 giây"
+   },
+   "statsV2": {
+    "hp": 75,
+    "atk": 80,
+    "def": 60,
+    "spa": 55,
+    "spd": 70,
+    "spe": 140
    }
   },
   {
@@ -62,12 +69,11 @@
    ],
    "dex": 43,
    "stats": {
-    "hp": 120,
-    "atk": 105,
-    "def": 105,
-    "spa": 40,
-    "spd": 70,
-    "spe": 40
+    "hp": 1060,
+    "atk": 61,
+    "aspd": 0.55,
+    "armor": 35,
+    "energy": 60
    },
    "attackType": "Ground",
    "attackClass": "physical",
@@ -96,6 +102,14 @@
     },
     "passive": "Voi Chiến Bà Triệu: khi Voi còn trên sân, cả đội +5% / 8% / 10% Tấn công",
     "star3": "Voi Trắng Một Ngà: Dậm Đất lan ra bán kính 2 ô"
+   },
+   "statsV2": {
+    "hp": 120,
+    "atk": 105,
+    "def": 105,
+    "spa": 40,
+    "spd": 70,
+    "spe": 40
    }
   },
   {
@@ -125,7 +139,15 @@
    "statNote": "Rùa: phòng thủ rất cao, rất chậm. Giải: mai mềm như da, rình mồi và cắn rất nhanh",
    "skill": "Rình đáy cát: đòn đầu tiên ×2 sát thương",
    "tier": 3,
-   "status": "removed"
+   "status": "removed",
+   "statsV2": {
+    "hp": 100,
+    "atk": 80,
+    "def": 110,
+    "spa": 65,
+    "spd": 95,
+    "spe": 30
+   }
   },
   {
    "id": 43,
@@ -142,12 +164,11 @@
    ],
    "dex": 15,
    "stats": {
-    "hp": 65,
-    "atk": 80,
-    "def": 55,
-    "spa": 90,
-    "spd": 70,
-    "spe": 120
+    "hp": 640,
+    "atk": 49,
+    "aspd": 0.65,
+    "armor": 18,
+    "energy": 110
    },
    "attackType": "Sky",
    "attackClass": "special",
@@ -168,6 +189,14 @@
     },
     "passive": "Đàn Trú Đông: +10% / 15% / 20% Tốc độ khi đứng cạnh một VieAni hệ Trời",
     "star3": "Bãi Bồi Bình Yên: Lùa Cá hồi 10% máu cho đồng đội trong vùng"
+   },
+   "statsV2": {
+    "hp": 65,
+    "atk": 80,
+    "def": 55,
+    "spa": 90,
+    "spd": 70,
+    "spe": 120
    }
   },
   {
@@ -197,7 +226,15 @@
    "statNote": "Linh trưởng ăn lá: nhanh nhẹn, đánh tầm xa (tấn công ĐB). Chà vá chân đen sống rừng khô thưa, di chuyển xa",
    "skill": "Đi xa: +1 tầm đánh",
    "tier": 3,
-   "status": "later"
+   "status": "later",
+   "statsV2": {
+    "hp": 70,
+    "atk": 70,
+    "def": 55,
+    "spa": 90,
+    "spd": 80,
+    "spe": 115
+   }
   },
   {
    "id": 28,
@@ -227,7 +264,15 @@
    "statNote": "Vượn: chuyền cành nhanh nhất; tiếng hót = tấn công ĐB. Vượn Cao Vít sống rừng đá vôi, tán rừng thấp và đứt quãng",
    "skill": "Song ca: tiếng hót làm chậm kẻ địch 15%",
    "tier": 3,
-   "status": "later"
+   "status": "later",
+   "statsV2": {
+    "hp": 65,
+    "atk": 80,
+    "def": 65,
+    "spa": 90,
+    "spd": 70,
+    "spe": 110
+   }
   },
   {
    "id": 24,
@@ -257,7 +302,15 @@
    "statNote": "Linh trưởng ăn lá: nhanh nhẹn, đánh tầm xa (tấn công ĐB). Voọc Cát Bà bền bỉ, sống sót trên đảo đá vôi biệt lập",
    "skill": "Sống sót: lần đầu máu dưới 25%, hồi 30% máu",
    "tier": 3,
-   "status": "later"
+   "status": "later",
+   "statsV2": {
+    "hp": 70,
+    "atk": 70,
+    "def": 65,
+    "spa": 80,
+    "spd": 90,
+    "spe": 105
+   }
   },
   {
    "id": 46,
@@ -273,12 +326,11 @@
    ],
    "dex": 1,
    "stats": {
-    "hp": 75,
-    "atk": 120,
-    "def": 65,
-    "spa": 50,
-    "spd": 65,
-    "spe": 105
+    "hp": 730,
+    "atk": 92,
+    "aspd": 0.8,
+    "armor": 16,
+    "energy": 90
    },
    "attackType": "Grass",
    "attackClass": "physical",
@@ -299,6 +351,14 @@
     },
     "passive": "Vồ từ trên cây: đòn đầu tiên nhắm kẻ địch có máu thấp nhất; +15% / 20% / 25% tỉ lệ chí mạng",
     "star3": "Da Báo: ẩn mình vào cảnh vật – không thể bị đòn tầm xa nhắm vào trong 4 giây đầu trận và 2 giây sau mỗi lần dùng kỹ năng"
+   },
+   "statsV2": {
+    "hp": 75,
+    "atk": 120,
+    "def": 65,
+    "spa": 50,
+    "spd": 65,
+    "spe": 105
    }
   },
   {
@@ -329,7 +389,15 @@
    "statNote": "Linh trưởng ăn lá: nhanh nhẹn, đánh tầm xa (tấn công ĐB). Voọc mông trắng leo vách đá vôi dựng đứng rất nhanh",
    "skill": "Leo vách: né 25% đòn cận chiến",
    "tier": 3,
-   "status": "later"
+   "status": "later",
+   "statsV2": {
+    "hp": 70,
+    "atk": 70,
+    "def": 65,
+    "spa": 80,
+    "spd": 80,
+    "spe": 115
+   }
   },
   {
    "id": 49,
@@ -347,12 +415,11 @@
    "typeNote": "Grazes seagrass",
    "dex": 2,
    "stats": {
-    "hp": 120,
-    "atk": 55,
-    "def": 90,
-    "spa": 80,
-    "spd": 95,
-    "spe": 40
+    "hp": 690,
+    "atk": 50,
+    "aspd": 0.6,
+    "armor": 16,
+    "energy": 80
    },
    "attackType": "Water",
    "attackClass": "special",
@@ -373,6 +440,14 @@
     },
     "passive": "Gặm Cỏ Biển: hồi 2% / 2,5% / 3% máu mỗi giây khi không bị đánh trong 2 giây",
     "star3": "Thảm Cỏ Biển: tiếng hát hồi cho đồng đội trong vùng 15% máu tối đa của họ"
+   },
+   "statsV2": {
+    "hp": 120,
+    "atk": 55,
+    "def": 90,
+    "spa": 80,
+    "spd": 95,
+    "spe": 40
    }
   },
   {
@@ -389,12 +464,11 @@
    ],
    "dex": 20,
    "stats": {
-    "hp": 70,
-    "atk": 75,
-    "def": 70,
-    "spa": 100,
-    "spd": 85,
-    "spe": 110
+    "hp": 700,
+    "atk": 61,
+    "aspd": 0.7,
+    "armor": 14,
+    "energy": 100
    },
    "attackType": "Sky",
    "attackClass": "special",
@@ -415,6 +489,14 @@
     },
     "passive": "Ẩn Trong Tán Rừng: 15% / 20% / 25% né đòn",
     "star3": "Bóng Ma Trường Sơn: khi bị hạ, để lại hồn ma 4 giây tiếp tục dùng kỹ năng 1 lần ('loài đã mất ngoài tự nhiên')"
+   },
+   "statsV2": {
+    "hp": 70,
+    "atk": 75,
+    "def": 70,
+    "spa": 100,
+    "spd": 85,
+    "spe": 110
    }
   },
   {
@@ -445,7 +527,15 @@
    "statNote": "Ngư Tinh: thủy quái, tấn công cao",
    "skill": "Sóng dữ: đẩy lùi và làm chậm hàng đầu của địch",
    "tier": 5,
-   "status": "later"
+   "status": "later",
+   "statsV2": {
+    "hp": 95,
+    "atk": 115,
+    "def": 85,
+    "spa": 85,
+    "spd": 75,
+    "spe": 75
+   }
   },
   {
    "id": 35,
@@ -462,12 +552,11 @@
    ],
    "dex": 14,
    "stats": {
-    "hp": 75,
-    "atk": 80,
-    "def": 55,
-    "spa": 90,
-    "spd": 70,
-    "spe": 110
+    "hp": 650,
+    "atk": 52,
+    "aspd": 0.7,
+    "armor": 8,
+    "energy": 80
    },
    "attackType": "Sky",
    "attackClass": "special",
@@ -488,6 +577,14 @@
     },
     "passive": "Mỏ Cong: đòn đánh thường bỏ qua 20% Phòng thủ",
     "star3": "Đàn Cò Quắm: kỹ năng nảy sang thêm 2 kẻ địch gần đó (60% sát thương)"
+   },
+   "statsV2": {
+    "hp": 75,
+    "atk": 80,
+    "def": 55,
+    "spa": 90,
+    "spd": 70,
+    "spe": 110
    }
   },
   {
@@ -505,12 +602,11 @@
    "typeNote": "Known from limestone-cave fossils",
    "dex": 50,
    "stats": {
-    "hp": 110,
-    "atk": 125,
-    "def": 100,
-    "spa": 50,
-    "spd": 75,
-    "spe": 50
+    "hp": 1060,
+    "atk": 86,
+    "aspd": 0.65,
+    "armor": 32,
+    "energy": 80
    },
    "attackType": "Rock",
    "attackClass": "physical",
@@ -531,6 +627,14 @@
     },
     "passive": "Thân Hình Khổng Lồ: +10% / 15% / 20% Máu",
     "star3": "Vỗ Ngực: khi dùng kỹ năng, +100% Tấn công trong 4 giây"
+   },
+   "statsV2": {
+    "hp": 110,
+    "atk": 125,
+    "def": 100,
+    "spa": 50,
+    "spd": 75,
+    "spe": 50
    }
   },
   {
@@ -548,12 +652,11 @@
    ],
    "dex": 26,
    "stats": {
-    "hp": 100,
-    "atk": 60,
-    "def": 115,
-    "spa": 100,
-    "spd": 115,
-    "spe": 40
+    "hp": 960,
+    "atk": 64,
+    "aspd": 0.55,
+    "armor": 32,
+    "energy": 80
    },
    "attackType": "Water",
    "attackClass": "special",
@@ -586,6 +689,14 @@
     },
     "passive": "Nỏ Thần: đồng đội đánh tầm xa +12% / 16% / 20% sát thương",
     "star3": "Móng Rùa Thần: đồng đội đánh tầm xa bắn trúng thêm 1 mục tiêu (50% sát thương)"
+   },
+   "statsV2": {
+    "hp": 100,
+    "atk": 60,
+    "def": 115,
+    "spa": 100,
+    "spd": 115,
+    "spe": 40
    }
   },
   {
@@ -602,12 +713,11 @@
    ],
    "dex": 24,
    "stats": {
-    "hp": 75,
-    "atk": 95,
-    "def": 65,
-    "spa": 80,
-    "spd": 70,
-    "spe": 95
+    "hp": 730,
+    "atk": 81,
+    "aspd": 0.75,
+    "armor": 17,
+    "energy": 80
    },
    "attackType": "Sky",
    "attackClass": "physical",
@@ -628,6 +738,14 @@
     },
     "passive": "Cánh Vỗ Ầm: 15% / 20% / 25% đòn đánh gây Choáng 0,5 giây",
     "star3": "Mũ Sừng Kép: ×2 thời gian Choáng của cả hai kỹ năng"
+   },
+   "statsV2": {
+    "hp": 75,
+    "atk": 95,
+    "def": 65,
+    "spa": 80,
+    "spd": 70,
+    "spe": 95
    }
   },
   {
@@ -644,12 +762,11 @@
    ],
    "dex": 16,
    "stats": {
-    "hp": 65,
-    "atk": 70,
-    "def": 65,
-    "spa": 95,
-    "spd": 80,
-    "spe": 105
+    "hp": 640,
+    "atk": 51,
+    "aspd": 0.6,
+    "armor": 21,
+    "energy": 80
    },
    "attackType": "Sky",
    "attackClass": "special",
@@ -670,6 +787,14 @@
     },
     "passive": "Mắt Công: 15% / 20% / 25% phản kỹ năng gây khống chế về kẻ dùng",
     "star3": "Đuôi Công Rộng: bán kính Xòe Đuôi tăng lên 2 ô"
+   },
+   "statsV2": {
+    "hp": 65,
+    "atk": 70,
+    "def": 65,
+    "spa": 95,
+    "spd": 80,
+    "spe": 105
    }
   },
   {
@@ -686,12 +811,11 @@
    ],
    "dex": 11,
    "stats": {
-    "hp": 80,
-    "atk": 70,
-    "def": 65,
-    "spa": 90,
-    "spd": 80,
-    "spe": 95
+    "hp": 840,
+    "atk": 66,
+    "aspd": 0.7,
+    "armor": 25,
+    "energy": 90
    },
    "attackType": "Grass",
    "attackClass": "special",
@@ -713,6 +837,14 @@
     },
     "passive": "Nhảy Cành: 15% / 20% / 25% né đòn cận chiến",
     "star3": "Thủ Lĩnh Bầy: Gầm Rú cho đồng đội trong vùng +15% Tốc độ"
+   },
+   "statsV2": {
+    "hp": 80,
+    "atk": 70,
+    "def": 65,
+    "spa": 90,
+    "spd": 80,
+    "spe": 95
    }
   },
   {
@@ -729,12 +861,11 @@
    ],
    "dex": 18,
    "stats": {
-    "hp": 100,
-    "atk": 65,
-    "def": 105,
-    "spa": 65,
-    "spd": 95,
-    "spe": 50
+    "hp": 960,
+    "atk": 50,
+    "aspd": 0.55,
+    "armor": 38,
+    "energy": 80
    },
    "attackType": "Water",
    "attackClass": "physical",
@@ -755,6 +886,14 @@
     },
     "passive": "Bơi Xa: miễn bị làm chậm; +10% / 15% / 20% Tốc độ",
     "star3": "Mai Đồi Mồi: khi Rụt Mai kết thúc, phản lại 30% tổng sát thương đã chặn lên kẻ địch kề bên"
+   },
+   "statsV2": {
+    "hp": 100,
+    "atk": 65,
+    "def": 105,
+    "spa": 65,
+    "spd": 95,
+    "spe": 50
    }
   },
   {
@@ -772,12 +911,11 @@
    ],
    "dex": 25,
    "stats": {
-    "hp": 80,
-    "atk": 130,
-    "def": 70,
-    "spa": 50,
-    "spd": 70,
-    "spe": 110
+    "hp": 840,
+    "atk": 106,
+    "aspd": 0.8,
+    "armor": 19,
+    "energy": 90
    },
    "attackType": "Ground",
    "attackClass": "physical",
@@ -799,6 +937,14 @@
     },
     "passive": "Chúa Sơn Lâm: kẻ địch trong 2 ô −15% / 20% / 25% Tấn công",
     "star3": "Oai Hùm: Chúa Sơn Lâm áp dụng cho toàn bộ kẻ địch trên sân"
+   },
+   "statsV2": {
+    "hp": 80,
+    "atk": 130,
+    "def": 70,
+    "spa": 50,
+    "spd": 70,
+    "spe": 110
    }
   },
   {
@@ -817,12 +963,11 @@
    "typeNote": "In the Thánh Gióng legend the iron horse breathes fire; folk tradition says the bamboo it scorched turned yellow (tre đằng ngà) and the village it burned became Làng Cháy",
    "dex": 32,
    "stats": {
-    "hp": 80,
-    "atk": 115,
-    "def": 110,
-    "spa": 85,
-    "spd": 65,
-    "spe": 75
+    "hp": 1020,
+    "atk": 91,
+    "aspd": 0.65,
+    "armor": 34,
+    "energy": 90
    },
    "attackType": "Fire",
    "attackClass": "physical",
@@ -852,6 +997,14 @@
     },
     "passive": "Nhổ Tre Đánh Giặc: khi máu dưới 50% (gươm gãy), đòn đánh quét cả hàng ngang và +1 tầm",
     "star3": "Lửa Thiêu Rừng: Phun Lửa đốt toàn bộ nửa sân kẻ địch"
+   },
+   "statsV2": {
+    "hp": 80,
+    "atk": 115,
+    "def": 110,
+    "spa": 85,
+    "spd": 65,
+    "spe": 75
    }
   },
   {
@@ -868,12 +1021,11 @@
    ],
    "dex": 4,
    "stats": {
-    "hp": 95,
-    "atk": 65,
-    "def": 70,
-    "spa": 95,
-    "spd": 90,
-    "spe": 65
+    "hp": 770,
+    "atk": 51,
+    "aspd": 0.55,
+    "armor": 24,
+    "energy": 70
    },
    "attackType": "Water",
    "attackClass": "special",
@@ -894,6 +1046,14 @@
     },
     "passive": "Định Vị: đòn đánh thường bằng sóng âm giảm 20% Phòng thủ ĐB của mục tiêu trong 3 giây (không cộng dồn)",
     "star3": "Cá Nược Dẫn Đường: đầu trận đồng đội hệ Nước +20% Tốc độ trong 6 giây"
+   },
+   "statsV2": {
+    "hp": 95,
+    "atk": 65,
+    "def": 70,
+    "spa": 95,
+    "spd": 90,
+    "spe": 65
    }
   },
   {
@@ -912,12 +1072,11 @@
    "typeNote": "Grazing wild ox",
    "dex": 3,
    "stats": {
-    "hp": 135,
-    "atk": 115,
-    "def": 100,
-    "spa": 40,
-    "spd": 75,
-    "spe": 45
+    "hp": 1230,
+    "atk": 70,
+    "aspd": 0.55,
+    "armor": 37,
+    "energy": 70
    },
    "attackType": "Grass",
    "attackClass": "physical",
@@ -938,6 +1097,14 @@
     },
     "passive": "Sừng Cong: phản 15% / 20% / 25% sát thương cận chiến nhận vào",
     "star3": "Tăng Trọng: mỗi đồng đội ngã xuống trong bán kính 1 ô cho Bò Xám +10% Máu tối đa và +5% Phòng thủ (cộng dồn)"
+   },
+   "statsV2": {
+    "hp": 135,
+    "atk": 115,
+    "def": 100,
+    "spa": 40,
+    "spd": 75,
+    "spe": 45
    }
   },
   {
@@ -954,12 +1121,11 @@
    ],
    "dex": 28,
    "stats": {
-    "hp": 80,
-    "atk": 100,
-    "def": 70,
-    "spa": 45,
-    "spd": 80,
-    "spe": 105
+    "hp": 840,
+    "atk": 69,
+    "aspd": 0.75,
+    "armor": 26,
+    "energy": 80
    },
    "attackType": "Grass",
    "attackClass": "physical",
@@ -980,6 +1146,14 @@
     },
     "passive": "Gạc Lớn Nhất: +10% / 15% / 20% Phòng thủ khi đứng hàng đầu",
     "star3": "Gạc Xuyên: Húc Gạc Lớn xuyên qua mục tiêu, trúng thêm kẻ đứng sau"
+   },
+   "statsV2": {
+    "hp": 80,
+    "atk": 100,
+    "def": 70,
+    "spa": 45,
+    "spd": 80,
+    "spe": 105
    }
   },
   {
@@ -997,12 +1171,11 @@
    ],
    "dex": 27,
    "stats": {
-    "hp": 90,
-    "atk": 100,
-    "def": 85,
-    "spa": 85,
-    "spd": 85,
-    "spe": 85
+    "hp": 1080,
+    "atk": 85,
+    "aspd": 0.65,
+    "armor": 33,
+    "energy": 80
    },
    "attackType": "Ground",
    "attackClass": "physical",
@@ -1023,6 +1196,14 @@
     },
     "passive": "Trống Lân: mỗi 8 giây gỡ 1 hiệu ứng xấu khỏi đồng đội kề bên",
     "star3": "Lân Vàng: Múa Lân Trừ Tà hồi 15% máu cho cả đội"
+   },
+   "statsV2": {
+    "hp": 90,
+    "atk": 100,
+    "def": 85,
+    "spa": 85,
+    "spd": 85,
+    "spe": 85
    }
   },
   {
@@ -1040,12 +1221,11 @@
    ],
    "dex": 13,
    "stats": {
-    "hp": 65,
-    "atk": 85,
-    "def": 65,
-    "spa": 110,
-    "spd": 85,
-    "spe": 120
+    "hp": 750,
+    "atk": 71,
+    "aspd": 0.7,
+    "armor": 16,
+    "energy": 130
    },
    "attackType": "Sky",
    "attackClass": "special",
@@ -1074,6 +1254,14 @@
     },
     "passive": "Hào Khí Lạc Việt: +10% Máu và +3% Tấn công, Phòng thủ, Tốc độ cho mỗi tộc hệ đang kích hoạt trên sân",
     "star3": "Hồn Trống Đồng: nếu đội có Trống Đồng Đông Sơn, hiệu ứng trống ×2 và Phong Ba Bão Táp làm Choáng 1 giây"
+   },
+   "statsV2": {
+    "hp": 65,
+    "atk": 85,
+    "def": 65,
+    "spa": 110,
+    "spd": 85,
+    "spe": 120
    }
   },
   {
@@ -1090,12 +1278,11 @@
    ],
    "dex": 7,
    "stats": {
-    "hp": 100,
-    "atk": 90,
-    "def": 80,
-    "spa": 65,
-    "spd": 80,
-    "spe": 65
+    "hp": 960,
+    "atk": 56,
+    "aspd": 0.65,
+    "armor": 33,
+    "energy": 80
    },
    "attackType": "Water",
    "attackClass": "physical",
@@ -1116,6 +1303,14 @@
     },
     "passive": "Khổng Lồ Sông Mê Kông: +10% / 15% / 20% Máu tối đa",
     "star3": "Giẫy Giụa Diện Rộng: ảnh hưởng mọi kẻ địch trong bán kính 2 ô thay vì 1 mục tiêu"
+   },
+   "statsV2": {
+    "hp": 100,
+    "atk": 90,
+    "def": 80,
+    "spa": 65,
+    "spd": 80,
+    "spe": 65
    }
   },
   {
@@ -1134,12 +1329,11 @@
    "typeNote": "Usually carved in stone",
    "dex": 29,
    "stats": {
-    "hp": 105,
-    "atk": 85,
-    "def": 130,
-    "spa": 50,
-    "spd": 110,
-    "spe": 50
+    "hp": 1210,
+    "atk": 67,
+    "aspd": 0.55,
+    "armor": 47,
+    "energy": 80
    },
    "attackType": "Rock",
    "attackClass": "physical",
@@ -1160,6 +1354,14 @@
     },
     "passive": "Thân Đá: +10% / 15% / 20% Phòng thủ và Phòng thủ ĐB",
     "star3": "Nghê Canh Đình: khi Trấn Giữ kết thúc, phản 25% sát thương đã gánh lên kẻ địch trong 1 ô"
+   },
+   "statsV2": {
+    "hp": 105,
+    "atk": 85,
+    "def": 130,
+    "spa": 50,
+    "spd": 110,
+    "spe": 50
    }
   },
   {
@@ -1177,12 +1379,11 @@
    ],
    "dex": 31,
    "stats": {
-    "hp": 75,
-    "atk": 105,
-    "def": 70,
-    "spa": 70,
-    "spd": 75,
-    "spe": 135
+    "hp": 990,
+    "atk": 87,
+    "aspd": 0.75,
+    "armor": 29,
+    "energy": 110
    },
    "attackType": "Ground",
    "attackClass": "physical",
@@ -1212,6 +1413,14 @@
     },
     "passive": "Vó Ngựa: +5 / 10 / 15 tốc độ đánh sau mỗi đòn lên cùng một kẻ địch (cộng dồn), mất khi đổi mục tiêu",
     "star3": "Chín Hồng Mao: ×2 chỉ số cộng dồn của Vó Ngựa; Phi Nước Đại Choáng 0,5 giây"
+   },
+   "statsV2": {
+    "hp": 75,
+    "atk": 105,
+    "def": 70,
+    "spa": 70,
+    "spd": 75,
+    "spe": 135
    }
   },
   {
@@ -1229,12 +1438,11 @@
    ],
    "dex": 19,
    "stats": {
-    "hp": 75,
-    "atk": 125,
-    "def": 70,
-    "spa": 60,
-    "spd": 70,
-    "spe": 130
+    "hp": 990,
+    "atk": 95,
+    "aspd": 0.75,
+    "armor": 28,
+    "energy": 120
    },
    "attackType": "Ground",
    "attackClass": "physical",
@@ -1264,6 +1472,14 @@
     },
     "passive": "Cựa Thép: đòn đánh thường +5 / 10 / 15 sát thương sau mỗi đòn lên cùng một kẻ địch (cộng dồn), mất khi đổi mục tiêu",
     "star3": "Gà Thần: ×2 sát thương của Chín Cựa và Cựa Thép"
+   },
+   "statsV2": {
+    "hp": 75,
+    "atk": 125,
+    "def": 70,
+    "spa": 60,
+    "spd": 70,
+    "spe": 130
    }
   },
   {
@@ -1282,12 +1498,11 @@
    "typeNote": "Demon fox spirit",
    "dex": 23,
    "stats": {
-    "hp": 65,
-    "atk": 65,
-    "def": 60,
-    "spa": 125,
-    "spd": 95,
-    "spe": 120
+    "hp": 750,
+    "atk": 75,
+    "aspd": 0.7,
+    "armor": 16,
+    "energy": 130
    },
    "attackType": "Poison",
    "attackClass": "special",
@@ -1320,6 +1535,14 @@
     },
     "passive": "Mê Hoặc: đòn đánh có 10% / 15% / 20% khiến mục tiêu tấn công đồng đội của nó 2 giây",
     "star3": "Cửu Vĩ: bản sao giữ thêm 1 kỹ năng bị động của Hồ Tinh và +20% mọi chỉ số"
+   },
+   "statsV2": {
+    "hp": 65,
+    "atk": 65,
+    "def": 60,
+    "spa": 125,
+    "spd": 95,
+    "spe": 120
    }
   },
   {
@@ -1337,12 +1560,11 @@
    ],
    "dex": 44,
    "stats": {
-    "hp": 130,
-    "atk": 115,
-    "def": 115,
-    "spa": 45,
-    "spd": 80,
-    "spe": 45
+    "hp": 1350,
+    "atk": 78,
+    "aspd": 0.55,
+    "armor": 41,
+    "energy": 70
    },
    "attackType": "Ground",
    "attackClass": "physical",
@@ -1371,6 +1593,14 @@
     },
     "passive": "Núi Dâng: mỗi đòn hệ Nước nhận vào cho +5 Phòng thủ (cộng dồn đến hết trận); +5% / 10% / 15% Máu",
     "star3": "Sính Lễ Vua Hùng: Chín Ngà làm Choáng 1 giây và đồng đội Sơn Tinh +15% Tấn công 4 giây"
+   },
+   "statsV2": {
+    "hp": 130,
+    "atk": 115,
+    "def": 115,
+    "spa": 45,
+    "spd": 80,
+    "spe": 45
    }
   },
   {
@@ -1387,12 +1617,11 @@
    ],
    "dex": 49,
    "stats": {
-    "hp": 65,
-    "atk": 80,
-    "def": 45,
-    "spa": 90,
-    "spd": 70,
-    "spe": 130
+    "hp": 610,
+    "atk": 52,
+    "aspd": 0.7,
+    "armor": 6,
+    "energy": 100
    },
    "attackType": "Grass",
    "attackClass": "special",
@@ -1413,6 +1642,14 @@
     },
     "passive": "Chuyền Cành: mỗi 5 giây nhảy sang ô trống và né 1 đòn",
     "star3": "Tán Rừng Che Chở: đồng đội +10% Tốc độ khi Vượn nhảy ngang qua"
+   },
+   "statsV2": {
+    "hp": 65,
+    "atk": 80,
+    "def": 45,
+    "spa": 90,
+    "spd": 70,
+    "spe": 130
    }
   },
   {
@@ -1429,12 +1666,11 @@
    ],
    "dex": 8,
    "stats": {
-    "hp": 75,
-    "atk": 80,
-    "def": 70,
-    "spa": 55,
-    "spd": 70,
-    "spe": 130
+    "hp": 680,
+    "atk": 47,
+    "aspd": 0.65,
+    "armor": 20,
+    "energy": 90
    },
    "attackType": "Ground",
    "attackClass": "physical",
@@ -1455,6 +1691,14 @@
     },
     "passive": "Mùi Xạ Hương: kẻ địch đánh Cầy vằn có 15% / 20% / 25% bị Mù 1 giây",
     "star3": "Hang Ổ: Đào Hang Tiếp Tế hồi cho 3 đồng đội và cho họ +15% né đòn 3 giây"
+   },
+   "statsV2": {
+    "hp": 75,
+    "atk": 80,
+    "def": 70,
+    "spa": 55,
+    "spd": 70,
+    "spe": 130
    }
   },
   {
@@ -1473,12 +1717,11 @@
    "typeNote": "Venomous bite (toxin from a brachial gland mixed with saliva)",
    "dex": 17,
    "stats": {
-    "hp": 75,
-    "atk": 50,
-    "def": 70,
-    "spa": 130,
-    "spd": 105,
-    "spe": 50
+    "hp": 650,
+    "atk": 62,
+    "aspd": 0.6,
+    "armor": 16,
+    "energy": 70
    },
    "attackType": "Poison",
    "attackClass": "special",
@@ -1499,6 +1742,14 @@
     },
     "passive": "Chậm Mà Chắc: +10% / 15% / 20% Phòng thủ ĐB; miễn bị đẩy lùi",
     "star3": "Nọc Lan: Độc lây sang 1 kẻ địch kề bên mục tiêu"
+   },
+   "statsV2": {
+    "hp": 75,
+    "atk": 50,
+    "def": 70,
+    "spa": 130,
+    "spd": 105,
+    "spe": 50
    }
   },
   {
@@ -1528,7 +1779,15 @@
    "statNote": "Linh trưởng ăn lá: nhanh nhẹn, đánh tầm xa (tấn công ĐB). Chà vá chân nâu sống đàn lớn, thích nghi cả gần thành phố (Sơn Trà)",
    "skill": "Nữ hoàng linh trưởng: đồng đội Chà Vá +10% Phòng thủ ĐB",
    "tier": 3,
-   "status": "later"
+   "status": "later",
+   "statsV2": {
+    "hp": 75,
+    "atk": 70,
+    "def": 65,
+    "spa": 80,
+    "spd": 85,
+    "spe": 105
+   }
   },
   {
    "id": 20,
@@ -1544,12 +1803,11 @@
    ],
    "dex": 38,
    "stats": {
-    "hp": 80,
-    "atk": 80,
-    "def": 80,
-    "spa": 55,
-    "spd": 80,
-    "spe": 105
+    "hp": 880,
+    "atk": 53,
+    "aspd": 0.65,
+    "armor": 33,
+    "energy": 100
    },
    "attackType": "Grass",
    "attackClass": "physical",
@@ -1570,6 +1828,14 @@
     },
     "passive": "Kỳ Lân Châu Á: không bị chọn làm mục tiêu trong 3 giây đầu trận",
     "star3": "Điềm Lành: khi Sao La còn trên sân, đồng đội Trường Sơn +10% mọi chỉ số"
+   },
+   "statsV2": {
+    "hp": 80,
+    "atk": 80,
+    "def": 80,
+    "spa": 55,
+    "spd": 80,
+    "spe": 105
    }
   },
   {
@@ -1587,12 +1853,11 @@
    ],
    "dex": 39,
    "stats": {
-    "hp": 75,
-    "atk": 85,
-    "def": 55,
-    "spa": 90,
-    "spd": 70,
-    "spe": 105
+    "hp": 680,
+    "atk": 49,
+    "aspd": 0.6,
+    "armor": 18,
+    "energy": 100
    },
    "attackType": "Sky",
    "attackClass": "special",
@@ -1613,6 +1878,14 @@
     },
     "passive": "Bay Cao: là VieAni Bay – né 30% đòn cận chiến của VieAni không phải hệ Trời",
     "star3": "Mùa Sếu Về: Vũ Điệu Sếu còn cho +15% Tấn công và gỡ hiệu ứng xấu"
+   },
+   "statsV2": {
+    "hp": 75,
+    "atk": 85,
+    "def": 55,
+    "spa": 90,
+    "spd": 70,
+    "spe": 105
    }
   },
   {
@@ -1631,12 +1904,11 @@
    "typeNote": "Hunts from water and land",
    "dex": 6,
    "stats": {
-    "hp": 100,
-    "atk": 120,
-    "def": 105,
-    "spa": 40,
-    "spd": 65,
-    "spe": 50
+    "hp": 770,
+    "atk": 92,
+    "aspd": 0.75,
+    "armor": 21,
+    "energy": 80
    },
    "attackType": "Water",
    "attackClass": "physical",
@@ -1657,6 +1929,14 @@
     },
     "passive": "Da Cá Sấu: giảm 10% / 15% / 20% sát thương vật lý nhận vào",
     "star3": "Ẩn Nấp: lặn trong nước rồi trồi lên sau lưng kẻ địch đánh chậm nhất trong bán kính 3 ô, đớp một đòn chí mạng 125% sát thương"
+   },
+   "statsV2": {
+    "hp": 100,
+    "atk": 120,
+    "def": 105,
+    "spa": 40,
+    "spd": 65,
+    "spe": 50
    }
   },
   {
@@ -1673,12 +1953,11 @@
    ],
    "dex": 12,
    "stats": {
-    "hp": 75,
-    "atk": 80,
-    "def": 50,
-    "spa": 55,
-    "spd": 70,
-    "spe": 150
+    "hp": 680,
+    "atk": 47,
+    "aspd": 0.65,
+    "armor": 17,
+    "energy": 120
    },
    "attackType": "Grass",
    "attackClass": "physical",
@@ -1699,6 +1978,14 @@
     },
     "passive": "Nhút Nhát: luôn né đòn đầu tiên nhắm vào mình; 10% / 15% / 20% né đòn",
     "star3": "Biến Mất Trong Bụi Rậm: sau khi Nhanh Như Cheo kết thúc, ẩn mình 2 giây và hồi 20% máu"
+   },
+   "statsV2": {
+    "hp": 75,
+    "atk": 80,
+    "def": 50,
+    "spa": 55,
+    "spd": 70,
+    "spe": 150
    }
   },
   {
@@ -1716,12 +2003,11 @@
    ],
    "dex": 34,
    "stats": {
-    "hp": 50,
-    "atk": 80,
-    "def": 55,
-    "spa": 90,
-    "spd": 70,
-    "spe": 135
+    "hp": 570,
+    "atk": 52,
+    "aspd": 0.7,
+    "armor": 8,
+    "energy": 80
    },
    "attackType": "Sky",
    "attackClass": "special",
@@ -1742,6 +2028,14 @@
     },
     "passive": "Bé Nhỏ Nhanh Nhẹn: 20% / 25% / 30% né đòn tầm xa",
     "star3": "Hiếm Có Khó Tìm: lần đầu bị hạ, sống lại với 30% máu (chỉ còn vài trăm cá thể ngoài tự nhiên)"
+   },
+   "statsV2": {
+    "hp": 50,
+    "atk": 80,
+    "def": 55,
+    "spa": 90,
+    "spd": 70,
+    "spe": 135
    }
   },
   {
@@ -1758,12 +2052,11 @@
    ],
    "dex": 21,
    "stats": {
-    "hp": 105,
-    "atk": 110,
-    "def": 85,
-    "spa": 40,
-    "spd": 75,
-    "spe": 65
+    "hp": 920,
+    "atk": 73,
+    "aspd": 0.65,
+    "armor": 28,
+    "energy": 70
    },
    "attackType": "Ground",
    "attackClass": "physical",
@@ -1784,6 +2077,14 @@
     },
     "passive": "Lưỡi Dài: hồi 10% / 12% / 15% máu mỗi khi đánh trúng Côn trùng",
     "star3": "Ôm Ghì: Cào Tổ Ong Trói mục tiêu trong thời gian cào"
+   },
+   "statsV2": {
+    "hp": 105,
+    "atk": 110,
+    "def": 85,
+    "spa": 40,
+    "spd": 75,
+    "spe": 65
    }
   },
   {
@@ -1800,12 +2101,11 @@
    ],
    "dex": 41,
    "stats": {
-    "hp": 85,
-    "atk": 75,
-    "def": 130,
-    "spa": 40,
-    "spd": 90,
-    "spe": 60
+    "hp": 890,
+    "atk": 51,
+    "aspd": 0.6,
+    "armor": 41,
+    "energy": 70
    },
    "attackType": "Ground",
    "attackClass": "physical",
@@ -1826,6 +2126,14 @@
     },
     "passive": "Vảy Sừng: giảm 10% / 15% / 20% sát thương vật lý nhận vào",
     "star3": "Kháng Phép: sau khi Cuộn Tròn, miễn nhiễm sát thương ĐB 2 giây"
+   },
+   "statsV2": {
+    "hp": 85,
+    "atk": 75,
+    "def": 130,
+    "spa": 40,
+    "spd": 90,
+    "spe": 60
    }
   },
   {
@@ -1855,7 +2163,15 @@
    "statNote": "Rùa: phòng thủ rất cao, rất chậm. Giải: mai mềm như da, rình mồi và cắn rất nhanh",
    "skill": "Trường thọ: hồi 2% máu mỗi giây",
    "tier": 4,
-   "status": "removed"
+   "status": "removed",
+   "statsV2": {
+    "hp": 110,
+    "atk": 80,
+    "def": 120,
+    "spa": 65,
+    "spd": 100,
+    "spe": 35
+   }
   },
   {
    "id": 22,
@@ -1886,7 +2202,15 @@
    "statNote": "Linh trưởng ăn lá: nhanh nhẹn, đánh tầm xa (tấn công ĐB). Voọc mũi hếch là loài voọc lớn nhất trong nhóm, chịu lạnh vùng núi cao",
    "skill": "Chịu lạnh: miễn nhiễm làm chậm",
    "tier": 3,
-   "status": "later"
+   "status": "later",
+   "statsV2": {
+    "hp": 80,
+    "atk": 70,
+    "def": 70,
+    "spa": 90,
+    "spd": 80,
+    "spe": 90
+   }
   },
   {
    "id": 1,
@@ -1904,12 +2228,11 @@
    "dex": 35,
    "typeNote": "Dragons command rain, storm and thunder; Vietnamese communities held rain-praying rites (cầu mưa) to the dragon",
    "stats": {
-    "hp": 80,
-    "atk": 90,
-    "def": 75,
-    "spa": 115,
-    "spd": 80,
-    "spe": 90
+    "hp": 820,
+    "atk": 72,
+    "aspd": 0.6,
+    "armor": 16,
+    "energy": 90
    },
    "attackType": "Electric",
    "attackClass": "special",
@@ -1943,6 +2266,14 @@
     },
     "passive": "Thăng Long: lần đầu máu dưới 30%, bay vút lên 2 giây (không thể bị chọn làm mục tiêu) rồi giáng sét ×2",
     "star3": "Long Uy: Hô Mưa Gọi Sấm trúng 5 kẻ địch và làm Choáng 0,5 giây"
+   },
+   "statsV2": {
+    "hp": 80,
+    "atk": 90,
+    "def": 75,
+    "spa": 115,
+    "spd": 80,
+    "spe": 90
    }
   },
   {
@@ -1960,12 +2291,11 @@
    ],
    "dex": 40,
    "stats": {
-    "hp": 135,
-    "atk": 110,
-    "def": 120,
-    "spa": 40,
-    "spd": 75,
-    "spe": 30
+    "hp": 1230,
+    "atk": 69,
+    "aspd": 0.55,
+    "armor": 39,
+    "energy": 60
    },
    "attackType": "Ground",
    "attackClass": "physical",
@@ -1986,6 +2316,14 @@
     },
     "passive": "Da Giáp: giảm 10% / 15% / 20% sát thương nhận vào từ phía trước",
     "star3": "Sừng Bất Khuất: hồi chiêu Sừng Tê Giác giảm còn 7 giây"
+   },
+   "statsV2": {
+    "hp": 135,
+    "atk": 110,
+    "def": 120,
+    "spa": 40,
+    "spd": 75,
+    "spe": 30
    }
   },
   {
@@ -2004,12 +2342,11 @@
    "dex": 33,
    "typeNote": "Fire symbolism shared with the Vermilion Bird (Chu Tước), guardian of the South and the Fire phase in the Five Phases (Ngũ Hành)",
    "stats": {
-    "hp": 75,
+    "hp": 800,
     "atk": 75,
-    "def": 65,
-    "spa": 125,
-    "spd": 90,
-    "spe": 100
+    "aspd": 0.65,
+    "armor": 16,
+    "energy": 90
    },
    "attackType": "Fire",
    "attackClass": "special",
@@ -2038,6 +2375,14 @@
     },
     "passive": "Trứng Lửa Tái Sinh: khi bị hạ, hóa trứng lửa 6 giây (máu trứng = 30% máu tối đa, đốt kẻ kề bên). Trứng không bị phá thì nở lại với 100% máu; 1 lần mỗi trận",
     "star3": "Phượng Múa: sau khi tái sinh, Lửa Thiêng dùng ngay và +30% Tấn công ĐB đến hết trận"
+   },
+   "statsV2": {
+    "hp": 75,
+    "atk": 75,
+    "def": 65,
+    "spa": 125,
+    "spd": 90,
+    "spe": 100
    }
   },
   {
@@ -2067,7 +2412,15 @@
    "statNote": "Rùa: phòng thủ rất cao, rất chậm",
    "skill": "Rụt cổ: chặn hoàn toàn 1 đòn mỗi 6 giây",
    "tier": 3,
-   "status": "removed"
+   "status": "removed",
+   "statsV2": {
+    "hp": 100,
+    "atk": 65,
+    "def": 125,
+    "spa": 65,
+    "spd": 95,
+    "spe": 30
+   }
   },
   {
    "id": 13,
@@ -2084,12 +2437,11 @@
    ],
    "dex": 5,
    "stats": {
-    "hp": 135,
-    "atk": 85,
-    "def": 85,
-    "spa": 95,
-    "spd": 95,
-    "spe": 35
+    "hp": 990,
+    "atk": 62,
+    "aspd": 0.55,
+    "armor": 30,
+    "energy": 70
    },
    "attackType": "Water",
    "attackClass": "special",
@@ -2118,6 +2470,14 @@
     },
     "passive": "Ông Nam Hải: đồng đội hệ Nước +12% Phòng thủ và Phòng thủ ĐB; đòn hệ Nước của kẻ địch −12% sát thương",
     "star3": "Linh Ngư Phù Hộ: Nam Hải Cứu Nạn che chắn thêm 1 đồng đội; mỗi đồng đội được cứu 1 lần mỗi trận"
+   },
+   "statsV2": {
+    "hp": 135,
+    "atk": 85,
+    "def": 85,
+    "spa": 95,
+    "spd": 95,
+    "spe": 35
    }
   },
   {
@@ -2138,12 +2498,11 @@
    "tier": 1,
    "statNote": "Chó: cắn mạnh, chạy nhanh",
    "stats": {
-    "hp": 65,
-    "atk": 85,
-    "def": 55,
-    "spa": 40,
-    "spd": 55,
-    "spe": 100
+    "hp": 630,
+    "atk": 43,
+    "aspd": 0.65,
+    "armor": 25,
+    "energy": 90
    },
    "attackType": "Ground",
    "attackClass": "physical",
@@ -2162,6 +2521,14 @@
     },
     "passive": "Trung Thành: khi đồng đội kề bên bị hạ, +20% / 25% / 30% Tấn công đến hết trận",
     "star3": "Chó Giữ Làng: Sủa Giữ Nhà khiêu khích trong bán kính 2 ô"
+   },
+   "statsV2": {
+    "hp": 65,
+    "atk": 85,
+    "def": 55,
+    "spa": 40,
+    "spd": 55,
+    "spe": 100
    }
   },
   {
@@ -2187,12 +2554,11 @@
    "tier": 1,
    "statNote": "Chó: cắn mạnh, chạy nhanh",
    "stats": {
-    "hp": 65,
-    "atk": 85,
-    "def": 65,
-    "spa": 40,
-    "spd": 55,
-    "spe": 90
+    "hp": 590,
+    "atk": 50,
+    "aspd": 0.75,
+    "armor": 19,
+    "energy": 80
    },
    "attackType": "Ground",
    "attackClass": "physical",
@@ -2211,6 +2577,14 @@
     },
     "passive": "Chân Núi: miễn bị làm chậm; +20% né đòn trong 5 giây đầu trận (★2: 6 giây, ★3: 7 giây)",
     "star3": "Cộc Đuôi Dũng Mãnh: Săn Vùng Núi Choáng mục tiêu 1 giây"
+   },
+   "statsV2": {
+    "hp": 65,
+    "atk": 85,
+    "def": 65,
+    "spa": 40,
+    "spd": 55,
+    "spe": 90
    }
   },
   {
@@ -2236,12 +2610,11 @@
    "tier": 1,
    "statNote": "Chó: cắn mạnh, chạy nhanh",
    "stats": {
-    "hp": 65,
-    "atk": 85,
-    "def": 45,
-    "spa": 40,
-    "spd": 55,
-    "spe": 110
+    "hp": 540,
+    "atk": 60,
+    "aspd": 0.9,
+    "armor": 8,
+    "energy": 80
    },
    "attackType": "Ground",
    "attackClass": "physical",
@@ -2260,6 +2633,14 @@
     },
     "passive": "Xoáy Lưng: đòn đầu tiên lên mỗi mục tiêu luôn chí mạng; +5% / 10% / 15% tỉ lệ chí mạng",
     "star3": "Biết Bơi: miễn sát thương hệ Nước trong 3 giây sau khi dùng kỹ năng"
+   },
+   "statsV2": {
+    "hp": 65,
+    "atk": 85,
+    "def": 45,
+    "spa": 40,
+    "spd": 55,
+    "spe": 110
    }
   },
   {
@@ -2296,7 +2677,15 @@
    "attackClass": "physical",
    "range": 1,
    "dex": 57,
-   "status": "later"
+   "status": "later",
+   "statsV2": {
+    "hp": 75,
+    "atk": 85,
+    "def": 55,
+    "spa": 30,
+    "spd": 55,
+    "spe": 100
+   }
   },
   {
    "id": 55,
@@ -2320,12 +2709,11 @@
    "tier": 1,
    "statNote": "Chó: cắn mạnh, chạy nhanh",
    "stats": {
-    "hp": 65,
-    "atk": 95,
-    "def": 55,
-    "spa": 40,
-    "spd": 45,
-    "spe": 100
+    "hp": 540,
+    "atk": 64,
+    "aspd": 0.85,
+    "armor": 8,
+    "energy": 80
    },
    "attackType": "Ground",
    "attackClass": "physical",
@@ -2344,6 +2732,14 @@
     },
     "passive": "Hoang Dã: +20% / 25% / 30% Tấn công khi máu dưới 50%",
     "star3": "Đầu Đàn: Bản Năng Hoang Dã gây Chảy máu 3% máu/giây trong 3 giây"
+   },
+   "statsV2": {
+    "hp": 65,
+    "atk": 95,
+    "def": 55,
+    "spa": 40,
+    "spd": 45,
+    "spe": 100
    }
   },
   {
@@ -2364,12 +2760,11 @@
    "tier": 1,
    "statNote": "Mèo: nhanh nhẹn, vồ mồi chính xác",
    "stats": {
-    "hp": 55,
-    "atk": 80,
-    "def": 45,
-    "spa": 55,
-    "spd": 60,
-    "spe": 105
+    "hp": 490,
+    "atk": 58,
+    "aspd": 0.85,
+    "armor": 9,
+    "energy": 80
    },
    "attackType": "Ground",
    "attackClass": "physical",
@@ -2388,6 +2783,14 @@
     },
     "passive": "Bắt Chuột: +20% / 30% / 40% sát thương lên Chuột",
     "star3": "Mèo Mướp Lanh Lẹ: Vồ Mồi nảy sang kẻ địch thứ hai"
+   },
+   "statsV2": {
+    "hp": 55,
+    "atk": 80,
+    "def": 45,
+    "spa": 55,
+    "spd": 60,
+    "spe": 105
    }
   },
   {
@@ -2413,12 +2816,11 @@
    "tier": 1,
    "statNote": "Mèo: nhanh nhẹn, vồ mồi chính xác",
    "stats": {
-    "hp": 55,
-    "atk": 80,
-    "def": 35,
-    "spa": 65,
-    "spd": 60,
-    "spe": 105
+    "hp": 460,
+    "atk": 36,
+    "aspd": 0.65,
+    "armor": 10,
+    "energy": 100
    },
    "attackType": "Ground",
    "attackClass": "physical",
@@ -2445,6 +2847,14 @@
     },
     "passive": "Mắt Đêm: 10% / 15% / 20% né đòn; nhìn thấy kẻ địch Ẩn mình",
     "star3": "Chín Mạng: đồng đội được hồi sinh không ngã xuống lại sau 5 giây"
+   },
+   "statsV2": {
+    "hp": 55,
+    "atk": 80,
+    "def": 35,
+    "spa": 65,
+    "spd": 60,
+    "spe": 105
    }
   },
   {
@@ -2469,12 +2879,11 @@
    "tier": 1,
    "statNote": "Mèo: nhanh nhẹn, vồ mồi chính xác",
    "stats": {
-    "hp": 55,
-    "atk": 70,
-    "def": 45,
-    "spa": 55,
-    "spd": 70,
-    "spe": 105
+    "hp": 540,
+    "atk": 46,
+    "aspd": 0.75,
+    "armor": 18,
+    "energy": 80
    },
    "attackType": "Ground",
    "attackClass": "physical",
@@ -2493,6 +2902,14 @@
     },
     "passive": "May Mắn: 15% / 20% / 25% hồi sinh với 25% máu khi bị hạ",
     "star3": "Mèo Tam Thể Mang Lộc: +1 vàng mỗi vòng thắng khi Mèo Tam Thể còn sống"
+   },
+   "statsV2": {
+    "hp": 55,
+    "atk": 70,
+    "def": 45,
+    "spa": 55,
+    "spd": 70,
+    "spe": 105
    }
   },
   {
@@ -2524,7 +2941,15 @@
    "attackClass": "physical",
    "range": 1,
    "dex": 74,
-   "status": "removed"
+   "status": "removed",
+   "statsV2": {
+    "hp": 65,
+    "atk": 85,
+    "def": 65,
+    "spa": 45,
+    "spd": 55,
+    "spe": 85
+   }
   },
   {
    "id": 60,
@@ -2549,12 +2974,11 @@
    "tier": 1,
    "statNote": "Gà: mổ và đá cựa, khá cân bằng",
    "stats": {
-    "hp": 75,
-    "atk": 85,
-    "def": 80,
-    "spa": 45,
-    "spd": 55,
-    "spe": 60
+    "hp": 650,
+    "atk": 43,
+    "aspd": 0.65,
+    "armor": 27,
+    "energy": 70
    },
    "attackType": "Ground",
    "attackClass": "physical",
@@ -2573,6 +2997,14 @@
     },
     "passive": "Đá Cựa: 15% / 20% / 25% đòn đánh gây Chảy máu 3% máu/giây trong 3 giây",
     "star3": "Gà Tiến Vua: kết thúc Chân Voi Trụ Vững thì hồi 20% máu"
+   },
+   "statsV2": {
+    "hp": 75,
+    "atk": 85,
+    "def": 80,
+    "spa": 45,
+    "spd": 55,
+    "spe": 60
    }
   },
   {
@@ -2608,7 +3040,15 @@
    "attackClass": "physical",
    "range": 1,
    "dex": 72,
-   "status": "removed"
+   "status": "removed",
+   "statsV2": {
+    "hp": 65,
+    "atk": 100,
+    "def": 65,
+    "spa": 45,
+    "spd": 40,
+    "spe": 85
+   }
   },
   {
    "id": 62,
@@ -2632,12 +3072,11 @@
    "tier": 1,
    "statNote": "Heo: máu rất dày, khỏe, chậm",
    "stats": {
-    "hp": 115,
-    "atk": 75,
-    "def": 75,
-    "spa": 35,
-    "spd": 60,
-    "spe": 40
+    "hp": 770,
+    "atk": 40,
+    "aspd": 0.55,
+    "armor": 27,
+    "energy": 60
    },
    "attackType": "Ground",
    "attackClass": "physical",
@@ -2656,6 +3095,14 @@
     },
     "passive": "Lì Lợm: +2% Máu tối đa cho mỗi đòn nhận vào (tối đa +20% / 25% / 30%)",
     "star3": "Bụng Phệ: Ủn Ỉn Lăn Bùn khiêu khích kẻ địch kề bên"
+   },
+   "statsV2": {
+    "hp": 115,
+    "atk": 75,
+    "def": 75,
+    "spa": 35,
+    "spd": 60,
+    "spe": 40
    }
   },
   {
@@ -2676,12 +3123,11 @@
    "tier": 1,
    "statNote": "Heo: máu rất dày, khỏe, chậm",
    "stats": {
-    "hp": 105,
-    "atk": 75,
-    "def": 75,
-    "spa": 35,
-    "spd": 60,
-    "spe": 50
+    "hp": 770,
+    "atk": 40,
+    "aspd": 0.6,
+    "armor": 27,
+    "energy": 90
    },
    "attackType": "Ground",
    "attackClass": "physical",
@@ -2700,6 +3146,14 @@
     },
     "passive": "Mắn Đẻ: khi bị hạ, để lại 1 heo con (20% chỉ số)",
     "star3": "Đàn Đông: khi bị hạ để lại 2 heo con với 40% chỉ số"
+   },
+   "statsV2": {
+    "hp": 105,
+    "atk": 75,
+    "def": 75,
+    "spa": 35,
+    "spd": 60,
+    "spe": 50
    }
   },
   {
@@ -2724,12 +3178,11 @@
    "tier": 1,
    "statNote": "Chuột: nhỏ, cực nhanh, yếu",
    "stats": {
-    "hp": 35,
-    "atk": 70,
-    "def": 45,
-    "spa": 50,
-    "spd": 55,
-    "spe": 145
+    "hp": 450,
+    "atk": 55,
+    "aspd": 0.95,
+    "armor": 8,
+    "energy": 90
    },
    "attackType": "Ground",
    "attackClass": "physical",
@@ -2756,6 +3209,14 @@
     },
     "passive": "Đám Cưới Chuột: đầu trận dâng lễ cho Mèo – Mèo phe địch không tấn công Chuột trong 3 / 4 / 5 giây; 25% né đòn",
     "star3": "Họ Nhà Chuột: khi bị hạ, để lại 2 chuột con (20% chỉ số)"
+   },
+   "statsV2": {
+    "hp": 35,
+    "atk": 70,
+    "def": 45,
+    "spa": 50,
+    "spd": 55,
+    "spe": 145
    }
   },
   {
@@ -2782,12 +3243,11 @@
    "tier": 1,
    "statNote": "Chuột: nhỏ, cực nhanh, yếu",
    "stats": {
-    "hp": 60,
-    "atk": 75,
-    "def": 45,
-    "spa": 50,
-    "spd": 55,
-    "spe": 115
+    "hp": 570,
+    "atk": 47,
+    "aspd": 0.75,
+    "armor": 15,
+    "energy": 90
    },
    "attackType": "Ground",
    "attackClass": "physical",
@@ -2806,6 +3266,14 @@
     },
     "passive": "Gặm Nhấm: đòn đánh giảm 3 Phòng thủ của mục tiêu (cộng dồn 5 / 7 / 10 lần)",
     "star3": "Đại Dịch: Độc của Mầm Bệnh lây thêm 1 lần nữa khi mục tiêu bị hạ"
+   },
+   "statsV2": {
+    "hp": 60,
+    "atk": 75,
+    "def": 45,
+    "spa": 50,
+    "spd": 55,
+    "spe": 115
    }
   },
   {
@@ -2838,7 +3306,15 @@
    "attackClass": "physical",
    "range": 1,
    "dex": 64,
-   "status": "later"
+   "status": "later",
+   "statsV2": {
+    "hp": 50,
+    "atk": 70,
+    "def": 45,
+    "spa": 50,
+    "spd": 55,
+    "spe": 130
+   }
   },
   {
    "id": 67,
@@ -2863,12 +3339,11 @@
    "tier": 1,
    "statNote": "Thú cỡ lớn: máu, tấn công, phòng thủ cao; chậm",
    "stats": {
-    "hp": 110,
-    "atk": 85,
-    "def": 85,
-    "spa": 35,
-    "spd": 60,
-    "spe": 25
+    "hp": 770,
+    "atk": 43,
+    "aspd": 0.55,
+    "armor": 29,
+    "energy": 60
    },
    "attackType": "Ground",
    "attackClass": "physical",
@@ -2895,6 +3370,14 @@
     },
     "passive": "Con Trâu Là Đầu Cơ Nghiệp: +10% / 15% / 20% Máu",
     "star3": "Đầu Cơ Nghiệp: +1 vàng mỗi lần Trâu hạ được kẻ địch (tối đa 2 vàng mỗi vòng)"
+   },
+   "statsV2": {
+    "hp": 110,
+    "atk": 85,
+    "def": 85,
+    "spa": 35,
+    "spd": 60,
+    "spe": 25
    }
   },
   {
@@ -2915,12 +3398,11 @@
    "tier": 1,
    "statNote": "Dê: cứng cáp, leo trèo giỏi",
    "stats": {
-    "hp": 70,
-    "atk": 70,
-    "def": 75,
-    "spa": 40,
-    "spd": 70,
-    "spe": 75
+    "hp": 630,
+    "atk": 39,
+    "aspd": 0.65,
+    "armor": 29,
+    "energy": 70
    },
    "attackType": "Rock",
    "attackClass": "physical",
@@ -2939,6 +3421,14 @@
     },
     "passive": "Leo Vách: 15% / 20% / 25% né đòn",
     "star3": "Dê Núi Đá: Húc Đầu đẩy lùi 2 ô và gây thêm sát thương nếu mục tiêu va vào kẻ khác"
+   },
+   "statsV2": {
+    "hp": 70,
+    "atk": 70,
+    "def": 75,
+    "spa": 40,
+    "spd": 70,
+    "spe": 75
    }
   },
   {
@@ -2959,12 +3449,11 @@
    "tier": 1,
    "statNote": "Ngựa: bền sức, chạy nhanh",
    "stats": {
-    "hp": 60,
-    "atk": 75,
-    "def": 50,
-    "spa": 50,
-    "spd": 60,
-    "spe": 105
+    "hp": 480,
+    "atk": 35,
+    "aspd": 0.65,
+    "armor": 13,
+    "energy": 100
    },
    "attackType": "Ground",
    "attackClass": "physical",
@@ -2983,6 +3472,14 @@
     },
     "passive": "Bền Sức: đồng đội kề bên +6% / 8% / 10% Tốc độ",
     "star3": "Ngựa Trạm: Thồ Hàng còn hồi 15% máu cho đồng đội được chở"
+   },
+   "statsV2": {
+    "hp": 60,
+    "atk": 75,
+    "def": 50,
+    "spa": 50,
+    "spd": 60,
+    "spe": 105
    }
   },
   {
@@ -3003,12 +3500,11 @@
    "tier": 1,
    "statNote": "Vịt: cân bằng, lội nước giỏi",
    "stats": {
-    "hp": 65,
-    "atk": 65,
-    "def": 65,
-    "spa": 65,
-    "spd": 70,
-    "spe": 70
+    "hp": 500,
+    "atk": 33,
+    "aspd": 0.55,
+    "armor": 18,
+    "energy": 70
    },
    "attackType": "Water",
    "attackClass": "physical",
@@ -3027,6 +3523,14 @@
     },
     "passive": "Ăn Ốc: +50% sát thương lên Ốc Bươu Vàng; 10% / 15% / 20% né đòn hệ Nước",
     "star3": "Đàn Vịt Đồng: Lội Ruộng hồi cho cả đội 8% máu"
+   },
+   "statsV2": {
+    "hp": 65,
+    "atk": 65,
+    "def": 65,
+    "spa": 65,
+    "spd": 70,
+    "spe": 70
    }
   },
   {
@@ -3047,12 +3551,11 @@
    "tier": 1,
    "statNote": "Chim lội nước: nhanh, mổ từ xa",
    "stats": {
-    "hp": 55,
-    "atk": 65,
-    "def": 45,
-    "spa": 75,
-    "spd": 60,
-    "spe": 100
+    "hp": 440,
+    "atk": 37,
+    "aspd": 0.7,
+    "armor": 2,
+    "energy": 70
    },
    "attackType": "Sky",
    "attackClass": "special",
@@ -3071,6 +3574,14 @@
     },
     "passive": "Cò Theo Trâu: đứng cạnh Trâu thì cả hai +10% / 15% / 20% Tốc độ",
     "star3": "Cánh Cò Bay Lả: là VieAni Bay; kỹ năng trúng thêm 1 mục tiêu"
+   },
+   "statsV2": {
+    "hp": 55,
+    "atk": 65,
+    "def": 45,
+    "spa": 75,
+    "spd": 60,
+    "spe": 100
    }
   },
   {
@@ -3090,12 +3601,11 @@
    "tier": 1,
    "statNote": "Chim nhỏ: rất nhanh, yếu",
    "stats": {
-    "hp": 55,
-    "atk": 60,
-    "def": 40,
-    "spa": 75,
-    "spd": 60,
-    "spe": 110
+    "hp": 460,
+    "atk": 35,
+    "aspd": 0.65,
+    "armor": 11,
+    "energy": 80
    },
    "attackType": "Sky",
    "attackClass": "special",
@@ -3122,6 +3632,14 @@
     },
     "passive": "Bầy Sẻ: +5% / 7% / 10% Tốc độ cho mỗi VieAni hệ Trời trên sân",
     "star3": "Chim Sẻ Báo Tin: đầu trận cả đội +10% né đòn 4 giây"
+   },
+   "statsV2": {
+    "hp": 55,
+    "atk": 60,
+    "def": 40,
+    "spa": 75,
+    "spd": 60,
+    "spe": 110
    }
   },
   {
@@ -3145,12 +3663,11 @@
    "tier": 1,
    "statNote": "Chim nhỏ: rất nhanh, yếu",
    "stats": {
-    "hp": 55,
-    "atk": 60,
-    "def": 40,
-    "spa": 85,
-    "spd": 60,
-    "spe": 100
+    "hp": 440,
+    "atk": 40,
+    "aspd": 0.7,
+    "armor": 1,
+    "energy": 100
    },
    "attackType": "Sky",
    "attackClass": "special",
@@ -3169,6 +3686,14 @@
     },
     "passive": "Lắm Lời: đòn đánh 10% / 15% / 20% làm Câm lặng mục tiêu 1 giây (không dùng được kỹ năng)",
     "star3": "Sáo Nói Tiếng Người: kỹ năng sao chép giữ 100% sức mạnh"
+   },
+   "statsV2": {
+    "hp": 55,
+    "atk": 60,
+    "def": 40,
+    "spa": 85,
+    "spd": 60,
+    "spe": 100
    }
   },
   {
@@ -3200,7 +3725,15 @@
    "attackClass": "physical",
    "range": 1,
    "dex": 54,
-   "status": "later"
+   "status": "later",
+   "statsV2": {
+    "hp": 70,
+    "atk": 70,
+    "def": 70,
+    "spa": 55,
+    "spd": 70,
+    "spe": 65
+   }
   },
   {
    "id": 75,
@@ -3219,12 +3752,11 @@
    "tier": 1,
    "statNote": "Cá chép: dai sức, tiềm năng hóa rồng = tấn công ĐB",
    "stats": {
-    "hp": 70,
-    "atk": 60,
-    "def": 65,
-    "spa": 75,
-    "spd": 75,
-    "spe": 55
+    "hp": 500,
+    "atk": 37,
+    "aspd": 0.6,
+    "armor": 9,
+    "energy": 60
    },
    "attackType": "Water",
    "attackClass": "special",
@@ -3251,6 +3783,14 @@
     },
     "passive": "Cá Chép Hóa Rồng: sống sót 20 giây trên sân thì hóa Rồng Con (thêm hệ Huyền thoại, chỉ số ×1,3 / ×1,4 / ×1,5, có Bay) đến hết trận",
     "star3": "Long Môn: hóa rồng sau 12 giây và Rồng Con giữ kỹ năng Hô Mưa Gọi Sấm (50% sức mạnh)"
+   },
+   "statsV2": {
+    "hp": 70,
+    "atk": 60,
+    "def": 65,
+    "spa": 75,
+    "spd": 75,
+    "spe": 55
    }
   },
   {
@@ -3281,7 +3821,15 @@
    "attackClass": "physical",
    "range": 1,
    "dex": 53,
-   "status": "later"
+   "status": "later",
+   "statsV2": {
+    "hp": 70,
+    "atk": 95,
+    "def": 60,
+    "spa": 40,
+    "spd": 55,
+    "spe": 80
+   }
   },
   {
    "id": 77,
@@ -3301,12 +3849,11 @@
    "tier": 1,
    "statNote": "Cua: mai cứng, càng kẹp mạnh, chậm",
    "stats": {
-    "hp": 60,
-    "atk": 85,
-    "def": 115,
-    "spa": 30,
-    "spd": 65,
-    "spe": 45
+    "hp": 630,
+    "atk": 43,
+    "aspd": 0.6,
+    "armor": 35,
+    "energy": 60
    },
    "attackType": "Water",
    "attackClass": "physical",
@@ -3333,6 +3880,14 @@
     },
     "passive": "Càng Kẹp: đòn đánh 10% / 15% / 20% giữ chân mục tiêu 1 giây",
     "star3": "Mai Cứng: khi ụ cát sụp, Cua +30% Phòng thủ 4 giây"
+   },
+   "statsV2": {
+    "hp": 60,
+    "atk": 85,
+    "def": 115,
+    "spa": 30,
+    "spd": 65,
+    "spe": 45
    }
   },
   {
@@ -3352,12 +3907,11 @@
    "tier": 1,
    "statNote": "Ốc: vỏ rất cứng, rất chậm",
    "stats": {
-    "hp": 75,
-    "atk": 45,
-    "def": 120,
-    "spa": 45,
-    "spd": 95,
-    "spe": 20
+    "hp": 650,
+    "atk": 36,
+    "aspd": 0.55,
+    "armor": 35,
+    "energy": 60
    },
    "attackType": "Water",
    "attackClass": "physical",
@@ -3376,6 +3930,14 @@
     },
     "passive": "Ngoại Lai: mỗi 8 giây đẻ 1 ốc con (10% / 12% / 15% chỉ số) cản đường",
     "star3": "Ốc Bươu Vàng Phá Lúa: ốc con làm chậm 15% kẻ địch chạm vào"
+   },
+   "statsV2": {
+    "hp": 75,
+    "atk": 45,
+    "def": 120,
+    "spa": 45,
+    "spd": 95,
+    "spe": 20
    }
   },
   {
@@ -3395,12 +3957,11 @@
    "tier": 1,
    "statNote": "Bò sát nhỏ: nhanh, phóng lưỡi/ngoạm bắt mồi",
    "stats": {
-    "hp": 50,
-    "atk": 70,
-    "def": 55,
-    "spa": 70,
-    "spd": 60,
-    "spe": 95
+    "hp": 470,
+    "atk": 55,
+    "aspd": 0.85,
+    "armor": 12,
+    "energy": 70
    },
    "attackType": "Rock",
    "attackClass": "physical",
@@ -3419,6 +3980,14 @@
     },
     "passive": "Bám Tường: tầm đánh vô hạn với hệ Côn trùng; 10% / 15% / 20% né đòn",
     "star3": "Thạch Sùng Kêu: Tặc Lưỡi trúng thêm 1 Côn trùng nữa"
+   },
+   "statsV2": {
+    "hp": 50,
+    "atk": 70,
+    "def": 55,
+    "spa": 70,
+    "spd": 60,
+    "spe": 95
    }
   },
   {
@@ -3443,12 +4012,11 @@
    "tier": 1,
    "statNote": "Bò sát nhỏ: nhanh, phóng lưỡi/ngoạm bắt mồi",
    "stats": {
-    "hp": 60,
-    "atk": 70,
-    "def": 55,
-    "spa": 60,
-    "spd": 60,
-    "spe": 95
+    "hp": 510,
+    "atk": 55,
+    "aspd": 0.85,
+    "armor": 12,
+    "energy": 70
    },
    "attackType": "Ground",
    "attackClass": "physical",
@@ -3467,6 +4035,14 @@
     },
     "passive": "Đứt Đuôi: lần đầu nhận đòn chí tử còn lại 1 máu và chạy ra xa (★2 còn 10% máu, ★3 còn 20%)",
     "star3": "Đuôi Mọc Lại: sau Đứt Đuôi, hồi 30% máu trong 3 giây"
+   },
+   "statsV2": {
+    "hp": 60,
+    "atk": 70,
+    "def": 55,
+    "spa": 60,
+    "spd": 60,
+    "spe": 95
    }
   },
   {
@@ -3487,12 +4063,11 @@
    "tier": 1,
    "statNote": "Cóc: chậm, nhựa độc = tấn công ĐB",
    "stats": {
-    "hp": 75,
-    "atk": 55,
-    "def": 65,
-    "spa": 85,
-    "spd": 75,
-    "spe": 45
+    "hp": 530,
+    "atk": 38,
+    "aspd": 0.55,
+    "armor": 19,
+    "energy": 70
    },
    "attackType": "Poison",
    "attackClass": "special",
@@ -3519,6 +4094,14 @@
     },
     "passive": "Cậu Ông Trời: kẻ địch đánh Cóc bị sét đánh (hệ Điện, 15% máu tối đa của kẻ đó); hồi chiêu 12 / 10 / 8 giây",
     "star3": "Cóc Kiện Trời: Cua, Hổ, Gấu, Ong cùng phe lập tức ra đòn mỗi khi Cóc nghiến răng"
+   },
+   "statsV2": {
+    "hp": 75,
+    "atk": 55,
+    "def": 65,
+    "spa": 85,
+    "spd": 75,
+    "spe": 45
    }
   },
   {
@@ -3549,7 +4132,15 @@
    "attackClass": "physical",
    "range": 1,
    "dex": 71,
-   "status": "removed"
+   "status": "removed",
+   "statsV2": {
+    "hp": 55,
+    "atk": 75,
+    "def": 55,
+    "spa": 60,
+    "spd": 60,
+    "spe": 95
+   }
   },
   {
    "id": 83,
@@ -3568,12 +4159,11 @@
    "tier": 1,
    "statNote": "Gián: nhanh nhất, rất khó bị đánh trúng",
    "stats": {
-    "hp": 55,
-    "atk": 55,
-    "def": 55,
-    "spa": 35,
-    "spd": 55,
-    "spe": 145
+    "hp": 490,
+    "atk": 54,
+    "aspd": 0.95,
+    "armor": 10,
+    "energy": 90
    },
    "attackType": "Insect",
    "attackClass": "physical",
@@ -3592,6 +4182,14 @@
     },
     "passive": "Bất Tử: 25% / 30% / 35% né đòn; khi máu dưới 20%, chạy khỏi tầm đánh 2 giây",
     "star3": "Gián Bay: khi Chạy Trốn thì được Bay"
+   },
+   "statsV2": {
+    "hp": 55,
+    "atk": 55,
+    "def": 55,
+    "spa": 35,
+    "spd": 55,
+    "spe": 145
    }
   },
   {
@@ -3612,12 +4210,11 @@
    "tier": 1,
    "statNote": "Muỗi: mong manh, rất nhanh, hút máu = tấn công ĐB",
    "stats": {
-    "hp": 35,
-    "atk": 65,
-    "def": 35,
-    "spa": 90,
-    "spd": 50,
-    "spe": 125
+    "hp": 400,
+    "atk": 41,
+    "aspd": 0.7,
+    "armor": 0,
+    "energy": 80
    },
    "attackType": "Insect",
    "attackClass": "special",
@@ -3636,6 +4233,14 @@
     },
     "passive": "Truyền Bệnh: 15% / 20% / 25% đòn đánh gây Sốt 3 giây",
     "star3": "Muỗi Vằn Sốt Xuất Huyết: Sốt còn khiến mục tiêu mất 2% máu mỗi giây"
+   },
+   "statsV2": {
+    "hp": 35,
+    "atk": 65,
+    "def": 35,
+    "spa": 90,
+    "spd": 50,
+    "spe": 125
    }
   },
   {
@@ -3656,12 +4261,11 @@
    "tier": 1,
    "statNote": "Đom đóm: ánh sáng = tấn công ĐB",
    "stats": {
-    "hp": 45,
-    "atk": 40,
-    "def": 50,
-    "spa": 105,
-    "spd": 70,
-    "spe": 90
+    "hp": 400,
+    "atk": 44,
+    "aspd": 0.7,
+    "armor": 5,
+    "energy": 80
    },
    "attackType": "Insect",
    "attackClass": "special",
@@ -3680,6 +4284,14 @@
     },
     "passive": "Đèn Đêm: đồng đội kề bên +10% / 15% / 20% chính xác (bỏ qua né đòn)",
     "star3": "Đom Đóm Sáng Rực: Lập Lòe cho đồng đội trong vùng +15% Tấn công ĐB 4 giây"
+   },
+   "statsV2": {
+    "hp": 45,
+    "atk": 40,
+    "def": 50,
+    "spa": 105,
+    "spd": 70,
+    "spe": 90
    }
   },
   {
@@ -3700,12 +4312,11 @@
    "tier": 1,
    "statNote": "Kiến: khỏe so với thân hình, vỏ cứng",
    "stats": {
-    "hp": 50,
-    "atk": 95,
-    "def": 75,
-    "spa": 40,
-    "spd": 55,
-    "spe": 85
+    "hp": 540,
+    "atk": 53,
+    "aspd": 0.75,
+    "armor": 21,
+    "energy": 70
    },
    "attackType": "Insect",
    "attackClass": "physical",
@@ -3724,6 +4335,14 @@
     },
     "passive": "Tổ Kiến: +5% Tấn công mỗi 3 giây (cộng dồn 4 / 5 / 6 lần)",
     "star3": "Lửa Kiến: ×2 lượng máu mất do Bỏng"
+   },
+   "statsV2": {
+    "hp": 50,
+    "atk": 95,
+    "def": 75,
+    "spa": 40,
+    "spd": 55,
+    "spe": 85
    }
   },
   {
@@ -3747,12 +4366,11 @@
    "tier": 1,
    "statNote": "Kiến: khỏe so với thân hình, vỏ cứng",
    "stats": {
-    "hp": 50,
-    "atk": 95,
-    "def": 85,
-    "spa": 30,
-    "spd": 55,
-    "spe": 85
+    "hp": 540,
+    "atk": 53,
+    "aspd": 0.75,
+    "armor": 23,
+    "energy": 70
    },
    "attackType": "Insect",
    "attackClass": "physical",
@@ -3771,6 +4389,14 @@
     },
     "passive": "Kiến Thợ Dệt: +10% / 15% / 20% Phòng thủ khi đứng cạnh một đồng đội hệ Cỏ",
     "star3": "Thiên Địch Sâu Bọ: ×2 lượng Phòng thủ cộng thêm của Canh Vườn"
+   },
+   "statsV2": {
+    "hp": 50,
+    "atk": 95,
+    "def": 85,
+    "spa": 30,
+    "spd": 55,
+    "spe": 85
    }
   },
   {
@@ -3791,12 +4417,11 @@
    "tier": 1,
    "statNote": "Ong: ngòi đốt mạnh, mong manh",
    "stats": {
-    "hp": 45,
-    "atk": 100,
-    "def": 40,
-    "spa": 70,
-    "spd": 45,
-    "spe": 100
+    "hp": 450,
+    "atk": 66,
+    "aspd": 0.85,
+    "armor": 5,
+    "energy": 90
    },
    "attackType": "Insect",
    "attackClass": "physical",
@@ -3815,6 +4440,14 @@
     },
     "passive": "Bầy Ong: mỗi Ong trên sân +5% / 7% / 10% Tấn công cho Côn trùng đồng đội",
     "star3": "Ong Chúa Phù Hộ: Ngòi Chết chỉ làm Ong mất 20% máu"
+   },
+   "statsV2": {
+    "hp": 45,
+    "atk": 100,
+    "def": 40,
+    "spa": 70,
+    "spd": 45,
+    "spe": 100
    }
   },
   {
@@ -3834,12 +4467,11 @@
    "tier": 1,
    "statNote": "Ve sầu: tiếng kêu = tấn công ĐB, vỏ cứng",
    "stats": {
-    "hp": 60,
-    "atk": 45,
-    "def": 70,
-    "spa": 95,
-    "spd": 75,
-    "spe": 55
+    "hp": 460,
+    "atk": 42,
+    "aspd": 0.6,
+    "armor": 10,
+    "energy": 50
    },
    "attackType": "Insect",
    "attackClass": "special",
@@ -3858,6 +4490,14 @@
     },
     "passive": "Vỏ Ve: +10% / 15% / 20% Phòng thủ",
     "star3": "Lột Xác: 1 lần mỗi trận, khi máu dưới 30% hồi 30% máu"
+   },
+   "statsV2": {
+    "hp": 60,
+    "atk": 45,
+    "def": 70,
+    "spa": 95,
+    "spd": 75,
+    "spe": 55
    }
   },
   {
@@ -3878,12 +4518,11 @@
    "tier": 1,
    "statNote": "Châu chấu: nhảy xa, đá mạnh",
    "stats": {
-    "hp": 55,
-    "atk": 85,
-    "def": 55,
-    "spa": 40,
-    "spd": 55,
-    "spe": 110
+    "hp": 540,
+    "atk": 50,
+    "aspd": 0.75,
+    "armor": 17,
+    "energy": 80
    },
    "attackType": "Insect",
    "attackClass": "physical",
@@ -3902,6 +4541,14 @@
     },
     "passive": "Liều Mạng: +30% / 40% / 50% sát thương lên kẻ địch có bậc cao hơn",
     "star3": "Đẩy Xe: đòn đánh có 20% đẩy lùi kẻ địch bậc cao hơn 1 ô"
+   },
+   "statsV2": {
+    "hp": 55,
+    "atk": 85,
+    "def": 55,
+    "spa": 40,
+    "spd": 55,
+    "spe": 110
    }
   },
   {
@@ -3922,12 +4569,11 @@
    "tier": 1,
    "statNote": "Chuồn chuồn: bay cực nhanh, săn mồi trên không",
    "stats": {
-    "hp": 50,
-    "atk": 80,
-    "def": 40,
-    "spa": 55,
-    "spd": 55,
-    "spe": 120
+    "hp": 470,
+    "atk": 58,
+    "aspd": 0.95,
+    "armor": 7,
+    "energy": 80
    },
    "attackType": "Insect",
    "attackClass": "physical",
@@ -3946,6 +4592,14 @@
     },
     "passive": "Báo Mưa: đồng đội hệ Nước +6% / 8% / 10% sát thương ('chuồn chuồn bay thấp thì mưa')",
     "star3": "Cắn Rốn Biết Bơi: 1 lần mỗi trận giúp 1 đồng đội miễn nhiễm sát thương hệ Nước 5 giây"
+   },
+   "statsV2": {
+    "hp": 50,
+    "atk": 80,
+    "def": 40,
+    "spa": 55,
+    "spd": 55,
+    "spe": 120
    }
   },
   {
@@ -3966,12 +4620,11 @@
    "tier": 1,
    "statNote": "Bọ ngựa: chân lưỡi hái, tấn công rất mạnh",
    "stats": {
-    "hp": 55,
-    "atk": 110,
-    "def": 55,
-    "spa": 40,
-    "spd": 55,
-    "spe": 85
+    "hp": 490,
+    "atk": 66,
+    "aspd": 0.8,
+    "armor": 10,
+    "energy": 60
    },
    "attackType": "Insect",
    "attackClass": "physical",
@@ -3990,6 +4643,14 @@
     },
     "passive": "Rình Vồ: đòn đầu tiên trong trận ×1,5 / ×2 / ×2,5 sát thương",
     "star3": "Bọ Ngựa Cái: hạ được kẻ địch thì hồi 30% máu"
+   },
+   "statsV2": {
+    "hp": 55,
+    "atk": 110,
+    "def": 55,
+    "spa": 40,
+    "spd": 55,
+    "spe": 85
    }
   },
   {
@@ -4010,12 +4671,11 @@
    "tier": 2,
    "statNote": "Heo: máu rất dày, khỏe, chậm",
    "stats": {
-    "hp": 105,
-    "atk": 85,
-    "def": 85,
-    "spa": 40,
-    "spd": 70,
-    "spe": 55
+    "hp": 790,
+    "atk": 57,
+    "aspd": 0.65,
+    "armor": 26,
+    "energy": 70
    },
    "attackType": "Ground",
    "attackClass": "physical",
@@ -4034,6 +4694,14 @@
     },
     "passive": "Nanh Lợn Lòi: +10% / 15% / 20% sát thương khi máu dưới 50%",
     "star3": "Hung Hãn: Húc xuyên qua mục tiêu và trúng cả kẻ đứng sau"
+   },
+   "statsV2": {
+    "hp": 105,
+    "atk": 85,
+    "def": 85,
+    "spa": 40,
+    "spd": 70,
+    "spe": 55
    }
   },
   {
@@ -4065,7 +4733,15 @@
    "attackClass": "physical",
    "range": 1,
    "dex": 100,
-   "status": "later"
+   "status": "later",
+   "statsV2": {
+    "hp": 70,
+    "atk": 110,
+    "def": 60,
+    "spa": 45,
+    "spd": 60,
+    "spe": 95
+   }
   },
   {
    "id": 95,
@@ -4097,7 +4773,15 @@
    "attackClass": "special",
    "range": 3,
    "dex": 98,
-   "status": "later"
+   "status": "later",
+   "statsV2": {
+    "hp": 65,
+    "atk": 65,
+    "def": 60,
+    "spa": 80,
+    "spd": 75,
+    "spe": 95
+   }
   },
   {
    "id": 96,
@@ -4116,12 +4800,11 @@
    "tier": 2,
    "statNote": "Thú nhỏ: rất nhanh nhưng yếu",
    "stats": {
-    "hp": 65,
-    "atk": 75,
-    "def": 55,
-    "spa": 50,
-    "spd": 65,
-    "spe": 130
+    "hp": 570,
+    "atk": 40,
+    "aspd": 0.65,
+    "armor": 16,
+    "energy": 90
    },
    "attackType": "Grass",
    "attackClass": "physical",
@@ -4140,6 +4823,14 @@
     },
     "passive": "Nhảy Cành: 15% / 20% / 25% né đòn",
     "star3": "Kho Hạt Mùa Đông: Tích Trữ Hạt cho 2 đồng đội"
+   },
+   "statsV2": {
+    "hp": 65,
+    "atk": 75,
+    "def": 55,
+    "spa": 50,
+    "spd": 65,
+    "spe": 130
    }
   },
   {
@@ -4159,12 +4850,11 @@
    "tier": 2,
    "statNote": "Thú móng guốc rừng: nhanh, khá cân bằng",
    "stats": {
-    "hp": 75,
-    "atk": 80,
-    "def": 65,
-    "spa": 50,
-    "spd": 75,
-    "spe": 95
+    "hp": 610,
+    "atk": 42,
+    "aspd": 0.6,
+    "armor": 19,
+    "energy": 80
    },
    "attackType": "Grass",
    "attackClass": "physical",
@@ -4183,6 +4873,14 @@
     },
     "passive": "Nhanh Chân: 10% / 15% / 20% né đòn",
     "star3": "Rừng Có Mắt: Sủa Báo Động làm lộ diện kẻ địch Ẩn mình và −15% chính xác của kẻ địch trong 2 ô"
+   },
+   "statsV2": {
+    "hp": 75,
+    "atk": 80,
+    "def": 65,
+    "spa": 50,
+    "spd": 75,
+    "spe": 95
    }
   },
   {
@@ -4202,12 +4900,11 @@
    "tier": 2,
    "statNote": "Bò sát nhỏ: nhanh, phóng lưỡi/ngoạm bắt mồi",
    "stats": {
-    "hp": 60,
-    "atk": 75,
-    "def": 60,
-    "spa": 75,
-    "spd": 65,
-    "spe": 105
+    "hp": 590,
+    "atk": 65,
+    "aspd": 0.85,
+    "armor": 14,
+    "energy": 100
    },
    "attackType": "Rock",
    "attackClass": "physical",
@@ -4226,6 +4923,14 @@
     },
     "passive": "Ngoạm Chặt: đòn đánh 10% / 15% / 20% giữ chân mục tiêu 2 giây",
     "star3": "Tắc Kè Kêu Mưa: sau Tàng Hình, đòn đầu tiên chí mạng và Choáng 1 giây"
+   },
+   "statsV2": {
+    "hp": 60,
+    "atk": 75,
+    "def": 60,
+    "spa": 75,
+    "spd": 65,
+    "spe": 105
    }
   },
   {
@@ -4246,12 +4951,11 @@
    "tier": 2,
    "statNote": "Rắn độc: nọc độc = tấn công ĐB",
    "stats": {
-    "hp": 65,
-    "atk": 70,
-    "def": 55,
-    "spa": 100,
-    "spd": 70,
-    "spe": 80
+    "hp": 540,
+    "atk": 49,
+    "aspd": 0.65,
+    "armor": 7,
+    "energy": 70
    },
    "attackType": "Poison",
    "attackClass": "special",
@@ -4282,6 +4986,14 @@
     },
     "passive": "Ngọc Rắn: né kỹ năng đầu tiên nhắm vào mình",
     "star3": "Rồng Rắn Lên Mây: đứng cạnh Rồng (Rồng Lạc Việt hoặc Rồng Con) thì được Bay và +20% Tấn công ĐB"
+   },
+   "statsV2": {
+    "hp": 65,
+    "atk": 70,
+    "def": 55,
+    "spa": 100,
+    "spd": 70,
+    "spe": 80
    }
   },
   {
@@ -4302,12 +5014,11 @@
    "tier": 2,
    "statNote": "Trăn: to khỏe, siết mồi, chậm",
    "stats": {
-    "hp": 110,
-    "atk": 105,
-    "def": 80,
-    "spa": 35,
-    "spd": 65,
-    "spe": 45
+    "hp": 790,
+    "atk": 64,
+    "aspd": 0.65,
+    "armor": 25,
+    "energy": 70
    },
    "attackType": "Ground",
    "attackClass": "physical",
@@ -4334,6 +5045,14 @@
     },
     "passive": "Da Gấm: giảm 10% / 15% / 20% sát thương ĐB nhận vào",
     "star3": "Rồng Rắn Lên Mây: đứng cạnh Rồng (Rồng Lạc Việt hoặc Rồng Con) thì được Bay; Siết Chặt kéo dài thêm 1 giây"
+   },
+   "statsV2": {
+    "hp": 110,
+    "atk": 105,
+    "def": 80,
+    "spa": 35,
+    "spd": 65,
+    "spe": 45
    }
   },
   {
@@ -4354,12 +5073,11 @@
    "tier": 2,
    "statNote": "Cá đuối điện: phóng điện = tấn công ĐB",
    "stats": {
-    "hp": 70,
-    "atk": 60,
-    "def": 70,
-    "spa": 100,
-    "spd": 80,
-    "spe": 60
+    "hp": 560,
+    "atk": 49,
+    "aspd": 0.6,
+    "armor": 11,
+    "energy": 70
    },
    "attackType": "Water",
    "attackClass": "special",
@@ -4378,6 +5096,14 @@
     },
     "passive": "Da Tích Điện: 15% / 20% / 25% làm tê liệt kẻ đánh cận chiến 1 giây",
     "star3": "Lưới Điện: Phóng Điện nảy 5 lần"
+   },
+   "statsV2": {
+    "hp": 70,
+    "atk": 60,
+    "def": 70,
+    "spa": 100,
+    "spd": 80,
+    "spe": 60
    }
   },
   {
@@ -4398,12 +5124,11 @@
    "tier": 2,
    "statNote": "Sứa: xúc tu độc = tấn công ĐB, chậm",
    "stats": {
-    "hp": 80,
-    "atk": 45,
-    "def": 60,
-    "spa": 110,
-    "spd": 100,
-    "spe": 45
+    "hp": 590,
+    "atk": 52,
+    "aspd": 0.6,
+    "armor": 13,
+    "energy": 70
    },
    "attackType": "Water",
    "attackClass": "special",
@@ -4422,6 +5147,14 @@
     },
     "passive": "Tế Bào Gai: kẻ đánh cận chiến bị phản 10% / 15% / 20% sát thương dạng độc",
     "star3": "Sứa Bất Tử: 1 lần mỗi trận, khi bị hạ thì hồi lại 30% máu (thủy tức trở lại)"
+   },
+   "statsV2": {
+    "hp": 80,
+    "atk": 45,
+    "def": 60,
+    "spa": 110,
+    "spd": 100,
+    "spe": 45
    }
   },
   {
@@ -4441,12 +5174,11 @@
    "tier": 2,
    "statNote": "Mực: phun mực = tấn công ĐB, nhanh",
    "stats": {
-    "hp": 65,
-    "atk": 65,
-    "def": 60,
-    "spa": 95,
-    "spd": 70,
-    "spe": 85
+    "hp": 540,
+    "atk": 48,
+    "aspd": 0.65,
+    "armor": 8,
+    "energy": 80
    },
    "attackType": "Water",
    "attackClass": "special",
@@ -4465,6 +5197,14 @@
     },
     "passive": "Đổi Màu: 15% / 20% / 25% né đòn tầm xa",
     "star3": "Mực Khổng Lồ: Phun Mực lan bán kính 2 ô"
+   },
+   "statsV2": {
+    "hp": 65,
+    "atk": 65,
+    "def": 60,
+    "spa": 95,
+    "spd": 70,
+    "spe": 85
    }
   },
   {
@@ -4484,12 +5224,11 @@
    "tier": 2,
    "statNote": "Cú: săn đêm, nhanh và chính xác",
    "stats": {
-    "hp": 60,
-    "atk": 85,
-    "def": 60,
-    "spa": 70,
-    "spd": 70,
-    "spe": 95
+    "hp": 590,
+    "atk": 69,
+    "aspd": 0.8,
+    "armor": 15,
+    "energy": 80
    },
    "attackType": "Sky",
    "attackClass": "physical",
@@ -4508,6 +5247,14 @@
     },
     "passive": "Mắt Đêm: không thể bị né đòn bởi kẻ địch Ẩn mình hoặc có né đòn; +5% / 10% / 15% chí mạng",
     "star3": "Cú Vọ: Săn Đêm làm Câm lặng mục tiêu 2 giây"
+   },
+   "statsV2": {
+    "hp": 60,
+    "atk": 85,
+    "def": 60,
+    "spa": 70,
+    "spd": 70,
+    "spe": 95
    }
   },
   {
@@ -4527,12 +5274,11 @@
    "tier": 2,
    "statNote": "Chim săn mồi: móng vuốt mạnh, bay nhanh",
    "stats": {
-    "hp": 55,
-    "atk": 105,
-    "def": 50,
-    "spa": 60,
-    "spd": 60,
-    "spe": 110
+    "hp": 560,
+    "atk": 77,
+    "aspd": 0.85,
+    "armor": 11,
+    "energy": 80
    },
    "attackType": "Sky",
    "attackClass": "physical",
@@ -4551,6 +5297,14 @@
     },
     "passive": "Mắt Diều Hâu: +10% / 15% / 20% chí mạng lên mục tiêu đang đứng một mình (không có đồng đội kề bên)",
     "star3": "Quắp Mồi: Sà Xuống nhấc mục tiêu lên 1 giây (không hành động)"
+   },
+   "statsV2": {
+    "hp": 55,
+    "atk": 105,
+    "def": 50,
+    "spa": 60,
+    "spd": 60,
+    "spe": 110
    }
   },
   {
@@ -4582,7 +5336,15 @@
    "attackClass": "physical",
    "range": 1,
    "dex": 99,
-   "status": "later"
+   "status": "later",
+   "statsV2": {
+    "hp": 100,
+    "atk": 95,
+    "def": 80,
+    "spa": 35,
+    "spd": 65,
+    "spe": 65
+   }
   },
   {
    "id": 107,
@@ -4601,12 +5363,11 @@
    "tier": 3,
    "statNote": "Thú săn mồi: tấn công và tốc độ cao",
    "stats": {
-    "hp": 65,
-    "atk": 120,
-    "def": 65,
-    "spa": 50,
-    "spd": 65,
-    "spe": 115
+    "hp": 680,
+    "atk": 92,
+    "aspd": 0.85,
+    "armor": 16,
+    "energy": 100
    },
    "attackType": "Ground",
    "attackClass": "physical",
@@ -4629,6 +5390,14 @@
     },
     "passive": "Săn Bầy: +5% / 8% / 10% sát thương cho mỗi VieAni Săn Mồi khác trên sân",
     "star3": "Gọi Bầy: triệu hồi 2 sói con (40% chỉ số của Sói Đỏ) có 30% chí mạng"
+   },
+   "statsV2": {
+    "hp": 65,
+    "atk": 120,
+    "def": 65,
+    "spa": 50,
+    "spd": 65,
+    "spe": 115
    }
   },
   {
@@ -4660,7 +5429,15 @@
    "attackClass": "physical",
    "range": 1,
    "dex": 107,
-   "status": "later"
+   "status": "later",
+   "statsV2": {
+    "hp": 65,
+    "atk": 110,
+    "def": 85,
+    "spa": 60,
+    "spd": 75,
+    "spe": 85
+   }
   }
  ],
  "types": [

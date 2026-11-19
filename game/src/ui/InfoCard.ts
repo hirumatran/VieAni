@@ -5,19 +5,14 @@ import { SCREEN_H, SCREEN_W } from "../core/layout";
 import { FONT_UI } from "./widgets";
 import VN from "../../../data/vn_info.json";
 
-// Same look as the VieIndex card (src/vieindex.template.html, dark theme): type-coloured art band,
-// status + tier, #dex, names, type badges, stat bars – plus live battle values.
-const TYPE_HEX: Record<string, number> = {
-  Legendary: 0xc9972b, Water: 0x2f74c8, Ground: 0xa0582c, Rock: 0x7b6f5e, Grass: 0x3a9a4f,
-  Sky: 0x2aa7b8, Insect: 0x8fa81a, Poison: 0x8a3ca6, Fire: 0xe0552a, Electric: 0xf0c808,
+// Same look as the VieIndex card (src/vieindex.template.html, dark theme): tier-coloured art band (v3: no types),
+// status + tier, #dex, names, role, the 5 stats – plus live battle values.
+/** tier colours (grey, green, blue, purple, gold) – same as shop cards and items */
+export const TIER_HEX: Record<number, number> = { 1: 0x7d8590, 2: 0x3f9a5c, 3: 0x2f74c0, 4: 0x8e47c4, 5: 0xc99216 };
+const ROLE_VI_HINT: Record<string, string> = {
+  "Đỡ Đòn": "đứng trước, chịu đòn", "Chiến Đấu": "vừa đánh vừa chịu đòn", "Săn Mồi": "lao vào kẻ yếu, chạy nhanh",
+  "Phép Thuật": "đứng sau, kỹ năng mạnh", "Hỗ Trợ": "đứng sau, giúp đồng đội",
 };
-const TYPE_VI: Record<string, string> = {
-  Legendary: "Huyền thoại", Fire: "Lửa", Water: "Nước", Electric: "Điện", Grass: "Cỏ",
-  Ground: "Đất", Rock: "Đá", Sky: "Trời", Insect: "Côn trùng", Poison: "Độc",
-};
-const STAT_LABEL: [keyof Species["stats"], string][] = [
-  ["hp", "Máu (HP)"], ["atk", "Tấn công"], ["def", "Phòng thủ"], ["spa", "Tấn công ĐB"], ["spd", "Phòng thủ ĐB"], ["spe", "Tốc độ"],
-];
 const CARD = 0x241b14, LINE = 0x3a2c21, INK = "#f3e9db", MUTED = "#b39f8b", GOLD_TXT = "#e7c05f";
 const W = 320, PAD = 14;
 
@@ -111,12 +106,12 @@ export class InfoCard {
       add(sc.add.text(x, y, str, { fontFamily: FONT_UI, fontSize: `${size}px`, color, fontStyle: bold ? "bold" : "normal", wordWrap: wrap ? { width: wrap } : undefined, lineSpacing: 2 }));
     const g = add(sc.add.graphics());
     const sp = s.sp;
-    const main = TYPE_HEX[sp.types.find((t) => t !== "Legendary") ?? sp.types[0]] ?? 0x888888;
+    const main = TIER_HEX[sp.tier] ?? 0x888888;
 
-    // art band (two types: second colour in the lower-right corner, like the VieIndex gradient) + name on a dark strip
+    // art band in the tier colour (lighter at the top) + name on a dark strip
     const ART = 118;
-    g.fillStyle(TYPE_HEX[sp.types[0]] ?? 0x888888, 1).fillRoundedRect(0, 0, W, ART, { tl: 14, tr: 14, bl: 0, br: 0 });
-    if (sp.types[1]) g.fillStyle(TYPE_HEX[sp.types[1]], 1).fillTriangle(W, ART * 0.15, W, ART, W * 0.45, ART);
+    g.fillStyle(main, 1).fillRoundedRect(0, 0, W, ART, { tl: 14, tr: 14, bl: 0, br: 0 });
+    g.fillStyle(0xffffff, 0.12).fillRoundedRect(0, 0, W, ART * 0.45, { tl: 14, tr: 14, bl: 0, br: 0 });
     if (s.tex) {
       const img = add(sc.add.image(W / 2, ART + 4, s.tex, s.texFrame).setOrigin(0.5, 1));
       img.setScale((ART + 6) / img.height);
@@ -162,14 +157,12 @@ export class InfoCard {
     g.fillStyle(cons[0]?.[1] ?? LINE, 1).fillRoundedRect(PAD, blockTop, 3, y - blockTop - 3, 1);
     y += 6;
 
-    // role, types and attack
+    // role (what it does) + reach
     bx = PAD;
-    for (const tp of sp.types) {
-      const tx = text(bx + 8, y + 4, TYPE_VI[tp] ?? tp, 11, tp === "Electric" ? "#2b1d14" : "#ffffff", true);
-      g.fillStyle(TYPE_HEX[tp] ?? 0x888888, 1).fillRoundedRect(bx, y, tx.width + 16, 20, 6);
-      bx += tx.width + 22;
-    }
-    text(bx + 2, y + 3, `${sp.role ?? ""} · ${sp.attackClass === "physical" ? "vật lý" : "đặc biệt"} · tầm ${sp.range}`, 12, MUTED, false, W - bx - PAD);
+    const rtx = text(bx + 8, y + 4, sp.role ?? "", 11.5, "#ffffff", true);
+    g.fillStyle(main, 1).fillRoundedRect(bx, y, rtx.width + 16, 21, 6);
+    bx += rtx.width + 22;
+    text(bx, y + 3, `${ROLE_VI_HINT[sp.role ?? ""] ?? ""} · ${sp.range >= 2 ? `đánh xa (${sp.range} ô)` : "cận chiến"}`, 12, MUTED, false, W - bx - PAD);
     y += 28;
 
     // live HP / energy
@@ -185,24 +178,30 @@ export class InfoCard {
     const hp = s.hp ?? s.maxHp;
     if (full) {
       bar("Máu", `${Math.max(0, Math.round(hp))} / ${s.maxHp}`, hp / s.maxHp, s.side === "A" ? 0x5bd36b : 0xe0533d);
-      bar("Năng lượng", `${Math.round(s.energy)} / ${C.ENERGY_MAX}`, s.energy / C.ENERGY_MAX, 0x5aa9ff);
+      bar("Năng lượng", `${Math.round(s.energy)} / ${sp.stats.energy}`, s.energy / sp.stats.energy, 0x5aa9ff);
     } else {
       text(PAD, y, `Máu ★1: ${s.maxHp}   ·   giá ${sp.tier} vàng`, 12, MUTED, true);
       y += 20;
     }
 
-    // base stats in two columns (VieIndex bars, 150 = full)
+    // the 5 stats (v3) at this ★: Máu, Tấn Công, Tốc Độ Đánh, Giáp, Năng lượng
     y += 3;
-    const colW = (W - 2 * PAD - 12) / 2;
-    STAT_LABEL.forEach(([k, label], i) => {
-      const v = sp.stats[k];
-      const x0 = PAD + (i % 2) * (colW + 12), yy = y + Math.floor(i / 2) * 16;
-      text(x0, yy, label.replace(" (HP)", ""), 11, MUTED, true);
-      text(x0 + 108, yy, String(v), 11.5, INK, true).setOrigin(1, 0);
-      g.fillStyle(LINE, 1).fillRoundedRect(x0 + 113, yy + 4, colW - 113, 6, 3);
-      g.fillStyle(main, 1).fillRoundedRect(x0 + 113, yy + 4, Math.max(4, (colW - 113) * Math.min(1, v / 150)), 6, 3);
-    });
-    y += 48;
+    const m = C.STAR_MULT[s.star - 1];
+    const rows: [string, string, number][] = [
+      ["Máu", String(Math.round(sp.stats.hp * m)), (sp.stats.hp * m) / 2500],
+      ["Tấn Công", String(Math.round(sp.stats.atk * m)), (sp.stats.atk * m) / 200],
+      ["Tốc Độ Đánh", `${num(sp.stats.aspd)} lần/giây`, sp.stats.aspd / 1.1],
+      ["Giáp", `−${sp.stats.armor}% sát thương`, sp.stats.armor / 60],
+      ["Năng lượng", `${sp.stats.energy} để tung kỹ năng`, sp.stats.energy / 150],
+    ];
+    for (const [label, val, frac] of rows) {
+      text(PAD, y, label, 11.5, MUTED, true);
+      text(PAD + 210, y, val, 11.5, INK, true).setOrigin(1, 0);
+      g.fillStyle(LINE, 1).fillRoundedRect(PAD + 218, y + 4, W - 2 * PAD - 218, 6, 3);
+      g.fillStyle(main, 1).fillRoundedRect(PAD + 218, y + 4, Math.max(4, (W - 2 * PAD - 218) * Math.min(1, frac)), 6, 3);
+      y += 16;
+    }
+    y += 6;
 
     // skills
     const k = sp.skills;
@@ -241,7 +240,7 @@ export class InfoCard {
     if (!s.dead && s.fighting && s.targetName) st.push([`Mục tiêu: ${s.targetName}`, 0x8c1c13]);
     if (!s.dead && s.lastMult != null && s.lastMult !== 1)
       st.push([s.lastMult > 1 ? `Đòn khắc ×${num(s.lastMult)} (hệ / thiên địch)` : `Đòn bị kháng ×${num(s.lastMult)}`, s.lastMult > 1 ? 0x3a9a4f : 0x7b6f5e]);
-    if (!s.dead && s.energy >= C.ENERGY_MAX) st.push(["Năng lượng đầy – tung kỹ năng", 0x2f74c8]);
+    if (!s.dead && s.energy >= sp.stats.energy) st.push(["Năng lượng đầy – tung kỹ năng", 0x2f74c8]);
     if (s.where === "board" && !s.fighting) st.push(["Sẵn sàng vào trận", 0x3a9a4f]);
     if (s.item) {
       y += 2;

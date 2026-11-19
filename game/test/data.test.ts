@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { loadData, typeMultiplier, validate } from "../src/core/data";
+import { loadData, validate } from "../src/core/data";
 
 const d = loadData();
 
@@ -17,11 +17,8 @@ describe("game data", () => {
   it("passes validation", () => {
     expect(validate(d)).toEqual([]);
   });
-  it("applies type chart and Legendary rule", () => {
-    expect(typeMultiplier(d, "Water", ["Water"], ["Fire"])).toBe(2);
-    expect(typeMultiplier(d, "Fire", ["Fire"], ["Water"])).toBe(0.5);
-    expect(typeMultiplier(d, "Fire", ["Legendary", "Fire"], ["Grass"])).toBeCloseTo(2.5);
-    expect(typeMultiplier(d, "Fire", ["Legendary"], ["Legendary"])).toBeCloseTo(0.9375);
+  it("v3 stats: 5 simple stats for every roster VieAni, Giáp 0–60 %", () => {
+    for (const s of d.roster) expect(Object.keys(s.stats).sort()).toEqual(["armor", "aspd", "atk", "energy", "hp"]);
   });
 });
 

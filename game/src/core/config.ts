@@ -1,6 +1,6 @@
 // All game-rule numbers in one place (see docs/GDD.md). Balance by editing this file.
 
-export const VERSION = "0.10.0";
+export const VERSION = "0.11.0";
 
 export const PLAYERS = 8;
 export const PLAYER_HP = 100;
@@ -54,13 +54,14 @@ export const SHOP_ODDS: number[][] = [
 
 // --- units / combat ---
 export const STAR_MULT = [1, 1.8, 3.2]; // ★1, ★2, ★3
-export const HP_BASE = 200;
-export const HP_PER_STAT = 10;
-export const DAMAGE_BASE = 40;
+/** Giáp is "% less damage", capped here */
+export const ARMOR_CAP = 60;
 export const DAMAGE_RANDOM: [number, number] = [0.9, 1.1];
-export const ATTACK_INTERVAL_BASE = 2.0; // seconds at Speed 50
-export const ATTACK_INTERVAL_CLAMP: [number, number] = [0.6, 2.5];
+/** seconds between attacks are clamped to this range (Tốc Độ Đánh = attacks per second) */
+export const ATTACK_INTERVAL_CLAMP: [number, number] = [0.4, 3];
 export const MOVE_SECONDS_PER_CELL = 0.4;
+/** movement speed by role (PO 19 Nov 2026, hidden – not a stat): seconds per cell */
+export const ROLE_MOVE_SECONDS: Record<string, number> = { "Săn Mồi": 0.3, "Chiến Đấu": 0.4, "Đỡ Đòn": 0.5, "Phép Thuật": 0.45, "Hỗ Trợ": 0.45 };
 export const CRIT_MULT = 1.5;
 export const ENERGY_MAX = 100;
 export const ENERGY_PER_ATTACK = 10;
@@ -80,20 +81,7 @@ export function itemTierForRound(round: number): number {
   return i >= 0 ? ITEM_ROUND_TIERS[i] : ITEM_ROUND_TIERS[ITEM_ROUND_TIERS.length - 1];
 }
 
-/** what each surviving enemy VieAni adds to the loser's damage: its tier ("tier"), half of it ("halfTier") or 1 ("unit").
- *  17 Nov 2026: with "tier" ×1 a match ended around round 16 (median of 60 bot-vs-bot matches) – too early for rewards up to
- *  round 36 and the Nam Bộ charm (rounds 24/28). "unit" ×0.5: median round 33, 100 % reach round 24, 65 % round 30. */
-export let SURVIVOR_DAMAGE: "tier" | "halfTier" | "unit" = "unit";
-/** the loser's damage (stage + survivors) is multiplied by this, rounded, at least 1 */
-export let DAMAGE_SCALE = 0.5;
-export function setSurvivorDamage(m: typeof SURVIVOR_DAMAGE, scale = 1) { SURVIVOR_DAMAGE = m; DAMAGE_SCALE = scale; }
-/** damage to the losing player before adding surviving enemy unit tiers */
-export function stageDamage(round: number): number {
-  if (round <= 10) return 1;
-  if (round <= 20) return 3;
-  if (round <= 30) return 5;
-  return 8;
-}
+/** player damage = Σ (tier + ★ − 1) of the winner's surviving VieAni – see battle.ts playerDamage (PO 19 Nov 2026) */
 
 export const INVENTORY_MAX = 10;
 export const TEAM_ITEM_SLOTS = 2;

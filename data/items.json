@@ -24,7 +24,7 @@
    "name": "Liềm Gặt",
    "tier": 1,
    "cat": "TC",
-   "effect": "+25% sát thương lên hệ Cỏ",
+   "effect": "+25% sát thương lên VieAni Côn Trùng và Bầy Gặm Nhấm (sâu bọ, chuột phá lúa)",
    "basis": "Liềm gặt lúa của nhà nông",
    "src": ""
   },
@@ -42,7 +42,7 @@
    "name": "Khiên Mây",
    "tier": 1,
    "cat": "PT",
-   "effect": "+15 Phòng thủ",
+   "effect": "+10 Giáp",
    "basis": "Khiên đan bằng mây – vũ khí phòng thân cổ truyền",
    "src": ""
   },
@@ -51,7 +51,7 @@
    "name": "Nón Lá",
    "tier": 1,
    "cat": "PT",
-   "effect": "+10 Phòng thủ ĐB; giảm 15% sát thương từ hệ Lửa và Nước (che nắng che mưa)",
+   "effect": "+5 Giáp; giảm 15% sát thương từ VieAni Biển Đông và Sông Nước (che nắng che mưa)",
    "basis": "Nón lá – biểu tượng của người Việt",
    "src": ""
   },
@@ -60,7 +60,7 @@
    "name": "Áo Tơi Lá",
    "tier": 1,
    "cat": "PT",
-   "effect": "Giảm 30% sát thương từ hệ Nước",
+   "effect": "Giảm 30% sát thương từ VieAni Biển Đông và Sông Nước",
    "basis": "Áo mưa kết bằng lá của nhà nông xưa",
    "src": ""
   },
@@ -78,7 +78,7 @@
    "name": "Bánh Giầy",
    "tier": 1,
    "cat": "HT",
-   "effect": "+15 Phòng thủ ĐB. Đi cặp với Bánh Chưng",
+   "effect": "+8 Giáp. Đi cặp với Bánh Chưng",
    "basis": "Tích Lang Liêu",
    "src": "https://vi.wikipedia.org/wiki/B%C3%A1nh_ch%C6%B0ng"
   },
@@ -123,7 +123,7 @@
    "name": "Quạt Mo",
    "tier": 2,
    "cat": "HT",
-   "effect": "+15% Tốc độ; không thể bị cướp hay đòi vật phẩm (Bờm không đổi quạt)",
+   "effect": "+15% Tốc Độ Đánh; không thể bị cướp hay đòi vật phẩm (Bờm không đổi quạt)",
    "basis": "Thằng Bờm có cái quạt mo, Phú ông xin đổi ba bò chín trâu",
    "src": "https://vi.wikipedia.org/wiki/Th%E1%BA%B1ng_B%E1%BB%9Dm"
   },
@@ -132,7 +132,7 @@
    "name": "Giáo Đồng Đông Sơn",
    "tier": 2,
    "cat": "TC",
-   "effect": "+20 Tấn công; đòn đánh bỏ qua 10% Phòng thủ",
+   "effect": "+20 Tấn Công; đòn đánh bỏ qua 10 Giáp",
    "basis": "Mũi giáo đồng – hiện vật tiêu biểu của văn hóa Đông Sơn",
    "src": ""
   },
@@ -150,7 +150,7 @@
    "name": "Xích Sắt",
    "tier": 2,
    "cat": "NEM",
-   "effect": "Ném xích vào 1 kẻ địch: −25% Tấn công, −40% Tốc độ trong 4 giây",
+   "effect": "Ném xích vào 1 kẻ địch: −25% Tấn Công, −40% Tốc Độ Đánh trong 4 giây",
    "basis": "Ý tưởng của bạn",
    "src": ""
   },
@@ -168,7 +168,7 @@
    "name": "Lưới Đánh Cá",
    "tier": 2,
    "cat": "NEM",
-   "effect": "Trói 1 VieAni hệ Nước 3 giây (hệ khác 1 giây)",
+   "effect": "Trói 1 VieAni Biển Đông / Sông Nước 3 giây (VieAni khác 1 giây)",
    "basis": "Lưới của ngư dân",
    "src": ""
   },
@@ -177,7 +177,7 @@
    "name": "Nơm Bắt Cá",
    "tier": 2,
    "cat": "NEM",
-   "effect": "Úp 1 VieAni hệ Nước bậc 1–2: nhốt 4 giây",
+   "effect": "Úp 1 VieAni Biển Đông / Sông Nước bậc 1–2: nhốt 4 giây",
    "basis": "Nơm tre úp cá ngoài đồng",
    "src": ""
   },
@@ -231,7 +231,7 @@
    "name": "Trống Đồng Đông Sơn",
    "tier": 3,
    "cat": "TD",
-   "effect": "Cả đội +15% Tấn công và +15% Tốc độ. Có Chim Lạc: hiệu ứng ×2",
+   "effect": "Cả đội +15% Tấn Công và +15% Tốc Độ Đánh. Có Chim Lạc: hiệu ứng ×2",
    "basis": "Trống đồng Đông Sơn – trên mặt trống có hình chim Lạc, người nhảy múa quanh mặt trời",
    "src": "https://vi.wikipedia.org/wiki/Tr%E1%BB%91ng_%C4%91%E1%BB%93ng_%C4%90%C3%B4ng_S%C6%A1n"
   },
@@ -267,7 +267,7 @@
    "name": "Cọc Bạch Đằng",
    "tier": 3,
    "cat": "SAN",
-   "effect": "Cắm cọc vào 2 ô: VieAni hệ Nước phe địch đi qua bị trói 2 giây và mất 15% máu",
+   "effect": "Cắm cọc vào 2 ô: VieAni Biển Đông / Sông Nước phe địch đi qua bị trói 2 giây và mất 15% máu",
    "basis": "Ngô Quyền cắm cọc nhọn lòng sông Bạch Đằng, đợi thủy triều rút đánh tan quân Nam Hán (938)",
    "src": "https://vi.wikipedia.org/wiki/Tr%E1%BA%ADn_B%E1%BA%A1ch_%C4%90%E1%BA%B1ng_(938)"
   },
@@ -339,7 +339,7 @@
    "name": "Cồng Chiêng Tây Nguyên",
    "tier": 3,
    "cat": "TD",
-   "effect": "Cả đội +10% Tốc độ; mỗi 10 giây hồi 5% máu cho cả đội",
+   "effect": "Cả đội +10% Tốc Độ Đánh; mỗi 10 giây hồi 5% máu cho cả đội",
    "basis": "Không gian văn hóa Cồng chiêng Tây Nguyên – di sản UNESCO",
    "src": ""
   },
@@ -384,7 +384,7 @@
    "name": "Áo Giáp Vàng Bà Triệu",
    "tier": 4,
    "cat": "PT",
-   "effect": "+30 Phòng thủ; đứng cạnh Voi thì +20% Tấn công",
+   "effect": "+20 Giáp; đứng cạnh Voi thì +20% Tấn Công",
    "basis": "Bà Triệu mặc áo giáp vàng, cưỡi voi trắng một ngà",
    "src": "https://vi.wikipedia.org/wiki/B%C3%A0_Tri%E1%BB%87u"
   },
@@ -393,7 +393,7 @@
    "name": "Guốc Ngà",
    "tier": 4,
    "cat": "HT",
-   "effect": "+25% Tốc độ; miễn nhiễm làm chậm",
+   "effect": "+25% Tốc Độ Đánh; miễn nhiễm làm chậm",
    "basis": "Bà Triệu đi guốc ngà ra trận",
    "src": "https://vi.wikipedia.org/wiki/B%C3%A0_Tri%E1%BB%87u"
   },
@@ -411,7 +411,7 @@
    "name": "Búa Tầm Sét",
    "tier": 4,
    "cat": "TC",
-   "effect": "Mỗi đòn đánh có 20% gọi sét (sát thương hệ Điện lên mục tiêu và 1 kẻ địch kề bên)",
+   "effect": "Mỗi đòn đánh có 20% gọi sét: thêm sát thương lên mục tiêu và 1 kẻ địch kề bên",
    "basis": "Lưỡi tầm sét của Thiên Lôi trong Cóc kiện trời",
    "src": "https://vi.wikipedia.org/wiki/C%C3%B3c_ki%E1%BB%87n_tr%E1%BB%9Di"
   },
@@ -429,7 +429,7 @@
    "name": "Móng Rùa Kim Quy",
    "tier": 5,
    "cat": "TD",
-   "effect": "Mọi đồng đội đánh xa bắn trúng 2 mục tiêu; cả đội +15 Phòng thủ",
+   "effect": "Mọi đồng đội đánh xa bắn trúng 2 mục tiêu; cả đội +10 Giáp",
    "basis": "Móng rùa thần làm lẫy nỏ thần giữ thành Cổ Loa",
    "src": "https://vi.wikipedia.org/wiki/An_D%C6%B0%C6%A1ng_V%C6%B0%C6%A1ng"
   },

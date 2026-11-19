@@ -7,7 +7,8 @@ import mechanicsFile from "../../../data/mechanics.json";
 
 export type TypeName = "Legendary" | "Fire" | "Water" | "Electric" | "Grass" | "Ground" | "Rock" | "Sky" | "Insect" | "Poison";
 
-export interface Stats { hp: number; atk: number; def: number; spa: number; spd: number; spe: number }
+/** v3 stats (PO 19 Nov 2026): Máu, Tấn Công, Tốc Độ Đánh (attacks/s), Giáp (% less damage), Năng lượng (energy for the skill) */
+export interface Stats { hp: number; atk: number; aspd: number; armor: number; energy: number }
 
 export interface Species {
   id: number;
@@ -75,15 +76,6 @@ export function loadData(): GameData {
   };
 }
 
-/** Type multiplier for an attack of `atk` type against a defender with `def` types. */
-export function typeMultiplier(d: GameData, atk: TypeName, attackerTypes: TypeName[], def: TypeName[]): number {
-  let m = 1;
-  for (const t of def) m *= d.typeChart[atk]?.[t] ?? 1;
-  if (attackerTypes.includes("Legendary")) m *= d.legendary.dealt;
-  if (def.includes("Legendary")) m *= d.legendary.taken;
-  return m;
-}
-
 /** Sanity checks on the data; returns a list of problems (empty = OK). */
 export function validate(d: GameData): string[] {
   const errs: string[] = [];
@@ -92,11 +84,10 @@ export function validate(d: GameData): string[] {
     if (ids.has(s.id)) errs.push(`duplicate id ${s.id}`);
     ids.add(s.id);
     if (!(s.tier >= 1 && s.tier <= 5)) errs.push(`${s.vi}: tier ${s.tier}`);
-    if (!s.types.length || s.types.length > 2) errs.push(`${s.vi}: ${s.types.length} types`);
-    for (const t of [...s.types, s.attackType]) if (!(t in d.typeChart) && t !== "Legendary") errs.push(`${s.vi}: unknown type ${t}`);
     if (![1, 2, 3].includes(s.range)) errs.push(`${s.vi}: range ${s.range}`);
-    for (const k of ["hp", "atk", "def", "spa", "spd", "spe"] as const)
-      if (!(s.stats[k] > 0)) errs.push(`${s.vi}: stat ${k}`);
+    if (s.status !== "keep") continue;
+    for (const k of ["hp", "atk", "aspd", "energy"] as const) if (!(s.stats[k] > 0)) errs.push(`${s.vi}: stat ${k}`);
+    if (!(s.stats.armor >= 0 && s.stats.armor <= 60)) errs.push(`${s.vi}: Giáp ${s.stats.armor}`);
   }
   for (const sy of d.synergies) for (const m of sy.members) if (!ids.has(m)) errs.push(`synergy ${sy.name}: unknown member ${m}`);
   const keep = new Set(d.roster.map((s) => s.id));

@@ -7,7 +7,7 @@ import { BACKGROUNDS, BENCH_CORNERS, BOARD_CORNERS, Grid, SCREEN_H, SCREEN_W, ty
 import { Rng } from "../core/rng";
 import { Team, type OwnedUnit, type Spot } from "../core/team";
 import { button, coverImage, CREAM, FONT_LOGO, FONT_UI, toast } from "../ui/widgets";
-import { typeColour, VieAniView } from "../anim/VieAniView";
+import { tierColour, VieAniView } from "../anim/VieAniView";
 import { hasIllustration, preloadIllustrations, sizeScale, texturesFor, vcode } from "../anim/illustrations";
 import type { ViewTextures } from "../anim/VieAniView";
 import { attachAura } from "../anim/aura";
@@ -147,7 +147,7 @@ export class BoardScene extends Phaser.Scene {
     const sp = this.data_.byId.get(u.speciesId)!;
     // our side is seen from behind (back view), the opponent from the front
     const { tex, illustrated, alt } = texturesFor(this, this.data_, sp, side === "A" ? "back" : "front");
-    const anim = new VieAniView(this, 0, 0, tex, side === "A" ? 1 : -1, typeColour(sp.attackType), !illustrated && side === "B");
+    const anim = new VieAniView(this, 0, 0, tex, side === "A" ? 1 : -1, tierColour(sp.tier), !illustrated && side === "B");
     anim.setStar(u.star);
     // status aura by tier (PO choice): legendary golden aura, extinct grey smoke, endangered red heartbeat
     const aura = auraKindForTier(sp.tier);
@@ -415,7 +415,7 @@ export class BoardScene extends Phaser.Scene {
       v.energy = e.en;
       if (e.type === "attack" && e.miss) {
         // dodged (Trường Sơn / Côn Trùng / Cao Nguyên)
-        void v.anim.attack(tv.c.x, tv.c.y, this.data_.byId.get(v.speciesId)!.attackClass === "special", settings.speed);
+        void v.anim.attack(tv.c.x, tv.c.y, this.data_.byId.get(v.speciesId)!.range >= 2, settings.speed);
         this.time.delayedCall(220 / settings.speed, () => this.floatText(tv, "Né!", "#bfe6ff", 17));
         return;
       }
@@ -434,7 +434,7 @@ export class BoardScene extends Phaser.Scene {
         this.tweens.add({ targets: txt, y: txt.y - 34, alpha: 0, duration: 700, onComplete: () => txt.destroy() });
       };
       if (cast) void v.anim.cast(undefined, speed).then(land);
-      else { void v.anim.attack(tv.c.x, tv.c.y, sp.attackClass === "special", speed); this.time.delayedCall(220 / speed, land); }
+      else { void v.anim.attack(tv.c.x, tv.c.y, sp.range >= 2, speed); this.time.delayedCall(220 / speed, land); }
     } else if (e.type === "death") {
       this.time.delayedCall(250 / settings.speed, () => void v.anim.die(settings.speed));
     } else if (e.type === "hp") {
