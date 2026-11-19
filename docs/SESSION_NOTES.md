@@ -1,6 +1,6 @@
 # VieAni – handover notes (compact)
 
-**State on 17 Nov 2026 – game v0.10.0, live at https://hirumatran.itch.io/vieani.**
+**State on 19 Nov 2026 – game v0.11.0 (v3 rules), live at https://hirumatran.itch.io/vieani.**
 Start the next session by asking Claude to read this file. The full day-by-day log (10–17 Nov 2026) is kept unchanged in
 `docs/archive/SESSION_NOTES_2026-11-10_to_17.md`.
 
@@ -15,7 +15,7 @@ Start the next session by asking Claude to read this file. The full day-by-day l
   (https://docs.google.com/spreadsheets/d/1VaVYNbxFFHY_s3qoXF0eDwNFNCJEpNgc2Es8LBGtsGU/edit). The game reads `data/*.json`
   and `game/src/core/config.ts`, not the sheet – when the PO edits the sheet, sync it back and run `npm test`.
 
-## PO decisions 19 Nov 2026 – "simple enough for a 5-year-old" (v3, being built)
+## PO decisions 19 Nov 2026 – "simple enough for a 5-year-old" (v3 – built 19 Nov, v0.11.0)
 | # | Decision |
 |---|---|
 | 1 | Next work: **T11 skills + T12 status effects**, after the simplification below. Skills: Claude maps every VieAni's skill text to a template with numbers in **one table** (Google Sheet) → PO approves → build all. |
@@ -25,7 +25,7 @@ Start the next session by asking Claude to read this file. The full day-by-day l
 | 5 | **No types any more** (Lửa/Nước/Đất/Đá/…): no type chart, no type badges/filters. Only **roles** and **tộc hệ** remain. **Legendary ×1.25 / ×0.75 rule removed.** |
 | 6 | Type-based tộc hệ / items are **retargeted to tộc hệ members** (e.g. Sơn Tinh resists Biển Đông + Sông Nước VieAni; Săn Côn Trùng hunts Côn Trùng members). |
 | 7 | Card / VieIndex colour **by tier** (grey, green, blue, purple, gold). |
-| 8 | **Player damage** after a lost round = sum over surviving enemy VieAni of **tier + (★ − 1)** (★1 +0, ★2 +1, ★3 +2); no stage damage. Example: ★2 T4 + ★3 T3 + 2×★1 T5 = (4+1)+(3+2)+2×5 = 20 HP. HP 100. |
+| 8 | **Player damage** after a lost round = Σ over surviving enemy VieAni of **tier + (★ − 1)**, **then ÷ 2 rounded up** (PO chose halving after the sim showed ~19-round matches); no stage damage; HP 100. PO example (4+1)+(3+2)+2×5 = 20 → **10 HP**. Result: median match 25 rounds, 70 % reach round 24, 30 % round 30. |
 | 9 | **Buff now (moderate, target ≈ +25 contribution)** the 4 weakest tộc hệ: Sông Nước, Săn Côn Trùng, Bầy Gặm Nhấm, Hội Nhà Mèo. |
 | 10 | After skills: **balance pass first** (tộc hệ chart + per-VieAni report), then 8-player + bots. |
 | 11 | **Alpha (15 Jan 2027) = desktop web**; phone layout + installable app at Beta (as planned). |
@@ -101,3 +101,22 @@ tộc hệ lose to everything.
 - T20/T21: 8-player lobby with 7 bots (personalities), ranking.
 - T33 phone layout + tap-to-inspect (hover card needs a mouse today); T25 audio; T26 tutorial.
 - In-game credits screen (game-icons.net CC BY 3.0).
+
+## v3 built (19 Nov 2026, v0.11.0)
+- `scripts/stats_v3.py` → 5 stats per VieAni (role base × tier 1.0/1.2/1.4/1.6/1.8, ±10 % biology twist from the old stats as a
+  share of each animal's total; old six kept as `statsV2`). Roles: Đỡ Đòn 700/40/0.60/30, Chiến Đấu 600/50/0.70/20,
+  Săn Mồi 500/60/0.85/10, Phép Thuật 450/40/0.65/5, Hỗ Trợ 500/35/0.60/15 (Máu/Tấn Công/Tốc Độ Đánh/Giáp, tier 1); Giáp +3 per tier.
+- Battle: damage = Tấn Công × ★ × (1 − Giáp %) × Thiên địch × items; move speed by role (Săn Mồi 0.3 s/ô, Chiến Đấu 0.4, Đỡ Đòn 0.5,
+  Phép Thuật/Hỗ Trợ 0.45); skill fires at the VieAni's own Năng lượng. No type chart, no Legendary rule; "hệ Côn trùng" prey =
+  Côn Trùng members; water rules = Biển Đông + Sông Nước members.
+- `scripts/apply_v3.py`: new tộc hệ / item / relation texts (Giáp points, Tốc Độ Đánh, retargeted to tộc hệ, 4 buffs).
+- UI: info card + VieIndex show the 5 stats in plain words, role badge + hint, tier colours; VieIndex filter chips = roles;
+  type badges / type chart removed. `data/*.json` still contain the old `types`, `attackType` fields (unused, kept for reference).
+- **Not yet synced to the Google Sheet** (VieAni stat columns, Tộc hệ, Vật phẩm, Luật chơi) – next step.
+- Balance after v3 (`docs/balance/synergy_chart.png`): buffs worked for Sông Nước (+5 → +37), Săn Côn Trùng (+6 → +34),
+  Hội Nhà Mèo (+16 → +21); Bầy Gặm Nhấm still weak (+7). Tứ Linh (+88) and Biển Đông (+73) now very strong. Contribution reads
+  low for Tây Nguyên / Sơn Tinh / Săn Mồi / Cự Thú only because their teams already beat same-tier teams 90–96 % without it
+  (ceiling) – the method needs stronger reference opponents for those.
+- **VieIndex habitat banners** (PO): `scripts/habitat_banners.py` → `assets/habitats/<Habitat>.png` (12 procedural pixel scenes,
+  240×80) behind the portrait in the detail view, with the habitat name. PO asked for the "huashu art motion" skill to draft better
+  banners – it is not in this account's skills (searched 19 Nov); the PNGs can be replaced 1:1 by better art.

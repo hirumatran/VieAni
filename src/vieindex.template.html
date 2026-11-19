@@ -67,6 +67,9 @@ dialog{border:0;border-radius:18px;padding:0;max-width:560px;width:calc(100% - 3
 dialog::backdrop{background:#0008}
 .d-art{height:180px;display:grid;place-items:center;position:relative}
 .d-art .glyph{width:130px;height:130px;font-size:52px}
+.d-art.hab{image-rendering:pixelated;border-bottom:6px solid var(--tier,#c9972b)}
+.d-art.hab .glyph{background:rgba(255,250,241,.55);box-shadow:0 4px 14px #0006}
+.hablbl{position:absolute;left:10px;bottom:8px;font:700 12px/1 inherit;font-family:inherit;padding:4px 8px;border-radius:6px;background:#000a;color:#fff}
 .d-body{padding:18px 20px 22px}
 .d-body h2{margin:0;font-size:24px}
 .sci{font-style:italic;color:var(--muted);margin:2px 0 12px}
@@ -153,6 +156,9 @@ const ink = t => t==="Electric" ? "#2b1d14" : "#fff";
 const SPRITES = __SPRITES__;
 const ILLU = new Set(__ILLUSTRATED__);
 const SYN_ICON = __SYN_ICONS__;
+const HABITAT = __HABITATS__;
+/** detail banner: pixel-art habitat scene (assets/habitats), tier colour as a strip at the bottom */
+const habitatBg = s => HABITAT[s.habitat] ? `url(${HABITAT[s.habitat]}) center / cover no-repeat, ${bg(s)}` : bg(s);
 const ZODIAC_SYN = DATA.synergies.find(g=>g.byZodiac);
 /** the tộc hệ a VieAni belongs to (Mười Hai Con Giáp via its zodiac sign) */
 const synOf = s => [...(SYN_OF[s.id]||[]), ...(s.zodiac&&ZODIAC_SYN?[ZODIAC_SYN]:[])];
@@ -256,7 +262,8 @@ document.getElementById("grid").addEventListener("click",e=>{
   const iucnVi = V.iucn || (!s.iucn ? "" : L.iucn[code] ? `${L.iucn[code]} (${code})${s.iucn.length>code.length?" "+s.iucn.slice(code.length).trim():""}` : s.iucn);
   const row=(k,v)=>v?`<dt>${k}</dt><dd>${esc(v)}</dd>`:"";
   dlg.innerHTML=`
-    <div class="d-art" style="background:${bg(s)}">
+    <div class="d-art hab" style="background:${habitatBg(s)};--tier:${TIER_COL[s.tier]}">
+      ${HABITAT[s.habitat]?`<span class="hablbl">${esc(L.habitat[s.habitat]||s.habitat)}</span>`:""}
       <span class="status">${esc(statusLabel(s))}</span>
       <div class="glyph">${sprite(s)}</div>
       <button class="close" aria-label="Đóng">✕</button>

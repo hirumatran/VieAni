@@ -46,10 +46,13 @@ data["mechanics"] = json.loads((root / "data/mechanics.json").read_text(encoding
 syn_index = json.loads((root / "assets/icons/synergies/index.json").read_text(encoding="utf-8"))
 syn_icons = {name: "data:image/svg+xml;base64," + base64.b64encode((root / f"assets/icons/synergies/{v['icon']}.svg").read_bytes()).decode()
              for name, v in syn_index.items()}
+# habitat banners for the detail view (scripts/habitat_banners.py): habitat -> data URI
+hab = {f.stem: "data:image/png;base64," + base64.b64encode(f.read_bytes()).decode() for f in sorted((root / "assets/habitats").glob("*.png"))}
 tpl = (root / "src/vieindex.template.html").read_text(encoding="utf-8")
 out = (tpl.replace("__DATA__", json.dumps(data, ensure_ascii=False).replace("</", "<\\/"))
           .replace("__SPRITES__", json.dumps(sprites))
           .replace("__ILLUSTRATED__", json.dumps(illustrated))
-          .replace("__SYN_ICONS__", json.dumps(syn_icons)))
+          .replace("__SYN_ICONS__", json.dumps(syn_icons))
+          .replace("__HABITATS__", json.dumps(hab)))
 (root / "vieindex.html").write_text(out, encoding="utf-8")
 print("wrote vieindex.html", len(data["species"]), "species,", len(illustrated), "illustrations,", len(sprites) - len(illustrated), "pixel sprites")
