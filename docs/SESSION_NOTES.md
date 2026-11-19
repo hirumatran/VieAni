@@ -120,3 +120,4 @@ tộc hệ lose to everything.
 - **VieIndex habitat banners** (PO): `scripts/habitat_banners.py` → `assets/habitats/<Habitat>.png` (12 procedural pixel scenes,
   240×80) behind the portrait in the detail view, with the habitat name. PO asked for the "huashu art motion" skill to draft better
   banners – it is not in this account's skills (searched 19 Nov); the PNGs can be replaced 1:1 by better art.
+- **Animated habitat banners** (PO 19 Nov: "64-bit" = high-detail pixel art, animated loop): `src/habitats.js` draws 12 live scenes (280×90 canvas at 2×, 12 fps stepped, ordered dithering, parallax, water shimmer/reflections, wind, birds, smoke, fireflies) – method after huashu-art-motion (MIT, cloned to scratchpad, not installed). Embedded by `build_vieindex.py` (`__HABITAT_JS__`); the static PNG stays as first paint; loop stops when the dialog closes; reduced-motion users get one still frame. Preview of all 12: `tools/habitat_lab/all.html`.

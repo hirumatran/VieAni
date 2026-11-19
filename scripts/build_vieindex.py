@@ -53,6 +53,7 @@ out = (tpl.replace("__DATA__", json.dumps(data, ensure_ascii=False).replace("</"
           .replace("__SPRITES__", json.dumps(sprites))
           .replace("__ILLUSTRATED__", json.dumps(illustrated))
           .replace("__SYN_ICONS__", json.dumps(syn_icons))
-          .replace("__HABITATS__", json.dumps(hab)))
+          .replace("__HABITATS__", json.dumps(hab))
+          .replace("__HABITAT_JS__", (root / "src/habitats.js").read_text(encoding="utf-8").replace("</", "<\\/")))
 (root / "vieindex.html").write_text(out, encoding="utf-8")
 print("wrote vieindex.html", len(data["species"]), "species,", len(illustrated), "illustrations,", len(sprites) - len(illustrated), "pixel sprites")
