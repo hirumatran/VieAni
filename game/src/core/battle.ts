@@ -124,6 +124,9 @@ export interface SimOptions {
   zodiacBonus?: Partial<Record<Side, number>>;
   /** only these tộc hệ work for that side (balance experiments); null/undefined = all */
   synergies?: Partial<Record<Side, string[] | null>>;
+  /** balance experiments only (tools/unitBalance.ts): skill damage per species until T11 is built –
+   *  pct = % of Tấn Công, hit = "1" one target · "2" target + nearest enemy · "aoe" target + 2 nearest · "" no damage */
+  castPower?: Map<number, { pct: number; hit: string }>;
 }
 
 export function simulate(d: GameData, units: Placed[], seed: number, teamItems: Partial<Record<Side, number[]>> = {}, opts: SimOptions = {}): BattleResult {
@@ -487,7 +490,14 @@ export function simulate(d: GameData, units: Placed[], seed: number, teamItems: 
           if (f.energy >= f.sp.stats.energy && target.alive) {
             // placeholder skill until the skill templates (task T11): a strong strike for 2× damage
             f.energy = 0;
-            hit(t, f, target, 2, "cast");
+            const cp = opts.castPower?.get(f.sp.id);
+            if (!cp) hit(t, f, target, 2, "cast");
+            else if (cp.hit && cp.pct > 0) {
+              const extra = cp.hit === "2" ? 1 : cp.hit === "aoe" ? 2 : 0;
+              const others = fighters.filter((o) => o.alive && o.side !== f.side && o !== target)
+                .sort((a, b) => dist(a, target) - dist(b, target)).slice(0, extra);
+              for (const o of [target, ...others]) if (o.alive) hit(t, f, o, cp.pct / 100, "cast");
+            }
           }
         }
       } else {
