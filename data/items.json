@@ -96,7 +96,7 @@
    "name": "Rọ Mõm",
    "tier": 1,
    "cat": "NEM",
-   "effect": "Ném vào 1 kẻ địch: −30% Tấn công và Tốc độ trong 4 giây; nếu trúng Chó thì Chó không thể gây Dại",
+   "effect": "Ném vào 1 kẻ địch: −30% Tấn Công và Tốc Độ Đánh trong 4 giây; nếu trúng Chó thì Chó không thể gây Dại",
    "basis": "Rọ mõm cho chó",
    "src": ""
   },
@@ -402,7 +402,7 @@
    "name": "Võng Cáng Hành Quân",
    "tier": 4,
    "cat": "TD",
-   "effect": "Đầu trận: 2 đồng đội hàng sau được đưa thẳng lên hàng đầu và +20% Tốc độ 5 giây",
+   "effect": "Đầu trận: 2 đồng đội hàng sau được đưa thẳng lên hàng đầu và +20% tốc độ di chuyển 5 giây",
    "basis": "Cách hành quân thần tốc của Quang Trung: hai người khiêng một người trên võng, thay phiên nhau",
    "src": ""
   },

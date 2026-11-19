@@ -114,7 +114,7 @@
     5
    ],
    "mult": 1.15,
-   "effect": "Long Phụng: cả hai +15% Tấn công ĐB",
+   "effect": "Long Phụng: cả hai +15% Tấn Công",
    "basis": "Rồng – Phượng (long phụng) là biểu tượng hòa hợp trong văn hóa Việt",
    "src": ""
   },
@@ -364,7 +364,7 @@
     71
    ],
    "mult": 1.15,
-   "effect": "Cò theo trâu: cả hai +15% Tốc độ",
+   "effect": "Cò theo trâu: cả hai +15% Tốc Độ Đánh",
    "basis": "Hình ảnh cò đi theo trâu bắt côn trùng trên đồng (loài hay theo trâu nhất là cò ruồi)",
    "src": ""
   },
@@ -377,7 +377,7 @@
     1
    ],
    "mult": 1.2,
-   "effect": "Cá chép hóa rồng: Cá Chép hóa Rồng sau 10 giây thay vì 20; Rồng +20% Tấn công ĐB",
+   "effect": "Cá chép hóa rồng: Cá Chép hóa Rồng sau 10 giây thay vì 20; Rồng +20% Tấn Công",
    "basis": "Tích cá chép vượt Vũ Môn hóa rồng",
    "src": ""
   },
@@ -407,7 +407,7 @@
     1
    ],
    "mult": 1.0,
-   "effect": "Rồng rắn lên mây: Rắn đứng cạnh Rồng được Bay; Rồng +10% Tốc độ khi có Rắn kề bên",
+   "effect": "Rồng rắn lên mây: Rắn đứng cạnh Rồng được Bay; Rồng +10% Tốc Độ Đánh khi có Rắn kề bên",
    "basis": "Trò chơi dân gian 'Rồng rắn lên mây'",
    "src": "https://vi.wikipedia.org/wiki/R%E1%BB%93ng_r%E1%BA%AFn_l%C3%AAn_m%C3%A2y"
   },

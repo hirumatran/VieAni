@@ -112,7 +112,7 @@ tộc hệ lose to everything.
 - `scripts/apply_v3.py`: new tộc hệ / item / relation texts (Giáp points, Tốc Độ Đánh, retargeted to tộc hệ, 4 buffs).
 - UI: info card + VieIndex show the 5 stats in plain words, role badge + hint, tier colours; VieIndex filter chips = roles;
   type badges / type chart removed. `data/*.json` still contain the old `types`, `attackType` fields (unused, kept for reference).
-- **Not yet synced to the Google Sheet** (VieAni stat columns, Tộc hệ, Vật phẩm, Luật chơi) – next step.
+- **Google Sheet synced to v3 (19 Nov)**: VieAni tab – Hệ 1/Hệ 2 columns deleted, K:O = Máu · Tấn Công · Tốc Độ Đánh · Giáp · Năng lượng, row-1 array formulas for Di chuyển, Sát thương/giây, Kiểu đòn, Máu ★2/★3, Giây giữa 2 đòn; Tộc hệ, Vật phẩm, Thiên địch, Hiệu ứng and Luật chơi texts on v3 (also fixed the #ERROR! interest cell); Kế hoạch dự án statuses updated. Backups: tab "Lưu trữ – VieAni v2 (trước 19/11)"; type chart renamed "Lưu trữ – Bảng khắc hệ (bỏ ở v3)". `scripts/export_sheet.py` exports the v3 blocks.
 - Balance after v3 (`docs/balance/synergy_chart.png`): buffs worked for Sông Nước (+5 → +37), Săn Côn Trùng (+6 → +34),
   Hội Nhà Mèo (+16 → +21); Bầy Gặm Nhấm still weak (+7). Tứ Linh (+88) and Biển Đông (+73) now very strong. Contribution reads
   low for Tây Nguyên / Sơn Tinh / Săn Mồi / Cự Thú only because their teams already beat same-tier teams 90–96 % without it
