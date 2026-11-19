@@ -1,5 +1,7 @@
 # VieAni – Game Design Document v1 (draft for PO review)
 
+> **v3 (19 Nov 2026, being implemented):** 5 stats (Tấn Công, Tốc Độ Đánh, Giáp %, Máu, Năng lượng), no types / type chart / Legendary rule, colours by tier, player damage = Σ (tier + ★ − 1) of surviving enemies. Full list: `docs/SESSION_NOTES.md` → "PO decisions 19 Nov 2026". Sections below still describe v2 until updated.
+
 Status: **v2, 13 Nov 2026 – PO review 2 applied (roster 87, 12 synergies, level 10, Linh Vật)** – every number below is a starting value for balancing. They
 all live in one file, `game/src/core/config.ts`, so changing a number never needs code changes.
 Data (VieAni, types, synergies, items, relations, effects) comes from `data/*.json` and the Google Sheet.

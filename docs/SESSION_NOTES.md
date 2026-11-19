@@ -15,6 +15,21 @@ Start the next session by asking Claude to read this file. The full day-by-day l
   (https://docs.google.com/spreadsheets/d/1VaVYNbxFFHY_s3qoXF0eDwNFNCJEpNgc2Es8LBGtsGU/edit). The game reads `data/*.json`
   and `game/src/core/config.ts`, not the sheet – when the PO edits the sheet, sync it back and run `npm test`.
 
+## PO decisions 19 Nov 2026 – "simple enough for a 5-year-old" (v3, being built)
+| # | Decision |
+|---|---|
+| 1 | Next work: **T11 skills + T12 status effects**, after the simplification below. Skills: Claude maps every VieAni's skill text to a template with numbers in **one table** (Google Sheet) → PO approves → build all. |
+| 2 | **Stats reduced to 5:** Tấn Công, Tốc Độ Đánh, Giáp, Máu, Năng lượng (no Phòng Ngự, no Tốc độ, no special attack/defence). **Giáp = % less damage** from every hit (Giáp 20 = −20 %, cap 60 %). Năng lượng = energy needed to cast the skill. |
+| 3 | Stat numbers: **new simple scale by role** (Đỡ Đòn, Chiến Đấu, Săn Mồi, Phép Thuật, Hỗ Trợ) × tier, plus a small personal twist from the animal's biology. |
+| 4 | **Movement speed by role** (hidden, not a stat): Săn Mồi fast, Đỡ Đòn slow, others normal. |
+| 5 | **No types any more** (Lửa/Nước/Đất/Đá/…): no type chart, no type badges/filters. Only **roles** and **tộc hệ** remain. **Legendary ×1.25 / ×0.75 rule removed.** |
+| 6 | Type-based tộc hệ / items are **retargeted to tộc hệ members** (e.g. Sơn Tinh resists Biển Đông + Sông Nước VieAni; Săn Côn Trùng hunts Côn Trùng members). |
+| 7 | Card / VieIndex colour **by tier** (grey, green, blue, purple, gold). |
+| 8 | **Player damage** after a lost round = sum over surviving enemy VieAni of **tier + (★ − 1)** (★1 +0, ★2 +1, ★3 +2); no stage damage. Example: ★2 T4 + ★3 T3 + 2×★1 T5 = (4+1)+(3+2)+2×5 = 20 HP. HP 100. |
+| 9 | **Buff now (moderate, target ≈ +25 contribution)** the 4 weakest tộc hệ: Sông Nước, Săn Côn Trùng, Bầy Gặm Nhấm, Hội Nhà Mèo. |
+| 10 | After skills: **balance pass first** (tộc hệ chart + per-VieAni report), then 8-player + bots. |
+| 11 | **Alpha (15 Jan 2027) = desktop web**; phone layout + installable app at Beta (as planned). |
+
 ## What the game is now
 - Title screen → **Bắt Đầu**: 1-vs-1 match against a bot with all 87 VieAni (V001–V087, all illustrated).
   Other buttons: Luyện Tập (free practice), VieIndex, Cài Đặt, 🎬 animation lab, ✨ status-aura preview,
