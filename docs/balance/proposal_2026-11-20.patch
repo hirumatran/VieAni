@@ -1,0 +1,153 @@
+diff --git a/game/src/core/battle.ts b/game/src/core/battle.ts
+index 45e0edc..dbf3e85 100644
+--- a/game/src/core/battle.ts
++++ b/game/src/core/battle.ts
+@@ -216,6 +216,7 @@ export function simulate(d: GameData, units: Placed[], seed: number, teamItems:
+       crit += at(mlv(S, "Săn Mồi", sp), [0.15, 0.3, 0.45]);
+       if (mlv(S, "Săn Mồi", sp) >= 1) critMult = Math.max(critMult, mlv(S, "Săn Mồi", sp) >= 2 ? 2 : 1.75);
+       hpMul += at(mlv(S, "Cự Thú", sp), [0.15, 0.3, 0.45]);
++      hpMul += at(mlv(S, "Sơn Tinh", sp), [0.1, 0.2]); // balance 20 Nov: núi cao – members +10 / 20 % Máu
+       armor += at(mlv(S, "Cao Nguyên Bắc Bộ", sp), [5, 10, 15]) + at(mlv(S, "Biển Đông", sp), [5, 10, 15]);
+       atkPct += at(mlv(S, "Biển Đông", sp), [0, 0.15, 0.3]);
+       aspd += at(mlv(S, "Tây Nguyên", sp), [0.1, 0.2, 0.3]) + at(mlv(S, "Côn Trùng", sp), [0.15, 0.25, 0.25]);
+@@ -766,7 +767,7 @@ export function simulate(d: GameData, units: Placed[], seed: number, teamItems:
+   /** base damage of f on target (Tấn Công × ★ × power × (1 − Giáp %) × prey × items) – no randomness */
+   function baseDamage(f: Fighter, target: Fighter, power: number, pen = 0) {
+     let A = f.atk * (1 + rally[f.side]);
+-    let armorRaw = target.armor - f.armorPen - 2 * target.defShred;
++    let armorRaw = target.armor - f.armorPen - 3 * target.defShred; // Bầy Gặm Nhấm: −3 Giáp per stack (balance 20 Nov, was −2)
+     let engM = 1;
+     if (SK && f.x && target.x) {
+       const pv = f.x.pv, st = f.star;
+@@ -1070,8 +1071,8 @@ export function simulate(d: GameData, units: Placed[], seed: number, teamItems:
+         for (const c of cats) {
+           const mate = cats.filter((o) => o !== c).sort((a, b) => dist(a, c) - dist(b, c) || a.uid - b.uid)[0];
+           if (!mate) continue;
+-          heal(t, mate, cl >= 1 ? 0.12 : 0.08); // buff 19 Nov (was 5 / 8 %)
+-          for (const x of [c, mate]) { x.buffPct = cl >= 1 ? 0.3 : 0.15; x.buffUntil = t + 3 * TPS; }
++          heal(t, mate, cl >= 1 ? 0.15 : 0.1); // buff 19 Nov (was 5 / 8 %), balance 20 Nov 10 / 15 %
++          for (const x of [c, mate]) { x.buffPct = cl >= 1 ? 0.4 : 0.2; x.buffUntil = t + 3 * TPS; }
+         }
+       }
+     }
+diff --git a/game/src/core/skillSpecs.ts b/game/src/core/skillSpecs.ts
+index b40ea68..76c00bb 100644
+--- a/game/src/core/skillSpecs.ts
++++ b/game/src/core/skillSpecs.ts
+@@ -84,14 +84,14 @@ const p = (v: V) => v;
+ const S: Record<string, Spec> = {
+   "Thỏ vằn Trường Sơn": { skill: { hit: { sel: "far", jump: true } }, passive: { dodge: [0.15, 0.2, 0.25] },
+     s3: { skill: { ally: [{ to: "self", eff: [{ k: "stealth", d: 2 }] }] } } },
+-  "Voi châu Á": { skill: { hit: { sel: "self", area: { shape: "self", r: 1 }, eff: [{ k: "stun", d: [1, 1.25, 1.5] }] } },
+-    passive: { aura: { who: "ally", r: 99, stat: "atk", v: [0.05, 0.08, 0.1] } }, s3: { hit: { area: { shape: "self", r: 2 } } } },
++  "Voi châu Á": { skill: { hit: { sel: "self", area: { shape: "self", r: 1 }, eff: [{ k: "stun", d: [0.75, 1, 1.25] }] } },
++    passive: { aura: { who: "ally", r: 99, stat: "atk", v: [0.04, 0.06, 0.08] } }, s3: { hit: { area: { shape: "self", r: 2 } } } },
+   "Cò thìa": { skill: { hit: { sel: "cur", area: { shape: "around", r: 1 }, eff: [{ k: "debuff", stat: "aspd", v: 0.15, d: 5 }] },
+     ally: [{ to: "syn:Sông Nước", eff: [{ k: "buff", stat: "atk", v: [0.15, 0.2, 0.25], d: 5 }] }] },
+     passive: { aspdPct: [0.1, 0.15, 0.2], cond: "adjBird" }, s3: { skill: { ally: [{ to: "near1", eff: [{ k: "heal", v: 0.1 }] }] } } },
+   "Báo Gấm": { skill: { hit: { sel: "lowHp", jump: true } }, passive: { crit: [0.15, 0.2, 0.25], firstLowHp: true },
+     s3: { passive: { start: { untarget: 4 } } } },
+-  "Bò Biển (Cá Nàng Tiên)": { skill: { hit: { sel: "cur", area: { shape: "around", r: 2 }, eff: [{ k: "charm", d: [3, 4, 5] }] } },
++  "Bò Biển (Cá Nàng Tiên)": { skill: { hit: { sel: "cur", pct: 200, area: { shape: "around", r: 2 }, eff: [{ k: "charm", d: [3, 4, 5] }] } },
+     passive: { regenIdle: [0.02, 0.025, 0.03] }, s3: { skill: { ally: [{ to: "near1", eff: [{ k: "heal", v: 0.15 }] }] } } },
+   "Gà lôi lam mào trắng": { skill: { hit: { sel: "cur", area: { shape: "cone", r: 2 }, eff: [{ k: "blind", d: [2, 2.5, 3] }] } },
+     passive: { dodge: [0.15, 0.2, 0.25] }, s3: { passive: { death: { ghost: 4 } } } },
+@@ -103,8 +103,8 @@ const S: Record<string, Spec> = {
+     passive: { aura: { who: "ally", r: 99, stat: "dmg", v: [0.12, 0.16, 0.2], filter: "ranged" } } },
+   "Hồng hoàng": { skill: { hit: { sel: "cur", eff: [{ k: "stun", d: [0.5, 0.75, 1] }] } },
+     passive: { onHit: { p: [0.15, 0.2, 0.25], eff: { k: "stun", d: 0.5 } } } },
+-  "Công": { skill: { hit: { sel: "self", area: { shape: "self", r: 1 }, eff: [{ k: "slow", v: [0.2, 0.3, 0.4], d: [2, 3, 4] }] } },
+-    passive: { reflectCC: [0.15, 0.2, 0.25] }, s3: { hit: { area: { shape: "self", r: 2 } } } },
++  "Công": { skill: { hit: { sel: "self", area: { shape: "self", r: 2 }, eff: [{ k: "slow", v: [0.3, 0.4, 0.5], d: [2, 3, 4] }] } },
++    passive: { reflectCC: [0.25, 0.3, 0.35] }, s3: { hit: { area: { shape: "self", r: 3 } } } },
+   "Chà vá chân xám": { skill: { hit: { sel: "self", area: { shape: "self", r: 2 }, eff: [{ k: "debuff", stat: "atk", v: [0.1, 0.15, 0.2], d: 4 }] } },
+     passive: { dodgeMelee: [0.15, 0.2, 0.25] }, s3: { skill: { ally: [{ to: "near1", eff: [{ k: "buff", stat: "aspd", v: 0.15, d: 4 }] }] } } },
+   "Đồi mồi": { skill: { ally: [{ to: "self", eff: [{ k: "dr", v: [0.5, 0.6, 0.7], d: 3 }, { k: "taunt", r: 1, d: 3 }] }] },
+@@ -136,7 +136,7 @@ const S: Record<string, Spec> = {
+   "Voi chín ngà": { skill: { hit: { sel: "cur", area: { shape: "front3" }, eff: [{ k: "knock", cells: 1 }] } },
+     passive: { hpPct: [0.05, 0.1, 0.15], waterArmor: 2 },
+     s3: { hit: { eff: [{ k: "knock", cells: 1 }, { k: "stun", d: 1 }] }, skill: { ally: [{ to: "syn:Sơn Tinh", eff: [{ k: "buff", stat: "atk", v: 0.15, d: 4 }] }] } } },
+-  "Vượn đen má trắng": { skill: { hit: { sel: "cur", area: { shape: "around", r: 2 }, eff: [{ k: "slow", v: 0.15, d: 3 }] } },
++  "Vượn đen má trắng": { skill: { hit: { sel: "cur", pct: 240, area: { shape: "around", r: 2 }, eff: [{ k: "slow", v: 0.3, d: 3 }] } },
+     passive: { every: { s: 5, k: "hop" } } },
+   "Cầy vằn bắc": { skill: { ally: [{ to: "low2", eff: [{ k: "heal", v: [0.15, 0.2, 0.25] }, { k: "cleanse" }] }] },
+     passive: { onHurt: { p: [0.15, 0.2, 0.25], eff: { k: "blind", d: 1 } } },
+@@ -164,7 +164,7 @@ const S: Record<string, Spec> = {
+     passive: { drFront: [0.1, 0.15, 0.2] }, s3: { energy: 40 } },
+   "Phượng Hoàng": { skill: { hit: { sel: "cur", area: { shape: "around", r: 1 }, eff: [{ k: "dot", v: 0.03, d: 3 }] } },
+     passive: { death: { egg: true } } },
+-  "Cá Ông": { skill: { ally: [{ to: "lowestIn2", eff: [{ k: "shield", v: 0.3, d: 4 }, { k: "heal", v: [0.2, 0.25, 0.3] }] }] },
++  "Cá Ông": { skill: { ally: [{ to: "lowestIn2", eff: [{ k: "shield", v: 0.15, d: 4 }, { k: "heal", v: [0.1, 0.15, 0.2] }] }] },
+     passive: { aura: { who: "ally", r: 99, stat: "armor", v: 6, filter: "water" }, waterAura: 0.88 },
+     s3: { skill: { ally: [{ to: "low2", replace: true, eff: [{ k: "shield", v: 0.3, d: 4 }, { k: "heal", v: 0.3 }] }] } } },
+   "Chó Cỏ": { skill: { ally: [{ to: "self", eff: [{ k: "taunt", r: 1, d: [3, 3.5, 4] }] }, { to: "adj", eff: [{ k: "buff", stat: "armor", v: 8, d: 4 }] }] },
+@@ -185,7 +185,7 @@ const S: Record<string, Spec> = {
+     passive: { onHit: { p: [0.15, 0.2, 0.25], eff: { k: "dot", v: 0.03, d: 3 } } },
+     s3: { skill: { ally: [{ to: "self", eff: [{ k: "heal", v: 0.2 }] }] } } },
+   "Heo Ỉ": { skill: { ally: [{ to: "self", eff: [{ k: "shield", v: 0.2, d: 4 }, { k: "heal", v: 0.1 }] }] },
+-    passive: { stack: { on: "hurt", stat: "hpPct", v: 0.02, max: [0.2, 0.25, 0.3] } },
++    passive: { stack: { on: "hurt", stat: "hpPct", v: 0.02, max: [0.12, 0.16, 0.2] } },
+     s3: { skill: { ally: [{ to: "self", eff: [{ k: "taunt", r: 1, d: 3 }] }] } } },
+   "Heo Móng Cái": { skill: { ally: [{ to: "self", eff: [{ k: "summon", n: 1, pct: [0.2, 0.25, 0.3] }] }] }, passive: { death: { spawn: [1, 0.2] } },
+     s3: { passive: { death: { spawn: [2, 0.4] } } } },
+@@ -197,10 +197,10 @@ const S: Record<string, Spec> = {
+     s3: { passive: { gold: true } } },
+   "Dê": { skill: { hit: { sel: "cur", eff: [{ k: "knock", cells: 1 }, { k: "stun", d: [0.5, 0.75, 1] }] } }, passive: { dodge: [0.15, 0.2, 0.25] },
+     s3: { hit: { eff: [{ k: "knock", cells: 2 }, { k: "stun", d: 1 }] } } },
+-  "Ngựa Ta": { skill: { ally: [{ to: "low2", eff: [{ k: "carry" }, { k: "buff", stat: "aspd", v: 0.2, d: 4 }] }] },
+-    passive: { aura: { who: "ally", r: 1, stat: "aspd", v: [0.06, 0.08, 0.1] } },
++  "Ngựa Ta": { skill: { ally: [{ to: "low2", eff: [{ k: "carry" }, { k: "buff", stat: "aspd", v: 0.3, d: 4 }, { k: "heal", v: 0.1 }] }] },
++    passive: { aura: { who: "ally", r: 1, stat: "aspd", v: [0.1, 0.12, 0.15] } },
+     s3: { skill: { ally: [{ to: "low2", replace: true, eff: [{ k: "carry" }, { k: "buff", stat: "aspd", v: 0.2, d: 4 }, { k: "heal", v: 0.15 }] }] } } },
+-  "Vịt Cỏ": { skill: { ally: [{ to: "self", eff: [{ k: "heal", v: [0.12, 0.16, 0.2] }] }, { to: "adj", eff: [{ k: "heal", v: [0.12, 0.16, 0.2] }] }] },
++  "Vịt Cỏ": { skill: { ally: [{ to: "self", eff: [{ k: "heal", v: [0.18, 0.22, 0.26] }] }, { to: "adj", eff: [{ k: "heal", v: [0.18, 0.22, 0.26] }] }] },
+     passive: { vs: { ids: ["Ốc Bươu Vàng"], m: 1.5 }, drWater: 0.85 },
+     s3: { skill: { ally: [{ to: "team", eff: [{ k: "heal", v: 0.08 }] }] } } },
+   "Cò Trắng": { skill: { hit: { sel: "cur", vsSyn: ["Sông Nước", 1.3] } }, passive: { aspdPct: [0.1, 0.15, 0.2], cond: "nearBuffalo" },
+@@ -215,14 +215,14 @@ const S: Record<string, Spec> = {
+     passive: { onHit: { p: [0.1, 0.15, 0.2], eff: { k: "root", d: 1 } } } },
+   "Ốc Bươu Vàng": { skill: { ally: [{ to: "self", eff: [{ k: "immune", what: "basic", d: [1.5, 2, 2.5] }] }] },
+     passive: { every: { s: 8, k: "spawn", pct: [0.1, 0.12, 0.15] } } },
+-  "Thạch Sùng": { skill: { hit: { sel: "insect", vsSyn: ["Côn Trùng", 1.5] } }, passive: { dodge: [0.1, 0.15, 0.2] },
++  "Thạch Sùng": { skill: { hit: { sel: "insect", vsSyn: ["Côn Trùng", 1.3] } }, passive: { dodge: [0.1, 0.15, 0.2] },
+     s3: { hit: { n: 2 } } },
+-  "Thằn Lằn Bóng": { skill: { hit: { sel: "insect" } }, passive: { cheatDeath: [0.01, 0.1, 0.2] },
++  "Thằn Lằn Bóng": { skill: { hit: { sel: "insect", pct: 220 } }, passive: { cheatDeath: [0.01, 0.05, 0.1] },
+     s3: { passive: { cheatDeath: 0.2, regenIdle: 0.1 } } },
+-  "Cóc Nhà": { skill: { ally: [{ to: "syn:water", eff: [{ k: "buff", stat: "dmg", v: [0.15, 0.2, 0.25], d: 5 }] }] },
+-    passive: { lightning: { pct: 0.15, cd: [12, 10, 8] } } },
+-  "Gián": { skill: { hit: { sel: "lowHp", jump: true }, ally: [{ to: "self", eff: [{ k: "flee", d: 2 }] }] },
+-    passive: { dodge: [0.25, 0.3, 0.35], low: { below: 0.2, flee: 2 } } },
++  "Cóc Nhà": { skill: { ally: [{ to: "team", eff: [{ k: "buff", stat: "dmg", v: [0.12, 0.16, 0.2], d: 5 }] }] },
++    passive: { lightning: { pct: 0.2, cd: [12, 10, 8] } } },
++  "Gián": { skill: { hit: { sel: "lowHp", jump: true, pct: 300 }, ally: [{ to: "self", eff: [{ k: "flee", d: 1 }] }] },
++    passive: { dodge: [0.15, 0.2, 0.25], low: { below: 0.2, flee: 2 } } },
+   "Muỗi Vằn": { skill: { hit: { sel: "cur", drain: 0.5, eff: [{ k: "debuff", stat: "aspd", v: 0.2, d: 3 }] } },
+     passive: { onHit: { p: [0.15, 0.2, 0.25], eff: { k: "debuff", stat: "aspd", v: 0.2, d: 3 } } },
+     s3: { passive: { onHit: { p: 0.25, eff: { k: "dot", v: 0.02, d: 3 } } } } },
+@@ -248,7 +248,7 @@ const S: Record<string, Spec> = {
+     passive: { onHit: { p: [0.1, 0.15, 0.2], eff: { k: "root", d: 2 } } } },
+   "Rắn Hổ Mang": { skill: { hit: { sel: "cur", eff: [{ k: "dot", v: [0.04, 0.05, 0.06], d: 3 }, { k: "slow", v: 0.2, d: 3 }] } },
+     passive: { dodgeFirstSkill: true }, s3: { passive: { atkPct: 0.2, cond: "nearDragon" } } },
+-  "Trăn Gấm": { skill: { hit: { sel: "cur", eff: [{ k: "root", d: [2, 2.5, 3] }, { k: "dot", v: 0.05, d: [2, 2.5, 3] }] } },
++  "Trăn Gấm": { skill: { hit: { sel: "cur", eff: [{ k: "root", d: [1.5, 2, 2.5] }, { k: "dot", v: 0.03, d: [1.5, 2, 2.5] }] } },
+     passive: { drSkill: [0.1, 0.15, 0.2] } },
+   "Cá Đuối Điện": { skill: { hit: { sel: "cur", n: 3, eff: [{ k: "stun", d: 1 }] } },
+     passive: { onHurt: { p: [0.15, 0.2, 0.25], melee: true, eff: { k: "stun", d: 1 } } }, s3: { hit: { n: 5 } } },
+diff --git a/scripts/stats_v3.py b/scripts/stats_v3.py
+index 4631d36..b18a257 100644
+--- a/scripts/stats_v3.py
++++ b/scripts/stats_v3.py
+@@ -16,9 +16,9 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
+ ROLE = {
+     "Đỡ Đòn":     (700, 40, 0.60, 30),
+     "Chiến Đấu":  (600, 50, 0.70, 20),
+-    "Săn Mồi":    (500, 60, 0.85, 10),
+-    "Phép Thuật": (450, 40, 0.65, 5),
+-    "Hỗ Trợ":     (500, 35, 0.60, 15),
++    "Săn Mồi":    (480, 56, 0.85, 10),
++    "Phép Thuật": (500, 42, 0.65, 8),
++    "Hỗ Trợ":     (560, 38, 0.60, 18),
+ }
+ TIER_MUL = {1: 1.0, 2: 1.2, 3: 1.4, 4: 1.6, 5: 1.9}  # tier 5 1.8 → 1.9: PO 20 Nov 2026
+ 
