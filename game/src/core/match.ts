@@ -180,6 +180,9 @@ export class Match {
   rollShop(p: PlayerState) {
     for (const id of p.shop) if (id != null) this.pool.set(id, this.pool.get(id)! + 1);
     p.shop = [];
+    // the human player on Dễ / Thường sees VieAni they own more often (the computer's shop is never boosted)
+    const boost = p === this.human ? C.OWNED_SHOP_BOOST[this.difficulty] : 1;
+    const boosted = new Set(boost > 1 ? p.team.units().filter((u) => u.star < 3).map((u) => u.speciesId) : []);
     const odds = C.SHOP_ODDS[Math.min(p.level, C.SHOP_ODDS.length) - 1];
     for (let i = 0; i < C.SHOP_SLOTS; i++) {
       const left = (tier: number) => this.species.filter((s) => s.tier === tier && this.pool.get(s.id)! > 0);
@@ -188,7 +191,7 @@ export class Match {
       if (w.every((n) => n <= 0)) w = odds.map((_, t) => left(t + 1).reduce((n, s) => n + this.pool.get(s.id)!, 0));
       if (w.every((n) => n <= 0)) { p.shop.push(null); continue; }
       const cands = left(this.rng.weighted(w) + 1);
-      const id = cands[this.rng.weighted(cands.map((s) => this.pool.get(s.id)!))].id;
+      const id = cands[this.rng.weighted(cands.map((s) => this.pool.get(s.id)! * (boosted.has(s.id) ? boost : 1)))].id;
       this.pool.set(id, this.pool.get(id)! - 1);
       p.shop.push(id);
     }

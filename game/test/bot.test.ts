@@ -56,3 +56,24 @@ describe("difficulty (main menu, PO 20 Nov 2026)", () => {
     expect(a.bot.team.units().map((u) => u.speciesId)).toEqual(b.bot.team.units().map((u) => u.speciesId));
   });
 });
+
+describe("owned VieAni show up more in the player's shop on Dễ / Thường (PO 20 Nov 2026)", () => {
+  const ownedShare = (diff: C.Difficulty, who: "human" | "bot") => {
+    let hit = 0, n = 0;
+    for (let seed = 1; seed <= 60; seed++) {
+      const m = newMatch(seed);
+      m.difficulty = diff;
+      const p = m[who]; p.level = 5;
+      const ids = p.shop.filter((x): x is number => x != null).slice(0, 3);
+      ids.forEach((id, i) => p.team.addToBench({ uid: 7000 + i, speciesId: id, star: 1 }));
+      for (let r = 0; r < 5; r++) { m.rollShop(p); hit += p.shop.filter((x) => x != null && ids.includes(x)).length; n += 5; }
+    }
+    return hit / n;
+  };
+  it("Dễ > Thường > Khó for the player; the computer's shop is not boosted", () => {
+    const easy = ownedShare("easy", "human"), normal = ownedShare("normal", "human"), hard = ownedShare("hard", "human");
+    expect(easy).toBeGreaterThan(normal);
+    expect(normal).toBeGreaterThan(hard * 1.4);
+    expect(ownedShare("easy", "bot")).toBeCloseTo(ownedShare("hard", "bot"), 5);
+  });
+});

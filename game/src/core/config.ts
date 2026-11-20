@@ -1,6 +1,6 @@
 // All game-rule numbers in one place (see docs/GDD.md). Balance by editing this file.
 
-export const VERSION = "0.15.0";
+export const VERSION = "0.15.1";
 
 export const PLAYERS = 8;
 export const PLAYER_HP = 100;
@@ -35,6 +35,9 @@ export const XP_TO_NEXT = [1, 2, 6, 10, 20, 36, 56, 80, 100];
 /** computer opponent (main menu, PO 20 Nov 2026): Dễ = the old simple bot, Thường = botAI.ts, Khó = botAI.ts + extra gold */
 export type Difficulty = "easy" | "normal" | "hard";
 export const HARD_BOT_GOLD = 2;
+/** player's shop: a VieAni they already own (★1/★2, board or bench) is this many times more likely to be drawn within its
+ *  tier – easier ★2/★3 (PO 20 Nov 2026: Dễ and Thường only; tier odds per level stay the same) */
+export const OWNED_SHOP_BOOST: Record<Difficulty, number> = { easy: 3, normal: 2, hard: 1 };
 export const MAX_LEVEL = 10; // full 12 Con Giáp needs Ấn Thống Nhất (3 Linh Vật + Rồng Lạc Việt at level 10)
 
 // --- shop ---

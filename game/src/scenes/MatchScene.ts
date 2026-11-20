@@ -745,18 +745,28 @@ export class MatchScene extends BoardScene {
     const tier = this.itemData(offer[0]).tier;
     box.add(this.add.text(SCREEN_W / 2, 118, `Phần thưởng vòng ${this.match.round}: chọn 1 vật phẩm (bậc ${tier})`, { fontFamily: FONT_LOGO, fontSize: "28px", color: "#ffe6a3", fontStyle: "800" })
       .setOrigin(0.5).setShadow(1, 2, "#000", 4));
-    const CW = 270, CH = 290, gap = 26;
-    offer.forEach((id, k) => {
+    // cards grow to fit the longest effect text (Linh Vật descriptions are long – PO 20 Nov 2026), all three the same height
+    const CW = 270, MIN_H = 290, gap = 26;
+    const cards = offer.map((id, k) => {
       const it = this.itemData(id);
-      const x = SCREEN_W / 2 + (k - (offer.length - 1) / 2) * (CW + gap), y = 330;
-      const c = this.add.container(x, y);
+      const c = this.add.container(SCREEN_W / 2 + (k - (offer.length - 1) / 2) * (CW + gap), 0);
       const g = this.add.graphics();
-      g.fillStyle(0x1b120c, 0.97).fillRoundedRect(-CW / 2, -CH / 2, CW, CH, 16).lineStyle(3, GOLD, 0.9).strokeRoundedRect(-CW / 2, -CH / 2, CW, CH, 16);
-      const ic = this.add.image(0, -CH / 2 + 62, `item:${id}`).setDisplaySize(92, 92);
-      const name = this.add.text(0, -CH / 2 + 118, it.name, { fontFamily: FONT_UI, fontSize: "18px", color: "#ffe6a3", fontStyle: "bold", align: "center", wordWrap: { width: CW - 30 } }).setOrigin(0.5, 0);
+      // laid out from the card's top edge (y = 0), centred afterwards
+      const ic = this.add.image(0, 62, `item:${id}`).setDisplaySize(92, 92);
+      const name = this.add.text(0, 118, it.name, { fontFamily: FONT_UI, fontSize: "18px", color: "#ffe6a3", fontStyle: "bold", align: "center", wordWrap: { width: CW - 30 } }).setOrigin(0.5, 0);
       const sub = this.add.text(0, name.y + name.height + 4, it.cat === "LV" ? "LINH VẬT – mảnh Ấn Thống Nhất" : `Bậc ${it.tier} · ${ITEM_CAT[it.cat] ?? it.cat}` + (this.match.isTeamItem(id) ? " – không cần người mang" : ""),
         { fontFamily: FONT_UI, fontSize: "12px", color: "#cdbb98", fontStyle: "bold", align: "center", wordWrap: { width: CW - 30 } }).setOrigin(0.5, 0);
       const eff = this.add.text(0, sub.y + sub.height + 10, it.effect, { fontFamily: FONT_UI, fontSize: "13.5px", color: CREAM, align: "center", wordWrap: { width: CW - 34 }, lineSpacing: 3 }).setOrigin(0.5, 0);
+      c.add([g, ic, name, sub, eff]);
+      return { id, k, it, c, g, need: eff.y + eff.height + 18 };
+    });
+    const CH = Math.max(MIN_H, ...cards.map((x) => x.need));
+    // keep the cards below the title (y 118) and above the shop
+    const cy = Math.min(Math.max(330, 152 + CH / 2), SCREEN_H - 12 - CH / 2);
+    for (const { id, k, it, c, g } of cards) {
+      c.setY(cy);
+      for (const o of c.list as (Phaser.GameObjects.Components.Transform & Phaser.GameObjects.GameObject)[]) if (o !== g) o.y -= CH / 2;
+      g.fillStyle(0x1b120c, 0.97).fillRoundedRect(-CW / 2, -CH / 2, CW, CH, 16).lineStyle(3, GOLD, 0.9).strokeRoundedRect(-CW / 2, -CH / 2, CW, CH, 16);
       const hit = this.add.zone(0, 0, CW, CH).setInteractive({ useHandCursor: true });
       hit.on("pointerover", () => c.setScale(1.04));
       hit.on("pointerout", () => c.setScale(1));
@@ -766,9 +776,9 @@ export class MatchScene extends BoardScene {
         toast(this, this.match.isCharm(id) ? `${it.name}: mảnh Ấn Thống Nhất (${this.match.human.charms.length}/3)` : this.match.isTeamItem(id) ? `${it.name}: đặt vào ô Toàn đội` : `${it.name} vào túi – kéo lên một VieAni để trang bị`);
         this.syncItems();
       });
-      c.add([g, ic, name, sub, eff, hit]);
+      c.add(hit);
       box.add(c);
-    });
+    }
     this.itemModal = box;
   }
 
