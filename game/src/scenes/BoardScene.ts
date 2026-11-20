@@ -492,8 +492,9 @@ export class BoardScene extends Phaser.Scene {
         this.drawHp(tv);
         if (tv.hp > 0) void tv.anim.hit(v.c.x, v.c.y, speed);
         const strong = e.type === "attack" && (e.mult > 1 || !!e.crit), weak = e.type === "attack" && e.mult < 1;
-        const txt = this.add.text(tv.c.x + Phaser.Math.Between(-10, 10), tv.c.y - tv.sprite.displayHeight * 0.8, cast ? `${e.dmg}!` : `${e.dmg}`, {
-          fontFamily: FONT_LOGO, fontSize: cast ? "30px" : strong ? "24px" : "20px", fontStyle: "800",
+        const [lx, ly] = this.lane(tv);
+        const txt = this.add.text(tv.c.x + lx, tv.c.y - tv.sprite.displayHeight * 0.8 + ly, cast ? `${e.dmg}!` : `${e.dmg}`, {
+          fontFamily: FONT_LOGO, fontSize: cast ? "25px" : strong ? "22px" : "19px", fontStyle: "800",
           color: cast ? "#ffd84a" : strong ? "#ff9a3c" : weak ? "#c9c2b8" : "#ffffff",
         }).setOrigin(0.5).setStroke("#000", 5).setDepth(9500);
         this.tweens.add({ targets: txt, y: txt.y - 34, alpha: 0, duration: 700, onComplete: () => txt.destroy() });
@@ -562,7 +563,7 @@ export class BoardScene extends Phaser.Scene {
     const foes = e.foes.map((u) => this.views.get(u)).filter((x): x is View => !!x);
     const allies = e.allies.map((u) => this.views.get(u)).filter((x): x is View => !!x);
     const tint = e.tint ?? SKILL_TINT[e.fx];
-    FX.skillName(this, { x: at.x, y: at.y - v.sprite.displayHeight * 0.55 - 18 }, e.name, FONT_LOGO, sp);
+    FX.skillName(this, { x: at.x, y: v.c.y - v.sprite.displayHeight * (v.illustrated ? 0.88 : 0.98) * v.c.scaleY - 54 }, e.name, FONT_LOGO, sp);
     void v.anim.cast(tint, sp);
     const later = (ms: number, fn: () => void) => this.time.delayedCall(ms / sp, fn);
     switch (e.fx) {
@@ -582,8 +583,18 @@ export class BoardScene extends Phaser.Scene {
     }
   }
 
+  /** stacking for floating texts on one VieAni: texts started within the last 0.45 s move up / sideways so they do not overlap */
+  private lanes = new Map<number, number[]>();
+  protected lane(v: View): [number, number] {
+    const now = this.time.now, list = (this.lanes.get(v.uid) ?? []).filter((t0) => now - t0 < 450 / settings.speed);
+    const n = list.length;
+    list.push(now); this.lanes.set(v.uid, list);
+    return [((n % 3) - 1) * 22 + Phaser.Math.Between(-4, 4), -n * 17];
+  }
+
   protected floatText(v: View, text: string, color: string, size = 18) {
-    const txt = this.add.text(v.c.x + Phaser.Math.Between(-12, 12), v.c.y - v.sprite.displayHeight * 0.75, text, {
+    const [lx, ly] = this.lane(v);
+    const txt = this.add.text(v.c.x + lx, v.c.y - v.sprite.displayHeight * 0.75 + ly, text, {
       fontFamily: FONT_LOGO, fontSize: `${size}px`, fontStyle: "800", color,
     }).setOrigin(0.5).setStroke("#000", 4).setDepth(9500);
     this.tweens.add({ targets: txt, y: txt.y - 30, alpha: 0, duration: 750, onComplete: () => txt.destroy() });
@@ -628,8 +639,8 @@ export class BoardScene extends Phaser.Scene {
 
 /** status label, text colour and body tint (0 = no tint) for the skill-engine statuses */
 const STATUS_LOOK: Partial<Record<string, [string, string, number]>> = {
-  stun: ["Choáng!", "#fff27a", 0xfff27a], root: ["Trói!", "#c9a36b", 0xc9a36b], blind: ["Mù!", "#b9b9b9", 0x8a8a8a],
-  silence: ["Câm lặng!", "#d8c8ff", 0], charm: ["Mê hoặc!", "#ff9ad5", 0xff9ad5], slow: ["", "", 0x9fd4ff],
+  stun: ["Choáng!", "#fff27a", 0xfff27a], root: ["", "", 0xc9a36b], blind: ["", "", 0x8a8a8a],
+  silence: ["", "", 0], charm: ["Mê hoặc!", "#ff9ad5", 0xff9ad5], slow: ["", "", 0x9fd4ff],
   copy: ["Biến hóa!", "#ffd84a", 0],
 };
 /** status icons (assets/icons/status, scripts/status_icons.py) */

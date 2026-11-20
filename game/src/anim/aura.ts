@@ -25,6 +25,12 @@ export const AURA_TITLES: Record<AuraKind, string> = {
 
 export function attachAura(scene: Phaser.Scene, v: VieAniView, kind: AuraKind, option: number): () => void {
   const tweens: Phaser.Tweens.Tween[] = [];
+  /** stop the loops – safe while the scene shuts down (20 Nov 2026 crash: when "Vòng tiếp" restarts the scene the tween
+   *  manager is already cleared, and removing a heartbeat TweenChain then threw, so the next round never started) */
+  const stopAll = () => {
+    for (const t of tweens) { try { if (t.parent) t.remove(); } catch { /* already gone */ } }
+    for (const t of timers) { try { t.remove(); } catch { /* already gone */ } }
+  };
   const timers: Phaser.Time.TimerEvent[] = [];
   const objs: Phaser.GameObjects.GameObject[] = [];
   const alive = () => v.c.active && !v.dead && v.c.visible;
@@ -117,9 +123,9 @@ export function attachAura(scene: Phaser.Scene, v: VieAniView, kind: AuraKind, o
   }
 
   const stop = () => {
-    tweens.forEach((t) => t.remove()); timers.forEach((t) => t.remove()); objs.forEach((o) => o.destroy());
+    stopAll(); objs.forEach((o) => o.destroy());
     if (v.body.active) v.body.clearTint().setAlpha(1);
   };
-  v.c.once(Phaser.GameObjects.Events.DESTROY, () => { tweens.forEach((t) => t.remove()); timers.forEach((t) => t.remove()); });
+  v.c.once(Phaser.GameObjects.Events.DESTROY, () => stopAll());
   return stop;
 }

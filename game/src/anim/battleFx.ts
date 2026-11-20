@@ -68,10 +68,11 @@ export function rise(s: Phaser.Scene, at: P, tint: number, n = 8, speed = 1) {
 /** the skill's name above the caster */
 export function skillName(s: Phaser.Scene, at: P, name: string, font: string, speed = 1) {
   if (!name) return;
-  const tx = s.add.text(at.x, at.y, name, { fontFamily: font, fontSize: "19px", color: "#ffe9a8", fontStyle: "800" })
-    .setOrigin(0.5).setStroke("#2b1d14", 5).setDepth(DEPTH + 300).setScale(0.6);
+  const tx = s.add.text(at.x, at.y, name, { fontFamily: font, fontSize: "16px", color: "#ffe9a8", fontStyle: "800",
+    backgroundColor: "rgba(43,29,20,0.72)", padding: { x: 6, y: 2 } })
+    .setOrigin(0.5).setStroke("#2b1d14", 3).setDepth(DEPTH + 300).setScale(0.6);
   s.tweens.add({ targets: tx, scale: 1, duration: 140 / speed, ease: "Back.easeOut" });
-  s.tweens.add({ targets: tx, y: at.y - 26, alpha: 0, delay: 650 / speed, duration: 500 / speed, onComplete: () => tx.destroy() });
+  s.tweens.add({ targets: tx, y: at.y - 16, alpha: 0, delay: 750 / speed, duration: 400 / speed, onComplete: () => tx.destroy() });
 }
 
 /** an item icon pops out of its carrier when the item does something */
