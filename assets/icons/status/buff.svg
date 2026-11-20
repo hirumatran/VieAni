@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs><radialGradient id="bbuff" cx=".4" cy=".34" r=".72"><stop offset="0" stop-color="#78bd95"/><stop offset=".6" stop-color="#2f9a5c"/>
+    <stop offset="1" stop-color="#1c5c37"/></radialGradient></defs>
+  <circle cx="32" cy="32" r="31" fill="#0d2b1a"/><circle cx="32" cy="32" r="28" fill="url(#bbuff)"/>
+  <circle cx="32" cy="32" r="25.5" fill="none" stroke="#f3d27a" stroke-opacity=".7" stroke-width="1.2"/>
+  <g transform="translate(13 13) scale(0.07422 0.07422)" fill="#fff"><path fill="#fff" d="m256 29.816l-231 154v106.368l231-154l231 154V183.816zm0 128.043L105 259.783v90.283l151-101.925l151 101.925v-90.283zm0 112l-87 58.725v67.6l87-58l87 58v-67.6zm0 89.957l-87 58v64.368l87-58l87 58v-64.368z"/></g>
+</svg>

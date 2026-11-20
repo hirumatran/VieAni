@@ -265,14 +265,14 @@ const S: Record<string, Spec> = {
 };
 void p;
 
-interface SkillRow { id: number; vi: string; active: { atkPct: number | null } }
+interface SkillRow { id: number; vi: string; active: { atkPct: number | null; name: string; templates: string[] } }
 const rows = (skillsFile as { skills: SkillRow[] }).skills;
 /** species id → spec, with the damage % from the table */
-export const SKILL_SPECS = new Map<number, Spec & { pct: number }>(
+export const SKILL_SPECS = new Map<number, Spec & { pct: number; name: string; templates: string[] }>(
   rows.map((r) => {
     const spec = S[r.vi];
     if (!spec) throw new Error(`no skill spec for ${r.vi}`);
-    return [r.id, { ...spec, pct: r.active.atkPct ?? 0 }];
+    return [r.id, { ...spec, pct: r.active.atkPct ?? 0, name: r.active.name, templates: r.active.templates }];
   }),
 );
 export const SPEC_NAMES = Object.keys(S);

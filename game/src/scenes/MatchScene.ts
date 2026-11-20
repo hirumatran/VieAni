@@ -184,7 +184,7 @@ export class MatchScene extends BoardScene {
       const ic = SYN_ICON[g.name]?.icon;
       if (ic && !this.textures.exists(`syn:${ic}`)) this.load.svg(`syn:${ic}`, `icons/synergies/${ic}.svg`, { width: 96, height: 96 });
     }
-    for (const id of [...DROPPABLE, ...C.CHARM_ITEM_IDS]) if (!this.textures.exists(`item:${id}`)) this.load.svg(`item:${id}`, `icons/items/${id}.svg`, { width: 72, height: 72 });
+    // item icons are loaded by BoardScene.preload (battle effects need them too)
   }
 
   // ------------------------------------------------------------------ tộc hệ (synergies) on the right (PO, 17 Nov 2026)

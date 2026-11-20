@@ -11,6 +11,9 @@ import { tierColour, VieAniView } from "../anim/VieAniView";
 import { hasIllustration, preloadIllustrations, sizeScale, texturesFor, vcode } from "../anim/illustrations";
 import type { ViewTextures } from "../anim/VieAniView";
 import { attachAura } from "../anim/aura";
+import * as FX from "../anim/battleFx";
+import { DROPPABLE } from "../core/items";
+import { CHARM_ITEM_IDS } from "../core/config";
 import { InfoCard, type CardSubject } from "../ui/InfoCard";
 
 const ENEMY_TINT = 0x96e6dc;
@@ -48,6 +51,8 @@ export interface View {
   /** alternate form textures (seen from this side) and whether it has transformed in this battle */
   alt?: ViewTextures;
   transformed?: string;
+  /** status icons above the head (visuals pass): kind → icon + scene time (ms) when it ends */
+  statuses?: Map<string, { img: Phaser.GameObjects.Image; until: number }>;
 }
 
 /** Battle screen: drag VieAni between bench and board (task T09), then replay a simulated fight (T10). */
@@ -78,6 +83,49 @@ export class BoardScene extends Phaser.Scene {
     for (const s of this.data_.species)
       if (!hasIllustration(this.data_, s, "front")) this.load.image(`sp${s.id}`, `sprites/${String(s.id).padStart(2, "0")}.png`);
     preloadIllustrations(this, this.data_, this.data_.roster);
+    for (const k of STATUS_ICONS) if (!this.textures.exists(`status:${k}`)) this.load.svg(`status:${k}`, `icons/status/${k}.svg`, { width: 48, height: 48 });
+    for (const id of [...DROPPABLE, ...CHARM_ITEM_IDS]) if (!this.textures.exists(`item:${id}`)) this.load.svg(`item:${id}`, `icons/items/${id}.svg`, { width: 72, height: 72 });
+  }
+
+  // ------------------------------------------------------------------ status icons (visuals pass)
+  /** the middle of the body in scene coordinates */
+  protected bodyAt(v: View) {
+    return { x: v.c.x, y: v.c.y - v.sprite.displayHeight * 0.45 * v.c.scaleY };
+  }
+
+  protected addStatus(v: View, kind: string, ms: number) {
+    if (!this.textures.exists(`status:${kind}`) || v.anim.dead) return;
+    const map = (v.statuses ??= new Map());
+    const until = this.time.now + Math.max(ms, 300);
+    const cur = map.get(kind);
+    if (cur && cur.img.active) cur.until = Math.max(cur.until, until);
+    else {
+      const img = this.add.image(0, 0, `status:${kind}`).setDisplaySize(19, 19);
+      v.c.add(img);
+      map.set(kind, { img, until });
+      img.setScale(img.scale * 0.2);
+      this.tweens.add({ targets: img, scale: img.scale * 5, duration: 160, ease: "Back.easeOut" });
+      this.layoutStatus(v);
+    }
+    this.time.delayedCall(Math.max(ms, 300) + 30, () => { const s = v.statuses?.get(kind); if (s && this.time.now >= s.until) this.removeStatus(v, kind); });
+  }
+
+  protected removeStatus(v: View, kind?: string) {
+    if (!v.statuses) return;
+    for (const k of kind ? [kind] : [...v.statuses.keys()]) {
+      const s = v.statuses.get(k);
+      if (!s) continue;
+      s.img.destroy();
+      v.statuses.delete(k);
+    }
+    this.layoutStatus(v);
+  }
+
+  protected layoutStatus(v: View) {
+    if (!v.statuses) return;
+    const y = -v.sprite.displayHeight * (v.illustrated ? 0.88 : 0.98) - 30;
+    const list = [...v.statuses.values()], n = list.length;
+    list.forEach((s, i) => s.img.setPosition((i - (n - 1) / 2) * 20, y));
   }
 
   create() {
@@ -415,6 +463,12 @@ export class BoardScene extends Phaser.Scene {
     }
     const v = this.views.get(e.uid);
     if (!v) return;
+    if (e.type === "skill") { this.showSkill(v, e); return; }
+    if (e.type === "item") {
+      FX.itemPop(this, { x: v.c.x, y: this.bodyAt(v).y - 30 }, `item:${e.id}`, settings.speed);
+      if (v.itemBadge?.visible) this.tweens.add({ targets: v.itemBadge, scale: v.itemBadge.scale * 1.6, duration: 140 / settings.speed, yoyo: true });
+      return;
+    }
     if (e.type === "move") {
       this.place(v, { where: "board", row: e.row, col: e.col }, true, MOVE_SECONDS_PER_CELL * 10 * msPerTick);
     } else if (e.type === "attack" || e.type === "cast") {
@@ -444,14 +498,19 @@ export class BoardScene extends Phaser.Scene {
         }).setOrigin(0.5).setStroke("#000", 5).setDepth(9500);
         this.tweens.add({ targets: txt, y: txt.y - 34, alpha: 0, duration: 700, onComplete: () => txt.destroy() });
       };
-      if (cast) void v.anim.cast(undefined, speed).then(land);
+      if (cast) this.time.delayedCall(200 / speed, () => { FX.flash(this, this.bodyAt(tv), 0xffe9a8, 0.6, speed); land(); });
       else { void v.anim.attack(tv.c.x, tv.c.y, sp.range >= 2, speed); this.time.delayedCall(220 / speed, land); }
     } else if (e.type === "death") {
+      this.removeStatus(v);
       this.time.delayedCall(250 / settings.speed, () => void v.anim.die(settings.speed));
     } else if (e.type === "hp") {
       // item effects: heal (+), bleeding, lightning, extra shots (−)
       v.hp = Math.min(v.maxHp, v.hp + e.delta);
       this.drawHp(v);
+      const sv = e.src != null ? this.views.get(e.src) : undefined;
+      if (sv && e.kind === "zap") FX.bolt(this, [this.bodyAt(sv), this.bodyAt(v)], 0xffe14a, settings.speed);
+      if (sv && e.kind === "shot") FX.streak(this, this.bodyAt(sv), this.bodyAt(v), 0xfff1c4, settings.speed);
+      if (e.kind === "heal") FX.rise(this, this.bodyAt(v), 0x7dff8a, 5, settings.speed);
       if (e.delta < 0 && v.hp > 0) void v.anim.hit(undefined, undefined, settings.speed);
       const look = { heal: ["#7dff8a", `+${e.delta}`], bleed: ["#ff6a6a", `${e.delta}`], zap: ["#ffe14a", `⚡${-e.delta}`], shot: ["#ffffff", `${-e.delta}`] }[e.kind];
       this.floatText(v, look[1], look[0], e.kind === "heal" ? 18 : 17);
@@ -468,15 +527,22 @@ export class BoardScene extends Phaser.Scene {
         this.time.delayedCall(ms, () => v.anim.rig.setAlpha(1));
       } else if (e.kind === "shield") {
         this.floatText(v, `🛡 ${e.amount ?? ""}`, "#9fd4ff", 18);
+      } else if (e.kind === "cleanse") {
+        for (const k of NEGATIVE) this.removeStatus(v, k);
+        v.anim.body.clearTint();
+        FX.rise(this, this.bodyAt(v), 0xffffff, 6, settings.speed);
       } else if (STATUS_LOOK[e.kind]) {
-        // skill engine statuses (T12): label + tint for the duration – full icons come with the visuals pass
+        // skill engine statuses (T12): a label for hard control, a tint while it lasts
         const [label, color, tint] = STATUS_LOOK[e.kind]!;
-        if (label) this.floatText(v, label, color, 18);
+        if (label) this.floatText(v, label, color, 17);
         if (tint && ms > 0 && !v.anim.dead) {
           v.anim.body.setTint(tint);
-          this.time.delayedCall(ms, () => { if (!v.anim.dead) v.anim.body.clearTint(); });
+          this.time.delayedCall(ms, () => { if (!v.anim.dead && !(v.statuses?.has(e.kind))) v.anim.body.clearTint(); });
         }
       }
+      // status icon above the head for as long as it lasts (shield / copy without a duration: a few seconds)
+      const icon = e.kind === "shield" ? "shield" : e.kind;
+      if (STATUS_ICONS.includes(icon)) this.addStatus(v, icon, ms > 0 ? ms : icon === "copy" ? 60000 : 4000 / settings.speed);
     } else if (e.type === "revive") {
       // Quả Thị / Lá Đa Thần: back on the board
       this.time.delayedCall(10, () => {
@@ -487,6 +553,32 @@ export class BoardScene extends Phaser.Scene {
         v.anim.burst(v.c.x, v.c.y - v.sprite.displayHeight * 0.4, 0x7dff8a, 16);
         this.floatText(v, "Hồi sinh!", "#9dffb0", 22);
       });
+    }
+  }
+
+  /** a skill is cast: name over the caster, caster glow, then an effect by kind (visuals pass) */
+  protected showSkill(v: View, e: Extract<BattleEvent, { type: "skill" }>) {
+    const sp = settings.speed, at = this.bodyAt(v);
+    const foes = e.foes.map((u) => this.views.get(u)).filter((x): x is View => !!x);
+    const allies = e.allies.map((u) => this.views.get(u)).filter((x): x is View => !!x);
+    const tint = e.tint ?? SKILL_TINT[e.fx];
+    FX.skillName(this, { x: at.x, y: at.y - v.sprite.displayHeight * 0.55 - 18 }, e.name, FONT_LOGO, sp);
+    void v.anim.cast(tint, sp);
+    const later = (ms: number, fn: () => void) => this.time.delayedCall(ms / sp, fn);
+    switch (e.fx) {
+      case "strike": later(170, () => foes.forEach((f) => FX.slash(this, this.bodyAt(f), tint, sp))); break;
+      case "chain": later(150, () => FX.bolt(this, [at, ...foes.map((f) => this.bodyAt(f))], tint, sp)); break;
+      case "area": {
+        const pts = foes.length ? foes.map((f) => this.bodyAt(f)) : [at];
+        const c = { x: pts.reduce((n, p) => n + p.x, 0) / pts.length, y: pts.reduce((n, p) => n + p.y, 0) / pts.length };
+        const r = Math.max(70, ...pts.map((p) => Math.hypot(p.x - c.x, p.y - c.y) + 45));
+        later(160, () => { FX.ring(this, c, r, tint, 520, sp); foes.forEach((f) => FX.flash(this, this.bodyAt(f), tint, 0.55, sp)); });
+        break;
+      }
+      case "heal": later(150, () => allies.forEach((a) => FX.rise(this, this.bodyAt(a), tint, 9, sp))); break;
+      case "shield": later(150, () => allies.forEach((a) => { FX.ring(this, this.bodyAt(a), 52, tint, 420, sp); FX.rise(this, this.bodyAt(a), tint, 5, sp); })); break;
+      case "buff": later(150, () => { allies.forEach((a) => FX.rise(this, this.bodyAt(a), tint, 7, sp)); foes.forEach((f) => FX.flash(this, this.bodyAt(f), tint, 0.45, sp)); }); break;
+      default: later(120, () => { FX.flash(this, at, tint, 0.9, sp); FX.rise(this, at, tint, 8, sp); foes.forEach((f) => FX.flash(this, this.bodyAt(f), tint, 0.5, sp)); });
     }
   }
 
@@ -537,9 +629,17 @@ export class BoardScene extends Phaser.Scene {
 /** status label, text colour and body tint (0 = no tint) for the skill-engine statuses */
 const STATUS_LOOK: Partial<Record<string, [string, string, number]>> = {
   stun: ["Choáng!", "#fff27a", 0xfff27a], root: ["Trói!", "#c9a36b", 0xc9a36b], blind: ["Mù!", "#b9b9b9", 0x8a8a8a],
-  silence: ["Câm lặng!", "#d8c8ff", 0], charm: ["Mê hoặc!", "#ff9ad5", 0xff9ad5], slow: ["Chậm", "#9fd4ff", 0x9fd4ff],
-  taunt: ["Khiêu khích", "#ff8a5a", 0], buff: ["▲", "#7dff8a", 0], debuff: ["▼", "#ff8a7a", 0], immune: ["Miễn khống chế", "#ffe6a3", 0],
-  dot: ["Độc", "#a6ff6a", 0], copy: ["Biến hóa!", "#ffd84a", 0], guard: ["Trấn giữ", "#ffe6a3", 0], wall: ["Ụ cát", "#e7c787", 0],
+  silence: ["Câm lặng!", "#d8c8ff", 0], charm: ["Mê hoặc!", "#ff9ad5", 0xff9ad5], slow: ["", "", 0x9fd4ff],
+  copy: ["Biến hóa!", "#ffd84a", 0],
+};
+/** status icons (assets/icons/status, scripts/status_icons.py) */
+const STATUS_ICONS = ["stun", "root", "blind", "silence", "charm", "slow", "taunt", "dot", "buff", "debuff", "immune", "shield", "stealth", "rabid", "guard", "wall", "copy"];
+/** statuses a cleanse removes */
+const NEGATIVE = ["stun", "root", "blind", "silence", "charm", "slow", "taunt", "dot", "debuff", "rabid"];
+/** default colour of a skill effect by kind (fire / lightning / water / poison skills bring their own) */
+const SKILL_TINT: Record<string, number> = {
+  strike: 0xfff1c4, area: 0xffd84a, chain: 0xffe14a, heal: 0x7dff8a, shield: 0x6fb8ff, buff: 0xffd84a,
+  summon: 0xffe6a3, revive: 0x9dffb0, copy: 0xd58cff, special: 0xffe6a3,
 };
 
 /** texture for the info card picture: front view, or the alternate form once it has transformed */

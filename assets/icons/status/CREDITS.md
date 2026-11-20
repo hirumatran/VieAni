@@ -1,0 +1,3 @@
+# Status icons – credits
+
+Symbols from **game-icons.net** by Lorc, Delapouite and contributors, licensed **CC BY 3.0** (https://creativecommons.org/licenses/by/3.0/) – recoloured on VieAni badges. Used: knocked-out-stars (Choáng), manacles (Trói), blindfold (Mù), silenced (Câm lặng), charm (Mê hoặc), snail (Làm chậm), shouting (Bị khiêu khích), poison-bottle (Độc / Bỏng / Chảy máu), upgrade (Được tăng sức), armor-downgrade (Bị suy yếu), aura (Miễn khống chế / miễn sát thương), checked-shield (Khiên), invisible (Ẩn mình), fangs (Dại), crenulated-shield (Trấn giữ), brick-wall (Ụ cát), duality-mask (Biến hóa).
