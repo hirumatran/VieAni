@@ -134,18 +134,21 @@ Parallel community track: T05 → T06 → T07 → T42.
 - For the later native phase: Google Play testing rule https://support.google.com/googleplay/android-developer/answer/14151465 ;
   Apple fee https://developer.apple.com/programs/whats-included/ ; Steam Direct https://partner.steamgames.com/steamdirect
 
-## Progress (17 Nov 2026, v0.10.0)
-Ahead of plan on the game loop; skills are the main gap.
+## Progress (20 Nov 2026, v0.15.1)
+Ahead of plan: battle core, skills and the 1-vs-1 game loop are done; next are 8-player + bot personalities, tutorial, audio, phone.
 | Task | Status |
 |---|---|
-| T01–T04, T09, T10 | done (11 Nov) |
-| T13 Thiên địch / Cộng sinh | Thiên địch done; Cộng sinh not yet |
-| T14 balance simulator | done for tộc hệ (`npm run balance`, `docs/balance/`); per-VieAni report still to do |
+| T01–T04, T09, T10 | done (11 Nov; T10 rewritten for v3 on 19 Nov) |
+| T11 skills, T12 status effects, M1 | done 20 Nov (v0.12.0) – 87 approved skills live; "Bay" status not yet |
+| T13 Thiên địch / Cộng sinh | Thiên địch done; Cộng sinh still text only |
+| T14 balance simulator | done – tộc hệ + per-VieAni reports, bot and difficulty studies (`game/tools/`, `docs/balance/`) |
 | T15/T23/T28/T37 art | done – all 87 VieAni illustrated (PO, Gemini) + cut-out pipeline |
-| T16 economy, T17 star-up | done (1-vs-1 match) |
-| T18 synergy engine | done – 17 tộc hệ in battle (4 sub-effects wait for T11/T12) |
-| T19 items | 33/50 items in battle; rewards at rounds 1,4,8…36 (PvE removed by PO) |
-| T20 round flow | done for 1-vs-1 (prep, battle, damage, game over); 8-player ranking with T21 |
-| T24 UI | mostly done: HUD, shop, tộc hệ panel, item bag, info cards, VieIndex in game |
-| T44 backgrounds | 1 painted background (Hạ Long); 7 to go |
-| T11 skills, T12 status effects, T21 bots, T25 audio, T26 tutorial, T33 phone | open – next |
+| T16 economy, T17 star-up | done (1-vs-1 match; shop boost for owned VieAni on Dễ/Thường) |
+| T18 synergy engine | done – 17 tộc hệ in battle |
+| T19 items | 33/50 battle items work; rewards at rounds 1,4,8…36 (PvE removed by PO) |
+| T20 round flow | done for 1-vs-1; 8-player ranking with T21 |
+| T21 bots | in progress – one smart bot + difficulty Dễ/Thường/Khó (20 Nov); 7 personalities for 8-player to do |
+| T24 UI | mostly done: HUD, shop, tộc hệ panel, item bag, info cards, VieIndex, main-menu match setup |
+| T27 balance pass 1 | done 20 Nov (v0.13.0); PO playtesting; ★3 outliers open |
+| T44 backgrounds | done 20 Nov – 8 painted backgrounds, chosen in the main menu |
+| T25 audio, T26 tutorial, T30 feedback form, T33 phone | open – next |
