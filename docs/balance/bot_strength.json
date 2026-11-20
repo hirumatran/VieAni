@@ -1,0 +1,72 @@
+{
+ "N": 100,
+ "style": {
+  "levelCurve": [
+   [
+    2,
+    3
+   ],
+   [
+    4,
+    4
+   ],
+   [
+    6,
+    5
+   ],
+   [
+    9,
+    6
+   ],
+   [
+    12,
+    7
+   ],
+   [
+    16,
+    8
+   ],
+   [
+    21,
+    9
+   ],
+   [
+    27,
+    10
+   ]
+  ],
+  "econ": 50,
+  "econFrom": 5,
+  "panicHp": 40,
+  "maxRolls": 5
+ },
+ "results": {
+  "smart vs old": {
+   "winRate": 0.965,
+   "games": 200,
+   "avgRounds": 22.1,
+   "avgLevelR10": [
+    6,
+    6
+   ]
+  },
+  "old vs old": {
+   "winRate": 0.51,
+   "games": 200,
+   "avgRounds": 25.9,
+   "avgLevelR10": [
+    6.1,
+    6
+   ]
+  },
+  "smart vs smart": {
+   "winRate": 0.485,
+   "games": 200,
+   "avgRounds": 23.7,
+   "avgLevelR10": [
+    6,
+    6
+   ]
+  }
+ }
+}
