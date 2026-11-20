@@ -320,8 +320,67 @@ export class MatchScene extends BoardScene {
     this.updateCounter();
   }
 
+  /** what buying one more copy does: owned at all, and the ★ it would merge into (1 = no merge) – PO 20 Nov 2026 */
+  private upgradeOnBuy(id: number): { owned: boolean; star: 1 | 2 | 3 } {
+    const units = this.match.human.team.units().filter((u) => u.speciesId === id);
+    let c1 = units.filter((u) => u.star === 1).length + 1, c2 = units.filter((u) => u.star === 2).length, star: 1 | 2 | 3 = 1;
+    if (c1 >= 3) { c1 -= 3; c2++; star = 2; }
+    if (star === 2 && c2 >= 3) star = 3;
+    return { owned: units.length > 0, star };
+  }
+
+  /** soft glow frame drawn once: a white rounded rectangle with a blur, tinted per card */
+  private glowTexture() {
+    const key = "fx:cardglow";
+    if (this.textures.exists(key)) return key;
+    const pad = 18, w = CARD_W + pad * 2, h = CARD_H + pad * 2;
+    const tex = this.textures.createCanvas(key, w, h)!, g = tex.getContext();
+    g.shadowColor = "#ffffff"; g.shadowBlur = 14; g.strokeStyle = "#ffffff"; g.lineWidth = 5;
+    for (let i = 0; i < 2; i++) { g.beginPath(); g.roundRect(pad - 2, pad - 2, CARD_W + 4, CARD_H + 4, 12); g.stroke(); }
+    tex.refresh();
+    return key;
+  }
+
+  /** highlight on a shop card: owned (soft glow), buying makes ★2 (gold pulse) or ★3 (shimmering pulse + light sweep) */
+  private highlightCard(c: Phaser.GameObjects.Container, id: number) {
+    const { owned, star } = this.upgradeOnBuy(id);
+    if (!owned && star === 1) return;
+    const glow = this.add.image(0, 0, this.glowTexture()).setBlendMode(Phaser.BlendModes.ADD);
+    c.addAt(glow, 0);
+    if (star === 1) {
+      glow.setTint(0xfff1c4).setAlpha(0.45);
+      this.tweens.add({ targets: glow, alpha: 0.8, duration: 1100, yoyo: true, repeat: -1, ease: "Sine.easeInOut" });
+      return;
+    }
+    const gold = star === 2 ? 0xffd84a : 0xffb030;
+    glow.setTint(gold).setAlpha(0.75);
+    this.tweens.add({ targets: glow, alpha: 1, scaleX: 1.04, scaleY: 1.03, duration: star === 2 ? 650 : 420, yoyo: true, repeat: -1, ease: "Sine.easeInOut" });
+    const badge = this.add.text(0, -CARD_H / 2 - 2, "★".repeat(star), {
+      fontFamily: FONT_LOGO, fontSize: star === 3 ? "19px" : "17px", fontStyle: "800", color: star === 3 ? "#fff3b0" : "#ffe27a",
+      backgroundColor: "#2b1d14", padding: { x: 7, y: 1 },
+    }).setOrigin(0.5).setStroke("#2b1d14", 3);
+    c.add(badge);
+    this.tweens.add({ targets: badge, scale: 1.12, duration: 520, yoyo: true, repeat: -1, ease: "Sine.easeInOut" });
+    if (star === 3) {
+      // shimmering colours and a light sweep across the card
+      this.cardFx.push(this.tweens.addCounter({ from: 0, to: 360, duration: 1800, repeat: -1, onUpdate: (tw) => {
+        if (!glow.active) return;
+        const col = Phaser.Display.Color.HSVToRGB(((tw.getValue() ?? 0) % 360) / 360, 0.45, 1) as Phaser.Types.Display.ColorObject;
+        glow.setTint(Phaser.Display.Color.GetColor(col.r, col.g, col.b));
+      } }));
+      const sweep = this.add.rectangle(-CARD_W / 2 + 10, 0, 16, CARD_H - 8, 0xffffff, 0.22).setAngle(12).setBlendMode(Phaser.BlendModes.ADD);
+      c.add(sweep);
+      this.tweens.add({ targets: sweep, x: CARD_W / 2 - 10, duration: 900, repeat: -1, repeatDelay: 600, ease: "Quad.easeInOut" });
+    }
+  }
+
+  /** colour-cycle tweens of the ★3 highlight (not tied to a game object, so stopped by hand on redraw) */
+  private cardFx: Phaser.Tweens.Tween[] = [];
+
   private drawCards() {
-    for (const c of this.cards) c.destroy();
+    for (const tw of this.cardFx) tw.stop();
+    this.cardFx = [];
+    for (const c of this.cards) { this.tweens.killTweensOf([c, ...c.list]); c.destroy(); }
     this.cards = [];
     const m = this.match, p = m.human;
     p.shop.forEach((id, slot) => {
@@ -355,6 +414,7 @@ export class MatchScene extends BoardScene {
       c.add([img, name, sub, cost]);
       if (have) c.add(this.add.text(-CARD_W / 2 + 7, -CARD_H / 2 + 6, t("owned")(have), { fontFamily: FONT_UI, fontSize: "12px", color: "#9df0a8", fontStyle: "bold", backgroundColor: "#1b120cc0", padding: { x: 4, y: 1 } }));
       c.setAlpha(ok ? 1 : 0.45);
+      this.highlightCard(c, id);
       const hit = this.add.zone(0, 0, CARD_W, CARD_H).setInteractive({ useHandCursor: true });
       // hover: the VieAni wiggles on its feet (PO request) and the info card opens beside the shop card
       let wiggle: Phaser.Tweens.Tween | null = null;
