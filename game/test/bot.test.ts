@@ -34,3 +34,25 @@ describe("smarter bot (PO 20 Nov 2026)", () => {
     expect(wins).toBeGreaterThanOrEqual(4);
   });
 });
+
+describe("difficulty (main menu, PO 20 Nov 2026)", () => {
+  it("Khó gives the computer HARD_BOT_GOLD extra each round; Dễ and Thường do not", () => {
+    const gold = (diff: C.Difficulty) => {
+      const m = newMatch(5);
+      m.difficulty = diff;
+      m.human.gold = m.bot.gold = 0;
+      m.finishRound({ winner: "draw", ticks: 0, events: [], survivors: [] });
+      return [m.human.gold, m.bot.gold];
+    };
+    expect(gold("normal")[1]).toBe(gold("normal")[0]);
+    expect(gold("easy")[1]).toBe(gold("easy")[0]);
+    expect(gold("hard")[1]).toBe(gold("hard")[0] + C.HARD_BOT_GOLD);
+  });
+
+  it("Dễ uses the old simple bot for the computer only", () => {
+    const a = newMatch(9), b = newMatch(9);
+    a.difficulty = "easy";
+    a.botTurn(); b.botTurn(b.bot, "easy");
+    expect(a.bot.team.units().map((u) => u.speciesId)).toEqual(b.bot.team.units().map((u) => u.speciesId));
+  });
+});

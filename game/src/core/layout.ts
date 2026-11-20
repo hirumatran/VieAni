@@ -17,8 +17,26 @@ export const MATCH_BENCH_CORNERS: Pt[] = [[337, 494], [943, 494], [958, 552], [3
 /** the shop strip: everything below this line (drop a VieAni here to sell it) */
 export const MATCH_SHOP_TOP = 562;
 
-/** painted battle backgrounds (one picked at random per battle) */
-export const BACKGROUNDS = ["backgrounds/painted/bg_ha_long.webp"];
+/** painted backgrounds from the PO (Drive folder, 20 Nov 2026): key → Vietnamese place name. 1600×900 webp + 256×144 thumbs */
+export const SCENERY: { key: string; name: string }[] = [
+  { key: "ha_long", name: "Vịnh Hạ Long" },
+  { key: "trang_an", name: "Tràng An" },
+  { key: "phong_nha", name: "Phong Nha – Kẻ Bàng" },
+  { key: "hoan_kiem", name: "Hồ Hoàn Kiếm" },
+  { key: "mu_cang_chai", name: "Mù Cang Chải" },
+  { key: "tram_chim", name: "Tràm Chim" },
+  { key: "nam_cat_tien", name: "Nam Cát Tiên" },
+  { key: "con_dao", name: "Côn Đảo" },
+];
+export const sceneryPath = (key: string) => `backgrounds/painted/bg_${key}.webp`;
+export const sceneryThumb = (key: string) => `backgrounds/thumbs/bg_${key}.webp`;
+/** all battle backgrounds (labs use the first) */
+export const BACKGROUNDS = SCENERY.map((s) => sceneryPath(s.key));
+/** the chosen scenery, or a random one for "random" / an unknown key */
+export function pickScenery(choice: string): string {
+  const s = SCENERY.find((x) => x.key === choice) ?? SCENERY[Math.floor(Math.random() * SCENERY.length)];
+  return s.key;
+}
 
 const UNIT: Pt[] = [[0, 0], [1, 0], [1, 1], [0, 1]];
 

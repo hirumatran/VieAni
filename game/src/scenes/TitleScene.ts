@@ -1,25 +1,28 @@
 import Phaser from "phaser";
-import { VERSION } from "../core/config";
+import { HARD_BOT_GOLD, VERSION, type Difficulty } from "../core/config";
 import { saveSettings, settings, t, type Lang } from "../core/i18n";
-import { SCREEN_H, SCREEN_W } from "../core/layout";
+import { pickScenery, SCENERY, sceneryPath, sceneryThumb, SCREEN_H, SCREEN_W } from "../core/layout";
 import { button, coverImage, CREAM, FONT_LOGO, FONT_UI, GOLD, toast, WOOD } from "../ui/widgets";
 
-const TITLE_BG = "backgrounds/painted/bg_ha_long.webp";
-
-/** Start screen: Hạ Long background, logo, main menu, language switch. */
+/** Start screen: painted background (the chosen scenery), logo, main menu, match setup (difficulty + scenery), language switch. */
 export class TitleScene extends Phaser.Scene {
   constructor() {
     super("title");
   }
 
+  private bg?: Phaser.GameObjects.Image;
+  /** the scenery on screen (for "random": one picked when the menu opens) */
+  private shownKey = "";
+
   preload() {
-    this.load.image("title-bg", TITLE_BG);
+    this.shownKey = pickScenery(settings.background);
+    this.load.image(`bg:${this.shownKey}`, sceneryPath(this.shownKey));
+    for (const s of SCENERY) this.load.image(`thumb:${s.key}`, sceneryThumb(s.key));
   }
 
   create() {
-    const bg = coverImage(this, "title-bg");
-    // slow drift over the bay
-    this.tweens.add({ targets: bg, scale: bg.scale * 1.06, x: bg.x - 20, duration: 24000, yoyo: true, repeat: -1, ease: "Sine.easeInOut" });
+    this.bg = undefined;
+    this.showBackground(this.shownKey);
 
     // darken the centre column a little so the menu reads well
     const shade = this.add.graphics();
@@ -60,11 +63,90 @@ export class TitleScene extends Phaser.Scene {
     }
 
     this.languageSwitch();
-    button(this, 120, SCREEN_H - 40, 210, 42, "🎬 Xưởng hoạt ảnh", () => this.scene.start("animlab", { code: "V001" }));
-    button(this, 345, SCREEN_H - 40, 220, 42, "✨ Hiệu ứng trạng thái", () => this.scene.start("auralab"));
-    button(this, 590, SCREEN_H - 40, 250, 42, "🐉 Mô phỏng Ấn Thống Nhất", () => this.scene.start("match", { demo: true }));
+    this.matchSetup();
+    button(this, 132, SCREEN_H - 40, 240, 42, "🎬 Xưởng hoạt ảnh", () => this.scene.start("animlab", { code: "V001" }));
+    button(this, 392, SCREEN_H - 40, 264, 42, "✨ Hiệu ứng trạng thái", () => this.scene.start("auralab"));
+    button(this, 682, SCREEN_H - 40, 300, 42, "🐉 Mô phỏng Ấn Thống Nhất", () => this.scene.start("match", { demo: true }));
     this.add.text(SCREEN_W - 14, SCREEN_H - 12, `${t("alphaNote")} · v${VERSION}`, { fontFamily: FONT_UI, fontSize: "14px", color: CREAM })
       .setOrigin(1, 1).setShadow(1, 1, "#000", 3);
+  }
+
+  /** background with a slow drift; the painting is loaded on demand when the scenery changes */
+  private showBackground(key: string) {
+    const tex = `bg:${key}`;
+    const put = () => {
+      const old = this.bg;
+      const bg = coverImage(this, tex).setDepth(-10).setAlpha(old ? 0 : 1);
+      this.bg = bg;
+      this.tweens.add({ targets: bg, scale: bg.scale * 1.06, x: bg.x - 20, duration: 24000, yoyo: true, repeat: -1, ease: "Sine.easeInOut" });
+      if (old) this.tweens.add({ targets: bg, alpha: 1, duration: 350, onComplete: () => old.destroy() });
+    };
+    this.shownKey = key;
+    if (this.textures.exists(tex)) return put();
+    this.load.image(tex, sceneryPath(key));
+    this.load.once(Phaser.Loader.Events.COMPLETE, () => { if (this.sys.isActive() && this.shownKey === key) put(); });
+    this.load.start();
+  }
+
+  /** right-hand card: difficulty (Dễ / Thường / Khó) and scenery (◀ thumbnail ▶), both saved in the settings */
+  private matchSetup() {
+    const cx = 1062, w = 330, top = 292, h = 352;
+    const g = this.add.graphics();
+    g.fillStyle(WOOD, 0.88).fillRoundedRect(cx - w / 2, top, w, h, 16);
+    g.lineStyle(2, GOLD, 0.85).strokeRoundedRect(cx - w / 2, top, w, h, 16);
+    this.add.text(cx, top + 22, t("matchSetup"), { fontFamily: FONT_LOGO, fontSize: "24px", color: "#ffe6a3", fontStyle: "800" }).setOrigin(0.5);
+
+    // difficulty: three segments
+    this.add.text(cx - w / 2 + 18, top + 50, t("difficulty"), { fontFamily: FONT_UI, fontSize: "15px", color: CREAM, fontStyle: "bold" });
+    const levels: [Difficulty, string][] = [["easy", t("diffEasy")], ["normal", t("diffNormal")], ["hard", t("diffHard")]];
+    const segW = 96, segH = 38, sy = top + 74, sx0 = cx - (segW * 3 + 8) / 2;
+    const seg = this.add.graphics();
+    const labels = levels.map(([, label], i) =>
+      this.add.text(sx0 + i * (segW + 4) + segW / 2, sy + segH / 2, label, { fontFamily: FONT_UI, fontSize: "17px", fontStyle: "bold", color: CREAM }).setOrigin(0.5));
+    const note = this.add.text(cx, sy + segH + 10, "", { fontFamily: FONT_UI, fontSize: "13px", color: CREAM, align: "center", wordWrap: { width: w - 30 } }).setOrigin(0.5, 0);
+    const drawDiff = () => {
+      seg.clear();
+      levels.forEach(([lv], i) => {
+        const on = settings.difficulty === lv;
+        seg.fillStyle(on ? GOLD : 0x4a3424, 1).fillRoundedRect(sx0 + i * (segW + 4), sy, segW, segH, 10);
+        labels[i].setColor(on ? "#2b1d14" : CREAM);
+      });
+      note.setText(settings.difficulty === "easy" ? t("diffEasyNote") : settings.difficulty === "hard" ? t("diffHardNote")(HARD_BOT_GOLD) : t("diffNormalNote"));
+    };
+    levels.forEach(([lv], i) => this.add.zone(sx0 + i * (segW + 4) + segW / 2, sy + segH / 2, segW, segH).setInteractive({ useHandCursor: true })
+      .on("pointerup", () => { settings.difficulty = lv; saveSettings(settings); drawDiff(); }));
+    drawDiff();
+
+    // scenery: ◀ thumbnail ▶ + name
+    this.add.text(cx - w / 2 + 18, top + 160, t("scenery"), { fontFamily: FONT_UI, fontSize: "15px", color: CREAM, fontStyle: "bold" });
+    const choices = ["random", ...SCENERY.map((s) => s.key)];
+    const ty = top + 184, tw = 224, th = 126;
+    const frame = this.add.graphics();
+    frame.lineStyle(3, GOLD, 1).strokeRoundedRect(cx - tw / 2 - 3, ty - 3, tw + 6, th + 6, 8);
+    const thumb = this.add.image(cx, ty + th / 2, `thumb:${SCENERY[0].key}`).setDisplaySize(tw, th);
+    const dice = this.add.text(cx, ty + th / 2, "?", { fontFamily: FONT_LOGO, fontSize: "64px", color: "#ffe6a3", fontStyle: "800" }).setOrigin(0.5).setStroke("#2b1d14", 8);
+    const name = this.add.text(cx, ty + th + 10, "", { fontFamily: FONT_UI, fontSize: "16px", color: "#ffe6a3", fontStyle: "bold" }).setOrigin(0.5, 0);
+    const drawScenery = () => {
+      const random = settings.background === "random" || !SCENERY.some((s) => s.key === settings.background);
+      const key = random ? this.shownKey : settings.background;
+      thumb.setTexture(`thumb:${key}`).setDisplaySize(tw, th).setTint(random ? 0x777777 : 0xffffff);
+      dice.setVisible(random);
+      name.setText(random ? t("sceneryRandom") : SCENERY.find((s) => s.key === key)!.name);
+    };
+    const step = (d: number) => {
+      const i = Math.max(0, choices.indexOf(settings.background));
+      settings.background = choices[(i + d + choices.length) % choices.length];
+      saveSettings(settings);
+      if (settings.background !== "random") this.showBackground(settings.background);
+      drawScenery();
+    };
+    for (const [dx, label, d] of [[-tw / 2 - 26, "◀", -1], [tw / 2 + 26, "▶", 1]] as [number, string, number][]) {
+      const b = this.add.text(cx + dx, ty + th / 2, label, { fontFamily: FONT_UI, fontSize: "26px", color: "#ffe6a3" }).setOrigin(0.5)
+        .setInteractive({ useHandCursor: true }).on("pointerup", () => step(d));
+      b.on("pointerover", () => b.setColor("#ffffff")).on("pointerout", () => b.setColor("#ffe6a3"));
+    }
+    thumb.setInteractive({ useHandCursor: true }).on("pointerup", () => step(1));
+    drawScenery();
   }
 
   /** VI | EN pill, top-right */

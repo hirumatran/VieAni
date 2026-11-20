@@ -1,6 +1,6 @@
 // All game-rule numbers in one place (see docs/GDD.md). Balance by editing this file.
 
-export const VERSION = "0.14.0";
+export const VERSION = "0.15.0";
 
 export const PLAYERS = 8;
 export const PLAYER_HP = 100;
@@ -32,6 +32,9 @@ export const XP_BUY_AMOUNT = 4;
 export const XP_PER_ROUND = 2;
 /** XP needed to go from level i+1 to i+2 */
 export const XP_TO_NEXT = [1, 2, 6, 10, 20, 36, 56, 80, 100];
+/** computer opponent (main menu, PO 20 Nov 2026): Dễ = the old simple bot, Thường = botAI.ts, Khó = botAI.ts + extra gold */
+export type Difficulty = "easy" | "normal" | "hard";
+export const HARD_BOT_GOLD = 2;
 export const MAX_LEVEL = 10; // full 12 Con Giáp needs Ấn Thống Nhất (3 Linh Vật + Rồng Lạc Việt at level 10)
 
 // --- shop ---

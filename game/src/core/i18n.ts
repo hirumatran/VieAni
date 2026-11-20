@@ -1,5 +1,7 @@
 // UI text in Vietnamese and English. Vietnamese is the main language; English is for a later build.
 
+import type { Difficulty } from "./config";
+
 export type Lang = "vi" | "en";
 
 const STRINGS = {
@@ -66,6 +68,16 @@ const STRINGS = {
     xpToGo: (n: number, l: number) => `còn ${n} XP lên cấp ${l}`,
     lockedOn: "Đã khóa cửa hàng – giữ nguyên sang vòng sau",
     lockedOff: "Đã mở khóa cửa hàng",
+    matchSetup: "Trận đấu",
+    difficulty: "Độ khó",
+    diffEasy: "Dễ",
+    diffNormal: "Thường",
+    diffHard: "Khó",
+    diffEasyNote: "Máy mua và xếp quân đơn giản",
+    diffNormalNote: "Máy chơi cùng luật, theo tộc hệ và ★",
+    diffHardNote: (g: number) => `Như Thường, máy được thêm ${g} vàng mỗi vòng`,
+    scenery: "Phong cảnh",
+    sceneryRandom: "Ngẫu nhiên",
   },
   en: {
     tagline: "Legends of the Wild",
@@ -130,14 +142,30 @@ const STRINGS = {
     xpToGo: (n: number, l: number) => `${n} XP to level ${l}`,
     lockedOn: "Shop locked – kept for next round",
     lockedOff: "Shop unlocked",
+    matchSetup: "Match",
+    difficulty: "Difficulty",
+    diffEasy: "Easy",
+    diffNormal: "Normal",
+    diffHard: "Hard",
+    diffEasyNote: "The computer buys and places simply",
+    diffNormalNote: "Same rules as you, builds synergies and ★",
+    diffHardNote: (g: number) => `Like Normal, the computer gets +${g} gold per round`,
+    scenery: "Scenery",
+    sceneryRandom: "Random",
   },
 };
 
 export type StringKey = keyof typeof STRINGS.vi;
 
 /** small persistent settings (per device). Storage may be blocked (private mode) – then defaults are used. */
-export interface Settings { lang: Lang; sound: boolean; speed: 1 | 2; relaxed: boolean }
-const DEFAULTS: Settings = { lang: "vi", sound: true, speed: 1, relaxed: true };
+export interface Settings {
+  lang: Lang; sound: boolean; speed: 1 | 2; relaxed: boolean;
+  /** computer opponent: Dễ / Thường / Khó */
+  difficulty: Difficulty;
+  /** battle + title background: a BACKGROUNDS key or "random" */
+  background: string;
+}
+const DEFAULTS: Settings = { lang: "vi", sound: true, speed: 1, relaxed: true, difficulty: "normal", background: "random" };
 const KEY = "vieani.settings";
 
 export function loadSettings(): Settings {

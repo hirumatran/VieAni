@@ -63,6 +63,7 @@ export class MatchScene extends BoardScene {
     if (data?.fresh || !this.match || this.match.over) {
       this.demo = null;
       this.match = testMatch(this.data_, Math.floor(Math.random() * 1e9));
+      this.match.difficulty = settings.difficulty; // main menu choice (Dễ / Thường / Khó)
       this.pendingToast = t("testNote")(TEST_CODES.length, TEST_CODES[TEST_CODES.length - 1] ?? "");
     }
   }

@@ -67,6 +67,8 @@ export class Match {
   readonly players: [PlayerState, PlayerState];
   readonly species: Species[];
   round = 1;
+  /** how the computer opponent plays (main menu setting) */
+  difficulty: C.Difficulty = "normal";
   private rng: Rng;
   private nextUid = 1;
 
@@ -329,9 +331,10 @@ export class Match {
     }
   }
 
-  /** the computer's turn: the smarter bot (botAI.ts) unless "easy" (the original simple bot) */
-  botTurn(p: PlayerState = this.bot, level: "easy" | "smart" = "smart") {
-    if (level === "smart") return smartTurn(this, p);
+  /** the computer's turn: the smarter bot (botAI.ts), or the original simple bot on Dễ (or when asked for "easy") */
+  botTurn(p: PlayerState = this.bot, level?: "easy" | "smart") {
+    const lv = level ?? (p === this.bot && this.difficulty === "easy" ? "easy" : "smart");
+    if (lv === "smart") return smartTurn(this, p);
     const reserve = this.round >= 5 ? 10 : 0; // keep 10 gold for interest from round 5
     const owned = () => new Set(p.team.units().map((u) => u.speciesId));
     for (let rolls = 0; rolls < 4; rolls++) {
@@ -463,7 +466,9 @@ export class Match {
         streak: C.STREAK_BONUS.filter(([n]) => Math.abs(p.streak) >= n).reduce((m, [, g]) => Math.max(m, g), 0),
         result: won ? C.WIN_BONUS : C.LOSS_BONUS,
       };
-      p.gold += inc.base + inc.interest + inc.streak + inc.result + inc.items;
+      // Khó: the computer gets a little extra gold each round (said so in the menu)
+      const handicap = i === 1 && this.difficulty === "hard" ? C.HARD_BOT_GOLD : 0;
+      p.gold += inc.base + inc.interest + inc.streak + inc.result + inc.items + handicap;
       const up = this.addXp(p, C.XP_PER_ROUND);
       if (i === 0) { income = inc; levelUp = up; }
     });

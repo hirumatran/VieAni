@@ -3,7 +3,7 @@ import { maxHp as battleMaxHp, mirror, playerDamage, simulate, type BattleEvent,
 import { AURA_CHOICE, auraKindForTier, BENCH_SLOTS, BOARD_COLS, BOARD_ROWS, HALF_ROWS, MOVE_SECONDS_PER_CELL, SKILLS_ON, TICKS_PER_SECOND, TRANSFORMS, VERSION } from "../core/config";
 import type { GameData, Species } from "../core/data";
 import { settings, t } from "../core/i18n";
-import { BACKGROUNDS, BENCH_CORNERS, BOARD_CORNERS, Grid, SCREEN_H, SCREEN_W, type Pt } from "../core/layout";
+import { BENCH_CORNERS, pickScenery, sceneryPath, BOARD_CORNERS, Grid, SCREEN_H, SCREEN_W, type Pt } from "../core/layout";
 import { Rng } from "../core/rng";
 import { Team, type OwnedUnit, type Spot } from "../core/team";
 import { button, coverImage, CREAM, FONT_LOGO, FONT_UI, toast } from "../ui/widgets";
@@ -83,7 +83,7 @@ export class BoardScene extends Phaser.Scene {
   }
 
   preload() {
-    const bg = BACKGROUNDS[Math.floor(Math.random() * BACKGROUNDS.length)];
+    const bg = sceneryPath(pickScenery(settings.background));
     this.bgKey = "bg:" + bg;
     this.load.image(this.bgKey, bg);
     // old pixel sprites only as a fallback for VieAni that have no illustration yet
