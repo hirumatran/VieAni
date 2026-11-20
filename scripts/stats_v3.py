@@ -16,11 +16,15 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 ROLE = {
     "Đỡ Đòn":     (700, 40, 0.60, 30),
     "Chiến Đấu":  (600, 50, 0.70, 20),
-    "Săn Mồi":    (500, 60, 0.85, 10),
-    "Phép Thuật": (450, 40, 0.65, 5),
-    "Hỗ Trợ":     (500, 35, 0.60, 15),
+    "Săn Mồi":    (480, 56, 0.85, 10),
+    "Phép Thuật": (500, 42, 0.65, 8),
+    "Hỗ Trợ":     (560, 38, 0.60, 18),
 }
-TIER_MUL = {1: 1.0, 2: 1.2, 3: 1.4, 4: 1.6, 5: 1.9}  # tier 5 1.8 → 1.9: PO 20 Nov 2026
+TIER_MUL = {1: 1.0, 2: 1.2, 3: 1.4, 4: 1.6, 5: 1.9}
+# balance pass 20 Nov 2026 (PO: every VieAni into 40–60 % in tools/unitBalance.ts): × Máu and Tấn Công for single VieAni
+BALANCE = {"Trăn Gấm": 0.9, "Heo Rừng": 0.87, "Thằn Lằn Bóng": 0.92, "Trâu": 0.95, "Heo Ỉ": 0.96, "Chó Lài": 0.96,
+           "Thạch Sùng": 0.97, "Gián": 0.97, "Voi châu Á": 0.95, "Cá Tra Dầu": 0.98, "Tê tê Java": 0.98, "Bọ Ngựa": 0.97,
+           "Sáo Sậu": 1.18, "Sứa": 1.08, "Rẽ mỏ thìa": 1.06}  # tier 5 1.8 → 1.9: PO 20 Nov 2026
 
 
 def main():
@@ -40,7 +44,7 @@ def main():
     for s in sp:
         o, a = old(s), avg[s["role"]]
         hp0, atk0, as0, ar0 = ROLE[s["role"]]
-        m = TIER_MUL[s["tier"]]
+        m = TIER_MUL[s["tier"]] * BALANCE.get(s["vi"], 1)
         hp = round(hp0 * m * tw(o["hp"], a["hp"]) / 10) * 10
         atk = round(atk0 * m * tw(max(o["atk"], o["spa"]), a["atk"]))
         aspd = round(as0 * tw(o["spe"], a["spe"]) / 0.05) * 0.05

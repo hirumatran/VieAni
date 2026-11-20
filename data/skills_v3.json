@@ -67,7 +67,7 @@
     "hit": "1",
     "control": false,
     "atkPct": 400,
-    "text": "Phóng tới kẻ địch xa nhất, đá hậu 305 / 545 / 975 sát thương rồi nhảy về ô trống gần nhất"
+    "text": "Phóng tới kẻ địch xa nhất, đá hậu 285 / 510 / 910 sát thương rồi nhảy về ô trống gần nhất"
    },
    "passive": {
     "template": "Né đòn",
@@ -107,11 +107,11 @@
     "hit": "aoe",
     "control": true,
     "atkPct": 90,
-    "text": "Dậm chân: 55 / 100 / 175 sát thương và Choáng 1 / 1,25 / 1,5 giây kẻ địch trong 1 ô"
+    "text": "Dậm chân: 50 / 95 / 165 sát thương và Choáng 0,5 / 0,6 / 0,75 giây kẻ địch trong 1 ô"
    },
    "passive": {
     "template": "Hào quang",
-    "text": "Voi Chiến Bà Triệu: khi Voi còn trên sân, cả đội +5% / 8% / 10% Tấn Công"
+    "text": "Voi Chiến Bà Triệu: khi Voi còn trên sân, cả đội +2% / 3% / 4% Tấn Công"
    },
    "star3": {
     "template": "Nâng kỹ năng",
@@ -148,7 +148,7 @@
     "hit": "aoe",
     "control": false,
     "atkPct": 160,
-    "text": "Quét mỏ thìa: 80 / 140 / 250 sát thương và −15% Tốc Độ Đánh 5 giây cho kẻ địch trong vùng; đồng đội Sông Nước +15% / 20% / 25% Tấn Công 5 giây"
+    "text": "Quét mỏ thìa: 85 / 155 / 275 sát thương và −15% Tốc Độ Đánh 5 giây cho kẻ địch trong vùng; đồng đội Sông Nước +15% / 20% / 25% Tấn Công 5 giây"
    },
    "passive": {
     "template": "Chỉ số",
@@ -187,7 +187,7 @@
     "hit": "1",
     "control": false,
     "atkPct": 360,
-    "text": "Nhảy tới kẻ địch ít máu nhất trên sân, vồ 330 / 595 / 1.060 sát thương"
+    "text": "Nhảy tới kẻ địch ít máu nhất trên sân, vồ 310 / 555 / 990 sát thương"
    },
    "passive": {
     "template": "Chỉ số",
@@ -226,12 +226,12 @@
     "target": "vùng 2 ô quanh mục tiêu",
     "hit": "aoe",
     "control": true,
-    "atkPct": 150,
-    "text": "Hát: 75 / 135 / 240 sát thương kẻ địch trong 2 ô quanh mục tiêu; chúng không thể tấn công Bò Biển và đồng đội kề bên trong 3 / 4 / 5 giây (Mê hoặc)"
+    "atkPct": 260,
+    "text": "Hát: 140 / 250 / 440 sát thương kẻ địch trong 2 ô quanh mục tiêu; chúng không thể tấn công Bò Biển và đồng đội kề bên trong 3 / 4 / 5 giây (Mê hoặc)"
    },
    "passive": {
     "template": "Hồi máu",
-    "text": "Gặm Cỏ Biển: hồi 2% / 2,5% / 3% Máu mỗi giây khi không bị đánh trong 2 giây"
+    "text": "Gặm Cỏ Biển: hồi 3% / 3,5% / 4% Máu mỗi giây khi không bị đánh trong 2 giây"
    },
    "star3": {
     "template": "Nâng kỹ năng",
@@ -267,7 +267,7 @@
     "hit": "aoe",
     "control": true,
     "atkPct": 190,
-    "text": "Xòe lông lam: 115 / 210 / 370 sát thương và Mù 2 / 2,5 / 3 giây kẻ địch trong hình nón 2 ô phía trước"
+    "text": "Xòe lông lam: 120 / 220 / 390 sát thương và Mù 2 / 2,5 / 3 giây kẻ địch trong hình nón 2 ô phía trước"
    },
    "passive": {
     "template": "Né đòn",
@@ -306,7 +306,7 @@
     "hit": "1",
     "control": false,
     "atkPct": 400,
-    "text": "Chọc mỏ dài: 210 / 375 / 665 sát thương, bỏ qua 30% / 40% / 50% Giáp của mục tiêu"
+    "text": "Chọc mỏ dài: 220 / 395 / 705 sát thương, bỏ qua 30% / 40% / 50% Giáp của mục tiêu"
    },
    "passive": {
     "template": "Khi đánh trúng",
@@ -387,7 +387,7 @@
     "hit": "1",
     "control": false,
     "atkPct": 240,
-    "text": "Đòi 1 vật phẩm của kẻ địch giữ vật phẩm bậc cao nhất, gây 160 / 290 / 515 sát thương lên nó và trao vật phẩm cho đồng đội ít máu nhất đến hết trận; 1 lần mỗi trận"
+    "text": "Đòi 1 vật phẩm của kẻ địch giữ vật phẩm bậc cao nhất, gây 175 / 315 / 560 sát thương lên nó và trao vật phẩm cho đồng đội ít máu nhất đến hết trận; 1 lần mỗi trận"
    },
    "passive": {
     "template": "Hào quang",
@@ -427,7 +427,7 @@
     "hit": "1",
     "control": true,
     "atkPct": 240,
-    "text": "Lao xuống mổ: 195 / 350 / 620 sát thương và Choáng 0,5 / 0,75 / 1 giây"
+    "text": "Lao xuống mổ: 180 / 330 / 585 sát thương và Choáng 0,5 / 0,75 / 1 giây"
    },
    "passive": {
     "template": "Khi đánh trúng",
@@ -463,19 +463,19 @@
      "Diện rộng",
      "Khống chế"
     ],
-    "target": "kẻ địch trong 1 ô quanh mình",
+    "target": "kẻ địch trong 2 ô quanh mình",
     "hit": "aoe",
     "control": true,
-    "atkPct": 90,
-    "text": "Xòe đuôi rực rỡ: 45 / 85 / 145 sát thương và Làm chậm 20% / 30% / 40% kẻ địch trong 1 ô trong 2 / 3 / 4 giây"
+    "atkPct": 160,
+    "text": "Xòe đuôi rực rỡ: 90 / 160 / 280 sát thương kẻ địch trong 2 ô, Làm chậm 30% / 40% / 50% trong 2 / 3 / 4 giây và Mù 1 / 1,5 / 2 giây"
    },
    "passive": {
     "template": "Khi bị đánh",
-    "text": "Mắt Công: 15% / 20% / 25% phản hiệu ứng khống chế về kẻ dùng"
+    "text": "Mắt Công: 25% / 30% / 35% phản hiệu ứng khống chế về kẻ dùng"
    },
    "star3": {
     "template": "Nâng kỹ năng",
-    "text": "Đuôi Công Rộng: Xòe Đuôi bán kính 2 ô"
+    "text": "Đuôi Công Rộng: Xòe Đuôi bán kính 3 ô"
    },
    "change": "",
    "old": {
@@ -585,7 +585,7 @@
     "hit": "1",
     "control": false,
     "atkPct": 360,
-    "text": "Phóng tới kẻ địch xa nhất trong 3 ô, vồ xé 380 / 685 / 1.220 sát thương"
+    "text": "Phóng tới kẻ địch xa nhất trong 3 ô, vồ xé 355 / 640 / 1.140 sát thương"
    },
    "passive": {
     "template": "Hào quang",
@@ -666,7 +666,7 @@
     "hit": "aoe",
     "control": false,
     "atkPct": 100,
-    "text": "Sóng âm xuyên một hàng: 50 / 90 / 165 sát thương; kẻ địch trúng −8 / 10 / 12 Giáp, đồng đội trên hàng +15% Tấn Công, trong 4 / 5 / 6 giây"
+    "text": "Sóng âm xuyên một hàng: 55 / 100 / 175 sát thương; kẻ địch trúng −8 / 10 / 12 Giáp, đồng đội trên hàng +15% Tấn Công, trong 4 / 5 / 6 giây"
    },
    "passive": {
     "template": "Khi đánh trúng",
@@ -825,7 +825,7 @@
     "hit": "aoe",
     "control": true,
     "atkPct": 240,
-    "text": "Vỗ cánh tạo cuồng phong: 180 / 320 / 570 sát thương mọi kẻ địch và đẩy lùi 1 / 2 / 3 ô"
+    "text": "Vỗ cánh tạo cuồng phong: 185 / 335 / 600 sát thương mọi kẻ địch và đẩy lùi 1 / 2 / 3 ô"
    },
    "passive": {
     "template": "Chỉ số",
@@ -865,7 +865,7 @@
     "hit": "1",
     "control": false,
     "atkPct": 320,
-    "text": "Quẫy mạnh, da trơn tiết dầu: 180 / 325 / 575 sát thương; mục tiêu trượt thêm 20% / 30% / 40% đòn đánh thường trong 5 giây"
+    "text": "Quẫy mạnh, da trơn tiết dầu: 175 / 315 / 565 sát thương; mục tiêu trượt thêm 15% / 20% / 25% đòn đánh thường trong 5 giây"
    },
    "passive": {
     "template": "Chỉ số",
@@ -1100,8 +1100,8 @@
     "target": "kẻ địch trong 2 ô quanh mục tiêu",
     "hit": "aoe",
     "control": true,
-    "atkPct": 190,
-    "text": "Hót vang: 100 / 180 / 315 sát thương kẻ địch trong 2 ô quanh mục tiêu và Làm chậm 15% trong 3 giây"
+    "atkPct": 240,
+    "text": "Hót vang: 130 / 240 / 420 sát thương kẻ địch trong 2 ô quanh mục tiêu và Làm chậm 30% trong 3 giây"
    },
    "passive": {
     "template": "Né đòn",
@@ -1180,7 +1180,7 @@
     "hit": "1",
     "control": true,
     "atkPct": 260,
-    "text": "Cắn: 160 / 290 / 515 sát thương, Độc 3% / 4% / 5% Máu mỗi giây trong 4 giây và mục tiêu −30% hồi máu"
+    "text": "Cắn: 170 / 305 / 540 sát thương, Độc 3% / 4% / 5% Máu mỗi giây trong 4 giây và mục tiêu −30% hồi máu"
    },
    "passive": {
     "template": "Chỉ số",
@@ -1300,7 +1300,7 @@
     "hit": "1",
     "control": true,
     "atkPct": 240,
-    "text": "Cắn chặt, Trói mục tiêu 2 / 2,5 / 3 giây; tổng 220 / 395 / 705 sát thương chia đều trong lúc giữ"
+    "text": "Cắn chặt, Trói mục tiêu 2 / 2,5 / 3 giây; tổng 205 / 370 / 660 sát thương chia đều trong lúc giữ"
    },
    "passive": {
     "template": "Giảm sát thương",
@@ -1339,11 +1339,11 @@
     "hit": "",
     "control": false,
     "atkPct": null,
-    "text": "Khiêu khích kẻ địch có Tấn Công cao nhất và +50% né đòn trong 4 / 5 / 6 giây"
+    "text": "Khiêu khích kẻ địch có Tấn Công cao nhất và +60% né đòn trong 4 / 5 / 6 giây"
    },
    "passive": {
     "template": "Né đòn",
-    "text": "Nhút Nhát: luôn né đòn đầu tiên nhắm vào mình; 10% / 15% / 20% né đòn"
+    "text": "Nhút Nhát: luôn né đòn đầu tiên nhắm vào mình; 15% / 20% / 25% né đòn"
    },
    "star3": {
     "template": "Nâng kỹ năng",
@@ -1379,7 +1379,7 @@
     "hit": "aoe",
     "control": true,
     "atkPct": 150,
-    "text": "Vẩy nước lấp lánh trúng 3 kẻ địch ngẫu nhiên: mỗi kẻ 80 / 140 / 250 sát thương và Mù 1 giây"
+    "text": "Vẩy nước lấp lánh trúng 3 kẻ địch ngẫu nhiên: mỗi kẻ 85 / 155 / 280 sát thương và Mù 1 giây"
    },
    "passive": {
     "template": "Né đòn",
@@ -1458,7 +1458,7 @@
     "hit": "aoe",
     "control": false,
     "atkPct": 140,
-    "text": "Cuộn tròn lăn vào kẻ địch trong 1 / 2 / 3 ô: 70 / 130 / 230 sát thương; +2 Giáp cho mỗi kẻ trúng (cộng dồn)"
+    "text": "Cuộn tròn lăn vào kẻ địch trong 1 / 2 / 3 ô: 70 / 125 / 225 sát thương; +2 Giáp cho mỗi kẻ trúng (cộng dồn)"
    },
    "passive": {
     "template": "Giảm sát thương",
@@ -1497,7 +1497,7 @@
     "hit": "aoe",
     "control": false,
     "atkPct": 220,
-    "text": "Giáng sét xuống 3 kẻ địch nhiều máu nhất: mỗi kẻ 165 / 300 / 535 sát thương"
+    "text": "Giáng sét xuống 3 kẻ địch nhiều máu nhất: mỗi kẻ 175 / 315 / 565 sát thương"
    },
    "passive": {
     "template": "Khi máu thấp",
@@ -1577,7 +1577,7 @@
     "hit": "aoe",
     "control": true,
     "atkPct": 170,
-    "text": "Mưa lửa vùng 2×2 quanh mục tiêu: 135 / 240 / 430 sát thương và Bỏng 3% Máu mỗi giây trong 3 giây"
+    "text": "Mưa lửa vùng 2×2 quanh mục tiêu: 140 / 255 / 450 sát thương và Bỏng 3% Máu mỗi giây trong 3 giây"
    },
    "passive": {
     "template": "Khi bị hạ",
@@ -1617,7 +1617,7 @@
     "hit": "",
     "control": false,
     "atkPct": null,
-    "text": "Che chắn đồng đội ít máu nhất trong 2 ô: khiên 310 / 560 / 1.000 trong 4 giây và hồi 20% / 25% / 30% Máu tối đa"
+    "text": "Che chắn đồng đội ít máu nhất trong 2 ô: khiên 115 / 210 / 375 trong 4 giây và hồi 6% / 10% / 14% Máu tối đa"
    },
    "passive": {
     "template": "Hào quang",
@@ -1627,7 +1627,7 @@
     "template": "Nâng kỹ năng",
     "text": "Linh Ngư Phù Hộ: che chắn thêm 1 đồng đội; mỗi đồng đội được cứu 1 lần mỗi trận"
    },
-   "change": "khiên = 30% Máu Cá Ông; hệ Nước → Biển Đông / Sông Nước; +12% Phòng thủ → +6 Giáp",
+   "change": "khiên = 10% Máu Cá Ông (cân bằng 20/11); hệ Nước → Biển Đông / Sông Nước; +12% Phòng thủ → +6 Giáp",
    "old": {
     "active": {
      "name": "Nam Hải Cứu Nạn",
@@ -1734,12 +1734,12 @@
     "target": "mục tiêu hiện tại",
     "hit": "1",
     "control": false,
-    "atkPct": 400,
-    "text": "Lao tới đánh chí mạng: 240 / 430 / 770 sát thương, không thể bị né"
+    "atkPct": 340,
+    "text": "Lao tới đánh chí mạng: 190 / 345 / 610 sát thương, không thể bị né"
    },
    "passive": {
     "template": "Chỉ số",
-    "text": "Xoáy Lưng: đòn đầu tiên lên mỗi kẻ địch luôn chí mạng; +5% / 10% / 15% tỉ lệ chí mạng"
+    "text": "Xoáy Lưng: đòn đầu tiên lên mỗi kẻ địch luôn chí mạng; ★2 +5%, ★3 +10% tỉ lệ chí mạng"
    },
    "star3": {
     "template": "Nâng kỹ năng",
@@ -1774,7 +1774,7 @@
     "hit": "1",
     "control": false,
     "atkPct": 320,
-    "text": "Cắn xé: 205 / 370 / 655 sát thương, tăng dần tới ×2 khi Chó Lài gần hết Máu"
+    "text": "Cắn xé: 180 / 330 / 585 sát thương, tăng dần tới ×2 khi Chó Lài gần hết Máu"
    },
    "passive": {
     "template": "Khi máu thấp",
@@ -1813,7 +1813,7 @@
     "hit": "1",
     "control": false,
     "atkPct": 320,
-    "text": "Vồ tới mục tiêu: 185 / 335 / 595 sát thương; +30% nếu là đòn đầu tiên lên kẻ đó"
+    "text": "Vồ tới mục tiêu: 175 / 315 / 565 sát thương; +30% nếu là đòn đầu tiên lên kẻ đó"
    },
    "passive": {
     "template": "Thiên địch",
@@ -1852,11 +1852,11 @@
     "hit": "",
     "control": false,
     "atkPct": null,
-    "text": "Nhảy qua đồng đội vừa bị hạ: nó sống dậy 5 giây với 30% / 40% / 50% Máu rồi ngã xuống lại; 1 lần mỗi trận"
+    "text": "Nhảy qua đồng đội vừa bị hạ: nó sống dậy 5 giây với 40% / 50% / 60% Máu rồi ngã xuống lại; 1 lần mỗi trận"
    },
    "passive": {
     "template": "Né đòn",
-    "text": "Mắt Đêm: 10% / 15% / 20% né đòn; nhìn thấy kẻ địch Ẩn mình"
+    "text": "Mắt Đêm: 15% / 20% / 25% né đòn; nhìn thấy kẻ địch Ẩn mình"
    },
    "star3": {
     "template": "Nâng kỹ năng",
@@ -1971,17 +1971,17 @@
     "hit": "",
     "control": false,
     "atkPct": null,
-    "text": "Lăn bùn: khiên 155 / 275 / 495 trong 4 giây và hồi 10% Máu"
+    "text": "Lăn bùn: khiên 110 / 200 / 355 trong 4 giây và hồi 10% Máu"
    },
    "passive": {
     "template": "Cộng dồn",
-    "text": "Lì Lợm: mỗi đòn nhận vào +2% Máu tối đa (tối đa +20% / 25% / 30%)"
+    "text": "Lì Lợm: mỗi đòn nhận vào +2% Máu tối đa (tối đa +6% / 8% / 10%)"
    },
    "star3": {
     "template": "Nâng kỹ năng",
     "text": "Bụng Phệ: Ủn Ỉn Lăn Bùn khiêu khích kẻ địch kề bên"
    },
-   "change": "khiên = 20% Máu Heo Ỉ; thêm con số hồi máu (bản cũ ghi 'hồi máu' nhưng không có số)",
+   "change": "khiên = 15% Máu Heo Ỉ (cân bằng 20/11); thêm con số hồi máu (bản cũ ghi 'hồi máu' nhưng không có số)",
    "old": {
     "active": {
      "name": "Ủn Ỉn Lăn Bùn",
@@ -2049,7 +2049,7 @@
     "hit": "1",
     "control": false,
     "atkPct": 360,
-    "text": "Chui qua khe tới hàng sau, cắn kẻ địch ít máu nhất: 200 / 355 / 635 sát thương"
+    "text": "Chui qua khe tới hàng sau, cắn kẻ địch ít máu nhất: 185 / 330 / 590 sát thương"
    },
    "passive": {
     "template": "Đầu trận",
@@ -2099,7 +2099,7 @@
     "template": "Nâng kỹ năng",
     "text": "Đại Dịch: mục tiêu đang bị Độc mà bị hạ thì Độc lây thêm 1 lần"
    },
-   "change": "−3 Phòng thủ → −2 Giáp (giống tộc hệ Bầy Gặm Nhấm)",
+   "change": "−3 Phòng thủ → −2 Giáp",
    "old": {
     "active": {
      "name": "Mầm Bệnh",
@@ -2129,7 +2129,7 @@
     "hit": "aoe",
     "control": true,
     "atkPct": 90,
-    "text": "Húc xuyên một hàng: 40 / 70 / 125 sát thương; ô đi qua bị sụt, kẻ địch đứng trên bị Làm chậm 30% trong 3 giây"
+    "text": "Húc xuyên một hàng: 35 / 65 / 115 sát thương; ô đi qua bị sụt, kẻ địch đứng trên bị Làm chậm 30% trong 3 giây"
    },
    "passive": {
     "template": "Chỉ số",
@@ -2209,11 +2209,11 @@
     "hit": "",
     "control": false,
     "atkPct": null,
-    "text": "Chở 2 đồng đội ít máu nhất lùi về hàng sau; họ +20% Tốc Độ Đánh trong 4 giây"
+    "text": "Chở 2 đồng đội ít máu nhất lùi về hàng sau; họ +30% Tốc Độ Đánh trong 4 giây và hồi 10% Máu"
    },
    "passive": {
     "template": "Hào quang",
-    "text": "Bền Sức: đồng đội kề bên +6% / 8% / 10% Tốc Độ Đánh"
+    "text": "Bền Sức: đồng đội kề bên +10% / 12% / 15% Tốc Độ Đánh"
    },
    "star3": {
     "template": "Nâng kỹ năng",
@@ -2248,7 +2248,7 @@
     "hit": "",
     "control": false,
     "atkPct": null,
-    "text": "Lội nước nhặt mồi: hồi 12% / 16% / 20% Máu tối đa cho bản thân và đồng đội kề bên"
+    "text": "Lội nước nhặt mồi: hồi 18% / 22% / 26% Máu tối đa cho bản thân và đồng đội kề bên"
    },
    "passive": {
     "template": "Thiên địch",
@@ -2287,7 +2287,7 @@
     "hit": "1",
     "control": false,
     "atkPct": 350,
-    "text": "Mổ thẳng: 130 / 235 / 415 sát thương; +30% nếu mục tiêu là VieAni Sông Nước (cá, cua, ốc…)"
+    "text": "Mổ thẳng: 135 / 245 / 435 sát thương; +30% nếu mục tiêu là VieAni Sông Nước (cá, cua, ốc…)"
    },
    "passive": {
     "template": "Hào quang",
@@ -2365,15 +2365,15 @@
     "hit": "",
     "control": false,
     "atkPct": null,
-    "text": "Sao chép kỹ năng của kẻ địch gần nhất trong 1 / 2 / 3 ô và dùng ngay với 70% sức mạnh"
+    "text": "Sao chép kỹ năng của kẻ địch gần nhất trong 1 / 2 / 3 ô và dùng ngay với 100% sức mạnh"
    },
    "passive": {
     "template": "Khi đánh trúng",
-    "text": "Lắm Lời: 10% / 15% / 20% đòn đánh làm Câm lặng mục tiêu 1 giây"
+    "text": "Lắm Lời: 20% / 25% / 30% đòn đánh làm Câm lặng mục tiêu 1 giây"
    },
    "star3": {
     "template": "Nâng kỹ năng",
-    "text": "Sáo Nói Tiếng Người: kỹ năng sao chép giữ 100% sức mạnh"
+    "text": "Sáo Nói Tiếng Người: kỹ năng sao chép có 120% sức mạnh"
    },
    "change": "",
    "old": {
@@ -2405,7 +2405,7 @@
     "hit": "2",
     "control": false,
     "atkPct": 220,
-    "text": "Quẫy đuôi tạo sóng: 80 / 145 / 260 sát thương lên mục tiêu và kẻ đứng sau; tích 1 'vảy rồng' +5% Tấn Công (cộng dồn)"
+    "text": "Quẫy đuôi tạo sóng: 85 / 155 / 275 sát thương lên mục tiêu và kẻ đứng sau; tích 1 'vảy rồng' +5% Tấn Công (cộng dồn)"
    },
    "passive": {
     "template": "Biến hình",
@@ -2521,12 +2521,12 @@
     "target": "một Côn Trùng bất kỳ (không có thì mục tiêu hiện tại)",
     "hit": "1",
     "control": false,
-    "atkPct": 280,
-    "text": "Tặc lưỡi ba tiếng, bắt một VieAni Côn Trùng ở bất kỳ đâu: 155 / 275 / 495 sát thương (×1,5 lên Côn Trùng)"
+    "atkPct": 220,
+    "text": "Tặc lưỡi ba tiếng, bắt một VieAni Côn Trùng ở bất kỳ đâu: 110 / 200 / 350 sát thương (×1,3 lên Côn Trùng)"
    },
    "passive": {
     "template": "Thiên địch",
-    "text": "Bám Tường: tầm đánh vô hạn với Côn Trùng; 10% / 15% / 20% né đòn"
+    "text": "Bám Tường: tầm đánh vô hạn với Côn Trùng; 5% / 10% / 15% né đòn"
    },
    "star3": {
     "template": "Nâng kỹ năng",
@@ -2560,12 +2560,12 @@
     "target": "một Côn Trùng bất kỳ (không có thì kẻ gần nhất)",
     "hit": "1",
     "control": false,
-    "atkPct": 280,
-    "text": "Phóng lưỡi bắt một VieAni Côn Trùng bất kỳ (không có thì kẻ địch gần nhất): 155 / 275 / 495 sát thương"
+    "atkPct": 200,
+    "text": "Phóng lưỡi bắt một VieAni Côn Trùng bất kỳ (không có thì kẻ địch gần nhất): 95 / 170 / 300 sát thương"
    },
    "passive": {
     "template": "Khi máu thấp",
-    "text": "Đứt Đuôi: lần đầu nhận đòn chí tử thì còn lại 1 Máu / 10% / 20% Máu và chạy ra xa"
+    "text": "Đứt Đuôi: lần đầu nhận đòn chí tử thì còn lại 1 Máu / 3% / 5% Máu và chạy ra xa"
    },
    "star3": {
     "template": "Nâng kỹ năng",
@@ -2596,21 +2596,21 @@
     "templates": [
      "Tăng sức"
     ],
-    "target": "đồng đội Biển Đông / Sông Nước",
+    "target": "cả đội",
     "hit": "",
     "control": false,
     "atkPct": null,
-    "text": "Nghiến răng gọi mưa 5 giây: đồng đội Biển Đông / Sông Nước +15% / 20% / 25% sát thương"
+    "text": "Nghiến răng gọi mưa 5 giây: cả đội +15% / 20% / 25% sát thương"
    },
    "passive": {
     "template": "Khi bị đánh",
-    "text": "Cậu Ông Trời: kẻ địch đánh Cóc bị sét đánh mất 15% Máu tối đa của nó; sét chờ 12 / 10 / 8 giây mới đánh lại"
+    "text": "Cậu Ông Trời: kẻ địch đánh Cóc bị sét đánh mất 25% Máu tối đa của nó; sét chờ 10 / 8 / 6 giây mới đánh lại"
    },
    "star3": {
     "template": "Nâng kỹ năng",
     "text": "Cóc Kiện Trời: mỗi lần Cóc nghiến răng, Cua Đồng, Hổ Đông Dương, Gấu chó, Ong Mật cùng phe ra đòn ngay"
    },
-   "change": "hệ Nước → Biển Đông / Sông Nước; bỏ 'hệ Điện'",
+   "change": "cân bằng 20/11: mưa cho cả đội (trước: chỉ Biển Đông / Sông Nước), sét 15 → 25 %; bỏ 'hệ Điện'",
    "old": {
     "active": {
      "name": "Nghiến Răng Gọi Mưa",
@@ -2638,12 +2638,12 @@
     "target": "kẻ địch ít máu nhất",
     "hit": "1",
     "control": false,
-    "atkPct": 360,
-    "text": "Chạy khỏi tầm đánh 2 giây rồi quay lại cắn kẻ địch ít máu nhất: 195 / 350 / 620 sát thương"
+    "atkPct": 300,
+    "text": "Chạy khỏi tầm đánh 1 giây rồi quay lại cắn kẻ địch ít máu nhất: 145 / 265 / 470 sát thương"
    },
    "passive": {
     "template": "Né đòn",
-    "text": "Bất Tử: 25% / 30% / 35% né đòn; Máu dưới 20% thì chạy khỏi tầm đánh 2 giây"
+    "text": "Bất Tử: 10% / 12% / 15% né đòn; Máu dưới 20% thì chạy khỏi tầm đánh 2 giây"
    },
    "star3": {
     "template": "Nâng kỹ năng",
@@ -2679,7 +2679,7 @@
     "hit": "1",
     "control": false,
     "atkPct": 400,
-    "text": "Đốt hút máu: 165 / 295 / 525 sát thương, hồi bằng 50% sát thương gây ra; 30% gây Sốt 3 giây"
+    "text": "Đốt hút máu: 170 / 310 / 550 sát thương, hồi bằng 50% sát thương gây ra; 30% gây Sốt 3 giây"
    },
    "passive": {
     "template": "Khi đánh trúng",
@@ -2719,7 +2719,7 @@
     "hit": "aoe",
     "control": true,
     "atkPct": 150,
-    "text": "Nháy sáng: 65 / 120 / 210 sát thương và Mù 2 / 2,5 / 3 giây kẻ địch trong 1 ô quanh mục tiêu"
+    "text": "Nháy sáng: 70 / 125 / 220 sát thương và Mù 2 / 2,5 / 3 giây kẻ địch trong 1 ô quanh mục tiêu"
    },
    "passive": {
     "template": "Hào quang",
@@ -2838,7 +2838,7 @@
     "hit": "1",
     "control": false,
     "atkPct": 540,
-    "text": "Một cú đốt 355 / 640 / 1.140 sát thương nhưng Ong mất 50% Máu hiện có"
+    "text": "Một cú đốt 330 / 595 / 1.055 sát thương nhưng Ong mất 50% Máu hiện có"
    },
    "passive": {
     "template": "Hào quang",
@@ -2877,8 +2877,8 @@
     "target": "kẻ địch gần nhất",
     "hit": "1",
     "control": true,
-    "atkPct": 190,
-    "text": "Kêu inh ỏi: 80 / 145 / 255 sát thương và Choáng 0,5 / 0,75 / 1 giây kẻ địch gần nhất"
+    "atkPct": 260,
+    "text": "Kêu inh ỏi: 115 / 205 / 365 sát thương và Choáng 0,5 / 0,75 / 1 giây kẻ địch gần nhất"
    },
    "passive": {
     "template": "Chỉ số",
@@ -2956,7 +2956,7 @@
     "hit": "1",
     "control": false,
     "atkPct": 320,
-    "text": "Bay vút xuống đánh 3 lần liên tiếp trong 1 giây: tổng 185 / 335 / 595 sát thương"
+    "text": "Bay vút xuống đánh 3 lần liên tiếp trong 1 giây: tổng 175 / 315 / 565 sát thương"
    },
    "passive": {
     "template": "Hào quang",
@@ -2995,7 +2995,7 @@
     "hit": "1",
     "control": false,
     "atkPct": 240,
-    "text": "Chém hai lưỡi hái: 160 / 285 / 505 sát thương; mục tiêu là Côn Trùng thì bị Trói 1 giây"
+    "text": "Chém hai lưỡi hái: 145 / 260 / 460 sát thương; mục tiêu là Côn Trùng thì bị Trói 1 giây"
    },
    "passive": {
     "template": "Đầu trận",
@@ -3035,11 +3035,11 @@
     "hit": "1",
     "control": true,
     "atkPct": 210,
-    "text": "Lao húc: 120 / 215 / 385 sát thương và Choáng 1 / 1,25 / 1,5 giây"
+    "text": "Lao húc: 105 / 190 / 335 sát thương và Choáng 0,4 / 0,5 / 0,6 giây"
    },
    "passive": {
     "template": "Khi máu thấp",
-    "text": "Nanh Lợn Lòi: Máu dưới 50% thì +10% / 15% / 20% sát thương"
+    "text": "Nanh Lợn Lòi: Máu dưới 50% thì +5% / 8% / 10% sát thương"
    },
    "star3": {
     "template": "Nâng kỹ năng",
@@ -3153,7 +3153,7 @@
     "hit": "1",
     "control": false,
     "atkPct": 400,
-    "text": "Đổi màu da ẩn mình 3 / 4 / 5 giây rồi ngoạm chặt mục tiêu: 260 / 470 / 830 sát thương"
+    "text": "Đổi màu da ẩn mình 3 / 4 / 5 giây rồi ngoạm chặt mục tiêu: 245 / 440 / 780 sát thương"
    },
    "passive": {
     "template": "Khi đánh trúng",
@@ -3193,7 +3193,7 @@
     "hit": "1",
     "control": true,
     "atkPct": 260,
-    "text": "Phun nọc: 125 / 230 / 410 sát thương, Độc 4% / 5% / 6% Máu mỗi giây và Làm chậm 20% trong 3 giây"
+    "text": "Phun nọc: 135 / 245 / 435 sát thương, Độc 4% / 5% / 6% Máu mỗi giây và Làm chậm 20% trong 3 giây"
    },
    "passive": {
     "template": "Né đòn",
@@ -3232,12 +3232,12 @@
     "target": "mục tiêu hiện tại",
     "hit": "1",
     "control": true,
-    "atkPct": 210,
-    "text": "Quấn siết, Trói 2 / 2,5 / 3 giây: 135 / 240 / 430 sát thương và mất thêm 5% Máu mỗi giây bị siết"
+    "atkPct": 170,
+    "text": "Quấn siết, Trói 0,75 / 1 / 1,25 giây: 95 / 175 / 310 sát thương và mất thêm 3% Máu mỗi giây bị siết"
    },
    "passive": {
     "template": "Giảm sát thương",
-    "text": "Da Gấm: giảm 10% / 15% / 20% sát thương kỹ năng nhận vào"
+    "text": "Da Gấm: giảm 5% / 8% / 10% sát thương kỹ năng nhận vào"
    },
    "star3": {
     "template": "Hào quang",
@@ -3273,7 +3273,7 @@
     "hit": "aoe",
     "control": true,
     "atkPct": 130,
-    "text": "Dòng điện nảy qua 3 kẻ địch: mỗi kẻ 65 / 115 / 205 sát thương và Tê liệt 1 giây"
+    "text": "Dòng điện nảy qua 3 kẻ địch: mỗi kẻ 70 / 120 / 215 sát thương và Tê liệt 1 giây"
    },
    "passive": {
     "template": "Khi bị đánh",
@@ -3314,7 +3314,7 @@
     "hit": "aoe",
     "control": true,
     "atkPct": 130,
-    "text": "Quấn xúc tu: kẻ địch trong 1 ô nhận 70 / 120 / 215 sát thương, Trói 1 giây và Độc 3% Máu mỗi giây trong 3 giây"
+    "text": "Quấn xúc tu: kẻ địch trong 1 ô nhận 75 / 140 / 245 sát thương, Trói 1 giây và Độc 3% Máu mỗi giây trong 3 giây"
    },
    "passive": {
     "template": "Khi bị đánh",
@@ -3353,8 +3353,8 @@
     "target": "kẻ địch trong 1 ô quanh mục tiêu",
     "hit": "aoe",
     "control": true,
-    "atkPct": 150,
-    "text": "Phun mực đen: 70 / 130 / 230 sát thương và Mù 2 / 3 / 4 giây kẻ địch trong 1 ô quanh mục tiêu"
+    "atkPct": 200,
+    "text": "Phun mực đen: 100 / 180 / 320 sát thương và Mù 2 / 3 / 4 giây kẻ địch trong 1 ô quanh mục tiêu"
    },
    "passive": {
     "template": "Né đòn",
@@ -3393,7 +3393,7 @@
     "hit": "1",
     "control": false,
     "atkPct": 320,
-    "text": "Lặng lẽ sà xuống kẻ địch đang Ẩn mình (không có thì kẻ ít máu nhất): 220 / 395 / 705 sát thương, không thể bị né"
+    "text": "Lặng lẽ sà xuống kẻ địch đang Ẩn mình (không có thì kẻ ít máu nhất): 205 / 370 / 655 sát thương, không thể bị né"
    },
    "passive": {
     "template": "Chỉ số",
@@ -3432,7 +3432,7 @@
     "hit": "1",
     "control": false,
     "atkPct": 320,
-    "text": "Lao xuống từ trên cao: 245 / 445 / 790 sát thương; tầm vô hạn nếu nhắm Gà, Chuột hoặc Rắn"
+    "text": "Lao xuống từ trên cao: 230 / 415 / 735 sát thương; tầm vô hạn nếu nhắm Gà, Chuột hoặc Rắn"
    },
    "passive": {
     "template": "Chỉ số",

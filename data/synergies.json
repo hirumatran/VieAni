@@ -23,8 +23,8 @@
     7
    ],
    "tiers": {
-    "2": "Giảm 50% sát thương nhận từ VieAni Biển Đông và Sông Nước (nước dâng)",
-    "3": "Miễn nhiễm sát thương từ VieAni Biển Đông và Sông Nước; mỗi đòn của chúng nhắm vào thành viên cho +2 Giáp (núi cao thêm)"
+    "2": "Thành viên +10% Máu; giảm 50% sát thương nhận từ VieAni Biển Đông và Sông Nước (nước dâng)",
+    "3": "Thành viên +20% Máu; miễn nhiễm sát thương từ VieAni Biển Đông và Sông Nước; mỗi đòn của chúng nhắm vào thành viên cho +2 Giáp (núi cao thêm)"
    },
    "basis": "Ba lễ vật voi chín ngà, gà chín cựa, ngựa chín hồng mao giúp Sơn Tinh cưới Mỵ Nương; nước dâng bao nhiêu, núi cao bấy nhiêu"
   },
@@ -226,8 +226,8 @@
     58
    ],
    "tiers": {
-    "2": "Liếm lông: mỗi 4 giây mỗi Mèo hồi 8% máu cho Mèo gần nhất; cả hai +15% Tốc Độ Đánh 3 giây",
-    "3": "Hồi 12% máu, +30% Tốc Độ Đánh; Chín mạng: Mèo đầu tiên bị hạ hồi sinh với 20% máu"
+    "2": "Liếm lông: mỗi 4 giây mỗi Mèo hồi 10% máu cho Mèo gần nhất; cả hai +20% Tốc Độ Đánh 3 giây",
+    "3": "Hồi 15% máu, +40% Tốc Độ Đánh; Chín mạng: Mèo đầu tiên bị hạ hồi sinh với 20% máu"
    },
    "basis": "Ý tưởng của PO: mèo liếm lông cho nhau để gắn kết; dân gian nói mèo có chín mạng"
   },
@@ -239,7 +239,7 @@
     96
    ],
    "tiers": {
-    "2": "Gặm nhấm: mỗi đòn −2 Giáp của mục tiêu (cộng dồn 10 lần)",
+    "2": "Gặm nhấm: mỗi đòn −3 Giáp của mục tiêu (cộng dồn 10 lần)",
     "3": "Cộng dồn 15 lần; Sinh sôi: thành viên đầu tiên bị hạ để lại 2 con non (20% chỉ số)"
    },
    "basis": "Chuột và sóc – bộ Gặm nhấm, răng cửa mọc suốt đời, sinh sản nhanh"

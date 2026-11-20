@@ -1,6 +1,6 @@
 // All game-rule numbers in one place (see docs/GDD.md). Balance by editing this file.
 
-export const VERSION = "0.12.1";
+export const VERSION = "0.13.0";
 
 export const PLAYERS = 8;
 export const PLAYER_HP = 100;

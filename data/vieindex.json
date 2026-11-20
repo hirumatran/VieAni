@@ -20,8 +20,8 @@
    ],
    "dex": 42,
    "stats": {
-    "hp": 730,
-    "atk": 76,
+    "hp": 700,
+    "atk": 71,
     "aspd": 0.9,
     "armor": 16,
     "energy": 100
@@ -69,8 +69,8 @@
    ],
    "dex": 43,
    "stats": {
-    "hp": 1060,
-    "atk": 61,
+    "hp": 1000,
+    "atk": 58,
     "aspd": 0.55,
     "armor": 35,
     "energy": 60
@@ -164,10 +164,10 @@
    ],
    "dex": 15,
    "stats": {
-    "hp": 640,
-    "atk": 49,
+    "hp": 710,
+    "atk": 54,
     "aspd": 0.65,
-    "armor": 18,
+    "armor": 21,
     "energy": 110
    },
    "attackType": "Sky",
@@ -326,8 +326,8 @@
    ],
    "dex": 1,
    "stats": {
-    "hp": 730,
-    "atk": 92,
+    "hp": 700,
+    "atk": 86,
     "aspd": 0.8,
     "armor": 16,
     "energy": 90
@@ -415,10 +415,10 @@
    "typeNote": "Grazes seagrass",
    "dex": 2,
    "stats": {
-    "hp": 690,
-    "atk": 50,
+    "hp": 770,
+    "atk": 53,
     "aspd": 0.6,
-    "armor": 16,
+    "armor": 19,
     "energy": 80
    },
    "attackType": "Water",
@@ -464,10 +464,10 @@
    ],
    "dex": 20,
    "stats": {
-    "hp": 700,
-    "atk": 61,
+    "hp": 780,
+    "atk": 64,
     "aspd": 0.7,
-    "armor": 14,
+    "armor": 17,
     "energy": 100
    },
    "attackType": "Sky",
@@ -552,10 +552,10 @@
    ],
    "dex": 14,
    "stats": {
-    "hp": 650,
-    "atk": 52,
+    "hp": 730,
+    "atk": 55,
     "aspd": 0.7,
-    "armor": 8,
+    "armor": 11,
     "energy": 80
    },
    "attackType": "Sky",
@@ -652,10 +652,10 @@
    ],
    "dex": 26,
    "stats": {
-    "hp": 1020,
-    "atk": 67,
+    "hp": 1140,
+    "atk": 73,
     "aspd": 0.55,
-    "armor": 32,
+    "armor": 35,
     "energy": 80
    },
    "attackType": "Water",
@@ -713,8 +713,8 @@
    ],
    "dex": 24,
    "stats": {
-    "hp": 730,
-    "atk": 81,
+    "hp": 700,
+    "atk": 76,
     "aspd": 0.75,
     "armor": 17,
     "energy": 80
@@ -762,10 +762,10 @@
    ],
    "dex": 16,
    "stats": {
-    "hp": 640,
-    "atk": 51,
+    "hp": 710,
+    "atk": 55,
     "aspd": 0.6,
-    "armor": 21,
+    "armor": 24,
     "energy": 80
    },
    "attackType": "Sky",
@@ -911,8 +911,8 @@
    ],
    "dex": 25,
    "stats": {
-    "hp": 840,
-    "atk": 106,
+    "hp": 810,
+    "atk": 99,
     "aspd": 0.8,
     "armor": 19,
     "energy": 90
@@ -1021,10 +1021,10 @@
    ],
    "dex": 4,
    "stats": {
-    "hp": 770,
-    "atk": 51,
+    "hp": 860,
+    "atk": 55,
     "aspd": 0.55,
-    "armor": 24,
+    "armor": 27,
     "energy": 70
    },
    "attackType": "Water",
@@ -1221,10 +1221,10 @@
    ],
    "dex": 13,
    "stats": {
-    "hp": 790,
-    "atk": 74,
+    "hp": 870,
+    "atk": 78,
     "aspd": 0.7,
-    "armor": 16,
+    "armor": 19,
     "energy": 130
    },
    "attackType": "Sky",
@@ -1278,8 +1278,8 @@
    ],
    "dex": 7,
    "stats": {
-    "hp": 960,
-    "atk": 56,
+    "hp": 940,
+    "atk": 55,
     "aspd": 0.65,
     "armor": 33,
     "energy": 80
@@ -1498,10 +1498,10 @@
    "typeNote": "Demon fox spirit",
    "dex": 23,
    "stats": {
-    "hp": 790,
-    "atk": 79,
+    "hp": 870,
+    "atk": 83,
     "aspd": 0.7,
-    "armor": 16,
+    "armor": 19,
     "energy": 130
    },
    "attackType": "Poison",
@@ -1617,10 +1617,10 @@
    ],
    "dex": 49,
    "stats": {
-    "hp": 610,
-    "atk": 52,
+    "hp": 680,
+    "atk": 55,
     "aspd": 0.7,
-    "armor": 6,
+    "armor": 9,
     "energy": 100
    },
    "attackType": "Grass",
@@ -1666,10 +1666,10 @@
    ],
    "dex": 8,
    "stats": {
-    "hp": 680,
-    "atk": 47,
+    "hp": 760,
+    "atk": 51,
     "aspd": 0.65,
-    "armor": 20,
+    "armor": 23,
     "energy": 90
    },
    "attackType": "Ground",
@@ -1717,10 +1717,10 @@
    "typeNote": "Venomous bite (toxin from a brachial gland mixed with saliva)",
    "dex": 17,
    "stats": {
-    "hp": 650,
-    "atk": 62,
+    "hp": 730,
+    "atk": 65,
     "aspd": 0.6,
-    "armor": 16,
+    "armor": 19,
     "energy": 70
    },
    "attackType": "Poison",
@@ -1853,10 +1853,10 @@
    ],
    "dex": 39,
    "stats": {
-    "hp": 680,
-    "atk": 49,
+    "hp": 760,
+    "atk": 54,
     "aspd": 0.6,
-    "armor": 18,
+    "armor": 21,
     "energy": 100
    },
    "attackType": "Sky",
@@ -1904,8 +1904,8 @@
    "typeNote": "Hunts from water and land",
    "dex": 6,
    "stats": {
-    "hp": 770,
-    "atk": 92,
+    "hp": 740,
+    "atk": 86,
     "aspd": 0.75,
     "armor": 21,
     "energy": 80
@@ -1953,10 +1953,10 @@
    ],
    "dex": 12,
    "stats": {
-    "hp": 680,
-    "atk": 47,
+    "hp": 760,
+    "atk": 51,
     "aspd": 0.65,
-    "armor": 17,
+    "armor": 20,
     "energy": 120
    },
    "attackType": "Grass",
@@ -2003,10 +2003,10 @@
    ],
    "dex": 34,
    "stats": {
-    "hp": 570,
-    "atk": 52,
+    "hp": 670,
+    "atk": 58,
     "aspd": 0.7,
-    "armor": 8,
+    "armor": 11,
     "energy": 80
    },
    "attackType": "Sky",
@@ -2101,8 +2101,8 @@
    ],
    "dex": 41,
    "stats": {
-    "hp": 890,
-    "atk": 51,
+    "hp": 870,
+    "atk": 50,
     "aspd": 0.6,
     "armor": 41,
     "energy": 70
@@ -2228,10 +2228,10 @@
    "dex": 35,
    "typeNote": "Dragons command rain, storm and thunder; Vietnamese communities held rain-praying rites (cầu mưa) to the dragon",
    "stats": {
-    "hp": 870,
-    "atk": 76,
+    "hp": 970,
+    "atk": 80,
     "aspd": 0.6,
-    "armor": 16,
+    "armor": 19,
     "energy": 90
    },
    "attackType": "Electric",
@@ -2342,10 +2342,10 @@
    "dex": 33,
    "typeNote": "Fire symbolism shared with the Vermilion Bird (Chu Tước), guardian of the South and the Fire phase in the Five Phases (Ngũ Hành)",
    "stats": {
-    "hp": 840,
-    "atk": 79,
+    "hp": 940,
+    "atk": 83,
     "aspd": 0.65,
-    "armor": 16,
+    "armor": 19,
     "energy": 90
    },
    "attackType": "Fire",
@@ -2437,10 +2437,10 @@
    ],
    "dex": 5,
    "stats": {
-    "hp": 1040,
-    "atk": 65,
+    "hp": 1170,
+    "atk": 71,
     "aspd": 0.55,
-    "armor": 30,
+    "armor": 33,
     "energy": 70
    },
    "attackType": "Water",
@@ -2610,8 +2610,8 @@
    "tier": 1,
    "statNote": "Chó: cắn mạnh, chạy nhanh",
    "stats": {
-    "hp": 540,
-    "atk": 60,
+    "hp": 510,
+    "atk": 56,
     "aspd": 0.9,
     "armor": 8,
     "energy": 80
@@ -2709,8 +2709,8 @@
    "tier": 1,
    "statNote": "Chó: cắn mạnh, chạy nhanh",
    "stats": {
-    "hp": 540,
-    "atk": 64,
+    "hp": 490,
+    "atk": 57,
     "aspd": 0.85,
     "armor": 8,
     "energy": 80
@@ -2760,8 +2760,8 @@
    "tier": 1,
    "statNote": "Mèo: nhanh nhẹn, vồ mồi chính xác",
    "stats": {
-    "hp": 490,
-    "atk": 58,
+    "hp": 470,
+    "atk": 55,
     "aspd": 0.85,
     "armor": 9,
     "energy": 80
@@ -2816,10 +2816,10 @@
    "tier": 1,
    "statNote": "Mèo: nhanh nhẹn, vồ mồi chính xác",
    "stats": {
-    "hp": 460,
-    "atk": 36,
+    "hp": 510,
+    "atk": 40,
     "aspd": 0.65,
-    "armor": 10,
+    "armor": 13,
     "energy": 100
    },
    "attackType": "Ground",
@@ -3072,8 +3072,8 @@
    "tier": 1,
    "statNote": "Heo: máu rất dày, khỏe, chậm",
    "stats": {
-    "hp": 770,
-    "atk": 40,
+    "hp": 740,
+    "atk": 38,
     "aspd": 0.55,
     "armor": 27,
     "energy": 60
@@ -3178,8 +3178,8 @@
    "tier": 1,
    "statNote": "Chuột: nhỏ, cực nhanh, yếu",
    "stats": {
-    "hp": 450,
-    "atk": 55,
+    "hp": 430,
+    "atk": 51,
     "aspd": 0.95,
     "armor": 8,
     "energy": 90
@@ -3339,8 +3339,8 @@
    "tier": 1,
    "statNote": "Thú cỡ lớn: máu, tấn công, phòng thủ cao; chậm",
    "stats": {
-    "hp": 770,
-    "atk": 43,
+    "hp": 730,
+    "atk": 40,
     "aspd": 0.55,
     "armor": 29,
     "energy": 60
@@ -3449,10 +3449,10 @@
    "tier": 1,
    "statNote": "Ngựa: bền sức, chạy nhanh",
    "stats": {
-    "hp": 480,
-    "atk": 35,
+    "hp": 530,
+    "atk": 38,
     "aspd": 0.65,
-    "armor": 13,
+    "armor": 16,
     "energy": 100
    },
    "attackType": "Ground",
@@ -3500,10 +3500,10 @@
    "tier": 1,
    "statNote": "Vịt: cân bằng, lội nước giỏi",
    "stats": {
-    "hp": 500,
-    "atk": 33,
+    "hp": 560,
+    "atk": 36,
     "aspd": 0.55,
-    "armor": 18,
+    "armor": 21,
     "energy": 70
    },
    "attackType": "Water",
@@ -3551,10 +3551,10 @@
    "tier": 1,
    "statNote": "Chim lội nước: nhanh, mổ từ xa",
    "stats": {
-    "hp": 440,
-    "atk": 37,
+    "hp": 490,
+    "atk": 39,
     "aspd": 0.7,
-    "armor": 2,
+    "armor": 5,
     "energy": 70
    },
    "attackType": "Sky",
@@ -3601,10 +3601,10 @@
    "tier": 1,
    "statNote": "Chim nhỏ: rất nhanh, yếu",
    "stats": {
-    "hp": 460,
-    "atk": 35,
+    "hp": 510,
+    "atk": 38,
     "aspd": 0.65,
-    "armor": 11,
+    "armor": 14,
     "energy": 80
    },
    "attackType": "Sky",
@@ -3663,10 +3663,10 @@
    "tier": 1,
    "statNote": "Chim nhỏ: rất nhanh, yếu",
    "stats": {
-    "hp": 440,
-    "atk": 40,
+    "hp": 570,
+    "atk": 49,
     "aspd": 0.7,
-    "armor": 1,
+    "armor": 4,
     "energy": 100
    },
    "attackType": "Sky",
@@ -3752,10 +3752,10 @@
    "tier": 1,
    "statNote": "Cá chép: dai sức, tiềm năng hóa rồng = tấn công ĐB",
    "stats": {
-    "hp": 500,
-    "atk": 37,
+    "hp": 550,
+    "atk": 39,
     "aspd": 0.6,
-    "armor": 9,
+    "armor": 12,
     "energy": 60
    },
    "attackType": "Water",
@@ -3957,8 +3957,8 @@
    "tier": 1,
    "statNote": "Bò sát nhỏ: nhanh, phóng lưỡi/ngoạm bắt mồi",
    "stats": {
-    "hp": 470,
-    "atk": 55,
+    "hp": 440,
+    "atk": 50,
     "aspd": 0.85,
     "armor": 12,
     "energy": 70
@@ -4012,8 +4012,8 @@
    "tier": 1,
    "statNote": "Bò sát nhỏ: nhanh, phóng lưỡi/ngoạm bắt mồi",
    "stats": {
-    "hp": 510,
-    "atk": 55,
+    "hp": 450,
+    "atk": 47,
     "aspd": 0.85,
     "armor": 12,
     "energy": 70
@@ -4063,10 +4063,10 @@
    "tier": 1,
    "statNote": "Cóc: chậm, nhựa độc = tấn công ĐB",
    "stats": {
-    "hp": 530,
-    "atk": 38,
+    "hp": 600,
+    "atk": 41,
     "aspd": 0.55,
-    "armor": 19,
+    "armor": 22,
     "energy": 70
    },
    "attackType": "Poison",
@@ -4159,8 +4159,8 @@
    "tier": 1,
    "statNote": "Gián: nhanh nhất, rất khó bị đánh trúng",
    "stats": {
-    "hp": 490,
-    "atk": 54,
+    "hp": 460,
+    "atk": 49,
     "aspd": 0.95,
     "armor": 10,
     "energy": 90
@@ -4210,10 +4210,10 @@
    "tier": 1,
    "statNote": "Muỗi: mong manh, rất nhanh, hút máu = tấn công ĐB",
    "stats": {
-    "hp": 400,
-    "atk": 41,
+    "hp": 450,
+    "atk": 43,
     "aspd": 0.7,
-    "armor": 0,
+    "armor": 3,
     "energy": 80
    },
    "attackType": "Insect",
@@ -4261,10 +4261,10 @@
    "tier": 1,
    "statNote": "Đom đóm: ánh sáng = tấn công ĐB",
    "stats": {
-    "hp": 400,
-    "atk": 44,
+    "hp": 450,
+    "atk": 46,
     "aspd": 0.7,
-    "armor": 5,
+    "armor": 8,
     "energy": 80
    },
    "attackType": "Insect",
@@ -4417,8 +4417,8 @@
    "tier": 1,
    "statNote": "Ong: ngòi đốt mạnh, mong manh",
    "stats": {
-    "hp": 450,
-    "atk": 66,
+    "hp": 430,
+    "atk": 61,
     "aspd": 0.85,
     "armor": 5,
     "energy": 90
@@ -4467,10 +4467,10 @@
    "tier": 1,
    "statNote": "Ve sầu: tiếng kêu = tấn công ĐB, vỏ cứng",
    "stats": {
-    "hp": 460,
-    "atk": 42,
+    "hp": 510,
+    "atk": 44,
     "aspd": 0.6,
-    "armor": 10,
+    "armor": 13,
     "energy": 50
    },
    "attackType": "Insect",
@@ -4569,8 +4569,8 @@
    "tier": 1,
    "statNote": "Chuồn chuồn: bay cực nhanh, săn mồi trên không",
    "stats": {
-    "hp": 470,
-    "atk": 58,
+    "hp": 450,
+    "atk": 55,
     "aspd": 0.95,
     "armor": 7,
     "energy": 80
@@ -4620,8 +4620,8 @@
    "tier": 1,
    "statNote": "Bọ ngựa: chân lưỡi hái, tấn công rất mạnh",
    "stats": {
-    "hp": 490,
-    "atk": 66,
+    "hp": 460,
+    "atk": 60,
     "aspd": 0.8,
     "armor": 10,
     "energy": 60
@@ -4671,8 +4671,8 @@
    "tier": 2,
    "statNote": "Heo: máu rất dày, khỏe, chậm",
    "stats": {
-    "hp": 790,
-    "atk": 57,
+    "hp": 690,
+    "atk": 50,
     "aspd": 0.65,
     "armor": 26,
     "energy": 70
@@ -4800,10 +4800,10 @@
    "tier": 2,
    "statNote": "Thú nhỏ: rất nhanh nhưng yếu",
    "stats": {
-    "hp": 570,
-    "atk": 40,
+    "hp": 640,
+    "atk": 44,
     "aspd": 0.65,
-    "armor": 16,
+    "armor": 19,
     "energy": 90
    },
    "attackType": "Grass",
@@ -4850,10 +4850,10 @@
    "tier": 2,
    "statNote": "Thú móng guốc rừng: nhanh, khá cân bằng",
    "stats": {
-    "hp": 610,
-    "atk": 42,
+    "hp": 680,
+    "atk": 45,
     "aspd": 0.6,
-    "armor": 19,
+    "armor": 22,
     "energy": 80
    },
    "attackType": "Grass",
@@ -4900,8 +4900,8 @@
    "tier": 2,
    "statNote": "Bò sát nhỏ: nhanh, phóng lưỡi/ngoạm bắt mồi",
    "stats": {
-    "hp": 590,
-    "atk": 65,
+    "hp": 560,
+    "atk": 61,
     "aspd": 0.85,
     "armor": 14,
     "energy": 100
@@ -4951,10 +4951,10 @@
    "tier": 2,
    "statNote": "Rắn độc: nọc độc = tấn công ĐB",
    "stats": {
-    "hp": 540,
-    "atk": 49,
+    "hp": 600,
+    "atk": 52,
     "aspd": 0.65,
-    "armor": 7,
+    "armor": 10,
     "energy": 70
    },
    "attackType": "Poison",
@@ -5014,8 +5014,8 @@
    "tier": 2,
    "statNote": "Trăn: to khỏe, siết mồi, chậm",
    "stats": {
-    "hp": 790,
-    "atk": 64,
+    "hp": 710,
+    "atk": 57,
     "aspd": 0.65,
     "armor": 25,
     "energy": 70
@@ -5073,10 +5073,10 @@
    "tier": 2,
    "statNote": "Cá đuối điện: phóng điện = tấn công ĐB",
    "stats": {
-    "hp": 560,
-    "atk": 49,
+    "hp": 630,
+    "atk": 52,
     "aspd": 0.6,
-    "armor": 11,
+    "armor": 14,
     "energy": 70
    },
    "attackType": "Water",
@@ -5124,10 +5124,10 @@
    "tier": 2,
    "statNote": "Sứa: xúc tu độc = tấn công ĐB, chậm",
    "stats": {
-    "hp": 590,
-    "atk": 52,
+    "hp": 710,
+    "atk": 59,
     "aspd": 0.6,
-    "armor": 13,
+    "armor": 16,
     "energy": 70
    },
    "attackType": "Water",
@@ -5174,10 +5174,10 @@
    "tier": 2,
    "statNote": "Mực: phun mực = tấn công ĐB, nhanh",
    "stats": {
-    "hp": 540,
-    "atk": 48,
+    "hp": 600,
+    "atk": 50,
     "aspd": 0.65,
-    "armor": 8,
+    "armor": 11,
     "energy": 80
    },
    "attackType": "Water",
@@ -5224,8 +5224,8 @@
    "tier": 2,
    "statNote": "Cú: săn đêm, nhanh và chính xác",
    "stats": {
-    "hp": 590,
-    "atk": 69,
+    "hp": 560,
+    "atk": 64,
     "aspd": 0.8,
     "armor": 15,
     "energy": 80
@@ -5274,8 +5274,8 @@
    "tier": 2,
    "statNote": "Chim săn mồi: móng vuốt mạnh, bay nhanh",
    "stats": {
-    "hp": 560,
-    "atk": 77,
+    "hp": 540,
+    "atk": 72,
     "aspd": 0.85,
     "armor": 11,
     "energy": 80
@@ -5363,8 +5363,8 @@
    "tier": 3,
    "statNote": "Thú săn mồi: tấn công và tốc độ cao",
    "stats": {
-    "hp": 680,
-    "atk": 92,
+    "hp": 660,
+    "atk": 86,
     "aspd": 0.85,
     "armor": 16,
     "energy": 100

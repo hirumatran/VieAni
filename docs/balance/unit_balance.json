@@ -2,499 +2,499 @@
  "note": "win rate inside random same-tier teams, ★2, tộc hệ off; 50% = tier average",
  "units": [
   {
-   "id": 80,
-   "vi": "Thằn Lằn Bóng",
+   "id": 53,
+   "vi": "Chó Phú Quốc",
    "tier": 1,
    "role": "Săn Mồi",
-   "now": 65.7,
-   "n_now": 382,
-   "full": 70,
-   "n_full": 382,
-   "star3": 74.6
-  },
-  {
-   "id": 62,
-   "vi": "Heo Ỉ",
-   "tier": 1,
-   "role": "Đỡ Đòn",
-   "now": 57.5,
-   "n_now": 400,
-   "full": 65.9,
-   "n_full": 400,
-   "star3": 69.4
-  },
-  {
-   "id": 83,
-   "vi": "Gián",
-   "tier": 1,
-   "role": "Săn Mồi",
-   "now": 51,
-   "n_now": 383,
-   "full": 65.5,
-   "n_full": 383,
-   "star3": 57.8
+   "now": 60.7,
+   "n_now": 405,
+   "full": 60.2,
+   "n_full": 405,
+   "star3": 58.6
   },
   {
    "id": 79,
    "vi": "Thạch Sùng",
    "tier": 1,
    "role": "Săn Mồi",
-   "now": 69.2,
+   "now": 62.8,
    "n_now": 422,
-   "full": 64.7,
+   "full": 60.1,
    "n_full": 422,
-   "star3": 69.2
-  },
-  {
-   "id": 53,
-   "vi": "Chó Phú Quốc",
-   "tier": 1,
-   "role": "Săn Mồi",
-   "now": 61.9,
-   "n_now": 405,
-   "full": 64.4,
-   "n_full": 405,
-   "star3": 61.3
+   "star3": 63.2
   },
   {
    "id": 55,
    "vi": "Chó Lài",
    "tier": 1,
    "role": "Săn Mồi",
-   "now": 59.3,
+   "now": 54.2,
    "n_now": 392,
-   "full": 63,
+   "full": 59.2,
    "n_full": 392,
-   "star3": 60.1
-  },
-  {
-   "id": 91,
-   "vi": "Chuồn Chuồn",
-   "tier": 1,
-   "role": "Săn Mồi",
-   "now": 63.7,
-   "n_now": 369,
-   "full": 59.5,
-   "n_full": 369,
-   "star3": 52.5
+   "star3": 54.7
   },
   {
    "id": 92,
    "vi": "Bọ Ngựa",
    "tier": 1,
    "role": "Săn Mồi",
-   "now": 62,
+   "now": 61.4,
    "n_now": 396,
-   "full": 59.5,
+   "full": 59.1,
    "n_full": 396,
-   "star3": 63.6
+   "star3": 61.8
+  },
+  {
+   "id": 62,
+   "vi": "Heo Ỉ",
+   "tier": 1,
+   "role": "Đỡ Đòn",
+   "now": 59,
+   "n_now": 400,
+   "full": 59,
+   "n_full": 400,
+   "star3": 60.2
+  },
+  {
+   "id": 83,
+   "vi": "Gián",
+   "tier": 1,
+   "role": "Săn Mồi",
+   "now": 47.1,
+   "n_now": 383,
+   "full": 58.7,
+   "n_full": 383,
+   "star3": 52.4
   },
   {
    "id": 67,
    "vi": "Trâu",
    "tier": 1,
    "role": "Đỡ Đòn",
-   "now": 61.2,
+   "now": 62.7,
    "n_now": 437,
-   "full": 58.5,
+   "full": 58.6,
    "n_full": 437,
-   "star3": 49.2
+   "star3": 52.4
   },
   {
-   "id": 68,
-   "vi": "Dê",
-   "tier": 1,
-   "role": "Đỡ Đòn",
-   "now": 58.9,
-   "n_now": 415,
-   "full": 55.1,
-   "n_full": 415,
-   "star3": 41.9
-  },
-  {
-   "id": 87,
-   "vi": "Kiến Vàng",
-   "tier": 1,
-   "role": "Chiến Đấu",
-   "now": 54,
-   "n_now": 416,
-   "full": 54.3,
-   "n_full": 416,
-   "star3": 55.3
-  },
-  {
-   "id": 88,
-   "vi": "Ong Mật",
+   "id": 80,
+   "vi": "Thằn Lằn Bóng",
    "tier": 1,
    "role": "Săn Mồi",
-   "now": 52.7,
-   "n_now": 419,
-   "full": 53,
-   "n_full": 419,
-   "star3": 53.8
+   "now": 55,
+   "n_now": 382,
+   "full": 58.2,
+   "n_full": 382,
+   "star3": 67.7
   },
   {
    "id": 63,
    "vi": "Heo Móng Cái",
    "tier": 1,
    "role": "Đỡ Đòn",
-   "now": 55.4,
+   "now": 56.6,
    "n_now": 429,
-   "full": 52.7,
+   "full": 56.8,
    "n_full": 429,
-   "star3": 58.3
+   "star3": 57.8
   },
   {
-   "id": 60,
-   "vi": "Gà Đông Tảo",
+   "id": 87,
+   "vi": "Kiến Vàng",
    "tier": 1,
-   "role": "Đỡ Đòn",
-   "now": 61.1,
-   "n_now": 360,
-   "full": 51.9,
-   "n_full": 360,
-   "star3": 52.7
+   "role": "Chiến Đấu",
+   "now": 55.8,
+   "n_now": 416,
+   "full": 56.1,
+   "n_full": 416,
+   "star3": 57.6
   },
   {
    "id": 78,
    "vi": "Ốc Bươu Vàng",
    "tier": 1,
    "role": "Đỡ Đòn",
-   "now": 52.8,
+   "now": 53.7,
    "n_now": 375,
-   "full": 51.9,
+   "full": 55.9,
    "n_full": 375,
-   "star3": 50.5
+   "star3": 52.5
   },
   {
-   "id": 64,
-   "vi": "Chuột Nhắt",
+   "id": 91,
+   "vi": "Chuồn Chuồn",
    "tier": 1,
    "role": "Săn Mồi",
-   "now": 51,
-   "n_now": 388,
-   "full": 51.5,
-   "n_full": 388,
-   "star3": 55.5
+   "now": 62.1,
+   "n_now": 369,
+   "full": 55.1,
+   "n_full": 369,
+   "star3": 52.2
+  },
+  {
+   "id": 68,
+   "vi": "Dê",
+   "tier": 1,
+   "role": "Đỡ Đòn",
+   "now": 58.6,
+   "n_now": 415,
+   "full": 54.5,
+   "n_full": 415,
+   "star3": 51.2
+  },
+  {
+   "id": 60,
+   "vi": "Gà Đông Tảo",
+   "tier": 1,
+   "role": "Đỡ Đòn",
+   "now": 64.3,
+   "n_now": 360,
+   "full": 52.6,
+   "n_full": 360,
+   "star3": 53.6
   },
   {
    "id": 52,
    "vi": "Chó H'Mông Cộc Đuôi",
    "tier": 1,
    "role": "Chiến Đấu",
-   "now": 52.2,
+   "now": 56.6,
    "n_now": 414,
-   "full": 50.1,
+   "full": 50.2,
    "n_full": 414,
-   "star3": 49.5
+   "star3": 51.8
   },
   {
    "id": 58,
    "vi": "Mèo Tam Thể",
    "tier": 1,
    "role": "Chiến Đấu",
-   "now": 50.3,
+   "now": 49.2,
    "n_now": 380,
-   "full": 48.4,
+   "full": 50.1,
    "n_full": 380,
-   "star3": 50
+   "star3": 47.2
   },
   {
-   "id": 56,
-   "vi": "Mèo Mướp",
+   "id": 64,
+   "vi": "Chuột Nhắt",
    "tier": 1,
    "role": "Săn Mồi",
-   "now": 50.3,
-   "n_now": 392,
-   "full": 46,
-   "n_full": 392,
-   "star3": 57.6
-  },
-  {
-   "id": 77,
-   "vi": "Cua Đồng",
-   "tier": 1,
-   "role": "Đỡ Đòn",
-   "now": 61,
-   "n_now": 414,
-   "full": 46,
-   "n_full": 414,
-   "star3": 43.3
-  },
-  {
-   "id": 86,
-   "vi": "Kiến Lửa",
-   "tier": 1,
-   "role": "Chiến Đấu",
-   "now": 51.8,
-   "n_now": 369,
-   "full": 45.8,
-   "n_full": 369,
-   "star3": 43.8
-  },
-  {
-   "id": 71,
-   "vi": "Cò Trắng",
-   "tier": 1,
-   "role": "Phép Thuật",
-   "now": 42.4,
-   "n_now": 362,
-   "full": 45.4,
-   "n_full": 362,
-   "star3": 40.3
-  },
-  {
-   "id": 72,
-   "vi": "Chim Sẻ",
-   "tier": 1,
-   "role": "Hỗ Trợ",
-   "now": 35.5,
-   "n_now": 423,
-   "full": 45.4,
-   "n_full": 423,
-   "star3": 46.4
-  },
-  {
-   "id": 90,
-   "vi": "Châu Chấu",
-   "tier": 1,
-   "role": "Chiến Đấu",
-   "now": 47,
-   "n_now": 384,
-   "full": 45.2,
-   "n_full": 384,
-   "star3": 45.6
-  },
-  {
-   "id": 51,
-   "vi": "Chó Cỏ",
-   "tier": 1,
-   "role": "Đỡ Đòn",
-   "now": 51.7,
-   "n_now": 413,
-   "full": 44.7,
-   "n_full": 413,
-   "star3": 42.7
-  },
-  {
-   "id": 65,
-   "vi": "Chuột Cống",
-   "tier": 1,
-   "role": "Chiến Đấu",
-   "now": 45.3,
-   "n_now": 411,
-   "full": 44,
-   "n_full": 411,
-   "star3": 45.3
-  },
-  {
-   "id": 85,
-   "vi": "Đom Đóm",
-   "tier": 1,
-   "role": "Phép Thuật",
-   "now": 37.9,
-   "n_now": 400,
-   "full": 41.9,
-   "n_full": 400,
-   "star3": 39.5
-  },
-  {
-   "id": 75,
-   "vi": "Cá Chép",
-   "tier": 1,
-   "role": "Phép Thuật",
-   "now": 34.4,
-   "n_now": 408,
-   "full": 40.4,
-   "n_full": 408,
-   "star3": 41
-  },
-  {
-   "id": 89,
-   "vi": "Ve Sầu",
-   "tier": 1,
-   "role": "Phép Thuật",
-   "now": 43.5,
-   "n_now": 407,
-   "full": 39.9,
-   "n_full": 407,
-   "star3": 42.4
-  },
-  {
-   "id": 73,
-   "vi": "Sáo Sậu",
-   "tier": 1,
-   "role": "Phép Thuật",
-   "now": 39.9,
-   "n_now": 398,
-   "full": 39.8,
-   "n_full": 398,
-   "star3": 36.1
-  },
-  {
-   "id": 84,
-   "vi": "Muỗi Vằn",
-   "tier": 1,
-   "role": "Phép Thuật",
-   "now": 33.8,
-   "n_now": 413,
-   "full": 39.5,
-   "n_full": 413,
-   "star3": 41
-  },
-  {
-   "id": 57,
-   "vi": "Mèo Mun",
-   "tier": 1,
-   "role": "Hỗ Trợ",
-   "now": 34.7,
-   "n_now": 417,
-   "full": 39.1,
-   "n_full": 417,
-   "star3": 45.2
-  },
-  {
-   "id": 70,
-   "vi": "Vịt Cỏ",
-   "tier": 1,
-   "role": "Hỗ Trợ",
-   "now": 32.4,
-   "n_now": 395,
-   "full": 38.1,
-   "n_full": 395,
-   "star3": 43.8
+   "now": 45.7,
+   "n_now": 388,
+   "full": 49.9,
+   "n_full": 388,
+   "star3": 54
   },
   {
    "id": 69,
    "vi": "Ngựa Ta",
    "tier": 1,
    "role": "Hỗ Trợ",
-   "now": 37.2,
+   "now": 36.3,
    "n_now": 421,
-   "full": 35.9,
+   "full": 49.6,
    "n_full": 421,
-   "star3": 42
+   "star3": 51.7
+  },
+  {
+   "id": 88,
+   "vi": "Ong Mật",
+   "tier": 1,
+   "role": "Săn Mồi",
+   "now": 48.9,
+   "n_now": 419,
+   "full": 49,
+   "n_full": 419,
+   "star3": 42.4
+  },
+  {
+   "id": 86,
+   "vi": "Kiến Lửa",
+   "tier": 1,
+   "role": "Chiến Đấu",
+   "now": 52.2,
+   "n_now": 369,
+   "full": 47.8,
+   "n_full": 369,
+   "star3": 44
+  },
+  {
+   "id": 72,
+   "vi": "Chim Sẻ",
+   "tier": 1,
+   "role": "Hỗ Trợ",
+   "now": 35.1,
+   "n_now": 423,
+   "full": 46.7,
+   "n_full": 423,
+   "star3": 49.7
+  },
+  {
+   "id": 77,
+   "vi": "Cua Đồng",
+   "tier": 1,
+   "role": "Đỡ Đòn",
+   "now": 64.7,
+   "n_now": 414,
+   "full": 45.7,
+   "n_full": 414,
+   "star3": 42.3
+  },
+  {
+   "id": 84,
+   "vi": "Muỗi Vằn",
+   "tier": 1,
+   "role": "Phép Thuật",
+   "now": 34.6,
+   "n_now": 413,
+   "full": 44.9,
+   "n_full": 413,
+   "star3": 41.2
+  },
+  {
+   "id": 71,
+   "vi": "Cò Trắng",
+   "tier": 1,
+   "role": "Phép Thuật",
+   "now": 39.9,
+   "n_now": 362,
+   "full": 44.8,
+   "n_full": 362,
+   "star3": 41.6
+  },
+  {
+   "id": 56,
+   "vi": "Mèo Mướp",
+   "tier": 1,
+   "role": "Săn Mồi",
+   "now": 47.8,
+   "n_now": 392,
+   "full": 44.1,
+   "n_full": 392,
+   "star3": 53.8
+  },
+  {
+   "id": 65,
+   "vi": "Chuột Cống",
+   "tier": 1,
+   "role": "Chiến Đấu",
+   "now": 48.2,
+   "n_now": 411,
+   "full": 43.3,
+   "n_full": 411,
+   "star3": 43.7
+  },
+  {
+   "id": 70,
+   "vi": "Vịt Cỏ",
+   "tier": 1,
+   "role": "Hỗ Trợ",
+   "now": 32.2,
+   "n_now": 395,
+   "full": 42.7,
+   "n_full": 395,
+   "star3": 53.2
+  },
+  {
+   "id": 51,
+   "vi": "Chó Cỏ",
+   "tier": 1,
+   "role": "Đỡ Đòn",
+   "now": 52.4,
+   "n_now": 413,
+   "full": 42.6,
+   "n_full": 413,
+   "star3": 37.3
+  },
+  {
+   "id": 89,
+   "vi": "Ve Sầu",
+   "tier": 1,
+   "role": "Phép Thuật",
+   "now": 44.7,
+   "n_now": 407,
+   "full": 42.6,
+   "n_full": 407,
+   "star3": 46.3
+  },
+  {
+   "id": 73,
+   "vi": "Sáo Sậu",
+   "tier": 1,
+   "role": "Phép Thuật",
+   "now": 50.8,
+   "n_now": 398,
+   "full": 42.3,
+   "n_full": 398,
+   "star3": 41.7
+  },
+  {
+   "id": 90,
+   "vi": "Châu Chấu",
+   "tier": 1,
+   "role": "Chiến Đấu",
+   "now": 45.8,
+   "n_now": 384,
+   "full": 42.3,
+   "n_full": 384,
+   "star3": 44.9
+  },
+  {
+   "id": 75,
+   "vi": "Cá Chép",
+   "tier": 1,
+   "role": "Phép Thuật",
+   "now": 33.6,
+   "n_now": 408,
+   "full": 42.2,
+   "n_full": 408,
+   "star3": 47.6
+  },
+  {
+   "id": 85,
+   "vi": "Đom Đóm",
+   "tier": 1,
+   "role": "Phép Thuật",
+   "now": 41.5,
+   "n_now": 400,
+   "full": 41.8,
+   "n_full": 400,
+   "star3": 38.4
   },
   {
    "id": 81,
    "vi": "Cóc Nhà",
    "tier": 1,
    "role": "Hỗ Trợ",
-   "now": 33.1,
+   "now": 40,
    "n_now": 391,
-   "full": 34.4,
+   "full": 41.6,
    "n_full": 391,
-   "star3": 32.5
+   "star3": 31.9
+  },
+  {
+   "id": 57,
+   "vi": "Mèo Mun",
+   "tier": 1,
+   "role": "Hỗ Trợ",
+   "now": 36.2,
+   "n_now": 417,
+   "full": 41.5,
+   "n_full": 417,
+   "star3": 50
   },
   {
    "id": 100,
    "vi": "Trăn Gấm",
    "tier": 2,
    "role": "Chiến Đấu",
-   "now": 66.7,
+   "now": 68.7,
    "n_now": 396,
-   "full": 66.2,
+   "full": 62.1,
    "n_full": 396,
-   "star3": 67
+   "star3": 60.9
   },
   {
    "id": 93,
    "vi": "Heo Rừng",
    "tier": 2,
    "role": "Chiến Đấu",
-   "now": 65.2,
+   "now": 62.1,
    "n_now": 419,
-   "full": 62.1,
+   "full": 59.9,
    "n_full": 419,
-   "star3": 64.9
+   "star3": 65.4
   },
   {
    "id": 105,
    "vi": "Diều Hâu",
    "tier": 2,
    "role": "Săn Mồi",
-   "now": 59.5,
+   "now": 60,
    "n_now": 385,
-   "full": 57.7,
+   "full": 59.5,
    "n_full": 385,
-   "star3": 58.6
+   "star3": 54.2
   },
   {
    "id": 104,
    "vi": "Cú Mèo",
    "tier": 2,
    "role": "Săn Mồi",
-   "now": 55.5,
+   "now": 52.7,
    "n_now": 425,
-   "full": 56,
+   "full": 54.6,
    "n_full": 425,
-   "star3": 54.8
-  },
-  {
-   "id": 98,
-   "vi": "Tắc Kè",
-   "tier": 2,
-   "role": "Săn Mồi",
-   "now": 48.2,
-   "n_now": 392,
-   "full": 50.6,
-   "n_full": 392,
-   "star3": 51.6
+   "star3": 53
   },
   {
    "id": 99,
    "vi": "Rắn Hổ Mang",
    "tier": 2,
    "role": "Phép Thuật",
-   "now": 40.7,
+   "now": 41.7,
    "n_now": 415,
-   "full": 46.4,
+   "full": 49.6,
    "n_full": 415,
-   "star3": 46.3
+   "star3": 48.7
   },
   {
    "id": 96,
    "vi": "Sóc Bụng Đỏ",
    "tier": 2,
    "role": "Hỗ Trợ",
-   "now": 41.6,
+   "now": 42.6,
    "n_now": 394,
-   "full": 44.2,
+   "full": 46.7,
    "n_full": 394,
-   "star3": 51.1
+   "star3": 57.5
   },
   {
    "id": 101,
    "vi": "Cá Đuối Điện",
    "tier": 2,
    "role": "Phép Thuật",
-   "now": 41.2,
+   "now": 42.4,
    "n_now": 417,
-   "full": 42.9,
+   "full": 44.8,
    "n_full": 417,
-   "star3": 34.5
+   "star3": 40.6
   },
   {
    "id": 102,
    "vi": "Sứa",
    "tier": 2,
    "role": "Phép Thuật",
-   "now": 44.2,
+   "now": 50.1,
    "n_now": 387,
-   "full": 41.5,
+   "full": 44.2,
    "n_full": 387,
-   "star3": 43.5
+   "star3": 42.4
+  },
+  {
+   "id": 98,
+   "vi": "Tắc Kè",
+   "tier": 2,
+   "role": "Săn Mồi",
+   "now": 43.1,
+   "n_now": 392,
+   "full": 43.9,
+   "n_full": 392,
+   "star3": 45.5
   },
   {
    "id": 97,
    "vi": "Hoẵng",
    "tier": 2,
    "role": "Hỗ Trợ",
-   "now": 45.5,
+   "now": 45.2,
    "n_now": 389,
-   "full": 41,
+   "full": 42.4,
    "n_full": 389,
-   "star3": 41.7
+   "star3": 44.7
   },
   {
    "id": 103,
@@ -503,293 +503,293 @@
    "role": "Phép Thuật",
    "now": 40.9,
    "n_now": 381,
-   "full": 40.4,
+   "full": 41.2,
    "n_full": 381,
-   "star3": 36.9
-  },
-  {
-   "id": 38,
-   "vi": "Voi châu Á",
-   "tier": 3,
-   "role": "Đỡ Đòn",
-   "now": 64,
-   "n_now": 412,
-   "full": 69.8,
-   "n_full": 412,
-   "star3": 66.9
-  },
-  {
-   "id": 48,
-   "vi": "Hồng hoàng",
-   "tier": 3,
-   "role": "Săn Mồi",
-   "now": 63,
-   "n_now": 404,
-   "full": 61.6,
-   "n_full": 404,
-   "star3": 56.6
-  },
-  {
-   "id": 37,
-   "vi": "Cá Tra Dầu",
-   "tier": 3,
-   "role": "Đỡ Đòn",
-   "now": 61.8,
-   "n_now": 416,
-   "full": 60.6,
-   "n_full": 416,
-   "star3": 69.1
-  },
-  {
-   "id": 31,
-   "vi": "Cá Sấu Nước Ngọt",
-   "tier": 3,
-   "role": "Săn Mồi",
-   "now": 62.3,
-   "n_now": 387,
-   "full": 57.8,
-   "n_full": 387,
-   "star3": 48.5
-  },
-  {
-   "id": 21,
-   "vi": "Mang lớn",
-   "tier": 3,
-   "role": "Chiến Đấu",
-   "now": 59.7,
-   "n_now": 381,
-   "full": 57.2,
-   "n_full": 381,
-   "star3": 48
+   "star3": 38.5
   },
   {
    "id": 47,
    "vi": "Gấu chó",
    "tier": 3,
    "role": "Chiến Đấu",
-   "now": 61.6,
+   "now": 65.7,
    "n_now": 405,
-   "full": 57.2,
+   "full": 58.8,
    "n_full": 405,
-   "star3": 51.5
+   "star3": 46.8
   },
   {
    "id": 30,
    "vi": "Tê tê Java",
    "tier": 3,
    "role": "Đỡ Đòn",
-   "now": 59.5,
+   "now": 60.4,
    "n_now": 398,
-   "full": 56.9,
+   "full": 58.7,
    "n_full": 398,
-   "star3": 52.7
+   "star3": 54.9
   },
   {
    "id": 34,
    "vi": "Đồi mồi",
    "tier": 3,
    "role": "Đỡ Đòn",
-   "now": 55.7,
+   "now": 58,
    "n_now": 377,
-   "full": 56.5,
+   "full": 58.6,
    "n_full": 377,
-   "star3": 53.2
+   "star3": 53.8
+  },
+  {
+   "id": 38,
+   "vi": "Voi châu Á",
+   "tier": 3,
+   "role": "Đỡ Đòn",
+   "now": 64.9,
+   "n_now": 412,
+   "full": 58,
+   "n_full": 412,
+   "star3": 52.2
+  },
+  {
+   "id": 37,
+   "vi": "Cá Tra Dầu",
+   "tier": 3,
+   "role": "Đỡ Đòn",
+   "now": 61.5,
+   "n_now": 416,
+   "full": 57.1,
+   "n_full": 416,
+   "star3": 67.7
+  },
+  {
+   "id": 21,
+   "vi": "Mang lớn",
+   "tier": 3,
+   "role": "Chiến Đấu",
+   "now": 57.6,
+   "n_now": 381,
+   "full": 55.2,
+   "n_full": 381,
+   "star3": 47.3
+  },
+  {
+   "id": 31,
+   "vi": "Cá Sấu Nước Ngọt",
+   "tier": 3,
+   "role": "Săn Mồi",
+   "now": 58.7,
+   "n_now": 387,
+   "full": 54.3,
+   "n_full": 387,
+   "star3": 43.3
+  },
+  {
+   "id": 48,
+   "vi": "Hồng hoàng",
+   "tier": 3,
+   "role": "Săn Mồi",
+   "now": 58.9,
+   "n_now": 404,
+   "full": 54.1,
+   "n_full": 404,
+   "star3": 48.3
   },
   {
    "id": 26,
    "vi": "Chà vá chân xám",
    "tier": 3,
    "role": "Chiến Đấu",
-   "now": 52.9,
+   "now": 54.9,
    "n_now": 407,
-   "full": 55,
+   "full": 52.9,
    "n_full": 407,
-   "star3": 49.2
-  },
-  {
-   "id": 46,
-   "vi": "Báo Gấm",
-   "tier": 3,
-   "role": "Săn Mồi",
-   "now": 56.3,
-   "n_now": 414,
-   "full": 54.1,
-   "n_full": 414,
-   "star3": 52.3
-  },
-  {
-   "id": 39,
-   "vi": "Thỏ vằn Trường Sơn",
-   "tier": 3,
-   "role": "Săn Mồi",
-   "now": 53.8,
-   "n_now": 366,
-   "full": 52.5,
-   "n_full": 366,
-   "star3": 57.3
-  },
-  {
-   "id": 20,
-   "vi": "Sao la",
-   "tier": 3,
-   "role": "Đỡ Đòn",
-   "now": 59.9,
-   "n_now": 367,
-   "full": 52.3,
-   "n_full": 367,
-   "star3": 49.7
+   "star3": 50.8
   },
   {
    "id": 35,
    "vi": "Cò quắm lớn",
    "tier": 3,
    "role": "Phép Thuật",
-   "now": 46.3,
+   "now": 46,
    "n_now": 405,
-   "full": 51,
+   "full": 52.7,
    "n_full": 405,
-   "star3": 57
+   "star3": 54.7
   },
   {
    "id": 40,
    "vi": "Cầy vằn bắc",
    "tier": 3,
    "role": "Hỗ Trợ",
-   "now": 40.5,
+   "now": 42.2,
    "n_now": 415,
-   "full": 46.4,
+   "full": 51.8,
    "n_full": 415,
-   "star3": 49.3
-  },
-  {
-   "id": 107,
-   "vi": "Sói Đỏ",
-   "tier": 3,
-   "role": "Săn Mồi",
-   "now": 57.5,
-   "n_now": 388,
-   "full": 46.4,
-   "n_full": 388,
-   "star3": 52
-  },
-  {
-   "id": 44,
-   "vi": "Cu li nhỏ",
-   "tier": 3,
-   "role": "Phép Thuật",
-   "now": 46.2,
-   "n_now": 396,
-   "full": 44.3,
-   "n_full": 396,
-   "star3": 46.7
+   "star3": 51.7
   },
   {
    "id": 41,
    "vi": "Cá Nược (Cá Heo Sông)",
    "tier": 3,
    "role": "Hỗ Trợ",
-   "now": 36,
+   "now": 37.6,
    "n_now": 415,
-   "full": 44.1,
+   "full": 50.8,
    "n_full": 415,
-   "star3": 48.1
+   "star3": 50.8
   },
   {
-   "id": 43,
-   "vi": "Cò thìa",
+   "id": 20,
+   "vi": "Sao la",
    "tier": 3,
-   "role": "Hỗ Trợ",
-   "now": 37.4,
-   "n_now": 394,
-   "full": 42.8,
-   "n_full": 394,
-   "star3": 47.3
+   "role": "Đỡ Đòn",
+   "now": 59.8,
+   "n_now": 367,
+   "full": 49.5,
+   "n_full": 367,
+   "star3": 42.1
+  },
+  {
+   "id": 44,
+   "vi": "Cu li nhỏ",
+   "tier": 3,
+   "role": "Phép Thuật",
+   "now": 47.2,
+   "n_now": 396,
+   "full": 49.2,
+   "n_full": 396,
+   "star3": 54.3
+  },
+  {
+   "id": 46,
+   "vi": "Báo Gấm",
+   "tier": 3,
+   "role": "Săn Mồi",
+   "now": 50.4,
+   "n_now": 414,
+   "full": 48.1,
+   "n_full": 414,
+   "star3": 46.8
   },
   {
    "id": 45,
    "vi": "Sếu đầu đỏ",
    "tier": 3,
    "role": "Hỗ Trợ",
-   "now": 34.1,
+   "now": 38.5,
    "n_now": 394,
-   "full": 42,
+   "full": 45.7,
    "n_full": 394,
-   "star3": 57.3
+   "star3": 53.1
+  },
+  {
+   "id": 39,
+   "vi": "Thỏ vằn Trường Sơn",
+   "tier": 3,
+   "role": "Săn Mồi",
+   "now": 48,
+   "n_now": 366,
+   "full": 45.4,
+   "n_full": 366,
+   "star3": 51.5
   },
   {
    "id": 36,
    "vi": "Rẽ mỏ thìa",
    "tier": 3,
    "role": "Phép Thuật",
-   "now": 38.1,
+   "now": 43.4,
    "n_now": 417,
-   "full": 41.6,
+   "full": 45,
    "n_full": 417,
-   "star3": 40.3
+   "star3": 46.2
   },
   {
    "id": 50,
    "vi": "Cheo cheo lưng bạc",
    "tier": 3,
    "role": "Hỗ Trợ",
-   "now": 38.8,
+   "now": 41,
    "n_now": 418,
-   "full": 39.2,
+   "full": 44.7,
    "n_full": 418,
-   "star3": 38.7
+   "star3": 41.9
   },
   {
-   "id": 49,
-   "vi": "Bò Biển (Cá Nàng Tiên)",
+   "id": 43,
+   "vi": "Cò thìa",
    "tier": 3,
-   "role": "Phép Thuật",
-   "now": 38.7,
-   "n_now": 395,
-   "full": 38.6,
-   "n_full": 395,
-   "star3": 40.3
+   "role": "Hỗ Trợ",
+   "now": 37.1,
+   "n_now": 394,
+   "full": 43.7,
+   "n_full": 394,
+   "star3": 51.3
   },
   {
    "id": 29,
    "vi": "Vượn đen má trắng",
    "tier": 3,
    "role": "Phép Thuật",
-   "now": 40.2,
+   "now": 39.7,
    "n_now": 409,
-   "full": 38,
+   "full": 42.5,
    "n_full": 409,
-   "star3": 31.3
+   "star3": 42.6
   },
   {
    "id": 42,
    "vi": "Công",
    "tier": 3,
    "role": "Hỗ Trợ",
-   "now": 38.8,
+   "now": 37.1,
    "n_now": 420,
-   "full": 35.7,
+   "full": 42.3,
    "n_full": 420,
-   "star3": 34.3
+   "star3": 53
+  },
+  {
+   "id": 49,
+   "vi": "Bò Biển (Cá Nàng Tiên)",
+   "tier": 3,
+   "role": "Phép Thuật",
+   "now": 37.6,
+   "n_now": 395,
+   "full": 41.4,
+   "n_full": 395,
+   "star3": 50.3
+  },
+  {
+   "id": 107,
+   "vi": "Sói Đỏ",
+   "tier": 3,
+   "role": "Săn Mồi",
+   "now": 56.3,
+   "n_now": 388,
+   "full": 39.7,
+   "n_full": 388,
+   "star3": 41
   },
   {
    "id": 17,
    "vi": "Hổ Đông Dương",
    "tier": 4,
    "role": "Săn Mồi",
-   "now": 56.4,
+   "now": 55.7,
    "n_now": 389,
-   "full": 59,
+   "full": 58.4,
    "n_full": 389,
-   "star3": 57.9
+   "star3": 57.3
   },
   {
    "id": 14,
    "vi": "Tê giác Java (Việt Nam)",
    "tier": 4,
    "role": "Đỡ Đòn",
-   "now": 52.7,
+   "now": 50.2,
    "n_now": 405,
-   "full": 50.9,
+   "full": 52.3,
    "n_full": 405,
    "star3": 54.2
   },
@@ -798,132 +798,154 @@
    "vi": "Vượn khổng lồ",
    "tier": 4,
    "role": "Chiến Đấu",
-   "now": 47.9,
+   "now": 48.2,
    "n_now": 407,
    "full": 49.6,
    "n_full": 407,
-   "star3": 48.5
+   "star3": 48.8
   },
   {
    "id": 15,
    "vi": "Bò Xám",
    "tier": 4,
    "role": "Đỡ Đòn",
-   "now": 50.5,
+   "now": 52,
    "n_now": 393,
-   "full": 48.7,
+   "full": 47.1,
    "n_full": 393,
-   "star3": 46.1
+   "star3": 45.8
   },
   {
    "id": 18,
    "vi": "Gà lôi lam mào trắng",
    "tier": 4,
    "role": "Phép Thuật",
-   "now": 42.7,
+   "now": 44.2,
    "n_now": 406,
-   "full": 42.1,
+   "full": 42.9,
    "n_full": 406,
-   "star3": 43.8
+   "star3": 44.3
   },
   {
    "id": 13,
    "vi": "Cá Ông",
    "tier": 5,
    "role": "Hỗ Trợ",
-   "now": 39.2,
+   "now": 42.5,
    "n_now": 379,
-   "full": 71.5,
+   "full": 59.2,
    "n_full": 379,
-   "star3": 73.2
-  },
-  {
-   "id": 10,
-   "vi": "Ngựa sắt Thánh Gióng",
-   "tier": 5,
-   "role": "Chiến Đấu",
-   "now": 56.8,
-   "n_now": 384,
-   "full": 52.7,
-   "n_full": 384,
-   "star3": 51
-  },
-  {
-   "id": 7,
-   "vi": "Voi chín ngà",
-   "tier": 5,
-   "role": "Đỡ Đòn",
-   "now": 66.7,
-   "n_now": 402,
-   "full": 52.1,
-   "n_full": 402,
-   "star3": 49.5
-  },
-  {
-   "id": 6,
-   "vi": "Nghê",
-   "tier": 5,
-   "role": "Đỡ Đòn",
-   "now": 65.1,
-   "n_now": 401,
-   "full": 50.1,
-   "n_full": 401,
-   "star3": 43.4
-  },
-  {
-   "id": 1,
-   "vi": "Rồng Lạc Việt",
-   "tier": 5,
-   "role": "Phép Thuật",
-   "now": 42.8,
-   "n_now": 407,
-   "full": 49.8,
-   "n_full": 407,
-   "star3": 47.1
-  },
-  {
-   "id": 8,
-   "vi": "Gà chín cựa",
-   "tier": 5,
-   "role": "Chiến Đấu",
-   "now": 49.1,
-   "n_now": 429,
-   "full": 49.2,
-   "n_full": 429,
-   "star3": 51
+   "star3": 64.6
   },
   {
    "id": 3,
    "vi": "Kim Quy",
    "tier": 5,
    "role": "Hỗ Trợ",
-   "now": 38,
+   "now": 40.6,
    "n_now": 378,
-   "full": 47.2,
+   "full": 56.7,
    "n_full": 378,
-   "star3": 48.1
+   "star3": 52.4
+  },
+  {
+   "id": 1,
+   "vi": "Rồng Lạc Việt",
+   "tier": 5,
+   "role": "Phép Thuật",
+   "now": 42,
+   "n_now": 407,
+   "full": 54.7,
+   "n_full": 407,
+   "star3": 48.9
+  },
+  {
+   "id": 7,
+   "vi": "Voi chín ngà",
+   "tier": 5,
+   "role": "Đỡ Đòn",
+   "now": 67.8,
+   "n_now": 402,
+   "full": 53.9,
+   "n_full": 402,
+   "star3": 51
+  },
+  {
+   "id": 6,
+   "vi": "Nghê",
+   "tier": 5,
+   "role": "Đỡ Đòn",
+   "now": 63.2,
+   "n_now": 401,
+   "full": 50.5,
+   "n_full": 401,
+   "star3": 44.2
   },
   {
    "id": 5,
    "vi": "Phượng Hoàng",
    "tier": 5,
    "role": "Phép Thuật",
-   "now": 46.1,
+   "now": 46.6,
    "n_now": 408,
-   "full": 47.2,
+   "full": 50.4,
    "n_full": 408,
-   "star3": 46.9
+   "star3": 47.4
+  },
+  {
+   "id": 10,
+   "vi": "Ngựa sắt Thánh Gióng",
+   "tier": 5,
+   "role": "Chiến Đấu",
+   "now": 55.1,
+   "n_now": 384,
+   "full": 50.1,
+   "n_full": 384,
+   "star3": 49.3
+  },
+  {
+   "id": 12,
+   "vi": "Hồ Tinh",
+   "tier": 5,
+   "role": "Phép Thuật",
+   "now": 44.6,
+   "n_now": 397,
+   "full": 46.1,
+   "n_full": 397,
+   "star3": 47.7
   },
   {
    "id": 4,
    "vi": "Lân",
    "tier": 5,
    "role": "Chiến Đấu",
-   "now": 57.1,
+   "now": 56.1,
    "n_now": 420,
-   "full": 46.4,
+   "full": 45.6,
    "n_full": 420,
-   "star3": 52.5
+   "star3": 54.3
+  },
+  {
+   "id": 9,
+   "vi": "Ngựa chín hồng mao",
+   "tier": 5,
+   "role": "Chiến Đấu",
+   "now": 51.5,
+   "n_now": 393,
+   "full": 45.3,
+   "n_full": 393,
+   "star3": 50
+  },
+  {
+   "id": 8,
+   "vi": "Gà chín cựa",
+   "tier": 5,
+   "role": "Chiến Đấu",
+   "now": 47.8,
+   "n_now": 429,
+   "full": 45,
+   "n_full": 429,
+   "star3": 48.7
   },
   {
    "id": 2,
@@ -932,31 +954,9 @@
    "role": "Phép Thuật",
    "now": 41.5,
    "n_now": 402,
-   "full": 45.8,
+   "full": 43.8,
    "n_full": 402,
-   "star3": 42.2
-  },
-  {
-   "id": 12,
-   "vi": "Hồ Tinh",
-   "tier": 5,
-   "role": "Phép Thuật",
-   "now": 44.8,
-   "n_now": 397,
-   "full": 45.2,
-   "n_full": 397,
-   "star3": 42.8
-  },
-  {
-   "id": 9,
-   "vi": "Ngựa chín hồng mao",
-   "tier": 5,
-   "role": "Chiến Đấu",
-   "now": 51.8,
-   "n_now": 393,
-   "full": 44,
-   "n_full": 393,
-   "star3": 51.6
+   "star3": 41.1
   }
  ],
  "ladder": [
@@ -964,49 +964,49 @@
    "mode": "now",
    "tier": 2,
    "vsTier": 1,
-   "winRate": 86
+   "winRate": 93
   },
   {
    "mode": "now",
    "tier": 3,
    "vsTier": 2,
-   "winRate": 88.7
+   "winRate": 96.3
   },
   {
    "mode": "now",
    "tier": 4,
    "vsTier": 3,
-   "winRate": 99.3
+   "winRate": 99.7
   },
   {
    "mode": "now",
    "tier": 5,
    "vsTier": 4,
-   "winRate": 43.3
+   "winRate": 64.2
   },
   {
    "mode": "full",
    "tier": 2,
    "vsTier": 1,
-   "winRate": 79.8
+   "winRate": 89
   },
   {
    "mode": "full",
    "tier": 3,
    "vsTier": 2,
-   "winRate": 89.2
+   "winRate": 98
   },
   {
    "mode": "full",
    "tier": 4,
    "vsTier": 3,
-   "winRate": 100
+   "winRate": 99.7
   },
   {
    "mode": "full",
    "tier": 5,
    "vsTier": 4,
-   "winRate": 45
+   "winRate": 49.2
   }
  ]
 }

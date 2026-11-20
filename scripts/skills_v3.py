@@ -61,15 +61,15 @@ BIRDS = ["Cò thìa", "Gà lôi lam mào trắng", "Cò quắm lớn", "Hồng h
 # hit kind: "1" one target · "2" two targets · "aoe" area / row / several · "" no damage
 K = {}
 def k(vi, an, at, tgt, hit, cc, atext, pt, ptext, st, stext, note="", coef=None):
-    K[vi] = dict(an=an, at=at, tgt=tgt, hit=hit, cc=cc, atext=atext, pt=pt, ptext=ptext, st=st, stext=stext, note=note, coef=coef)
+    K[vi] = dict(vi=vi, an=an, at=at, tgt=tgt, hit=hit, cc=cc, atext=atext, pt=pt, ptext=ptext, st=st, stext=stext, note=note, coef=coef)
 
 k("Thỏ vằn Trường Sơn", "Phóng Vằn", "Đòn mạnh", "kẻ địch xa nhất", "1", 0,
   "Phóng tới kẻ địch xa nhất, đá hậu {D} sát thương rồi nhảy về ô trống gần nhất",
   "Né đòn", "Sọc Ngụy Trang: 15% / 20% / 25% né đòn",
   "Nâng kỹ năng", "Bóng Đêm Trường Sơn: sau Phóng Vằn ẩn mình 2 giây")
 k("Voi châu Á", "Dậm Đất", "Diện rộng + Khống chế", "kẻ địch trong 1 ô quanh mình", "aoe", 1,
-  "Dậm chân: {D} sát thương và Choáng 1 / 1,25 / 1,5 giây kẻ địch trong 1 ô",
-  "Hào quang", "Voi Chiến Bà Triệu: khi Voi còn trên sân, cả đội +5% / 8% / 10% Tấn Công",
+  "Dậm chân: {D} sát thương và Choáng 0,5 / 0,6 / 0,75 giây kẻ địch trong 1 ô",
+  "Hào quang", "Voi Chiến Bà Triệu: khi Voi còn trên sân, cả đội +2% / 3% / 4% Tấn Công",
   "Nâng kỹ năng", "Voi Trắng Một Ngà: Dậm Đất lan bán kính 2 ô")
 k("Cò thìa", "Lùa Cá", "Diện rộng + Tăng sức + Suy yếu", "vùng 1 ô quanh mục tiêu", "aoe", 0,
   "Quét mỏ thìa: {D} sát thương và −15% Tốc Độ Đánh 5 giây cho kẻ địch trong vùng; đồng đội Sông Nước +15% / 20% / 25% Tấn Công 5 giây",
@@ -82,7 +82,7 @@ k("Báo Gấm", "Vồ Từ Tán Cây", "Đòn mạnh", "kẻ địch ít máu nh
   "Đầu trận", "Da Báo: không bị đòn đánh xa nhắm tới trong 4 giây đầu trận và 2 giây sau mỗi lần dùng kỹ năng")
 k("Bò Biển (Cá Nàng Tiên)", "Tiếng Hát Cá Nàng Tiên", "Diện rộng + Khống chế", "vùng 2 ô quanh mục tiêu", "aoe", 1,
   "Hát: {D} sát thương kẻ địch trong 2 ô quanh mục tiêu; chúng không thể tấn công Bò Biển và đồng đội kề bên trong 3 / 4 / 5 giây (Mê hoặc)",
-  "Hồi máu", "Gặm Cỏ Biển: hồi 2% / 2,5% / 3% Máu mỗi giây khi không bị đánh trong 2 giây",
+  "Hồi máu", "Gặm Cỏ Biển: hồi 3% / 3,5% / 4% Máu mỗi giây khi không bị đánh trong 2 giây",
   "Nâng kỹ năng", "Thảm Cỏ Biển: tiếng hát hồi 15% Máu tối đa cho đồng đội trong vùng")
 k("Gà lôi lam mào trắng", "Lông Lam Ánh Bạc", "Diện rộng + Khống chế", "hình nón 2 ô phía trước", "aoe", 1,
   "Xòe lông lam: {D} sát thương và Mù 2 / 2,5 / 3 giây kẻ địch trong hình nón 2 ô phía trước",
@@ -106,10 +106,10 @@ k("Hồng hoàng", "Mổ Mũ Sừng", "Đòn mạnh + Khống chế", "mục ti�
   "Lao xuống mổ: {D} sát thương và Choáng 0,5 / 0,75 / 1 giây",
   "Khi đánh trúng", "Cánh Vỗ Ầm: 15% / 20% / 25% đòn đánh gây Choáng 0,5 giây",
   "Nâng kỹ năng", "Mũ Sừng Kép: ×2 thời gian Choáng của Mổ Mũ Sừng và Cánh Vỗ Ầm")
-k("Công", "Xòe Đuôi", "Diện rộng + Khống chế", "kẻ địch trong 1 ô quanh mình", "aoe", 1,
-  "Xòe đuôi rực rỡ: {D} sát thương và Làm chậm 20% / 30% / 40% kẻ địch trong 1 ô trong 2 / 3 / 4 giây",
-  "Khi bị đánh", "Mắt Công: 15% / 20% / 25% phản hiệu ứng khống chế về kẻ dùng",
-  "Nâng kỹ năng", "Đuôi Công Rộng: Xòe Đuôi bán kính 2 ô")
+k("Công", "Xòe Đuôi", "Diện rộng + Khống chế", "kẻ địch trong 2 ô quanh mình", "aoe", 1,
+  "Xòe đuôi rực rỡ: {D} sát thương kẻ địch trong 2 ô, Làm chậm 30% / 40% / 50% trong 2 / 3 / 4 giây và Mù 1 / 1,5 / 2 giây",
+  "Khi bị đánh", "Mắt Công: 25% / 30% / 35% phản hiệu ứng khống chế về kẻ dùng",
+  "Nâng kỹ năng", "Đuôi Công Rộng: Xòe Đuôi bán kính 3 ô")
 k("Chà vá chân xám", "Gầm Rú", "Diện rộng + Suy yếu", "kẻ địch trong 2 ô quanh mình", "aoe", 0,
   "Gầm vang: {D} sát thương kẻ địch trong 2 ô, chúng Hoảng sợ −10% / 15% / 20% Tấn Công trong 4 giây",
   "Né đòn", "Nhảy Cành: 15% / 20% / 25% né đòn cận chiến",
@@ -153,7 +153,7 @@ k("Chim Lạc", "Phong Ba Bão Táp", "Diện rộng + Khống chế", "mọi k�
   "Nâng kỹ năng", "Hồn Trống Đồng: đội có Trống Đồng Đông Sơn thì hiệu ứng trống ×2 và Phong Ba Bão Táp Choáng 1 giây",
   "'100% Tấn công ĐB + số cố định' → một con số theo Tấn Công; bỏ Phòng thủ khỏi bị động")
 k("Cá Tra Dầu", "Giẫy Giụa", "Đòn mạnh + Suy yếu", "mục tiêu hiện tại", "1", 0,
-  "Quẫy mạnh, da trơn tiết dầu: {D} sát thương; mục tiêu trượt thêm 20% / 30% / 40% đòn đánh thường trong 5 giây",
+  "Quẫy mạnh, da trơn tiết dầu: {D} sát thương; mục tiêu trượt thêm 15% / 20% / 25% đòn đánh thường trong 5 giây",
   "Chỉ số", "Khổng Lồ Sông Mê Kông: +10% / 15% / 20% Máu",
   "Nâng kỹ năng", "Giẫy Giụa Diện Rộng: ảnh hưởng mọi kẻ địch trong 2 ô",
   "'đòn vật lý' → đòn đánh thường")
@@ -183,7 +183,7 @@ k("Voi chín ngà", "Chín Ngà", "Diện rộng + Khống chế", "3 ô phía t
   "Nâng kỹ năng", "Sính Lễ Vua Hùng: Chín Ngà Choáng 1 giây và đồng đội Sơn Tinh +15% Tấn Công 4 giây",
   "hệ Nước → Biển Đông / Sông Nước; +5 Phòng thủ → +2 Giáp")
 k("Vượn đen má trắng", "Bài Ca Rừng Già", "Diện rộng + Khống chế", "kẻ địch trong 2 ô quanh mục tiêu", "aoe", 1,
-  "Hót vang: {D} sát thương kẻ địch trong 2 ô quanh mục tiêu và Làm chậm 15% trong 3 giây",
+  "Hót vang: {D} sát thương kẻ địch trong 2 ô quanh mục tiêu và Làm chậm 30% trong 3 giây",
   "Né đòn", "Chuyền Cành: mỗi 5 giây nhảy sang ô trống và né 1 đòn",
   "Nâng kỹ năng", "Tán Rừng Che Chở: đồng đội kề ô Vượn vừa nhảy tới +10% Tốc Độ Đánh 3 giây",
   "Tốc độ → Tốc Độ Đánh; nói rõ 'đồng đội kề ô vừa nhảy tới'")
@@ -212,8 +212,8 @@ k("Cá Sấu Nước Ngọt", "Đớp Mồi", "Đòn mạnh + Khống chế", "m
   "Đầu trận", "Ẩn Nấp: đầu trận lặn rồi trồi lên sau lưng kẻ địch đánh chậm nhất trong 3 ô, đớp một đòn chí mạng",
   "'sát thương vật lý' → đòn đánh thường; ★3 ghi rõ là đầu trận")
 k("Cheo cheo lưng bạc", "Nhanh Như Cheo", "Chịu đòn", "kẻ địch Tấn Công cao nhất", "", 0,
-  "Khiêu khích kẻ địch có Tấn Công cao nhất và +50% né đòn trong 4 / 5 / 6 giây",
-  "Né đòn", "Nhút Nhát: luôn né đòn đầu tiên nhắm vào mình; 10% / 15% / 20% né đòn",
+  "Khiêu khích kẻ địch có Tấn Công cao nhất và +60% né đòn trong 4 / 5 / 6 giây",
+  "Né đòn", "Nhút Nhát: luôn né đòn đầu tiên nhắm vào mình; 15% / 20% / 25% né đòn",
   "Nâng kỹ năng", "Biến Mất Trong Bụi Rậm: hết Nhanh Như Cheo thì ẩn mình 2 giây và hồi 20% Máu")
 k("Rẽ mỏ thìa", "Mỏ Thìa Vẩy Nước", "Nhiều mục tiêu + Khống chế", "3 kẻ địch ngẫu nhiên", "aoe", 1,
   "Vẩy nước lấp lánh trúng 3 kẻ địch ngẫu nhiên: mỗi kẻ {D} sát thương và Mù 1 giây",
@@ -243,10 +243,10 @@ k("Phượng Hoàng", "Lửa Thiêng", "Diện rộng + Độc / Bỏng", "vùng
   "Nâng kỹ năng", "Phượng Múa: sau khi tái sinh, dùng Lửa Thiêng ngay và +30% Tấn Công đến hết trận",
   "Tấn công ĐB → Tấn Công")
 k("Cá Ông", "Nam Hải Cứu Nạn", "Khiên + Hồi máu", "đồng đội ít máu nhất trong 2 ô", "", 0,
-  "Che chắn đồng đội ít máu nhất trong 2 ô: khiên {S:30} trong 4 giây và hồi 20% / 25% / 30% Máu tối đa",
+  "Che chắn đồng đội ít máu nhất trong 2 ô: khiên {S:10} trong 4 giây và hồi 6% / 10% / 14% Máu tối đa",
   "Hào quang", "Ông Nam Hải: đồng đội Biển Đông / Sông Nước +6 Giáp; đòn của VieAni Biển Đông / Sông Nước phe địch −12% sát thương",
   "Nâng kỹ năng", "Linh Ngư Phù Hộ: che chắn thêm 1 đồng đội; mỗi đồng đội được cứu 1 lần mỗi trận",
-  "khiên = 30% Máu Cá Ông; hệ Nước → Biển Đông / Sông Nước; +12% Phòng thủ → +6 Giáp")
+  "khiên = 10% Máu Cá Ông (cân bằng 20/11); hệ Nước → Biển Đông / Sông Nước; +12% Phòng thủ → +6 Giáp")
 k("Chó Cỏ", "Sủa Giữ Nhà", "Chịu đòn + Tăng sức", "kẻ địch trong 1 ô; đồng đội kề bên", "", 0,
   "Sủa vang: khiêu khích kẻ địch trong 1 ô trong 3 / 3,5 / 4 giây; đồng đội kề bên +8 Giáp",
   "Cộng dồn", "Trung Thành: đồng đội kề bên bị hạ thì +20% / 25% / 30% Tấn Công đến hết trận",
@@ -258,9 +258,9 @@ k("Chó H'Mông Cộc Đuôi", "Săn Vùng Núi", "Đòn mạnh", "một kẻ đ
   "Nâng kỹ năng", "Cộc Đuôi Dũng Mãnh: Săn Vùng Núi Choáng mục tiêu 1 giây")
 k("Chó Phú Quốc", "Xoáy Lưng", "Đòn mạnh", "mục tiêu hiện tại", "1", 0,
   "Lao tới đánh chí mạng: {D} sát thương, không thể bị né",
-  "Chỉ số", "Xoáy Lưng: đòn đầu tiên lên mỗi kẻ địch luôn chí mạng; +5% / 10% / 15% tỉ lệ chí mạng",
+  "Chỉ số", "Xoáy Lưng: đòn đầu tiên lên mỗi kẻ địch luôn chí mạng; ★2 +5%, ★3 +10% tỉ lệ chí mạng",
   "Nâng kỹ năng", "Biết Bơi: 3 giây sau khi dùng kỹ năng, miễn sát thương từ VieAni Biển Đông / Sông Nước",
-  "gộp chí mạng vào con số; hệ Nước → Biển Đông / Sông Nước", coef=400)
+  "gộp chí mạng vào con số; hệ Nước → Biển Đông / Sông Nước", coef=340)
 k("Chó Lài", "Bản Năng Hoang Dã", "Đòn mạnh", "mục tiêu hiện tại", "1", 0,
   "Cắn xé: {D} sát thương, tăng dần tới ×2 khi Chó Lài gần hết Máu",
   "Khi máu thấp", "Hoang Dã: Máu dưới 50% thì +20% / 25% / 30% Tấn Công",
@@ -270,8 +270,8 @@ k("Mèo Mướp", "Vồ Mồi", "Đòn mạnh", "mục tiêu hiện tại", "1",
   "Thiên địch", "Bắt Chuột: +20% / 30% / 40% sát thương lên Chuột Nhắt và Chuột Cống",
   "Nâng kỹ năng", "Mèo Mướp Lanh Lẹ: Vồ Mồi nảy sang kẻ địch thứ hai")
 k("Mèo Mun", "Quỷ Nhập Tràng", "Hồi sinh", "đồng đội vừa bị hạ", "", 0,
-  "Nhảy qua đồng đội vừa bị hạ: nó sống dậy 5 giây với 30% / 40% / 50% Máu rồi ngã xuống lại; 1 lần mỗi trận",
-  "Né đòn", "Mắt Đêm: 10% / 15% / 20% né đòn; nhìn thấy kẻ địch Ẩn mình",
+  "Nhảy qua đồng đội vừa bị hạ: nó sống dậy 5 giây với 40% / 50% / 60% Máu rồi ngã xuống lại; 1 lần mỗi trận",
+  "Né đòn", "Mắt Đêm: 15% / 20% / 25% né đòn; nhìn thấy kẻ địch Ẩn mình",
   "Nâng kỹ năng", "Chín Mạng: đồng đội được hồi sinh không ngã xuống lại")
 k("Mèo Tam Thể", "Cào Ba Màu", "Đòn mạnh + Suy yếu", "mục tiêu hiện tại", "1", 0,
   "Cào ba nhát: {D} sát thương; mục tiêu −10% Tấn Công, −5 Giáp, −10% Tốc Độ Đánh trong 4 giây",
@@ -284,10 +284,10 @@ k("Gà Đông Tảo", "Chân Voi Trụ Vững", "Chịu đòn", "bản thân + k
   "Nâng kỹ năng", "Gà Tiến Vua: hết Chân Voi Trụ Vững thì hồi 20% Máu",
   "+30/40/50% Phòng thủ → +10/15/20 Giáp")
 k("Heo Ỉ", "Ủn Ỉn Lăn Bùn", "Khiên + Hồi máu", "bản thân", "", 0,
-  "Lăn bùn: khiên {S:20} trong 4 giây và hồi 10% Máu",
-  "Cộng dồn", "Lì Lợm: mỗi đòn nhận vào +2% Máu tối đa (tối đa +20% / 25% / 30%)",
+  "Lăn bùn: khiên {S:15} trong 4 giây và hồi 10% Máu",
+  "Cộng dồn", "Lì Lợm: mỗi đòn nhận vào +2% Máu tối đa (tối đa +6% / 8% / 10%)",
   "Nâng kỹ năng", "Bụng Phệ: Ủn Ỉn Lăn Bùn khiêu khích kẻ địch kề bên",
-  "khiên = 20% Máu Heo Ỉ; thêm con số hồi máu (bản cũ ghi 'hồi máu' nhưng không có số)")
+  "khiên = 15% Máu Heo Ỉ (cân bằng 20/11); thêm con số hồi máu (bản cũ ghi 'hồi máu' nhưng không có số)")
 k("Heo Móng Cái", "Gọi Đàn", "Triệu hồi", "ô trống gần nhất", "", 0,
   "Gọi 1 heo con cản đường (20% / 25% / 30% chỉ số của Heo Móng Cái) đến hết trận",
   "Khi bị hạ", "Mắn Đẻ: bị hạ thì để lại 1 heo con (20% chỉ số)",
@@ -300,7 +300,7 @@ k("Chuột Cống", "Mầm Bệnh", "Đòn mạnh + Độc / Bỏng", "mục ti�
   "Cắn: {D} sát thương, Độc 3% / 4% / 5% Máu mỗi giây trong 3 giây, lây sang 1 kẻ địch kề bên",
   "Khi đánh trúng", "Gặm Nhấm: mỗi đòn −2 Giáp của mục tiêu (cộng dồn 5 / 7 / 10 lần)",
   "Nâng kỹ năng", "Đại Dịch: mục tiêu đang bị Độc mà bị hạ thì Độc lây thêm 1 lần",
-  "−3 Phòng thủ → −2 Giáp (giống tộc hệ Bầy Gặm Nhấm)")
+  "−3 Phòng thủ → −2 Giáp")
 k("Trâu", "Trâu Vàng Hồ Tây", "Diện rộng + Khống chế", "cả một hàng", "aoe", 1,
   "Húc xuyên một hàng: {D} sát thương; ô đi qua bị sụt, kẻ địch đứng trên bị Làm chậm 30% trong 3 giây",
   "Chỉ số", "Con Trâu Là Đầu Cơ Nghiệp: +10% / 15% / 20% Máu",
@@ -311,12 +311,12 @@ k("Dê", "Húc Đầu", "Đòn mạnh + Khống chế", "mục tiêu hiện tạ
   "Nâng kỹ năng", "Dê Núi Đá: đẩy lùi 2 ô; mục tiêu va vào kẻ khác thì cả hai nhận thêm 50% sát thương",
   "nói rõ 'thêm sát thương khi va' = +50%")
 k("Ngựa Ta", "Thồ Hàng", "Đặc biệt + Tăng sức", "2 đồng đội ít máu nhất", "", 0,
-  "Chở 2 đồng đội ít máu nhất lùi về hàng sau; họ +20% Tốc Độ Đánh trong 4 giây",
-  "Hào quang", "Bền Sức: đồng đội kề bên +6% / 8% / 10% Tốc Độ Đánh",
+  "Chở 2 đồng đội ít máu nhất lùi về hàng sau; họ +30% Tốc Độ Đánh trong 4 giây và hồi 10% Máu",
+  "Hào quang", "Bền Sức: đồng đội kề bên +10% / 12% / 15% Tốc Độ Đánh",
   "Nâng kỹ năng", "Ngựa Trạm: Thồ Hàng hồi 15% Máu cho đồng đội được chở",
   "Tốc độ → Tốc Độ Đánh")
 k("Vịt Cỏ", "Lội Ruộng", "Hồi máu", "bản thân + đồng đội kề bên", "", 0,
-  "Lội nước nhặt mồi: hồi 12% / 16% / 20% Máu tối đa cho bản thân và đồng đội kề bên",
+  "Lội nước nhặt mồi: hồi 18% / 22% / 26% Máu tối đa cho bản thân và đồng đội kề bên",
   "Thiên địch", "Ăn Ốc: +50% sát thương lên Ốc Bươu Vàng; 10% / 15% / 20% né đòn của VieAni Biển Đông / Sông Nước",
   "Nâng kỹ năng", "Đàn Vịt Đồng: Lội Ruộng hồi thêm 8% Máu cho cả đội",
   "hồi số cố định → % Máu; hệ Nước → Biển Đông / Sông Nước")
@@ -331,9 +331,9 @@ k("Chim Sẻ", "Nhặt Thóc Giúp Tấm", "Hồi máu", "2 đồng đội ít m
   "Đầu trận", "Chim Sẻ Báo Tin: đầu trận cả đội +10% né đòn trong 4 giây",
   "hồi số cố định → % Máu; hệ Trời → loài chim")
 k("Sáo Sậu", "Bắt Chước", "Sao chép", "kẻ địch gần nhất trong 1 / 2 / 3 ô", "", 0,
-  "Sao chép kỹ năng của kẻ địch gần nhất trong 1 / 2 / 3 ô và dùng ngay với 70% sức mạnh",
-  "Khi đánh trúng", "Lắm Lời: 10% / 15% / 20% đòn đánh làm Câm lặng mục tiêu 1 giây",
-  "Nâng kỹ năng", "Sáo Nói Tiếng Người: kỹ năng sao chép giữ 100% sức mạnh")
+  "Sao chép kỹ năng của kẻ địch gần nhất trong 1 / 2 / 3 ô và dùng ngay với 100% sức mạnh",
+  "Khi đánh trúng", "Lắm Lời: 20% / 25% / 30% đòn đánh làm Câm lặng mục tiêu 1 giây",
+  "Nâng kỹ năng", "Sáo Nói Tiếng Người: kỹ năng sao chép có 120% sức mạnh")
 k("Cá Chép", "Vượt Vũ Môn", "Nhiều mục tiêu + Tăng sức", "mục tiêu + kẻ đứng sau", "2", 0,
   "Quẫy đuôi tạo sóng: {D} sát thương lên mục tiêu và kẻ đứng sau; tích 1 'vảy rồng' +5% Tấn Công (cộng dồn)",
   "Biến hình", "Cá Chép Hóa Rồng: sống 20 giây trên sân thì hóa Rồng Con đến hết trận – chỉ số ×1,3 / ×1,4 / ×1,5 và biết Bay",
@@ -350,22 +350,22 @@ k("Ốc Bươu Vàng", "Rút Vào Vỏ", "Chịu đòn", "bản thân", "", 0,
   "Nâng kỹ năng", "Ốc Bươu Vàng Phá Lúa: ốc con Làm chậm 15% kẻ địch chạm vào",
   "'sát thương vật lý' → đòn đánh thường")
 k("Thạch Sùng", "Tặc Lưỡi", "Đòn mạnh", "một Côn Trùng bất kỳ (không có thì mục tiêu hiện tại)", "1", 0,
-  "Tặc lưỡi ba tiếng, bắt một VieAni Côn Trùng ở bất kỳ đâu: {D} sát thương (×1,5 lên Côn Trùng)",
-  "Thiên địch", "Bám Tường: tầm đánh vô hạn với Côn Trùng; 10% / 15% / 20% né đòn",
+  "Tặc lưỡi ba tiếng, bắt một VieAni Côn Trùng ở bất kỳ đâu: {D} sát thương (×1,3 lên Côn Trùng)",
+  "Thiên địch", "Bám Tường: tầm đánh vô hạn với Côn Trùng; 5% / 10% / 15% né đòn",
   "Nâng kỹ năng", "Thạch Sùng Kêu: Tặc Lưỡi trúng thêm 1 Côn Trùng",
   "hệ Côn trùng → tộc hệ Côn Trùng")
 k("Thằn Lằn Bóng", "Phóng Lưỡi", "Đòn mạnh", "một Côn Trùng bất kỳ (không có thì kẻ gần nhất)", "1", 0,
   "Phóng lưỡi bắt một VieAni Côn Trùng bất kỳ (không có thì kẻ địch gần nhất): {D} sát thương",
-  "Khi máu thấp", "Đứt Đuôi: lần đầu nhận đòn chí tử thì còn lại 1 Máu / 10% / 20% Máu và chạy ra xa",
+  "Khi máu thấp", "Đứt Đuôi: lần đầu nhận đòn chí tử thì còn lại 1 Máu / 3% / 5% Máu và chạy ra xa",
   "Nâng kỹ năng", "Đuôi Mọc Lại: sau Đứt Đuôi hồi 30% Máu trong 3 giây")
-k("Cóc Nhà", "Nghiến Răng Gọi Mưa", "Tăng sức", "đồng đội Biển Đông / Sông Nước", "", 0,
-  "Nghiến răng gọi mưa 5 giây: đồng đội Biển Đông / Sông Nước +15% / 20% / 25% sát thương",
-  "Khi bị đánh", "Cậu Ông Trời: kẻ địch đánh Cóc bị sét đánh mất 15% Máu tối đa của nó; sét chờ 12 / 10 / 8 giây mới đánh lại",
+k("Cóc Nhà", "Nghiến Răng Gọi Mưa", "Tăng sức", "cả đội", "", 0,
+  "Nghiến răng gọi mưa 5 giây: cả đội +15% / 20% / 25% sát thương",
+  "Khi bị đánh", "Cậu Ông Trời: kẻ địch đánh Cóc bị sét đánh mất 25% Máu tối đa của nó; sét chờ 10 / 8 / 6 giây mới đánh lại",
   "Nâng kỹ năng", "Cóc Kiện Trời: mỗi lần Cóc nghiến răng, Cua Đồng, Hổ Đông Dương, Gấu chó, Ong Mật cùng phe ra đòn ngay",
-  "hệ Nước → Biển Đông / Sông Nước; bỏ 'hệ Điện'")
+  "cân bằng 20/11: mưa cho cả đội (trước: chỉ Biển Đông / Sông Nước), sét 15 → 25 %; bỏ 'hệ Điện'")
 k("Gián", "Chạy Trốn", "Đòn mạnh", "kẻ địch ít máu nhất", "1", 0,
-  "Chạy khỏi tầm đánh 2 giây rồi quay lại cắn kẻ địch ít máu nhất: {D} sát thương",
-  "Né đòn", "Bất Tử: 25% / 30% / 35% né đòn; Máu dưới 20% thì chạy khỏi tầm đánh 2 giây",
+  "Chạy khỏi tầm đánh 1 giây rồi quay lại cắn kẻ địch ít máu nhất: {D} sát thương",
+  "Né đòn", "Bất Tử: 10% / 12% / 15% né đòn; Máu dưới 20% thì chạy khỏi tầm đánh 2 giây",
   "Nâng kỹ năng", "Gián Bay: khi Chạy Trốn thì biết Bay")
 k("Muỗi Vằn", "Hút Máu", "Đòn mạnh + Hồi máu", "mục tiêu hiện tại", "1", 0,
   "Đốt hút máu: {D} sát thương, hồi bằng 50% sát thương gây ra; 30% gây Sốt 3 giây",
@@ -410,8 +410,8 @@ k("Bọ Ngựa", "Lưỡi Hái", "Đòn mạnh", "mục tiêu hiện tại", "1"
   "Đầu trận", "Rình Vồ: đòn đánh đầu tiên trong trận ×1,5 / ×2 / ×2,5 sát thương",
   "Nâng kỹ năng", "Bọ Ngựa Cái: hạ được kẻ địch thì hồi 30% Máu")
 k("Heo Rừng", "Húc", "Đòn mạnh + Khống chế", "mục tiêu hiện tại", "1", 1,
-  "Lao húc: {D} sát thương và Choáng 1 / 1,25 / 1,5 giây",
-  "Khi máu thấp", "Nanh Lợn Lòi: Máu dưới 50% thì +10% / 15% / 20% sát thương",
+  "Lao húc: {D} sát thương và Choáng 0,4 / 0,5 / 0,6 giây",
+  "Khi máu thấp", "Nanh Lợn Lòi: Máu dưới 50% thì +5% / 8% / 10% sát thương",
   "Nâng kỹ năng", "Hung Hãn: Húc trúng cả kẻ đứng sau mục tiêu")
 k("Sóc Bụng Đỏ", "Tích Trữ Hạt", "Hồi máu + Tăng sức", "đồng đội ít máu nhất", "", 0,
   "Ném hạt dẻ cho đồng đội ít máu nhất: hồi 15% / 20% / 25% Máu tối đa và +10% Tấn Công trong 4 giây",
@@ -432,8 +432,8 @@ k("Rắn Hổ Mang", "Nọc Thần Kinh", "Đòn mạnh + Độc / Bỏng", "m�
   "Hào quang", "Rồng Rắn Lên Mây: đứng cạnh Rồng Lạc Việt hoặc Rồng Con thì biết Bay và +20% Tấn Công",
   "Tấn công ĐB → Tấn Công")
 k("Trăn Gấm", "Siết Chặt", "Đòn mạnh + Khống chế", "mục tiêu hiện tại", "1", 1,
-  "Quấn siết, Trói 2 / 2,5 / 3 giây: {D} sát thương và mất thêm 5% Máu mỗi giây bị siết",
-  "Giảm sát thương", "Da Gấm: giảm 10% / 15% / 20% sát thương kỹ năng nhận vào",
+  "Quấn siết, Trói 0,75 / 1 / 1,25 giây: {D} sát thương và mất thêm 3% Máu mỗi giây bị siết",
+  "Giảm sát thương", "Da Gấm: giảm 5% / 8% / 10% sát thương kỹ năng nhận vào",
   "Hào quang", "Rồng Rắn Lên Mây: đứng cạnh Rồng Lạc Việt hoặc Rồng Con thì biết Bay; Siết Chặt thêm 1 giây",
   "'sát thương ĐB' → sát thương kỹ năng")
 k("Cá Đuối Điện", "Phóng Điện", "Nhiều mục tiêu + Khống chế", "nảy qua 3 kẻ địch", "aoe", 1,
@@ -463,7 +463,14 @@ k("Sói Đỏ", "Sói Hú", "Tăng sức", "Sói Đỏ + đồng đội Bầy Ch
   "'đồng đội Chó & Sói' → Bầy Chó Dữ; ★3 xếp mẫu Triệu hồi")
 
 
+# balance pass 20 Nov 2026: skill damage (% Tấn Công per target) set by hand after simulation
+COEF = {"Bò Biển (Cá Nàng Tiên)": 260, "Công": 160, "Vượn đen má trắng": 240, "Thạch Sùng": 220, "Thằn Lằn Bóng": 200,
+        "Gián": 300, "Ve Sầu": 260, "Trăn Gấm": 170, "Mực": 200}
+
+
 def coef_of(e, role, energy):
+    if e.get("vi") in COEF:
+        return COEF[e["vi"]]
     if e["coef"]:
         return e["coef"]
     if not e["hit"]:

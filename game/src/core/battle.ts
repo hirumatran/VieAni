@@ -216,6 +216,7 @@ export function simulate(d: GameData, units: Placed[], seed: number, teamItems: 
       crit += at(mlv(S, "Săn Mồi", sp), [0.15, 0.3, 0.45]);
       if (mlv(S, "Săn Mồi", sp) >= 1) critMult = Math.max(critMult, mlv(S, "Săn Mồi", sp) >= 2 ? 2 : 1.75);
       hpMul += at(mlv(S, "Cự Thú", sp), [0.15, 0.3, 0.45]);
+      hpMul += at(mlv(S, "Sơn Tinh", sp), [0.1, 0.2]); // balance 20 Nov: núi cao – members +10 / 20 % Máu
       armor += at(mlv(S, "Cao Nguyên Bắc Bộ", sp), [5, 10, 15]) + at(mlv(S, "Biển Đông", sp), [5, 10, 15]);
       atkPct += at(mlv(S, "Biển Đông", sp), [0, 0.15, 0.3]);
       aspd += at(mlv(S, "Tây Nguyên", sp), [0.1, 0.2, 0.3]) + at(mlv(S, "Côn Trùng", sp), [0.15, 0.25, 0.25]);
@@ -766,7 +767,7 @@ export function simulate(d: GameData, units: Placed[], seed: number, teamItems: 
   /** base damage of f on target (Tấn Công × ★ × power × (1 − Giáp %) × prey × items) – no randomness */
   function baseDamage(f: Fighter, target: Fighter, power: number, pen = 0) {
     let A = f.atk * (1 + rally[f.side]);
-    let armorRaw = target.armor - f.armorPen - 2 * target.defShred;
+    let armorRaw = target.armor - f.armorPen - 3 * target.defShred; // Bầy Gặm Nhấm: −3 Giáp per stack (balance 20 Nov, was −2)
     let engM = 1;
     if (SK && f.x && target.x) {
       const pv = f.x.pv, st = f.star;
@@ -1070,8 +1071,8 @@ export function simulate(d: GameData, units: Placed[], seed: number, teamItems: 
         for (const c of cats) {
           const mate = cats.filter((o) => o !== c).sort((a, b) => dist(a, c) - dist(b, c) || a.uid - b.uid)[0];
           if (!mate) continue;
-          heal(t, mate, cl >= 1 ? 0.12 : 0.08); // buff 19 Nov (was 5 / 8 %)
-          for (const x of [c, mate]) { x.buffPct = cl >= 1 ? 0.3 : 0.15; x.buffUntil = t + 3 * TPS; }
+          heal(t, mate, cl >= 1 ? 0.15 : 0.1); // buff 19 Nov (was 5 / 8 %), balance 20 Nov 10 / 15 %
+          for (const x of [c, mate]) { x.buffPct = cl >= 1 ? 0.4 : 0.2; x.buffUntil = t + 3 * TPS; }
         }
       }
     }
