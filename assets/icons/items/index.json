@@ -79,7 +79,7 @@
  },
  "24": {
   "name": "Lì Xì",
-  "tier": 2,
+  "tier": 1,
   "cat": "HT",
   "symbol": "envelope"
  },
@@ -121,7 +121,7 @@
  },
  "35": {
   "name": "Hạt Dưa Mai An Tiêm",
-  "tier": 3,
+  "tier": 1,
   "cat": "HT",
   "symbol": "watermelon"
  },

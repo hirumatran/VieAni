@@ -59,3 +59,11 @@ describe("items in battle", () => {
     expect(simulate(d, u, 11)).toEqual(simulate(d, u, 11));
   });
 });
+
+describe("items that grow over time come early (PO 20 Nov 2026)", () => {
+  it("Lì Xì and Hạt Dưa Mai An Tiêm are tier 1, offered from the first reward rounds", async () => {
+    const { loadData } = await import("../src/core/data");
+    const d = loadData();
+    for (const id of [24, 35]) expect(d.items.find((i) => i.id === id)!.tier).toBe(1);
+  });
+});

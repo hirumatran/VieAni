@@ -220,7 +220,7 @@
   {
    "id": 24,
    "name": "Lì Xì",
-   "tier": 2,
+   "tier": 1,
    "cat": "HT",
    "effect": "Kinh tế: +1 vàng mỗi vòng thắng khi người mang còn sống",
    "basis": "Phong bao lì xì ngày Tết",
@@ -319,7 +319,7 @@
   {
    "id": 35,
    "name": "Hạt Dưa Mai An Tiêm",
-   "tier": 3,
+   "tier": 1,
    "cat": "HT",
    "effect": "Mỗi vòng đấu thắng, người mang +2% Máu tối đa vĩnh viễn (tối đa +30%)",
    "basis": "Mai An Tiêm bị đày ra đảo hoang, gieo hạt giống chim mang tới thành giống dưa hấu quý",
