@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 import { maxHp as battleMaxHp, mirror, playerDamage, simulate, type BattleEvent, type BattleResult, type Placed } from "../core/battle";
-import { AURA_CHOICE, auraKindForTier, BENCH_SLOTS, BOARD_COLS, BOARD_ROWS, HALF_ROWS, MOVE_SECONDS_PER_CELL, TICKS_PER_SECOND, TRANSFORMS, VERSION } from "../core/config";
+import { AURA_CHOICE, auraKindForTier, BENCH_SLOTS, BOARD_COLS, BOARD_ROWS, HALF_ROWS, MOVE_SECONDS_PER_CELL, SKILLS_ON, TICKS_PER_SECOND, TRANSFORMS, VERSION } from "../core/config";
 import type { GameData, Species } from "../core/data";
 import { settings, t } from "../core/i18n";
 import { BACKGROUNDS, BENCH_CORNERS, BOARD_CORNERS, Grid, SCREEN_H, SCREEN_W, type Pt } from "../core/layout";
@@ -369,7 +369,7 @@ export class BoardScene extends Phaser.Scene {
     for (const v of this.views.values()) v.sprite.disableInteractive();
     for (const u of this.team.bench) if (u) this.views.get(u.uid)?.c.setVisible(false); // bench hidden during the fight
     for (const e of enemy) this.place(this.spawn(e, "B"), { where: "board", row: e.row, col: e.col }, false);
-    const r = res ?? simulate(this.data_, [...mine, ...enemy], seed);
+    const r = res ?? simulate(this.data_, [...mine, ...enemy], seed, {}, { skills: SKILLS_ON });
     // items can raise max HP: start every bar from the simulation's numbers
     for (const s of r.start ?? []) { const v = this.views.get(s.uid); if (v) { v.maxHp = v.hp = s.maxHp; } }
     for (const v of this.views.values()) if (v.c.visible) { v.hpBar.setVisible(true); this.drawHp(v); }
@@ -402,6 +402,17 @@ export class BoardScene extends Phaser.Scene {
   }
 
   protected apply(e: BattleEvent, msPerTick: number) {
+    if (e.type === "spawn") {
+      // skill engine: a summoned VieAni (piglet, snail, wolf cub, rat young, Phượng Hoàng egg) – smaller, cannot be dragged
+      const sv = this.spawn({ uid: e.uid, speciesId: e.speciesId, star: 1 }, e.side);
+      sv.sprite.disableInteractive();
+      this.place(sv, { where: "board", row: e.row, col: e.col }, false);
+      sv.c.setScale(sv.c.scale * 0.7);
+      sv.maxHp = sv.hp = e.hp;
+      sv.hpBar.setVisible(true); this.drawHp(sv);
+      sv.anim.burst(sv.c.x, sv.c.y - sv.sprite.displayHeight * 0.4, 0xffe6a3, 10);
+      return;
+    }
     const v = this.views.get(e.uid);
     if (!v) return;
     if (e.type === "move") {
@@ -457,6 +468,14 @@ export class BoardScene extends Phaser.Scene {
         this.time.delayedCall(ms, () => v.anim.rig.setAlpha(1));
       } else if (e.kind === "shield") {
         this.floatText(v, `🛡 ${e.amount ?? ""}`, "#9fd4ff", 18);
+      } else if (STATUS_LOOK[e.kind]) {
+        // skill engine statuses (T12): label + tint for the duration – full icons come with the visuals pass
+        const [label, color, tint] = STATUS_LOOK[e.kind]!;
+        if (label) this.floatText(v, label, color, 18);
+        if (tint && ms > 0 && !v.anim.dead) {
+          v.anim.body.setTint(tint);
+          this.time.delayedCall(ms, () => { if (!v.anim.dead) v.anim.body.clearTint(); });
+        }
       }
     } else if (e.type === "revive") {
       // Quả Thị / Lá Đa Thần: back on the board
@@ -514,6 +533,14 @@ export class BoardScene extends Phaser.Scene {
     g.lineStyle(2, tint, 0.8).strokePoints(pts, true);
   }
 }
+
+/** status label, text colour and body tint (0 = no tint) for the skill-engine statuses */
+const STATUS_LOOK: Partial<Record<string, [string, string, number]>> = {
+  stun: ["Choáng!", "#fff27a", 0xfff27a], root: ["Trói!", "#c9a36b", 0xc9a36b], blind: ["Mù!", "#b9b9b9", 0x8a8a8a],
+  silence: ["Câm lặng!", "#d8c8ff", 0], charm: ["Mê hoặc!", "#ff9ad5", 0xff9ad5], slow: ["Chậm", "#9fd4ff", 0x9fd4ff],
+  taunt: ["Khiêu khích", "#ff8a5a", 0], buff: ["▲", "#7dff8a", 0], debuff: ["▼", "#ff8a7a", 0], immune: ["Miễn khống chế", "#ffe6a3", 0],
+  dot: ["Độc", "#a6ff6a", 0], copy: ["Biến hóa!", "#ffd84a", 0], guard: ["Trấn giữ", "#ffe6a3", 0], wall: ["Ụ cát", "#e7c787", 0],
+};
 
 /** texture for the info card picture: front view, or the alternate form once it has transformed */
 function cardTex(scene: Phaser.Scene, d: GameData, sp: Species, transformed: boolean): { tex: string | null; texFrame?: number } {

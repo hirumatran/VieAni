@@ -33,7 +33,7 @@ h3{{font-size:14px;margin:4px 0 6px}} small{{color:#8a7560;font-weight:400}}
 <h1>Cân bằng từng VieAni – có kỹ năng đầy đủ (mô phỏng 20/11/2026)</h1>
 <div class="sub">Tỉ lệ thắng của đội có VieAni đó, trong các đội ngẫu nhiên cùng bậc (5 con, ★2, tắt tộc hệ). 50% = trung bình của bậc. Thanh màu = với toàn bộ kỹ năng T11 (kích hoạt, bị động, khống chế, hồi máu, khiên…); vạch xám = game hiện tại (kỹ năng tạm 2× đòn). Sai số ±5%. {legend}</div>
 <div class="grid">{cols}</div>
-<div class="box">Giữa các bậc (4 con ngẫu nhiên mỗi bên): {ladder}. Bậc 5 phải thắng bậc 4 – vẫn thua. Thử nghiệm: bậc 5 hệ số 2,0 thay 1,8 → bậc 5 thắng bậc 4 {lad[("fix", 5)]:.0f}%.</div>
+<div class="box">Giữa các bậc (4 con ngẫu nhiên mỗi bên): {ladder}. Bậc 5 hệ số 1,9 + luật năng lượng ẩn của Hỗ Trợ (PO 20/11).</div>
 </body></html>"""
 out = ROOT / "docs/balance/unit_chart.html"
 out.write_text(html, encoding="utf-8")

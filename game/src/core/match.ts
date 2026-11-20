@@ -396,7 +396,7 @@ export class Match {
       return { units, res: { winner, ticks: 0, events: [], survivors, start: [] } };
     }
     return { units, res: simulate(this.d, units, seed, { A: this.human.teamItems, B: this.bot.teamItems },
-      { zodiacBonus: { A: this.zodiacBonus(this.human), B: this.zodiacBonus(this.bot) } }) };
+      { zodiacBonus: { A: this.zodiacBonus(this.human), B: this.zodiacBonus(this.bot) }, skills: C.SKILLS_ON }) };
   }
 
   /** damage, streaks, income, XP, next round, fresh shops */

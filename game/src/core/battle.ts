@@ -151,6 +151,8 @@ export interface SimOptions {
   energyPerSec?: Partial<Record<string, number>>;
   /** balance experiments: × Máu and Tấn Công by tier */
   tierScale?: Partial<Record<number, number>>;
+  /** balance experiments: Hỗ Trợ energy per second = base × (1 + slope × missing HP share); team = use the team's missing HP */
+  supportRegen?: { base: number; slope: number; team?: boolean };
 }
 
 export function simulate(d: GameData, units: Placed[], seed: number, teamItems: Partial<Record<Side, number[]>> = {}, opts: SimOptions = {}): BattleResult {
@@ -636,6 +638,13 @@ export function simulate(d: GameData, units: Placed[], seed: number, teamItems: 
       if (!f.alive) continue;
       if (f.x.tempUntil != null && t >= f.x.tempUntil) { f.x.tempUntil = undefined; const z = f.hp; events.push({ t, type: "hp", uid: f.uid, delta: -z, kind: "bleed" }); f.hp = 0; damage(t, f, 0); continue; }
       if (pv.regenIdle && t - f.lastHitT >= 2 * TPS && t % TPS === 0) heal(t, f, val(pv.regenIdle, f.star));
+      // hidden rule (PO 20 Nov 2026): Hỗ Trợ regenerate energy, faster the more of their own HP is lost
+      const sr = opts.supportRegen ?? { base: C.SUPPORT_ENERGY_BASE, slope: C.SUPPORT_ENERGY_SLOPE };
+      if (f.sp.role === "Hỗ Trợ" && !f.x.summon && t > 0 && t % TPS === 0) {
+        const al = sr.team ? fighters.filter((o) => o.side === f.side && !o.x?.summon) : [f];
+        const miss = 1 - al.reduce((n, o) => n + Math.max(0, o.alive ? o.hp : 0), 0) / al.reduce((n, o) => n + o.maxHp, 0);
+        f.energy = Math.min(f.x.energyNeed, f.energy + sr.base * (1 + sr.slope * miss));
+      }
       const eps = opts.energyPerSec?.[f.sp.role ?? ""];
       if (eps && t > 0 && t % TPS === 0) f.energy = Math.min(f.x.energyNeed, f.energy + eps);
       if (pv.stack?.on === "tick3" && t > 0 && t % (3 * TPS) === 0) f.x.stackAtk = Math.min(val(pv.stack.max, f.star) || 9, f.x.stackAtk + val(pv.stack.v, f.star));
@@ -765,7 +774,10 @@ export function simulate(d: GameData, units: Placed[], seed: number, teamItems: 
       const pv = target.x.pv;
       if (pv.cheatDeath && !target.x.cheatDone && target.hp + target.shield - dmg <= 0 && target.alive) {
         target.x.cheatDone = true; target.shield = 0;
-        target.hp = Math.max(1, Math.round(target.maxHp * val(pv.cheatDeath, target.star)));
+        const left = Math.max(1, Math.round(target.maxHp * val(pv.cheatDeath, target.star)));
+        // the hit event already showed the full damage: give the bar back what the lizard kept
+        events.push({ t, type: "hp", uid: target.uid, delta: left - (target.hp - dmg), kind: "heal" });
+        target.hp = left;
         target.stealthUntil = t + TPS;
         if (target.star === 3 && pv.regenIdle) target.x.mods.push({ stat: "regen", v: 0.1, until: t + 3 * TPS });
         return;

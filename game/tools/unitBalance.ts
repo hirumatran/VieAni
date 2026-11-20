@@ -38,7 +38,7 @@ function pick(pool: Species[], k: number, rng: Rng): Species[] {
 /** score of team a vs b (1 win, ½ draw, 0 loss), sides alternate by i */
 type Mode = "now" | "t11" | "full" | "fix";
 /** experiment "fix" (20 Nov): supports / mages +5 / +3 energy per second, tier 5 ×1.11 Máu and Tấn Công (= tier factor 2.0 instead of 1.8) */
-const FIX = { energyPerSec: { "Hỗ Trợ": 5, "Phép Thuật": 3 }, tierScale: { 5: 2.0 / 1.8 } };
+const FIX = JSON.parse(process.env.FIX ?? '{"energyPerSec":{"Hỗ Trợ":5,"Phép Thuật":3},"tierScale":{"5":1.1111}}');
 function fight(a: Species[], b: Species[], i: number, mode: Mode, star: 1 | 2 | 3 = STAR): number {
   const flip = i % 2 === 1;
   const units = [...place(flip ? b : a, "A", 1, star), ...place(flip ? a : b, "B", 100, star)];
@@ -50,7 +50,7 @@ function fight(a: Species[], b: Species[], i: number, mode: Mode, star: 1 | 2 | 
 it("per-VieAni balance", () => {
   const out: Record<string, unknown> = { note: "win rate inside random same-tier teams, ★2, tộc hệ off; 50% = tier average", units: [], ladder: [] };
   const units: Record<number, Record<string, number | string>> = {};
-  for (const mode of ["now", "t11", "full", "fix"] as const) {
+  for (const mode of (process.env.MODES ?? "now,full").split(",") as Mode[]) {
     for (let tier = 1; tier <= 5; tier++) {
       const pool = d.roster.filter((s) => s.tier === tier);
       const k = Math.min(5, pool.length - 1);
@@ -89,8 +89,8 @@ it("per-VieAni balance", () => {
     }
     for (const s of pool) units[s.id].star3 = Math.round((1000 * (sum.get(s.id) ?? 0)) / (n.get(s.id) ?? 1)) / 10;
   }
-  out.units = Object.values(units).sort((a, b) => (a.tier as number) - (b.tier as number) || (b.full as number) - (a.full as number));
+  out.units = Object.values(units).sort((a, b) => (a.tier as number) - (b.tier as number) || ((b.full ?? 0) as number) - ((a.full ?? 0) as number));
   mkdirSync("../docs/balance", { recursive: true });
-  writeFileSync("../docs/balance/unit_balance.json", JSON.stringify(out, null, 1) + "\n");
+  writeFileSync(process.env.OUT ?? "../docs/balance/unit_balance.json", JSON.stringify(out, null, 1) + "\n");
   console.log(JSON.stringify(out.ladder));
 });

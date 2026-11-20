@@ -1,6 +1,6 @@
 // All game-rule numbers in one place (see docs/GDD.md). Balance by editing this file.
 
-export const VERSION = "0.11.0";
+export const VERSION = "0.12.0";
 
 export const PLAYERS = 8;
 export const PLAYER_HP = 100;
@@ -66,7 +66,13 @@ export const CRIT_MULT = 1.5;
 export const ENERGY_MAX = 100;
 export const ENERGY_PER_ATTACK = 10;
 export const ENERGY_PER_HIT = 5;
-export const PREY_RADIUS = 3; // Thiên địch: prefer prey within this many cells
+export const PREY_RADIUS = 3;
+/** skills (T11/T12) are live in the game – PO approved the skill table as-is on 20 Nov 2026 */
+export const SKILLS_ON = true;
+/** hidden rule for Hỗ Trợ (PO 20 Nov 2026): energy regenerates faster the more HP they have lost –
+ *  per second SUPPORT_ENERGY_BASE × (1 + SUPPORT_ENERGY_SLOPE × share of own HP lost): 3/s at full HP, 12/s at half, 21/s near 0 */
+export const SUPPORT_ENERGY_BASE = 3;
+export const SUPPORT_ENERGY_SLOPE = 6; // Thiên địch: prefer prey within this many cells
 
 // --- rounds ---
 // PO 17 Nov 2026: no PvE (monster) rounds – every round is PvP. Items come as a 1-of-3 reward at fixed rounds.
