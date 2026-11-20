@@ -24,10 +24,10 @@ export interface BotStyle {
 
 export const SMART: BotStyle = {
   levelCurve: [[2, 3], [4, 4], [6, 5], [9, 6], [12, 7], [16, 8], [21, 9], [27, 10]],
-  econ: 30,
+  econ: 50,
   econFrom: 5,
   panicHp: 40,
-  maxRolls: 8,
+  maxRolls: 5,
 };
 
 /** strength of one VieAni: stats grow with tier (TIER_MUL in scripts/stats_v3.py) and ★ (HP and damage both) */
