@@ -336,7 +336,7 @@ export class MatchScene extends BoardScene {
       }
       const sp = m.sp(id);
       const col = TIER_COL[sp.tier] ?? 0xffffff;
-      const ok = m.canBuy(p, slot);
+      const ok = m.canBuy(p, slot, this.fighting);
       // portrait card: tier-coloured art area on top, name + code/role below
       const ART_H = 90;
       g.fillStyle(0x1b120c, 0.96).fillRoundedRect(-CARD_W / 2, -CARD_H / 2, CARD_W, CARD_H, 10);
@@ -410,7 +410,6 @@ export class MatchScene extends BoardScene {
   }
 
   private toggleLock() {
-    if (this.fighting) return;
     const p = this.match.human;
     p.locked = !p.locked;
     toast(this, p.locked ? t("lockedOn") : t("lockedOff"));
@@ -714,24 +713,21 @@ export class MatchScene extends BoardScene {
 
   // ------------------------------------------------------------------ shop actions
   private buy(slot: number) {
-    if (this.fighting) return;
     const m = this.match, p = m.human, id = p.shop[slot];
     if (id == null) return;
     if (p.gold < m.cost(id)) return toast(this, t("noGold"));
-    const up = m.buy(p, slot);
+    const up = m.buy(p, slot, this.fighting); // during a fight only bench copies merge; the rest merge after it
     if (!up) return toast(this, t("benchFull"));
     this.syncUnits(up);
     this.refreshAll();
   }
 
   private reroll() {
-    if (this.fighting) return;
     if (!this.match.reroll(this.match.human)) return toast(this, t("noGold"));
     this.refreshAll();
   }
 
   private buyXp() {
-    if (this.fighting) return;
     const p = this.match.human;
     if (p.level >= C.MAX_LEVEL) return toast(this, t("maxLevel"));
     const before = p.level;
@@ -813,7 +809,6 @@ export class MatchScene extends BoardScene {
     const { units, res } = m.battle(seed);
     this.txt.timer.setText("");
     this.hint.setVisible(false);
-    for (const c of this.cards) c.setAlpha(0.35);
     this.updateCounter();
     this.startBattle(units.filter((u) => u.side === "A"), units.filter((u) => u.side === "B"), seed, res);
   }

@@ -65,6 +65,9 @@ export class BoardScene extends Phaser.Scene {
   protected highlight!: Phaser.GameObjects.Graphics;
   protected counter!: Phaser.GameObjects.Text;
   protected fighting = false;
+  /** the VieAni taking part in the current fight (board units, enemies, summons) – the bench stays usable (PO 20 Nov 2026) */
+  protected battleUids = new Set<number>();
+  protected onBench(uid: number) { return this.team.locate(uid)?.where === "bench"; }
   protected dragging = false;
   protected card!: InfoCard;
   private hoverUid: number | null = null;
@@ -239,6 +242,7 @@ export class BoardScene extends Phaser.Scene {
     for (const u of this.team.units()) {
       const v = this.views.get(u.uid);
       const s = this.team.locate(u.uid);
+      if (this.fighting && this.battleUids.has(u.uid)) continue; // fighters move by the replay
       if (v && s) this.place(v, s, animate);
     }
   }
@@ -275,23 +279,21 @@ export class BoardScene extends Phaser.Scene {
 
   protected setupDrag() {
     this.input.on("dragstart", (_p: Phaser.Input.Pointer, obj: Phaser.GameObjects.Image) => {
-      if (this.fighting) return;
       const v = this.views.get(obj.getData("uid"));
-      if (!v) return;
+      if (!v || (this.fighting && !this.onBench(v.uid))) return;
       this.dragging = true;
       this.hideCard();
       v.c.setDepth(4000);
       this.tweens.add({ targets: v.c, scale: 1.12, duration: 100 });
     });
     this.input.on("drag", (p: Phaser.Input.Pointer, obj: Phaser.GameObjects.Image) => {
-      if (this.fighting) return;
       const v = this.views.get(obj.getData("uid"));
-      if (!v) return;
+      if (!v || (this.fighting && !this.onBench(v.uid))) return;
       v.c.setPosition(p.x, p.y + v.sprite.displayHeight * 0.35);
       const s = this.spotUnder(p.x, p.y);
       this.highlight.clear();
       this.onDragMove(p, v);
-      if (s && Team.valid(s)) {
+      if (s && Team.valid(s) && !(this.fighting && s.where === "board")) {
         const quad = s.where === "board" ? this.board.cellQuad(s.row, s.col) : this.bench.cellQuad(0, s.slot, 0.04);
         const pts = quad.map(([x, y]) => new Phaser.Math.Vector2(x, y));
         this.highlight.fillStyle(0xffffff, 0.28).fillPoints(pts, true).lineStyle(3, 0xffffff, 0.95).strokePoints(pts, true);
@@ -301,11 +303,12 @@ export class BoardScene extends Phaser.Scene {
       this.dragging = false;
       this.highlight.clear();
       const v = this.views.get(obj.getData("uid"));
-      if (!v || this.fighting) return;
+      if (!v || (this.fighting && !this.onBench(v.uid))) return;
       this.tweens.add({ targets: v.c, scale: 1, duration: 100 });
       if (this.onDrop(p, v)) return;
       const s = this.spotUnder(p.x, p.y);
-      if (s && Team.valid(s)) {
+      if (s && this.fighting && s.where === "board") toast(this, t("benchOnlyInFight"));
+      else if (s && Team.valid(s)) {
         const wasFull = this.team.boardCount >= this.team.maxOnBoard;
         const from = this.team.locate(v.uid);
         if (!this.team.move(v.uid, s) && wasFull && from?.where === "bench") toast(this, t("boardFull"));
@@ -414,13 +417,14 @@ export class BoardScene extends Phaser.Scene {
   /** show the enemy, then replay the fight (simulated here unless a result is given) */
   protected startBattle(mine: Placed[], enemy: Placed[], seed: number, res?: BattleResult) {
     this.fighting = true;
-    for (const v of this.views.values()) v.sprite.disableInteractive();
-    for (const u of this.team.bench) if (u) this.views.get(u.uid)?.c.setVisible(false); // bench hidden during the fight
+    this.battleUids = new Set([...mine, ...enemy].map((u) => u.uid));
+    // the fighters are locked; the bench stays visible and usable (move, sell, buy into it – PO 20 Nov 2026)
+    for (const v of this.views.values()) if (this.battleUids.has(v.uid)) v.sprite.disableInteractive();
     for (const e of enemy) this.place(this.spawn(e, "B"), { where: "board", row: e.row, col: e.col }, false);
     const r = res ?? simulate(this.data_, [...mine, ...enemy], seed, {}, { skills: SKILLS_ON });
     // items can raise max HP: start every bar from the simulation's numbers
     for (const s of r.start ?? []) { const v = this.views.get(s.uid); if (v) { v.maxHp = v.hp = s.maxHp; } }
-    for (const v of this.views.values()) if (v.c.visible) { v.hpBar.setVisible(true); this.drawHp(v); }
+    for (const v of this.views.values()) if (v.c.visible && this.battleUids.has(v.uid)) { v.hpBar.setVisible(true); this.drawHp(v); }
 
     this.replay(r);
   }
@@ -453,6 +457,7 @@ export class BoardScene extends Phaser.Scene {
     if (e.type === "spawn") {
       // skill engine: a summoned VieAni (piglet, snail, wolf cub, rat young, Phượng Hoàng egg) – smaller, cannot be dragged
       const sv = this.spawn({ uid: e.uid, speciesId: e.speciesId, star: 1 }, e.side);
+      this.battleUids.add(e.uid);
       sv.sprite.disableInteractive();
       this.place(sv, { where: "board", row: e.row, col: e.col }, false);
       sv.c.setScale(sv.c.scale * 0.7);
@@ -603,7 +608,7 @@ export class BoardScene extends Phaser.Scene {
   protected showResult(res: BattleResult) {
     // survivors react first: winners celebrate, a draw leaves everyone dejected
     for (const v of this.views.values()) {
-      if (!v.c.visible || v.anim.dead) continue;
+      if (!v.c.visible || v.anim.dead || (!this.battleUids.has(v.uid) && v.uid < 900)) continue; // bench VieAni do not celebrate
       if (res.winner === "draw") void v.anim.lose();
       else if (v.side === res.winner) void v.anim.win();
     }

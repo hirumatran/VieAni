@@ -210,30 +210,36 @@ export class Match {
     return p.level > before;
   }
 
-  canBuy(p: PlayerState, slot: number): boolean {
+  /** benchOnly: during a fight the VieAni on the board are busy – only bench copies can merge (PO 20 Nov 2026) */
+  canBuy(p: PlayerState, slot: number, benchOnly = false): boolean {
     const id = p.shop[slot];
     if (id == null || p.gold < this.cost(id)) return false;
     if (p.team.bench.includes(null)) return true;
     // full bench: allowed only if the new copy completes a ★2 right away
-    return p.team.units().filter((u) => u.speciesId === id && u.star === 1).length >= 2;
+    return this.mergeUnits(p, benchOnly).filter((u) => u.speciesId === id && u.star === 1).length >= 2;
+  }
+
+  /** the units that may merge: everyone, or only the bench while the board is fighting */
+  private mergeUnits(p: PlayerState, benchOnly: boolean): OwnedUnit[] {
+    return benchOnly ? p.team.bench.filter((u): u is OwnedUnit => u != null) : p.team.units();
   }
 
   /** buy a shop slot; returns the uids that were upgraded by merging (empty array = plain buy), or null */
-  buy(p: PlayerState, slot: number): number[] | null {
-    if (!this.canBuy(p, slot)) return null;
+  buy(p: PlayerState, slot: number, benchOnly = false): number[] | null {
+    if (!this.canBuy(p, slot, benchOnly)) return null;
     const id = p.shop[slot]!;
     p.gold -= this.cost(id);
     p.shop[slot] = null;
     const u: OwnedUnit = { uid: this.nextUid++, speciesId: id, star: 1 };
-    if (p.team.addToBench(u)) return this.mergeAll(p);
+    if (p.team.addToBench(u)) return this.mergeAll(p, benchOnly);
     // bench full: fold the new copy straight into the existing pair
-    const ones = p.team.units().filter((x) => x.speciesId === id && x.star === 1);
+    const ones = this.mergeUnits(p, benchOnly).filter((x) => x.speciesId === id && x.star === 1);
     const gone = ones[ones.length - 1];
     p.team.remove(gone.uid);
     if (gone.item != null && ones[0].item == null) { ones[0].item = gone.item; gone.item = undefined; }
     this.returnItem(p, gone);
     ones[0].star = 2;
-    return [ones[0].uid, ...this.mergeAll(p)];
+    return [ones[0].uid, ...this.mergeAll(p, benchOnly)];
   }
 
   sell(p: PlayerState, uid: number): number {
@@ -247,13 +253,13 @@ export class Match {
   }
 
   /** three of the same VieAni and ★ become one with ★+1 (the copy on the board is kept); repeats for ★2 → ★3 */
-  mergeAll(p: PlayerState): number[] {
+  mergeAll(p: PlayerState, benchOnly = false): number[] {
     const upgraded: number[] = [];
     for (let again = true; again; ) {
       again = false;
       for (const star of [1, 2] as const) {
         const groups = new Map<number, OwnedUnit[]>();
-        for (const u of p.team.units()) if (u.star === star) groups.set(u.speciesId, [...(groups.get(u.speciesId) ?? []), u]);
+        for (const u of this.mergeUnits(p, benchOnly)) if (u.star === star) groups.set(u.speciesId, [...(groups.get(u.speciesId) ?? []), u]);
         for (const g of groups.values()) {
           if (g.length < 3) continue;
           const [keep, a, b] = g; // units() lists the board first, so a board copy is kept
@@ -401,6 +407,8 @@ export class Match {
 
   /** damage, streaks, income, XP, next round, fresh shops */
   finishRound(res: BattleResult): RoundReport {
+    // merges that waited because a copy was fighting on the board (copies bought during the fight)
+    for (const p of this.players) this.mergeAll(p);
     const damage = playerDamage(res, this.round);
     const [h, b] = this.players;
     h.hp = Math.max(0, h.hp - damage.A);

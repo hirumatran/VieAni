@@ -173,3 +173,24 @@ describe("Test match (V001–V004)", () => {
     expect(reports).toBeGreaterThan(3);
   });
 });
+
+describe("buying during a fight (PO 20 Nov 2026)", () => {
+  it("only bench copies merge while the board fights; the rest merge when the round ends", async () => {
+    const d = loadData();
+    const m = new Match(d, d.roster, 7);
+    const p = m.human, id = d.roster.find((s) => s.tier === 1)!.id;
+    p.gold = 50;
+    p.team.place({ uid: 501, speciesId: id, star: 1 }, { where: "board", row: 4, col: 0 });
+    p.team.addToBench({ uid: 502, speciesId: id, star: 1 });
+    p.shop[0] = id;
+    const up = m.buy(p, 0, true);
+    expect(up).toEqual([]); // board copy busy: no ★2 yet
+    expect(p.team.units().filter((u) => u.speciesId === id).length).toBe(3);
+    const res = { winner: "draw" as const, ticks: 0, events: [], survivors: [], start: [] };
+    m.finishRound(res);
+    const left = p.team.units().filter((u) => u.speciesId === id);
+    expect(left.length).toBe(1);
+    expect(left[0].star).toBe(2);
+    expect(left[0].uid).toBe(501); // the board copy is kept
+  });
+});
