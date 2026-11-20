@@ -383,13 +383,16 @@ export class BoardScene extends Phaser.Scene {
       .map((g) => [g.name, g.members.filter((m) => ids.has(m)).length, Object.keys(g.tiers).map(Number).sort((a, b) => a - b)] as [string, number, number[]]);
     const tgt = v.target != null ? this.views.get(v.target) : undefined;
     const own = v.side === "A" ? this.team.units().find((u) => u.uid === v.uid) : undefined;
+    const hpBonus = own ? own.hpBonus : v.hpBonus;
+    // between rounds every VieAni is at full HP; Hạt Dưa's permanent bonus is part of its max HP (the fight starts with it)
+    const restMax = Math.round(battleMaxHp(sp, v.anim.star as 1 | 2 | 3) * (1 + (hpBonus ?? 0) / 100));
     return {
       sp, code: vcode(this.data_, sp), ...cardTex(this, this.data_, sp, !!v.transformed), transformed: v.transformed,
       item: v.item != null ? (({ id, name, effect }) => ({ id, name, effect }))(this.data_.items.find((i) => i.id === v.item)!) : undefined, star: v.anim.star as 1 | 2 | 3, side: v.side,
-      hp: v.hp, maxHp: v.maxHp, energy: v.energy, where: this.whereOf(v), fighting: this.fighting, dead: v.anim.dead,
+      hp: this.fighting ? v.hp : restMax, maxHp: this.fighting ? v.maxHp : restMax, energy: v.energy, where: this.whereOf(v), fighting: this.fighting, dead: v.anim.dead,
       targetName: tgt && !tgt.anim.dead ? this.data_.byId.get(tgt.speciesId)!.vi.replace(/\s*\(.*\)\s*/, "") : undefined,
       lastMult: v.lastMult, synergies,
-      kills: (own ? own.kills ?? 0 : v.kills ?? 0) + (v.battleKills ?? 0), hpBonus: own ? own.hpBonus : v.hpBonus,
+      kills: (own ? own.kills ?? 0 : v.kills ?? 0) + (v.battleKills ?? 0), hpBonus,
     };
   }
 

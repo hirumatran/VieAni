@@ -196,7 +196,7 @@ export class InfoCard {
     y += 3;
     const m = C.STAR_MULT[s.star - 1];
     const rows: [string, string, number][] = [
-      ["Máu", String(Math.round(sp.stats.hp * m)), (sp.stats.hp * m) / 2500],
+      ["Máu", String(Math.round(Math.round(sp.stats.hp * m) * (1 + (s.hpBonus ?? 0) / 100))), (sp.stats.hp * m) / 2500],
       ["Tấn Công", String(Math.round(sp.stats.atk * m)), (sp.stats.atk * m) / 200],
       ["Tốc Độ Đánh", `${num(sp.stats.aspd)} lần/giây`, sp.stats.aspd / 1.1],
       ["Giáp", `−${sp.stats.armor}% sát thương`, sp.stats.armor / 60],

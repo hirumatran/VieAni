@@ -9,6 +9,7 @@ import { Team, type OwnedUnit, type Spot } from "./team";
 import manifest from "../../../assets/illustrations/manifest.json";
 import { DROPPABLE, ITEM_RULES } from "./items";
 import { synergyStates } from "./synergy";
+import { smartTurn } from "./botAI";
 
 /** species id of Rồng Lạc Việt (needed on the board for Ấn Thống Nhất) */
 export const RONG_LAC_VIET = 1;
@@ -144,6 +145,15 @@ export class Match {
     if (id == null || !this.isTeamItem(id) || p.teamItems.length >= C.TEAM_ITEM_SLOTS) return false;
     p.items.splice(index, 1);
     p.teamItems.push(id);
+    return true;
+  }
+
+  /** take the item off a VieAni back into the bag (false if the bag is full) */
+  takeItem(p: PlayerState, uid: number): boolean {
+    const u = p.team.units().find((x) => x.uid === uid);
+    if (!u || u.item == null || p.items.length >= C.INVENTORY_MAX) return false;
+    p.items.push(u.item);
+    u.item = undefined;
     return true;
   }
 
@@ -319,7 +329,9 @@ export class Match {
     }
   }
 
-  botTurn(p: PlayerState = this.bot) {
+  /** the computer's turn: the smarter bot (botAI.ts) unless "easy" (the original simple bot) */
+  botTurn(p: PlayerState = this.bot, level: "easy" | "smart" = "smart") {
+    if (level === "smart") return smartTurn(this, p);
     const reserve = this.round >= 5 ? 10 : 0; // keep 10 gold for interest from round 5
     const owned = () => new Set(p.team.units().map((u) => u.speciesId));
     for (let rolls = 0; rolls < 4; rolls++) {
