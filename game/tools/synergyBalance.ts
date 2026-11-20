@@ -9,6 +9,8 @@ import { Rng } from "../src/core/rng";
 
 const d = loadData();
 const N = Number(process.env.N ?? 100);
+/** SKILLS=1: T11/T12 skill engine + the tộc hệ parts that need it (20 Nov 2026) → synergy_balance_skills.json */
+const SKILLS = process.env.SKILLS === "1";
 const BOARD = 8, STAR = 2;
 const ROLE_ROWS: Record<string, number[]> = {
   "Đỡ Đòn": [4, 5, 6, 7], "Chiến Đấu": [4, 5, 6, 7], "Săn Mồi": [5, 4, 6, 7], "Phép Thuật": [7, 6, 5, 4], "Hỗ Trợ": [7, 6, 5, 4],
@@ -61,7 +63,7 @@ function duel(x: string, y: string, opts: { xOn?: boolean; yOn?: boolean; same?:
     const xA = i % 2 === 0; // alternate sides
     const ux = place(cx, xA ? "A" : "B", 100), uy = place(cy, xA ? "B" : "A", 200);
     const sx = opts.xOn === false ? [] : [x], sy = opts.yOn === false ? [] : [y];
-    const res = simulate(d, [...ux, ...uy], rng.int(1, 1e9), {}, { synergies: xA ? { A: sx, B: sy } : { A: sy, B: sx } });
+    const res = simulate(d, [...ux, ...uy], rng.int(1, 1e9), {}, { skills: SKILLS, synergies: xA ? { A: sx, B: sy } : { A: sy, B: sx } });
     const xSide = xA ? "A" : "B";
     if (res.winner !== "draw") { score += res.winner === xSide ? 1 : 0; continue; }
     // draw at the 45 s limit: the side with more HP left (share of its total max HP) takes it
@@ -91,7 +93,7 @@ function tierMatched(x: string): { on: number; off: number } {
       const xA = i % 2 === 0;
       const ux = place(cx, xA ? "A" : "B", 100), uy = place(cy, xA ? "B" : "A", 200);
       const sx = mode === "on" ? [x] : [];
-      const r = simulate(d, [...ux, ...uy], rng.int(1, 1e9), {}, { synergies: xA ? { A: sx, B: [] } : { A: [], B: sx } });
+      const r = simulate(d, [...ux, ...uy], rng.int(1, 1e9), {}, { skills: SKILLS, synergies: xA ? { A: sx, B: [] } : { A: [], B: sx } });
       const xSide = xA ? "A" : "B";
       if (r.winner !== "draw") { score += r.winner === xSide ? 1 : 0; continue; }
       const maxBy = new Map((r.start ?? []).map((q) => [q.uid, q.maxHp]));
@@ -119,7 +121,7 @@ const tierReached = names.map((n) => { const g = d.synergies.find((s) => s.name 
 const drawRate = draws / (N * (names.length * (names.length - 1) / 2 + names.length));
 const overall = names.map((_, i) => matrix[i].reduce((a, w, j) => (j === i ? a : a + w), 0) / (names.length - 1));
 mkdirSync("../docs/balance", { recursive: true });
-writeFileSync("../docs/balance/synergy_balance.json", JSON.stringify({ date: "2026-11-17", battlesPerCell: N, board: BOARD, star: STAR, names, matrix, uplift, baseline, avgTier, tierReached, overall, drawRate, drawRule: "draw at 45 s → more HP left (share of max HP) wins" }, null, 1));
+writeFileSync(`../docs/balance/synergy_balance${SKILLS ? "_skills" : ""}.json`, JSON.stringify({ date: SKILLS ? "2026-11-20" : "2026-11-17", skills: SKILLS, battlesPerCell: N, board: BOARD, star: STAR, names, matrix, uplift, baseline, avgTier, tierReached, overall, drawRate, drawRule: "draw at 45 s → more HP left (share of max HP) wins" }, null, 1));
 console.log(`done in ${((Date.now() - t0) / 1000).toFixed(1)} s`);
 names.map((n, i) => ({ n, o: overall[i], u: uplift[i], t: avgTier[i], r: tierReached[i] })).sort((a, b) => b.o - a.o)
   .forEach((x) => console.log(`${x.n.padEnd(20)} overall ${(x.o * 100).toFixed(0).padStart(3)}%  tier-matched ${(x.u * 100).toFixed(0).padStart(3)}%  avg tier ${x.t.toFixed(1)}  tier (${x.r})`));

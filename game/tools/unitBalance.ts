@@ -1,9 +1,9 @@
 // Per-VieAni balance test (19 Nov 2026).   npm run balance -- tools/unitBalance.ts   → docs/balance/unit_balance.json
 // For each tier: random teams of 5 VieAni of that tier (4 for tier 4, which has only 5), all ★2, tộc hệ OFF (unit strength only),
 // fight random teams of the same tier. A VieAni's score = win rate of the teams it was in (draw = ½). 50 % = average for its tier.
-// Two modes: "now" = the current game (placeholder skill: one 2× hit when energy is full);
-//            "t11" = the proposed T11 skill damage from data/skills_v3.json (% Tấn Công, 1 / 2 / 3 targets).
-// Not modelled in either mode: control, heals, shields, buffs, summons, passives and ★3 – they come with the T11/T12 build.
+// Modes: "now" = the current game (placeholder skill: one 2× hit when energy is full);
+//        "t11" = only the proposed T11 skill damage from data/skills_v3.json (% Tấn Công, 1 / 2 / 3 targets);
+//        "full" = the whole T11/T12 skill engine (SimOptions.skills, 20 Nov 2026): skills, control, heals, shields, passives.
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { it } from "vitest";
 import { simulate, mirror, type Placed } from "../src/core/battle";
@@ -20,14 +20,14 @@ const skills = JSON.parse(readFileSync("../data/skills_v3.json", "utf-8")).skill
 const T11 = new Map(skills.map((s) => [s.id, { pct: s.active.atkPct ?? 0, hit: s.active.hit }]));
 const OFF = { A: [] as string[], B: [] as string[] };
 
-function place(list: Species[], side: "A" | "B", uid0: number): Placed[] {
+function place(list: Species[], side: "A" | "B", uid0: number, star: 1 | 2 | 3 = STAR): Placed[] {
   const used = new Set<string>();
   return list.map((sp, i) => {
     let spot: [number, number] = [4, 0];
     outer: for (const r of ROLE_ROWS[sp.role ?? ""] ?? [5, 4, 6, 7]) for (const c of COLS) if (!used.has(`${r},${c}`)) { spot = [r, c]; break outer; }
     used.add(`${spot[0]},${spot[1]}`);
     const [row, col] = side === "A" ? spot : mirror(spot[0], spot[1]);
-    return { uid: uid0 + i, speciesId: sp.id, star: STAR, row, col, side };
+    return { uid: uid0 + i, speciesId: sp.id, star, row, col, side };
   });
 }
 function pick(pool: Species[], k: number, rng: Rng): Species[] {
@@ -36,10 +36,13 @@ function pick(pool: Species[], k: number, rng: Rng): Species[] {
   return out;
 }
 /** score of team a vs b (1 win, ½ draw, 0 loss), sides alternate by i */
-function fight(a: Species[], b: Species[], i: number, mode: "now" | "t11"): number {
+type Mode = "now" | "t11" | "full" | "fix";
+/** experiment "fix" (20 Nov): supports / mages +5 / +3 energy per second, tier 5 ×1.11 Máu and Tấn Công (= tier factor 2.0 instead of 1.8) */
+const FIX = { energyPerSec: { "Hỗ Trợ": 5, "Phép Thuật": 3 }, tierScale: { 5: 2.0 / 1.8 } };
+function fight(a: Species[], b: Species[], i: number, mode: Mode, star: 1 | 2 | 3 = STAR): number {
   const flip = i % 2 === 1;
-  const units = [...place(flip ? b : a, "A", 1), ...place(flip ? a : b, "B", 100)];
-  const r = simulate(d, units, 1000 + i, {}, { synergies: OFF, castPower: mode === "t11" ? T11 : undefined });
+  const units = [...place(flip ? b : a, "A", 1, star), ...place(flip ? a : b, "B", 100, star)];
+  const r = simulate(d, units, 1000 + i, {}, { synergies: OFF, castPower: mode === "t11" ? T11 : undefined, skills: mode === "full" || mode === "fix", ...(mode === "fix" ? FIX : {}) });
   const w = r.winner === "draw" ? 0.5 : r.winner === "A" ? 1 : 0;
   return flip ? 1 - w : w;
 }
@@ -47,7 +50,7 @@ function fight(a: Species[], b: Species[], i: number, mode: "now" | "t11"): numb
 it("per-VieAni balance", () => {
   const out: Record<string, unknown> = { note: "win rate inside random same-tier teams, ★2, tộc hệ off; 50% = tier average", units: [], ladder: [] };
   const units: Record<number, Record<string, number | string>> = {};
-  for (const mode of ["now", "t11"] as const) {
+  for (const mode of ["now", "t11", "full", "fix"] as const) {
     for (let tier = 1; tier <= 5; tier++) {
       const pool = d.roster.filter((s) => s.tier === tier);
       const k = Math.min(5, pool.length - 1);
@@ -75,7 +78,18 @@ it("per-VieAni balance", () => {
       (out.ladder as unknown[]).push({ mode, tier, vsTier: tier - 1, winRate: Math.round((1000 * w) / G) / 10 });
     }
   }
-  out.units = Object.values(units).sort((a, b) => (a.tier as number) - (b.tier as number) || (b.t11 as number) - (a.t11 as number));
+  // ★3 check (full engine only): same test with every VieAni at ★3 – the ★3 bonuses only exist there
+  for (let tier = 1; tier <= 5; tier++) {
+    const pool = d.roster.filter((s) => s.tier === tier), k = Math.min(5, pool.length - 1), games = Math.ceil((APPEAR / 2 * pool.length) / (2 * k));
+    const rng = new Rng(tier * 104729), sum = new Map<number, number>(), n = new Map<number, number>();
+    for (let i = 0; i < games; i++) {
+      const a = pick(pool, k, rng), b = pick(pool, k, rng), w = fight(a, b, i, "full", 3);
+      for (const s of a) { sum.set(s.id, (sum.get(s.id) ?? 0) + w); n.set(s.id, (n.get(s.id) ?? 0) + 1); }
+      for (const s of b) { sum.set(s.id, (sum.get(s.id) ?? 0) + 1 - w); n.set(s.id, (n.get(s.id) ?? 0) + 1); }
+    }
+    for (const s of pool) units[s.id].star3 = Math.round((1000 * (sum.get(s.id) ?? 0)) / (n.get(s.id) ?? 1)) / 10;
+  }
+  out.units = Object.values(units).sort((a, b) => (a.tier as number) - (b.tier as number) || (b.full as number) - (a.full as number));
   mkdirSync("../docs/balance", { recursive: true });
   writeFileSync("../docs/balance/unit_balance.json", JSON.stringify(out, null, 1) + "\n");
   console.log(JSON.stringify(out.ladder));

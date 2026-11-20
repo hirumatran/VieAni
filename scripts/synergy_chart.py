@@ -5,7 +5,9 @@
 import base64, json, pathlib, subprocess
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-R = json.loads((ROOT / "docs/balance/synergy_balance.json").read_text(encoding="utf-8"))
+import sys
+SUF = "_skills" if "--skills" in sys.argv else ""
+R = json.loads((ROOT / f"docs/balance/synergy_balance{SUF}.json").read_text(encoding="utf-8"))
 IDX = json.loads((ROOT / "assets/icons/synergies/index.json").read_text(encoding="utf-8"))
 names, M = R["names"], R["matrix"]
 order = sorted(range(len(names)), key=lambda i: -R["overall"][i])
@@ -42,14 +44,14 @@ td.sum{{width:62px}} td.bar{{width:150px;position:relative;background:#2b1d14;te
 td.bar span{{position:absolute;left:8px;top:8px;color:#fff3d6;font-size:12.5px;text-shadow:0 1px 2px #000}} td.tm{{width:96px;color:#fbe9c4;background:#2b1d14;font-size:12px}} td.tier{{width:58px;color:#fbe9c4;background:#2b1d14}}
 th.h{{font-size:11.5px;color:#ffe6a3;padding:4px;width:auto}}
 </style></head><body>
-<h1>Tộc hệ – bảng tương khắc (tỉ lệ thắng, %)</h1>
+<h1>Tộc hệ – bảng tương khắc (tỉ lệ thắng, %){" – có kỹ năng đầy đủ, 20/11/2026" if SUF else ""}</h1>
 <p>Ô = tỉ lệ thắng của tộc hệ ở <b>hàng</b> trước tộc hệ ở <b>cột</b>. Mỗi đội: 8 VieAni ★2 gồm thành viên của tộc hệ đó (bổ sung VieAni bậc 1–3 ngẫu nhiên nếu thiếu), chỉ tộc hệ đó được kích hoạt; số trong ngoặc = mốc đạt được với 8 VieAni.
 {R["battlesPerCell"]} trận mỗi cặp, đổi bên luân phiên; hết 45 giây thì bên còn nhiều % máu hơn thắng (tỉ lệ hòa trước khi phân xử: {R.get("drawRate", 0) * 100:.0f}%). Ngày {R["date"]}.</p>
 <p><b>Gặp đội cùng bậc</b> = tỉ lệ thắng trước đội ngẫu nhiên có <i>đúng cùng bậc VieAni</i> nhưng không có tộc hệ, khi <b>tắt → bật</b> tộc hệ.
 <b>Đóng góp</b> = chênh lệch (điểm %) – sức mạnh của riêng tộc hệ, đã loại ảnh hưởng của bậc VieAni. <b>Bậc TB</b> = bậc trung bình của VieAni trong đội: cột "Tổng" phụ thuộc nhiều vào bậc (VieAni bậc cao mạnh hơn).</p>
 <table><tr><th></th>{head}<th class="h">Tổng</th><th class="h">Gặp đội cùng bậc<br>tắt → bật</th><th class="h">Đóng góp<br>(điểm %)</th><th class="h">Bậc TB</th></tr>{rows}</table>
 </body></html>'''
-out = ROOT / "docs/balance/synergy_chart.html"
+out = ROOT / f"docs/balance/synergy_chart{SUF}.html"
 out.write_text(html, encoding="utf-8")
 js = f'''const {{ chromium }} = require('playwright'); (async () => {{ const b = await chromium.launch(); const p = await b.newPage({{ viewport: {{ width: 1500, height: 900 }}, deviceScaleFactor: 2 }});
 await p.goto('file://{out}'); await p.waitForTimeout(500); await p.screenshot({{ path: '{out.with_suffix(".png")}', fullPage: true }}); await b.close(); }})();'''
