@@ -48,6 +48,10 @@ export interface View {
   energy: number;
   target?: number;
   lastMult?: number;
+  /** enemies defeated before this battle (opponents: from their Placed) and during it */
+  kills?: number;
+  battleKills?: number;
+  hpBonus?: number;
   /** alternate form textures (seen from this side) and whether it has transformed in this battle */
   alt?: ViewTextures;
   transformed?: string;
@@ -207,7 +211,8 @@ export class BoardScene extends Phaser.Scene {
     const stars = this.add.text(0, 0, "", { fontFamily: FONT_UI, fontSize: "15px", fontStyle: "bold" }).setOrigin(0.5, 1).setStroke("#1b120c", 4);
     anim.c.add([hpBar, stars]);
     const maxHp = battleMaxHp(sp, u.star);
-    const v: View = { uid: u.uid, speciesId: u.speciesId, side, c: anim.c, sprite: anim.body, anim, illustrated, hpBar, stars, item: u.item, maxHp, hp: maxHp, row: 0, col: 0, energy: 0, alt };
+    const v: View = { uid: u.uid, speciesId: u.speciesId, side, c: anim.c, sprite: anim.body, anim, illustrated, hpBar, stars, item: u.item, maxHp, hp: maxHp, row: 0, col: 0, energy: 0, alt,
+      kills: u.kills, hpBonus: "hpBonusPct" in u ? u.hpBonusPct : (u as OwnedUnit).hpBonus };
     this.views.set(u.uid, v);
     if (side === "A") anim.body.setInteractive({ draggable: true, useHandCursor: true, pixelPerfect: false });
     anim.body.setData("uid", u.uid);
@@ -377,12 +382,14 @@ export class BoardScene extends Phaser.Scene {
       .filter((g) => g.members.includes(sp.id))
       .map((g) => [g.name, g.members.filter((m) => ids.has(m)).length, Object.keys(g.tiers).map(Number).sort((a, b) => a - b)] as [string, number, number[]]);
     const tgt = v.target != null ? this.views.get(v.target) : undefined;
+    const own = v.side === "A" ? this.team.units().find((u) => u.uid === v.uid) : undefined;
     return {
       sp, code: vcode(this.data_, sp), ...cardTex(this, this.data_, sp, !!v.transformed), transformed: v.transformed,
       item: v.item != null ? (({ id, name, effect }) => ({ id, name, effect }))(this.data_.items.find((i) => i.id === v.item)!) : undefined, star: v.anim.star as 1 | 2 | 3, side: v.side,
       hp: v.hp, maxHp: v.maxHp, energy: v.energy, where: this.whereOf(v), fighting: this.fighting, dead: v.anim.dead,
       targetName: tgt && !tgt.anim.dead ? this.data_.byId.get(tgt.speciesId)!.vi.replace(/\s*\(.*\)\s*/, "") : undefined,
       lastMult: v.lastMult, synergies,
+      kills: (own ? own.kills ?? 0 : v.kills ?? 0) + (v.battleKills ?? 0), hpBonus: own ? own.hpBonus : v.hpBonus,
     };
   }
 
@@ -418,6 +425,7 @@ export class BoardScene extends Phaser.Scene {
   protected startBattle(mine: Placed[], enemy: Placed[], seed: number, res?: BattleResult) {
     this.fighting = true;
     this.battleUids = new Set([...mine, ...enemy].map((u) => u.uid));
+    for (const v of this.views.values()) v.battleKills = 0;
     // the fighters are locked; the bench stays visible and usable (move, sell, buy into it – PO 20 Nov 2026)
     for (const v of this.views.values()) if (this.battleUids.has(v.uid)) v.sprite.disableInteractive();
     for (const e of enemy) this.place(this.spawn(e, "B"), { where: "board", row: e.row, col: e.col }, false);
@@ -508,6 +516,8 @@ export class BoardScene extends Phaser.Scene {
       else { void v.anim.attack(tv.c.x, tv.c.y, sp.range >= 2, speed); this.time.delayedCall(220 / speed, land); }
     } else if (e.type === "death") {
       this.removeStatus(v);
+      const kv = e.by != null ? this.views.get(e.by) : undefined;
+      if (kv) { kv.battleKills = (kv.battleKills ?? 0) + 1; if (kv.uid === this.hoverUid) this.refreshCard(); }
       this.time.delayedCall(250 / settings.speed, () => void v.anim.die(settings.speed));
     } else if (e.type === "hp") {
       // item effects: heal (+), bleeding, lightning, extra shots (−)

@@ -67,3 +67,36 @@ describe("items that grow over time come early (PO 20 Nov 2026)", () => {
     for (const id of [24, 35]) expect(d.items.find((i) => i.id === id)!.tier).toBe(1);
   });
 });
+
+describe("kills and Hạt Dưa Mai An Tiêm (+1 % max HP per kill, PO 20 Nov 2026)", () => {
+  it("the battle credits each defeated enemy to the unit that finished it", () => {
+    const units: Placed[] = [
+      { uid: 1, speciesId: id("Báo Gấm"), star: 3, row: 4, col: 3, side: "A" },
+      { uid: 2, speciesId: id("Bò Xám"), star: 1, row: 3, col: 3, side: "B" },
+      { uid: 3, speciesId: id("Bò Xám"), star: 1, row: 3, col: 4, side: "B" },
+    ];
+    const res = simulate(d, units, 3, {}, { skills: true });
+    expect(res.winner).toBe("A");
+    expect(res.kills?.[1]).toBe(2);
+    const deaths = res.events.filter((e) => e.type === "death");
+    expect(deaths.every((e) => e.type === "death" && e.by === 1)).toBe(true);
+  });
+
+  it("finishRound stores kills on the unit and gives the Hạt Dưa carrier +1 % per kill, capped at +30 %", async () => {
+    const { testMatch } = await import("../src/core/match");
+    const m = testMatch(d, 11);
+    const p = m.human;
+    p.team.addToBench({ uid: 501, speciesId: d.roster[0].id, star: 1, item: 35 });
+    p.team.addToBench({ uid: 502, speciesId: d.roster[1].id, star: 1 });
+    m.finishRound({ winner: "B", ticks: 0, events: [], survivors: [], kills: { 501: 3, 502: 2 } });
+    const u = (uid: number) => p.team.units().find((x) => x.uid === uid)!;
+    expect(u(501).kills).toBe(3);
+    expect(u(501).hpBonus).toBe(3); // counts even in a lost round
+    expect(u(502).kills).toBe(2);
+    expect(u(502).hpBonus).toBeUndefined(); // no Hạt Dưa, no bonus
+    m.finishRound({ winner: "A", ticks: 0, events: [], survivors: [], kills: { 501: 40 } });
+    expect(u(501).kills).toBe(43);
+    expect(u(501).hpBonus).toBe(30);
+    expect(ITEM_RULES[35].hpPctPerKill).toBe(1);
+  });
+});

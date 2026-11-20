@@ -68,6 +68,10 @@ export interface CardSubject {
   transformed?: string;
   /** carried item */
   item?: { id: number; name: string; effect: string };
+  /** enemies defeated over the match (live during a fight) */
+  kills?: number;
+  /** permanent max-HP bonus in % (Hạt Dưa) */
+  hpBonus?: number;
   /** synergy name → [distinct members on this side's board, thresholds] */
   synergies: [string, number, number[]][];
 }
@@ -179,6 +183,10 @@ export class InfoCard {
     if (full) {
       bar("Máu", `${Math.max(0, Math.round(hp))} / ${s.maxHp}`, hp / s.maxHp, s.side === "A" ? 0x5bd36b : 0xe0533d);
       bar("Năng lượng", `${Math.round(s.energy)} / ${sp.stats.energy}`, s.energy / sp.stats.energy, 0x5aa9ff);
+      text(PAD, y, "Đã hạ", 12, MUTED, true);
+      text(PAD + 52, y, `${s.kills ?? 0} kẻ địch`, 12, INK, true);
+      if (s.hpBonus) text(W - PAD, y, `Máu tối đa +${Math.round(s.hpBonus)}% (Hạt Dưa)`, 12, "#3a9a4f", true).setOrigin(1, 0);
+      y += 19;
     } else {
       text(PAD, y, `Máu ★1: ${s.maxHp}   ·   giá ${sp.tier} vàng`, 12, MUTED, true);
       y += 20;

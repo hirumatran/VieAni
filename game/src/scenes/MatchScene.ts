@@ -875,6 +875,8 @@ export class MatchScene extends BoardScene {
 
   protected afterBattle(res: BattleResult) {
     const rep = this.match.finishRound(res);
+    // this battle's kills are now stored on the units (finishRound)
+    for (const v of this.views.values()) v.battleKills = 0;
     this.refreshHud();
     if (this.match.over) this.showGameOver(rep);
     else this.showRoundPanel(rep);

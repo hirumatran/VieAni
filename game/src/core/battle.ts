@@ -22,6 +22,8 @@ export interface Placed {
   item?: number;
   /** permanent max-HP bonus in % (Hạt Dưa) */
   hpBonusPct?: number;
+  /** enemies defeated in earlier rounds (display only) */
+  kills?: number;
 }
 
 export interface Fighter extends Placed {
@@ -41,7 +43,9 @@ export interface Fighter extends Placed {
   dmgMult: number; crit: number; critMult: number;
   lowHealUsed: boolean; reviveUsed: boolean; dodged: boolean;
   lastHitT: number;
-  bleeds: { next: number; left: number; per: number }[];
+  bleeds: { next: number; left: number; per: number; by?: Fighter }[];
+  /** the last enemy that hurt this fighter (kill credit for damage with no direct source) */
+  lastBy?: Fighter;
   // ----- tộc hệ state
   dodge: number; rangedDodge: number;
   stealthUntil: number; revealCrit: boolean;
@@ -70,7 +74,7 @@ export interface SkState {
   sameUid: number; sameN: number; tick3: number; hurtHp: number; dieAtk: number; stackAtk: number;
   firstDone: boolean; hitTargets: Set<number>; lowDone: boolean; cheatDone: boolean; deathDone: boolean;
   transformed: boolean; copied: boolean; lightCd: number; dodgeNext: boolean; skillDodged: boolean;
-  summon: boolean; eggOf?: number; hatchAt?: number; tempUntil?: number; noCatUntil: number; ccImmuneSyn: boolean; atkMul: number;
+  summon: boolean; summonOf?: number; eggOf?: number; hatchAt?: number; tempUntil?: number; noCatUntil: number; ccImmuneSyn: boolean; atkMul: number;
 }
 
 export type BattleEvent =
@@ -78,7 +82,7 @@ export type BattleEvent =
   // en / tEn = energy (mana) of the attacker / target right after the hit, for the info card
   | { t: number; type: "attack"; uid: number; target: number; dmg: number; mult: number; en: number; tEn: number; miss?: boolean; crit?: boolean }
   | { t: number; type: "cast"; uid: number; target: number; dmg: number; en: number; tEn: number }
-  | { t: number; type: "death"; uid: number }
+  | { t: number; type: "death"; uid: number; /** uid credited with the kill */ by?: number }
   /** HP change outside a normal hit: heals (+), bleeding, lightning, extra shots (−) */
   | { t: number; type: "hp"; uid: number; delta: number; kind: "heal" | "bleed" | "zap" | "shot"; src?: number }
   /** a skill is cast: its name, the kind of effect to draw, who it hits (foes) and helps (allies) – the damage comes as "cast" events */
@@ -100,6 +104,8 @@ export interface BattleResult {
   survivors: { uid: number; side: Side; hp: number; tier: number; star?: number }[];
   /** max HP of every fighter at the start (after items) – for the HP bars */
   start?: { uid: number; maxHp: number }[];
+  /** enemies each unit defeated this battle (uid → count; summons credit their owner) */
+  kills?: Record<number, number>;
 }
 
 // ------------------------------------------------------------------ battle stats (v3, PO 19 Nov 2026)
@@ -270,6 +276,7 @@ export function simulate(d: GameData, units: Placed[], seed: number, teamItems: 
   const SK = !!opts.skills;
   let nextUid = 900;
   const deadOrder: Fighter[] = [];
+  const kills: Record<number, number> = {};
   const nameIs = (f: Fighter, ...names: string[]) => names.includes(f.sp.vi);
   const X = (f: Fighter) => f.x!;
   const sec = (s: number) => Math.round(s * TPS);
@@ -371,7 +378,7 @@ export function simulate(d: GameData, units: Placed[], seed: number, teamItems: 
       case "slow": { const d2 = sec(val(e.d, star)); o.x.slowV = Math.max(until(o, "slow") > t ? o.x.slowV : 0, val(e.v, star)); o.x.until.slow = t + d2; status(t, o, "slow", d2); break; }
       case "dot": {
         const d2 = Math.round(val(e.d, star)), per = Math.max(1, Math.round(o.maxHp * val(e.v, star)));
-        const add = (z: Fighter) => z.bleeds.push({ next: t + TPS, left: d2, per });
+        const add = (z: Fighter) => z.bleeds.push({ next: t + TPS, left: d2, per, by: src });
         add(o);
         if (e.antiHeal) { o.x.antiHeal = e.antiHeal; o.x.antiHealUntil = t + sec(d2); }
         if (e.spread) fighters.filter((z) => z.alive && z.side === o.side && z !== o && dist(z, o) <= 1).slice(0, e.spread).forEach(add);
@@ -405,9 +412,9 @@ export function simulate(d: GameData, units: Placed[], seed: number, teamItems: 
       ...src, uid: nextUid++, row: cell[0], col: cell[1], item: undefined, rule: {}, alive: true,
       maxHp: Math.max(1, Math.round(src.maxHp * pct)), hp: Math.max(1, Math.round(src.maxHp * pct)), atk: egg ? 0 : src.atk * pct,
       energy: 0, atkCd: egg ? Infinity : src.interval / 2, moveCd: egg ? Infinity : 0, targetUid: null, bleeds: [], shield: 0,
-      stealthUntil: -1, rabidUntil: -1, lowHealUsed: true, reviveUsed: true, buffUntil: -1, haste: 1,
+      stealthUntil: -1, rabidUntil: -1, lowHealUsed: true, reviveUsed: true, buffUntil: -1, haste: 1, lastBy: undefined,
     };
-    s.x = newState(s); s.x.summon = true; s.x.energyNeed = Infinity;
+    s.x = newState(s); s.x.summon = true; s.x.summonOf = src.x?.summonOf ?? src.uid; s.x.energyNeed = Infinity;
     fighters.push(s); byUid.set(s.uid, s); occ.set(key(s.row, s.col), s.uid);
     events.push({ t, type: "spawn", uid: s.uid, speciesId: s.speciesId, side: s.side, row: s.row, col: s.col, hp: s.hp });
     return s;
@@ -798,7 +805,10 @@ export function simulate(d: GameData, units: Placed[], seed: number, teamItems: 
   }
 
   /** take damage; handles Nắm Xôi, knock-outs, Hịch Tướng Sĩ, revives */
-  function damage(t: number, target: Fighter, dmg: number, by?: Fighter) {
+  /** `by` is a direct hit (it can be guarded); `credit` only names who gets the kill */
+  function damage(t: number, target: Fighter, dmg: number, by?: Fighter, credit?: Fighter) {
+    const killer = by ?? credit;
+    if (killer && killer.side !== target.side) target.lastBy = killer;
     if (SK && target.x) {
       if (target.shield > 0 && target.x.shieldUntil >= 0 && t > target.x.shieldUntil) { target.shield = 0; target.x.shieldUntil = -1; }
       // Trấn Giữ (Nghê): an adjacent guardian takes part of the damage
@@ -849,7 +859,10 @@ export function simulate(d: GameData, units: Placed[], seed: number, teamItems: 
       target.bleeds = [];
       if (SK) deadOrder.push(target);
       occ.delete(key(target.row, target.col));
-      events.push({ t, type: "death", uid: target.uid });
+      const kb = target.lastBy;
+      const ku = kb && kb.side !== target.side && !target.x?.summon ? kb.x?.summonOf ?? kb.uid : undefined;
+      if (ku != null) kills[ku] = (kills[ku] ?? 0) + 1;
+      events.push({ t, type: "death", uid: target.uid, by: ku });
       const side = target.side;
       // Hịch Tướng Sĩ: the first fall rallies the team
       if (!rally[side]) rally[side] = Math.max(0, ...team[side].map((r) => r.rallyAtkPct ?? 0));
@@ -962,7 +975,7 @@ export function simulate(d: GameData, units: Placed[], seed: number, teamItems: 
     }
     // on-attack item effects
     if (f.rule.bleed && rng.next() < f.rule.bleed && target.alive) {
-      target.bleeds.push({ next: t + TPS, left: 3, per: Math.max(1, Math.round(target.maxHp * 0.03)) });
+      target.bleeds.push({ next: t + TPS, left: 3, per: Math.max(1, Math.round(target.maxHp * 0.03)), by: f });
       if (f.item != null) events.push({ t, type: "item", uid: f.uid, id: f.item });
     }
     if (f.rule.zap && rng.next() < f.rule.zap) {
@@ -972,7 +985,7 @@ export function simulate(d: GameData, units: Placed[], seed: number, teamItems: 
         if (!z || !z.alive) continue;
         const zd = Math.max(1, Math.round(baseDamage(f, z, 0.6).base));
         events.push({ t, type: "hp", uid: z.uid, delta: -zd, kind: "zap", src: f.uid });
-        damage(t, z, zd);
+        damage(t, z, zd, undefined, f);
       }
     }
     const extra = f.rule.multiShot ?? 0;
@@ -982,7 +995,7 @@ export function simulate(d: GameData, units: Placed[], seed: number, teamItems: 
         .forEach((o) => {
           const sd = Math.max(1, Math.round(baseDamage(f, o, 1).base * rng.range(C.DAMAGE_RANDOM[0], C.DAMAGE_RANDOM[1])));
           events.push({ t, type: "hp", uid: o.uid, delta: -sd, kind: "shot", src: f.uid });
-          damage(t, o, sd);
+          damage(t, o, sd, undefined, f);
         });
     return dmg;
   }
@@ -1004,11 +1017,11 @@ export function simulate(d: GameData, units: Placed[], seed: number, teamItems: 
     const tp = target.x.pv, ts = target.star;
     if (tp.lightning && t >= target.x.lightCd && f.alive) { // Cậu Ông Trời
       target.x.lightCd = t + sec(val(tp.lightning.cd, ts));
-      const z = Math.round(f.maxHp * tp.lightning.pct); events.push({ t, type: "hp", uid: f.uid, delta: -z, kind: "zap", src: target.uid }); damage(t, f, z);
+      const z = Math.round(f.maxHp * tp.lightning.pct); events.push({ t, type: "hp", uid: f.uid, delta: -z, kind: "zap", src: target.uid }); damage(t, f, z, undefined, target);
     }
     const oh = tp.onHurt;
     if (oh && f.alive && (!oh.melee || isMelee(f))) {
-      if (oh.reflect && dmg > 0) { const z = Math.max(1, Math.round(dmg * val(oh.reflect, ts))); events.push({ t, type: "hp", uid: f.uid, delta: -z, kind: "zap" }); damage(t, f, z); }
+      if (oh.reflect && dmg > 0) { const z = Math.max(1, Math.round(dmg * val(oh.reflect, ts))); events.push({ t, type: "hp", uid: f.uid, delta: -z, kind: "zap" }); damage(t, f, z, undefined, target); }
       if (oh.eff && rng.next() < val(oh.p ?? 1, ts)) applyEff(t, target, f, oh.eff, ts);
     }
   }
@@ -1052,7 +1065,7 @@ export function simulate(d: GameData, units: Placed[], seed: number, teamItems: 
       for (const b of f.bleeds) if (b.left > 0 && t >= b.next) {
         b.left--; b.next += TPS;
         events.push({ t, type: "hp", uid: f.uid, delta: -b.per, kind: "bleed" });
-        damage(t, f, b.per);
+        damage(t, f, b.per, undefined, b.by);
         if (!f.alive) break;
       }
       if (!f.alive) continue;
@@ -1147,6 +1160,7 @@ export function simulate(d: GameData, units: Placed[], seed: number, teamItems: 
     events,
     survivors: [...aliveA, ...aliveB].filter((f) => !f.x?.summon).map((f) => ({ uid: f.uid, side: f.side, hp: f.hp, tier: f.sp.tier, star: f.star })),
     start: fighters.map((f) => ({ uid: f.uid, maxHp: f.maxHp })),
+    kills,
   };
 }
 

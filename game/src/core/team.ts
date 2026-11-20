@@ -8,6 +8,8 @@ export interface OwnedUnit {
   item?: number;
   /** permanent max-HP bonus in % (Hạt Dưa) */
   hpBonus?: number;
+  /** enemies this VieAni has defeated over the whole match */
+  kills?: number;
 }
 export type Spot = { where: "board"; row: number; col: number } | { where: "bench"; slot: number };
 
@@ -89,7 +91,7 @@ export class Team {
   toPlaced(side: Side = "A"): Placed[] {
     return [...this.board].map(([key, u]) => {
       const [row, col] = key.split(",").map(Number);
-      return { uid: u.uid, speciesId: u.speciesId, star: u.star, row, col, side, item: u.item, hpBonusPct: u.hpBonus };
+      return { uid: u.uid, speciesId: u.speciesId, star: u.star, row, col, side, item: u.item, hpBonusPct: u.hpBonus, kills: u.kills };
     });
   }
 

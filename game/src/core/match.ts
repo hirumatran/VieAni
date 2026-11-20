@@ -237,6 +237,8 @@ export class Match {
     const gone = ones[ones.length - 1];
     p.team.remove(gone.uid);
     if (gone.item != null && ones[0].item == null) { ones[0].item = gone.item; gone.item = undefined; }
+    if (gone.kills) ones[0].kills = (ones[0].kills ?? 0) + gone.kills;
+    if (gone.hpBonus) ones[0].hpBonus = Math.max(ones[0].hpBonus ?? 0, gone.hpBonus);
     this.returnItem(p, gone);
     ones[0].star = 2;
     return [ones[0].uid, ...this.mergeAll(p, benchOnly)];
@@ -267,6 +269,8 @@ export class Match {
           p.team.remove(b.uid);
           for (const x of [a, b]) {
             if (x.item != null && keep.item == null) { keep.item = x.item; x.item = undefined; }
+            if (x.kills) keep.kills = (keep.kills ?? 0) + x.kills;
+            if (x.hpBonus) keep.hpBonus = Math.max(keep.hpBonus ?? 0, x.hpBonus);
             this.returnItem(p, x);
           }
           keep.star = (star + 1) as 2 | 3;
@@ -407,6 +411,15 @@ export class Match {
 
   /** damage, streaks, income, XP, next round, fresh shops */
   finishRound(res: BattleResult): RoundReport {
+    // kills: counted on the VieAni (shown in its info card); Hạt Dưa turns each into +1 % max HP (max +30 %)
+    for (const p of this.players)
+      for (const u of p.team.units()) {
+        const k = res.kills?.[u.uid] ?? 0;
+        if (!k) continue;
+        u.kills = (u.kills ?? 0) + k;
+        const per = u.item != null ? ITEM_RULES[u.item]?.hpPctPerKill ?? 0 : 0;
+        if (per) u.hpBonus = Math.min(30, (u.hpBonus ?? 0) + k * per);
+      }
     // merges that waited because a copy was fighting on the board (copies bought during the fight)
     for (const p of this.players) this.mergeAll(p);
     const damage = playerDamage(res, this.round);
@@ -419,7 +432,7 @@ export class Match {
       const won = res.winner === (i === 0 ? "A" : "B");
       const lost = res.winner === (i === 0 ? "B" : "A");
       p.streak = won ? Math.max(1, p.streak + 1) : lost ? Math.min(-1, p.streak - 1) : 0;
-      // items that pay off after a won round, if their carrier is still standing: Lì Xì (+gold), Hạt Dưa (+2 % max HP, max 30)
+      // items that pay off after a won round, if their carrier is still standing: Lì Xì (+gold)
       let itemGold = 0;
       // Gia Súc (6) Được mùa: +1 gold per won round
       if (won && (synergyStates(this.d, p.team.toPlaced().map((u) => u.speciesId)).find((x) => x.syn.name === "Gia Súc")?.level ?? -1) >= 2) itemGold += 1;
@@ -429,7 +442,6 @@ export class Match {
           if (u.item == null || !standing.has(u.uid)) continue;
           const r = ITEM_RULES[u.item];
           itemGold += r?.goldOnWin ?? 0;
-          if (r?.hpPctPerWin) u.hpBonus = Math.min(30, (u.hpBonus ?? 0) + r.hpPctPerWin);
         }
       }
       const inc = {

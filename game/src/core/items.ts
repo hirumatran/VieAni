@@ -58,7 +58,8 @@ export interface ItemRule {
   doubledBy?: number;
   // ----- between rounds
   goldOnWin?: number;
-  hpPctPerWin?: number;
+  /** permanent max-HP % per enemy the carrier defeats (credited after the battle) */
+  hpPctPerKill?: number;
 }
 
 export const ITEM_RULES: Record<number, ItemRule> = {
@@ -82,7 +83,7 @@ export const ITEM_RULES: Record<number, ItemRule> = {
   30: { rallyAtkPct: 0.2 },                                       // Hịch Tướng Sĩ
   31: { idleRegen: 0.03 },                                        // Niêu Cơm Thạch Sanh
   34: { selfRevive: 0.3 },                                        // Quả Thị
-  35: { hpPctPerWin: 2 },                                         // Hạt Dưa Mai An Tiêm (max +30 %)
+  35: { hpPctPerKill: 1 },                                        // Hạt Dưa Mai An Tiêm: +1 % per kill (max +30 %)
   36: { dodgeFirstCast: true },                                   // Ngọc Dã Tràng
   37: { teamAspdPct: 0.1, teamRegen10s: 0.05 },                    // Cồng Chiêng Tây Nguyên
   38: { flatAtk: 40, crit: 0.25, critMult: 2 },                   // Gươm Thuận Thiên
