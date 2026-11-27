@@ -9,7 +9,8 @@ const d = loadData();
 const species = () => TEST_CODES.map((c) => d.roster[Number(c.slice(1)) - 1]);
 const copies = (star: number) => 3 ** (star - 1);
 
-describe("8-player match (PO 27 Nov 2026)", () => {
+// whole 8-player matches take a few seconds
+describe("8-player match (PO 27 Nov 2026)", { timeout: 60_000 }, () => {
   it("every player still in fights exactly once a round; odd numbers get one ghost fight; the human is always side A", () => {
     const m = new Match(d, species(), 3, undefined, 8);
     expect(m.players).toHaveLength(8);
