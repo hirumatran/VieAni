@@ -72,13 +72,14 @@ export class MatchScene extends BoardScene {
 
   /** play whole matches without graphics (computer on both sides) until the bottom player activates Ấn Thống Nhất with 12 signs */
   private runDemo() {
-    // 8-player match like the real game (27 Nov 2026). Against the smart bots the zodiac strategy succeeds in only ~3 % of
-    // matches, so the seeds known to succeed (7, 32) are tried first, then random ones.
+    // 8-player match against the simple bots (Dễ): against the smart bots the zodiac strategy almost never completes it
+    // (27 Nov 2026), on Dễ about 1 in 3 matches does – known good seeds first, then random ones
     const start = Math.floor(Math.random() * 1e6);
-    const seeds = [7, 32, ...Array.from({ length: 40 }, (_, k) => start + k)];
+    const seeds = [4, 6, 9, ...Array.from({ length: 40 }, (_, k) => start + k)];
     for (let tries = 1; tries <= seeds.length; tries++) {
       const seed = seeds[tries - 1];
       const m = testMatch(this.data_, seed, C.PLAYERS);
+      m.difficulty = "easy";
       const log: string[] = [];
       const seen = { rong: false, lv: false, charms: 0 };
       while (m.human.hp > 0 && m.aliveIdx().length > 1 && m.round <= 45) {

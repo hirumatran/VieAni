@@ -7,11 +7,13 @@ import * as C from "../src/core/config";
 // experiment: WIN='{"52":[11,16],"53":[17,24]}' moves the Linh Vật round windows
 if (process.env.WIN) Object.assign(C.CHARM_ROUND_WINDOWS, JSON.parse(process.env.WIN));
 if (process.env.ULV) C.UNITY.level = Number(process.env.ULV); // experiment: level needed for Ấn Thống Nhất
+if (process.env.UBONUS) C.UNITY.bonus = Number(process.env.UBONUS); // experiment: free zodiac signs
 it("unity rate 8p", () => {
   let ok = 0, lv10 = 0; const rounds: number[] = [], places: number[] = [];
   const N = Number(process.env.N ?? 60);
   for (let seed = 1; seed <= N; seed++) {
     const m = testMatch(d, seed, 8);
+    if (process.env.DIFF) m.difficulty = process.env.DIFF as typeof m.difficulty;
     while (m.human.hp > 0 && m.aliveIdx().length > 1 && m.round <= 45) {
       m.zodiacTurn(m.human); m.botTurns();
       m.finishRound(m.battle(seed * 1000 + m.round).res);
@@ -21,5 +23,6 @@ it("unity rate 8p", () => {
     places.push(m.human.place ?? 1);
   }
   const r = rounds.filter((x) => x > 0).sort((a, b) => a - b);
+  if (process.env.SEEDS) console.log("SEEDS", rounds.filter((x) => x < 0).map((x) => -x).join(","));
   console.log(`UNITY8 success ${ok}/${N} (rounds ${r.join(",")}), level 10 ${lv10}/${N}, avg place ${(places.reduce((a, b) => a + b, 0) / N).toFixed(2)}`);
 });

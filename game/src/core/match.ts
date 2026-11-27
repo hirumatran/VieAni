@@ -181,7 +181,7 @@ export class Match {
       && p.team.toPlaced().some((u) => u.speciesId === RONG_LAC_VIET);
   }
 
-  zodiacBonus(p: PlayerState) { return this.unityActive(p) ? C.CHARM_BONUS_ZODIAC : 0; }
+  zodiacBonus(p: PlayerState) { return this.unityActive(p) ? C.UNITY.bonus : 0; }
 
   chooseItem(p: PlayerState, index: number): number | null {
     const id = p.itemOffer?.[index];
@@ -478,7 +478,7 @@ export class Match {
       // level when the board can already be filled
       while (p.level < C.MAX_LEVEL && units().length >= p.level && p.gold - C.XP_BUY_COST >= reserve()) this.buyXp(p);
       const missing = 12 - ownedSigns().size;
-      const chase = p.level >= 8 && (missing > 2 || needRong());
+      const chase = p.level >= 8 && (missing > C.UNITY.bonus || needRong());
       if (!chase || p.gold < C.REROLL_COST + (needRong() ? 5 : 1)) break;
       this.reroll(p);
     }
