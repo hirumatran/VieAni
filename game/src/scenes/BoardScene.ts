@@ -3,7 +3,7 @@ import { maxHp as battleMaxHp, mirror, playerDamage, simulate, type BattleEvent,
 import { AURA_CHOICE, auraKindForTier, BENCH_SLOTS, BOARD_COLS, BOARD_ROWS, HALF_ROWS, MOVE_SECONDS_PER_CELL, SKILLS_ON, TICKS_PER_SECOND, TRANSFORMS, VERSION } from "../core/config";
 import type { GameData, Species } from "../core/data";
 import { settings, t } from "../core/i18n";
-import { BENCH_CORNERS, pickScenery, sceneryPath, BOARD_CORNERS, Grid, SCREEN_H, SCREEN_W, type Pt } from "../core/layout";
+import { BENCH_CORNERS, pickScenery, sceneryPath, UI_SCALE, BOARD_CORNERS, Grid, SCREEN_H, SCREEN_W, type Pt } from "../core/layout";
 import { Rng } from "../core/rng";
 import { Team, type OwnedUnit, type Spot } from "../core/team";
 import { button, coverImage, CREAM, FONT_LOGO, FONT_UI, toast } from "../ui/widgets";
@@ -208,7 +208,7 @@ export class BoardScene extends Phaser.Scene {
     const aura = auraKindForTier(sp.tier);
     if (aura) attachAura(this, anim, aura, AURA_CHOICE[aura]);
     const hpBar = this.add.graphics().setVisible(false);
-    const stars = this.add.text(0, 0, "", { fontFamily: FONT_UI, fontSize: "15px", fontStyle: "bold" }).setOrigin(0.5, 1).setStroke("#1b120c", 4);
+    const stars = this.add.text(0, 0, "", { fontFamily: FONT_UI, fontSize: "11px", fontStyle: "bold" }).setOrigin(0.5, 1).setStroke("#1b120c", 3);
     anim.c.add([hpBar, stars]);
     const maxHp = battleMaxHp(sp, u.star);
     const v: View = { uid: u.uid, speciesId: u.speciesId, side, c: anim.c, sprite: anim.body, anim, illustrated, hpBar, stars, item: u.item, maxHp, hp: maxHp, row: 0, col: 0, energy: 0, alt,
@@ -260,12 +260,12 @@ export class BoardScene extends Phaser.Scene {
     // ★ level: ★1 bronze, ★2 silver, ★3 gold (always shown, on board and bench)
     const n = v.anim.star;
     v.stars.setText("★".repeat(n)).setColor(n === 3 ? "#ffcc3c" : n === 2 ? "#e4ecf6" : "#d9a066")
-      .setFontSize(n === 1 ? 13 : 16).setPosition(0, y - 1);
+      .setFontSize(n === 1 ? 9 : 11).setPosition(0, y - 1); // PO 27 Nov: smaller, so they do not cover the VieAni behind
     // carried item: small round icon left of the ★ marks
     const key = v.item != null ? `item:${v.item}` : "";
     if (key && this.textures.exists(key)) {
       if (!v.itemBadge || !v.itemBadge.active) { v.itemBadge = this.add.image(0, 0, key); v.c.add(v.itemBadge); }
-      v.itemBadge.setTexture(key).setDisplaySize(20, 20).setPosition(-v.stars.width / 2 - 13, y - 9).setVisible(true);
+      v.itemBadge.setTexture(key).setDisplaySize(15, 15).setPosition(-v.stars.width / 2 - 10, y - 7).setVisible(true);
     } else v.itemBadge?.setVisible(false);
   }
 
@@ -326,7 +326,7 @@ export class BoardScene extends Phaser.Scene {
 
   // ------------------------------------------------------------------ hover info card
   protected setupHover() {
-    this.card = new InfoCard(this);
+    this.card = new InfoCard(this, UI_SCALE);
     this.hoverUid = null;
     this.input.on("pointermove", (p: Phaser.Input.Pointer) => this.hoverAt(p.x, p.y));
     this.input.on("gameout", () => this.hideCard());

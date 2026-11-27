@@ -3,7 +3,7 @@ import { maxHp as battleMaxHp, type BattleResult } from "../core/battle";
 import * as C from "../core/config";
 import type { GameData } from "../core/data";
 import { settings, t } from "../core/i18n";
-import { MATCH_BENCH_CORNERS, MATCH_BOARD_CORNERS, MATCH_SHOP_TOP, SCREEN_H, SCREEN_W } from "../core/layout";
+import { HUD_REGIONS, hudToScreen, MATCH_BENCH_CORNERS, MATCH_BOARD_CORNERS, MATCH_SHOP_TOP, SCREEN_H, SCREEN_W, screenToHud, SHOP_TOP_SCREEN, UI_SCALE } from "../core/layout";
 import { RONG_LAC_VIET, TEST_CODES, testMatch, type Match, type RoundReport } from "../core/match";
 import type { Team } from "../core/team";
 import { texturesFor, vcode } from "../anim/illustrations";
@@ -173,6 +173,7 @@ export class MatchScene extends BoardScene {
     this.drawCards();
     this.refreshHud();
     this.startTimer();
+    this.setupHudCameras();
     if (this.pendingToast) { toast(this, this.pendingToast); this.pendingToast = ""; }
     this.syncItems();
     this.showItemChoice();
@@ -291,9 +292,9 @@ export class MatchScene extends BoardScene {
     g.fillStyle(0x000000, 0.45).fillRoundedRect(4, 6, W, y, 14);
     g.fillStyle(0x1b120c, 0.97).fillRoundedRect(0, 0, W, y, 14);
     g.lineStyle(3, Phaser.Display.Color.HexStringToColor(ic?.colour ?? "#e7c05f").color, 1).strokeRoundedRect(0, 0, W, y, 14);
-    box.setPosition(SYN_X - SYN_ICON_PX / 2 - 230 - W, Phaser.Math.Clamp(rowY - 30, 8, MATCH_SHOP_TOP - y - 8));
-    // the row label sits at most ~230 px left of the icon; keep the panel fully left of it but on screen
-    box.x = Math.max(8, box.x);
+    // the row label sits at most ~230 px left of the icon; keep the (scaled) panel fully left of it, on screen, above the shop
+    const at = hudToScreen(SYN_X - SYN_ICON_PX / 2 - 230, rowY - 30), s = UI_SCALE;
+    box.setScale(s).setPosition(Math.max(8, at.x - W * s), Phaser.Math.Clamp(at.y, 8, SHOP_TOP_SCREEN - y * s - 8));
     this.synPopup = box;
     this.synOpen = a.syn.name;
   }
@@ -386,7 +387,10 @@ export class MatchScene extends BoardScene {
   /** colour-cycle tweens of the ★3 highlight (not tied to a game object, so stopped by hand on redraw) */
   private cardFx: Phaser.Tweens.Tween[] = [];
 
+  /** the info card is open for a shop card (closed when the cards are redrawn: their 'pointerout' never comes) */
+  private shopCardOpen = false;
   private drawCards() {
+    if (this.shopCardOpen) { this.card.hide(); this.shopCardOpen = false; }
     for (const tw of this.cardFx) tw.stop();
     this.cardFx = [];
     for (const c of this.cards) { this.tweens.killTweensOf([c, ...c.list]); c.destroy(); }
@@ -433,13 +437,15 @@ export class MatchScene extends BoardScene {
         img.setAngle(-6);
         wiggle = this.tweens.add({ targets: img, angle: 6, scaleX: base * 1.06, scaleY: base * 0.95, duration: 140, yoyo: true, repeat: -1, ease: "Sine.easeInOut" });
         this.card.show(this.shopSubject(id), x, y);
-        this.card.placeBottomRight(SCREEN_W - 10, MATCH_SHOP_TOP - 6); // empty space right of the board
+        this.card.placeBottomRight(SCREEN_W - 10, SHOP_TOP_SCREEN - 6); // empty space right of the board
+        this.shopCardOpen = true;
       });
       hit.on("pointerout", () => {
         c.setScale(1);
         wiggle?.stop(); wiggle = null;
         img.setAngle(0).setScale(base);
         this.card.hide();
+        this.shopCardOpen = false;
       });
       hit.on("pointerup", () => this.buy(slot));
       c.add(hit);
@@ -461,7 +467,7 @@ export class MatchScene extends BoardScene {
 
   /** the shop strip handles its own hover (cards) */
   protected hoverAt(x: number, y: number) {
-    if (y >= MATCH_SHOP_TOP) return;
+    if (y >= SHOP_TOP_SCREEN) return;
     super.hoverAt(x, y);
   }
 
@@ -557,7 +563,9 @@ export class MatchScene extends BoardScene {
     const g = this.add.graphics();
     g.fillStyle(0x1b120c, 0.97).fillRoundedRect(0, 0, W, h, 10).lineStyle(2, GOLD, 0.9).strokeRoundedRect(0, 0, W, h, 10);
     box.add([g, title, sub, body]);
-    box.setPosition(Phaser.Math.Clamp(x - W / 2, 6, SCREEN_W - W - 6), y);
+    // (x, y) is a HUD layout point: place the (scaled) tooltip at its screen position
+    const at = hudToScreen(x, y), s = UI_SCALE;
+    box.setScale(s).setPosition(Phaser.Math.Clamp(at.x - (W * s) / 2, 6, SCREEN_W - W * s - 6), at.y);
     this.itemTip = box;
   }
 
@@ -657,7 +665,8 @@ export class MatchScene extends BoardScene {
       if (this.fighting) return this.refreshBag();
       const m = this.match, p = m.human;
       const v = this.viewAt(pt.x, pt.y);
-      const overTeam = pt.y >= BAG.y && pt.y <= BAG.y + 6 + BAG.team && pt.x >= BAG.teamX - 4;
+      const ph = screenToHud(pt.x, pt.y);
+      const overTeam = ph.y >= BAG.y && ph.y <= BAG.y + 6 + BAG.team && ph.x >= BAG.teamX - 4;
       if (m.isTeamItem(id)) {
         if (m.equipTeam(p, bagIndex)) toast(this, `${this.itemData(id).name}: tác dụng cho cả đội`);
         else toast(this, "Hết ô Toàn đội (tối đa 2)");
@@ -684,7 +693,9 @@ export class MatchScene extends BoardScene {
     const g = this.add.graphics();
     g.fillStyle(0x1b120c, 0.97).fillRoundedRect(0, 0, W, h, 10).lineStyle(2, GOLD, 0.9).strokeRoundedRect(0, 0, W, h, 10);
     box.add([g, title, sub, body]);
-    box.setPosition(Phaser.Math.Clamp(x - W / 2, 6, SCREEN_W - W - 6), Phaser.Math.Clamp(y - h, 6, SCREEN_H - h - 6));
+    // (x, y) is a HUD layout point: place the (scaled) tooltip above it on the screen
+    const at = hudToScreen(x, y), s = UI_SCALE;
+    box.setScale(s).setPosition(Phaser.Math.Clamp(at.x - (W * s) / 2, 6, SCREEN_W - W * s - 6), Phaser.Math.Clamp(at.y - h * s, 6, SCREEN_H - h * s - 6));
     this.itemTip = box;
   }
 
@@ -845,13 +856,13 @@ export class MatchScene extends BoardScene {
     const u = this.team.units().find((x) => x.uid === v.uid);
     if (!u) return;
     this.sellText.setText(t("sellHere")(this.match.sellValue(u)));
-    this.sellZone.setVisible(true).setAlpha(p.y >= MATCH_SHOP_TOP ? 1 : 0.55);
+    this.sellZone.setVisible(true).setAlpha(p.y >= SHOP_TOP_SCREEN ? 1 : 0.55);
     v.c.setDepth(5200); // keep the dragged VieAni above the sell zone
   }
 
   protected onDrop(p: Phaser.Input.Pointer, v: View): boolean {
     this.sellZone.setVisible(false);
-    if (p.y < MATCH_SHOP_TOP) return false;
+    if (p.y < SHOP_TOP_SCREEN) return false;
     const gold = this.match.sell(this.match.human, v.uid);
     v.anim.destroy();
     this.views.delete(v.uid);
@@ -915,6 +926,37 @@ export class MatchScene extends BoardScene {
     return layer;
   }
 
+  /** HUD at UI_SCALE (PO 27 Nov 2026, option B 75 %): the HUD keeps its full-size layout and one camera per screen area
+   *  draws it smaller, anchored to that area's corner. HUD objects (depth 4999–5199) are drawn only by these cameras,
+   *  everything else only by the main camera; this is re-checked every frame for objects created later. */
+  private hudCams: Phaser.Cameras.Scene2D.Camera[] = [];
+  private setupHudCameras() {
+    for (const c of this.hudCams) this.cameras.remove(c);
+    const s = UI_SCALE;
+    const areas = HUD_REGIONS.map((r) => {
+      const v = hudToScreen(r.x0, r.y0, s);
+      return this.cameras.add(v.x, v.y, (r.x1 - r.x0) * s, (r.y1 - r.y0) * s).setOrigin(0, 0).setZoom(s).setScroll(r.x0, r.y0);
+    });
+    // drawn last: pop-ups, info card, round panels, dragged things and toasts (depth ≥ 5200) stay above the HUD
+    const overlay = this.cameras.add(0, 0, SCREEN_W, SCREEN_H);
+    this.hudCams = [...areas, overlay];
+    const main = this.cameras.main, areaMask = areas.reduce((m, c) => m | c.id, 0);
+    // cameraFilter = the cameras that must NOT draw (or hit-test) the object
+    const filterFor = (d: number) => (d >= 5200 ? main.id | areaMask : d >= 4999 ? main.id | overlay.id : areaMask | overlay.id);
+    const assign = (o: Phaser.GameObjects.GameObject, f: number) => {
+      (o as unknown as { cameraFilter: number }).cameraFilter = f;
+      if (o instanceof Phaser.GameObjects.Container) for (const ch of o.list) assign(ch, f);
+    };
+    const classify = () => {
+      for (const o of this.children.list) assign(o, filterFor((o as unknown as { depth: number }).depth));
+    };
+    classify();
+    this.events.off("postupdate", this.classifyHud);
+    this.classifyHud = classify;
+    this.events.on("postupdate", this.classifyHud);
+  }
+  private classifyHud = () => {};
+
   /** "❤ Bạn 68 · ❤ Già Làng Tây Nguyên 42" – the human and this round's opponent */
   private vsLine(rep: RoundReport) {
     const m = this.match;
@@ -964,8 +1006,7 @@ export class MatchScene extends BoardScene {
       z.on("pointerout", () => nm.setText(label));
       this.scoreObjs.push(g, nm, hpTxt, z);
     });
-    // during a fight the enemy's back row stands right below the strip: fade it so their heads stay visible
-    for (const o of this.scoreObjs) (o as unknown as Phaser.GameObjects.Components.Alpha).setAlpha?.(this.fighting ? 0.35 : 1);
+    // always opaque (PO 27 Nov 2026: the faded strip was hard to read); at 75 % it ends above the board grid
   }
 
   private showRoundPanel(rep: RoundReport) {

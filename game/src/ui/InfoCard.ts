@@ -80,8 +80,9 @@ export interface CardSubject {
 export class InfoCard {
   private c: Phaser.GameObjects.Container;
 
-  constructor(private scene: Phaser.Scene) {
-    this.c = scene.add.container(0, 0).setDepth(9800).setVisible(false);
+  /** drawn at this scale (PO 27 Nov 2026: HUD 75 %) */
+  constructor(private scene: Phaser.Scene, private s = 1) {
+    this.c = scene.add.container(0, 0).setDepth(9800).setVisible(false).setScale(s);
   }
 
   /** height of the card as last drawn */
@@ -89,7 +90,7 @@ export class InfoCard {
 
   /** move the card so its bottom-right corner is at (right, bottom) */
   placeBottomRight(right: number, bottom: number) {
-    this.c.setPosition(right - W, Math.max(6, bottom - this.h));
+    this.c.setPosition(right - W * this.s, Math.max(6, bottom - this.h * this.s));
   }
 
   get visible() {
@@ -277,7 +278,7 @@ export class InfoCard {
       sx += tx.width + 20;
     }
     y += 26;
-    const foot = text(PAD, y, "Bản thử: khi đầy năng lượng tung đòn ×2 (kỹ năng riêng chưa áp dụng; tộc hệ và vật phẩm đã tính).", 10.5, MUTED, false, W - 2 * PAD);
+    const foot = text(PAD, y, "Chỉ số đã gồm vật phẩm đang mang; thưởng tộc hệ được cộng thêm khi vào trận.", 10.5, MUTED, false, W - 2 * PAD);
     y += foot.height + PAD - 4;
     } else y += PAD - 6;
     this.h = y;
@@ -287,8 +288,9 @@ export class InfoCard {
     g.lineStyle(2, 0xc9972b, 0.9).strokeRoundedRect(0, 0, W, y, 14);
 
     // place beside the unit, inside the screen
-    const x = ax < SCREEN_W / 2 ? ax + gap : ax - gap - W;
-    this.c.setPosition(Phaser.Math.Clamp(x, 6, SCREEN_W - W - 6), Phaser.Math.Clamp(ay - y / 2, 6, Math.max(6, SCREEN_H - y - 6)));
+    const w = W * this.s, h = y * this.s;
+    const x = ax < SCREEN_W / 2 ? ax + gap : ax - gap - w;
+    this.c.setPosition(Phaser.Math.Clamp(x, 6, SCREEN_W - w - 6), Phaser.Math.Clamp(ay - h / 2, 6, Math.max(6, SCREEN_H - h - 6)));
     this.c.setVisible(true);
   }
 }

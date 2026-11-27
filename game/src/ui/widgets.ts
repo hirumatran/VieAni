@@ -35,7 +35,7 @@ export function button(scene: Phaser.Scene, x: number, y: number, w: number, h: 
 export function toast(scene: Phaser.Scene, msg: string) {
   const { width, height } = scene.scale;
   const txt = scene.add.text(width / 2, height - 70, msg, { fontFamily: FONT_UI, fontSize: "20px", color: CREAM, backgroundColor: "#2b1d14e6", padding: { x: 18, y: 10 } })
-    .setOrigin(0.5).setDepth(100).setAlpha(0);
+    .setOrigin(0.5).setDepth(9990).setAlpha(0); // above the HUD and panels (was 100: hidden behind the shop strip)
   scene.tweens.add({ targets: txt, alpha: 1, y: height - 84, duration: 200, yoyo: true, hold: 1600, onComplete: () => txt.destroy() });
 }
 

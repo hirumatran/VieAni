@@ -105,3 +105,31 @@ export class Grid {
     return project(this.h, (col + 1) / this.cols, v)[0] - project(this.h, col / this.cols, v)[0];
   }
 }
+
+// ------------------------------------------------------------------ HUD scale (PO 27 Nov 2026: option B, 75 %)
+/** the match HUD is laid out at full size and drawn smaller by one camera per screen area, anchored to its corner */
+export const UI_SCALE = 0.75;
+/** HUD areas in layout coordinates (x0, y0, x1, y1) and the point that stays fixed when scaling (the area's corner) */
+export const HUD_REGIONS: { x0: number; y0: number; x1: number; y1: number; ax: number; ay: number }[] = [
+  { x0: 150, y0: 0, x1: 1045, y1: 52, ax: 597, ay: 3 },     // scoreboard (top centre)
+  { x0: 0, y0: 0, x1: 150, y1: 60, ax: 8, ay: 8 },           // menu button (top left)
+  { x0: 0, y0: 60, x1: 250, y1: 558, ax: 8, ay: 62 },        // round / HP / level / gold + item bag (left)
+  { x0: 1045, y0: 0, x1: 1280, y1: 558, ax: 1275, ay: 8 },   // Linh Vật, tộc hệ, carried items (right)
+  { x0: 0, y0: 558, x1: 1280, y1: 720, ax: 640, ay: 716 },   // shop strip (bottom centre)
+];
+const inRect = (x: number, y: number, x0: number, y0: number, x1: number, y1: number) => x >= x0 && x < x1 && y >= y0 && y < y1;
+/** layout point of a HUD element → where it is on the screen */
+export function hudToScreen(x: number, y: number, s = UI_SCALE): { x: number; y: number } {
+  const r = HUD_REGIONS.find((q) => inRect(x, y, q.x0, q.y0, q.x1, q.y1));
+  return r ? { x: r.ax + (x - r.ax) * s, y: r.ay + (y - r.ay) * s } : { x, y };
+}
+/** screen point → HUD layout point (unchanged outside the HUD areas) */
+export function screenToHud(x: number, y: number, s = UI_SCALE): { x: number; y: number } {
+  for (const r of HUD_REGIONS) {
+    const a = hudToScreen(r.x0, r.y0, s), b = { x: r.ax + (r.x1 - r.ax) * s, y: r.ay + (r.y1 - r.ay) * s };
+    if (inRect(x, y, a.x, a.y, b.x, b.y)) return { x: r.ax + (x - r.ax) / s, y: r.ay + (y - r.ay) / s };
+  }
+  return { x, y };
+}
+/** top of the shop strip on the screen (drop a VieAni below it to sell) */
+export const SHOP_TOP_SCREEN = 716 + (MATCH_SHOP_TOP - 716) * UI_SCALE;
