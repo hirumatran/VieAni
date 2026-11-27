@@ -1,6 +1,6 @@
 # VieAni – handover notes (resume here)
 
-**State on 27 Nov 2026 – game v0.20.0 (8-player match, Full HD, HUD 75 %, scouting), live at https://hirumatran.itch.io/vieani · 82 tests pass · everything committed on `main`.**
+**State on 27 Nov 2026 – game v0.20.1 (8-player match, Full HD, HUD 75 %, scouting), live at https://hirumatran.itch.io/vieani · 83 tests pass · everything committed on `main`.**
 
 To resume: start a new session and say *"read docs/SESSION_NOTES.md and continue VieAni"*.
 Full logs: `docs/archive/SESSION_NOTES_2026-11-10_to_17.md` (10–17 Nov) and `docs/archive/SESSION_NOTES_2026-11-19_to_20.md`
@@ -20,7 +20,7 @@ Full logs: `docs/archive/SESSION_NOTES_2026-11-10_to_17.md` (10–17 Nov) and `d
   and `game/src/core/config.ts`, not the sheet – keep both in step (when the PO edits the sheet: sync back + `npm test`).
 - Every change: tests + build + browser check (Playwright, preinstalled Chromium) → update this file → commit → push.
 
-## What the game is now (v0.20.0)
+## What the game is now (v0.20.1)
 **Main menu:** Bắt Đầu (**8-player match**: you + 7 computer personalities, all 87 VieAni V001–V087), Luyện Tập, VieIndex, Cài Đặt, Đăng Nhập (later),
 dev buttons (🎬 animation lab, ✨ status auras, 🐉 Ấn Thống Nhất demo), VI/EN switch, and the **"Trận đấu" card**:
 - **Độ khó** – Dễ (old simple bot), Thường (smart bot, default), Khó (smart bot + 2 gold per round, said in the menu).
@@ -56,8 +56,9 @@ dev buttons (🎬 animation lab, ✨ status auras, 🐉 Ấn Thống Nhất demo
   level. The shop has 5 slots with tier odds by level and a shared pool (tier 1: 20 copies … tier 5: 6). The shop can be locked.
   3 copies make ★2, three ★2 make ★3.
 - **Owned-VieAni shop boost** (player only, Dễ / Thường): within a tier, a VieAni you own at ★1/★2 is ×3 / ×2 as likely, and
-  every shop slot has an extra 15 % chance to show one you own (`OWNED_SLOT_CHANCE`, PO 27 Nov). Khó: no boost.
-  Measured (level 5, owning 5 kinds): owned cards per shop Khó 0,40 · Thường 1,33 · Dễ 1,55; shops with ≥ 1 owned 34 / 78 / 84 %.
+  every shop slot has an extra 5 % chance to show one you own (`OWNED_SLOT_CHANCE`; PO 27 Nov: 15 % → 5 %). Khó: no boost.
+  Measured (level 5, owning 5 kinds): owned cards per shop Khó 0,40 · Thường 0,92 · Dễ 1,18; shops with ≥ 1 owned 34 / 63 / 73 %.
+- **★3 leaves the shop:** a VieAni a player has at ★3 is never rolled into that player's shop again (all players).
 - **Player damage** after a lost round = Σ over the surviving enemy VieAni of (tier points + ★ − 1), then ÷ 2 rounded up;
   tier points 1 / 2 / 3 / 5 / 7 (PO 27 Nov, option C: rarer tiers hit harder; `DAMAGE` in config.ts). HP 100.
 - **Timers:** prep 15 s (off in relaxed mode); battle cap 45 s.
@@ -100,8 +101,9 @@ dev buttons (🎬 animation lab, ✨ status auras, 🐉 Ấn Thống Nhất demo
 | Balance pass 1 (v0.13.0) | 83/87 VieAni win 40–60 % vs same-tier teams; other 4 within ±2,5 % noise; SD 8,7 → 6,3; tier 5 vs tier 4 = 49 % | `docs/balance/PROPOSAL_2026-11-20.md`, `unit_balance.json` |
 | ★3 outliers (open) | Cá Ông 72 %, Thằn Lằn Bóng 68 %, Cá Tra Dầu 68 %, Heo Rừng 65 %, Cóc Nhà 33 % | `unit_balance.json` |
 | New bot vs old bot | 96,5 % wins (200 games, both seats); mirror matches 51 % / 48,5 % → no seat bias | `docs/balance/bot_strength.json` |
-| 8-player difficulty (standard smart bot in your seat, 60 matches each) | average place Dễ 1,03 / Thường 4,45 / Khó 6,52; wins 97 % / 10 % / 0 % | `DIFF=… tools/eightPlayer.ts` |
-| Bot personalities (60 matches of 8 bots) | average place 4,05–4,93 for six; Người Nuôi Ong 5,83 (insect tộc hệ weak in long matches) | `docs/balance/eight_player.json` |
+| 8-player difficulty (standard smart bot in your seat, 60 matches each; rules of v0.20.1) | average place Dễ 1,02 / Thường 4,12 / Khó 6,50; wins 98 % / 20 % / 2 %; median 31–32 rounds | `DIFF=… tools/eightPlayer.ts` |
+| Bot personalities on Thường (60 matches, v0.20.1) | average place Già Làng 3,68 · Thầy Đồ 4,20 · Kiểm Lâm 4,33 · Ngư Dân 4,58 · Nuôi Ong 4,93 · Thợ Săn 4,98 · Nhà Nông 5,17 (before the damage change: 4,05–4,93, Nuôi Ong 5,83) | `tools/eightPlayer.ts` |
+| Ấn Thống Nhất reachability (zodiac strategy in the human seat, 8 players, 60 matches) | 2 / 60 (seeds 7, 32, round 29); reaches level 10 only in those 2; average place 6,1 | `tools/unityRate.ts` |
 | 1-vs-1 difficulty (before 8 players, 100 matches) | computer wins Dễ 1 %, Thường 41 %, Khó 64 % | `tools/difficulty.ts` |
 | Shop boost (level 5, owning 5 kinds) | owned cards per shop 0,44 (Khó) → 0,77 (Thường) → 1,02 (Dễ) | measured 20 Nov (2 000 shops per setting); guarded by `test/bot.test.ts` |
 | Match length, 8 players | median 32 rounds (26–39) with the 27 Nov damage rule (was 36); first knockout round 21; all fights of a round ≈ 30 ms | `tools/eightPlayer.ts`, `docs/balance/eight_player.json` |
@@ -136,6 +138,8 @@ python3 scripts/cutout.py V088 …        # new VieAni art → cut-outs + game s
 ```
 
 ## Open points for the PO
+00. **Ấn Thống Nhất is now very hard to reach** (27 Nov): the zodiac strategy succeeds in ~3 % of 8-player matches against
+    the smart bots (was ~25 % against the old bot); it rarely survives to level 10 + the Nam Bộ charm (rounds 24/28).
 0. **8-player difficulty spread (measured 27 Nov, decide before Alpha).** Dễ is a walkover (a standard bot in your seat wins
    97 %) and Khó is nearly hopeless (average place 6,5, no wins), because all 7 bots get +2 gold. Options:
    - Dễ = a mix (e.g. 4 simple + 3 personality bots);
@@ -186,6 +190,7 @@ python3 scripts/cutout.py V088 …        # new VieAni art → cut-outs + game s
 | 0.16.0 (27 Nov) | 8-player match: pairings, ghost fights, knockouts, places 1–8, 7 bot personalities, scoreboard; fixed a bot crash on empty shop slots |
 | 0.16.1 (27 Nov) | Info card shows the carried item's stat bonuses (items always worked in battle: Gậy Tre first hit 73 → 82, Bánh Chưng Máu 700 → 805; the card showed base stats) |
 | 0.16.2 (27 Nov) | Legendary VieAni (the 12 tier-5) ×1,3 Máu and Tấn Công (`LEGEND_MUL` in stats_v3.py); tier 5 vs tier 4 49 % → 100 %; 8-player median 36 → 34 rounds; Sheet synced |
+| 0.20.1 (27 Nov) | Owned-VieAni slot bonus 15 % → 5 %; ★3 VieAni leave that player's shop; Ấn Thống Nhất test / demo on 8 players (rate ~3 %) |
 | 0.20.0 (27 Nov) | Board 30 px lower (enemy back row clear of the scoreboard); no duplicate team-item offers; Linh Vật Trung / Nam Bộ only after the earlier ones; damage tier points 1/2/3/5/7; +15 % per shop slot for owned VieAni (Dễ/Thường); Sheet Luật chơi updated (also fixed two #ERROR! cells) |
 | 0.19.0 (27 Nov) | Native Full HD canvas (1920×1080; layout stays 1280×720, cameras ×1,5, text at 2×, smooth filtering); random background rolled once per visit; click a carried item (right list) to take it back; hover the level for the shop odds now / next level |
 | 0.18.0 (27 Nov) | Scouting: click a player on the scoreboard to see their board / their live fight from their side |
