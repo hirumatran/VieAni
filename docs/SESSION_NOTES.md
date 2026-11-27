@@ -139,6 +139,11 @@ python3 scripts/cutout.py V088 …        # new VieAni art → cut-outs + game s
 ```
 
 ## Open points for the PO
+000. **Tộc hệ proposal 27 Nov (NOT applied)** – `docs/balance/proposal_2026-11-27_toc_he.patch`: Tứ Linh +15 % → +10 % (members
+     and team), Côn Trùng Tốc Độ Đánh 15/25/25 → 20/30/35 %, né 0/15/15 → 5/20/20 %, hồi sinh 30 → 40 %, Săn Côn Trùng Tấn Công
+     10/15/20 → 15/25/35 %. Measured: simulator Tứ Linh 99 → 95 %, Săn Côn Trùng 18 → 22 %, Côn Trùng 13 → 16 % (vs every
+     other tộc hệ); bot places barely move (Thầy Đồ 3,77 → 3,90, Người Nuôi Ong 5,42 → 5,55, run noise ±0,2) – the bots' places
+     follow the tiers of their units, not the tộc hệ bonus.
 00. **Ấn Thống Nhất is now very hard to reach** (27 Nov): the zodiac strategy succeeds in ~3 % of 8-player matches against
     the smart bots (was ~25 % against the old bot); it rarely survives to level 10 + the Nam Bộ charm (rounds 24/28).
 0. **8-player difficulty spread (measured 27 Nov, decide before Alpha).** Dễ is a walkover (a standard bot in your seat wins
