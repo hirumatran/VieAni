@@ -1,6 +1,6 @@
 # VieAni – handover notes (resume here)
 
-**State on 20 Nov 2026 – game v0.15.1, live at https://hirumatran.itch.io/vieani · 75 tests pass · everything committed on `main`.**
+**State on 27 Nov 2026 – game v0.16.0 (8-player match), live at https://hirumatran.itch.io/vieani · 78 tests pass · everything committed on `main`.**
 
 To resume: start a new session and say *"read docs/SESSION_NOTES.md and continue VieAni"*.
 Full logs: `docs/archive/SESSION_NOTES_2026-11-10_to_17.md` (10–17 Nov) and `docs/archive/SESSION_NOTES_2026-11-19_to_20.md`
@@ -18,12 +18,31 @@ Full logs: `docs/archive/SESSION_NOTES_2026-11-10_to_17.md` (10–17 Nov) and `d
   and `game/src/core/config.ts`, not the sheet – keep both in step (when the PO edits the sheet: sync back + `npm test`).
 - Every change: tests + build + browser check (Playwright, preinstalled Chromium) → update this file → commit → push.
 
-## What the game is now (v0.15.1)
-**Main menu:** Bắt Đầu (1-vs-1 match vs the computer, all 87 VieAni V001–V087), Luyện Tập, VieIndex, Cài Đặt, Đăng Nhập (later),
+## What the game is now (v0.16.0)
+**Main menu:** Bắt Đầu (**8-player match**: you + 7 computer personalities, all 87 VieAni V001–V087), Luyện Tập, VieIndex, Cài Đặt, Đăng Nhập (later),
 dev buttons (🎬 animation lab, ✨ status auras, 🐉 Ấn Thống Nhất demo), VI/EN switch, and the **"Trận đấu" card**:
 - **Độ khó** – Dễ (old simple bot), Thường (smart bot, default), Khó (smart bot + 2 gold per round, said in the menu).
 - **Phong cảnh** – Ngẫu nhiên or one of 8 painted backgrounds: Vịnh Hạ Long, Tràng An, Phong Nha – Kẻ Bàng, Hồ Hoàn Kiếm,
   Mù Cang Chải, Tràm Chim, Nam Cát Tiên, Côn Đảo. The title screen previews the choice. Both saved per device.
+
+**8-player match (v0.16.0, 27 Nov):**
+- **Pairings:** random fights each round, avoiding last round's opponent. With an odd number left, one player fights a copy
+  ("bản sao") of another player's board; the copy takes no damage. The other fights are simulated off-screen.
+- **Knockouts:** a player at 0 HP is out, gets their place (8 → 1), stops getting income, and their VieAni go back to the
+  shared pool. The match ends when you are out (end screen "HẠNG N/8") or when you are the last one ("VÔ ĐỊCH!").
+- **Screen:** a top scoreboard lists every player by HP (gold = you, red ⚔ = this round's opponent, grey #N = out;
+  hover shows level). It fades during the fight. The left panel shows this round's opponent; the round panel names who was
+  knocked out.
+- **Bots:** 7 personalities (`PERSONAS` in `core/botAI.ts`). Each favours its own tộc hệ (strongly until round 18, half
+  after) and some level differently:
+  - Thợ Săn Trường Sơn (Săn Mồi + Trường Sơn, levels fast)
+  - Ngư Dân Biển Đông (Biển Đông + Sông Nước)
+  - Già Làng Tây Nguyên (Tây Nguyên)
+  - Thầy Đồ Xứ Bắc (Tứ Linh + Sơn Tinh + Hộ Quốc, levels late)
+  - Nhà Nông (Gia Súc + Gặm Nhấm + Mèo)
+  - Người Nuôi Ong (Côn Trùng + Săn Côn Trùng)
+  - Kiểm Lâm Cao Nguyên (Cao Nguyên Bắc Bộ + Bầy Chó Dữ)
+- **Difficulty:** Dễ = all 7 use the old simple bot; Thường = personalities; Khó = personalities + 2 gold per round each.
 
 **Match rules (config.ts):**
 - **Economy:** start 5 gold; +7 per round; +3 for a win / +1 for a loss (a draw counts as a loss); interest +1 per 10 gold
@@ -74,9 +93,11 @@ dev buttons (🎬 animation lab, ✨ status auras, 🐉 Ấn Thống Nhất demo
 | Balance pass 1 (v0.13.0) | 83/87 VieAni win 40–60 % vs same-tier teams; other 4 within ±2,5 % noise; SD 8,7 → 6,3; tier 5 vs tier 4 = 49 % | `docs/balance/PROPOSAL_2026-11-20.md`, `unit_balance.json` |
 | ★3 outliers (open) | Cá Ông 72 %, Thằn Lằn Bóng 68 %, Cá Tra Dầu 68 %, Heo Rừng 65 %, Cóc Nhà 33 % | `unit_balance.json` |
 | New bot vs old bot | 96,5 % wins (200 games, both seats); mirror matches 51 % / 48,5 % → no seat bias | `docs/balance/bot_strength.json` |
-| Computer win rate (smart bot in the player's seat, 100 matches) | Dễ 1 %, Thường 41 %, Khó 64 % | `tools/difficulty.ts` |
+| 8-player difficulty (standard smart bot in your seat, 60 matches each) | average place Dễ 1,03 / Thường 4,45 / Khó 6,52; wins 97 % / 10 % / 0 % | `DIFF=… tools/eightPlayer.ts` |
+| Bot personalities (60 matches of 8 bots) | average place 4,05–4,93 for six; Người Nuôi Ong 5,83 (insect tộc hệ weak in long matches) | `docs/balance/eight_player.json` |
+| 1-vs-1 difficulty (before 8 players, 100 matches) | computer wins Dễ 1 %, Thường 41 %, Khó 64 % | `tools/difficulty.ts` |
 | Shop boost (level 5, owning 5 kinds) | owned cards per shop 0,44 (Khó) → 0,77 (Thường) → 1,02 (Dễ) | measured 20 Nov (2 000 shops per setting); guarded by `test/bot.test.ts` |
-| Match length | average ≈ 24 rounds (smart bot vs smart bot, 200 games) | `tools/botStrength.ts` |
+| Match length, 8 players | median 36 rounds (29–44); first knockout round 21; all fights of a round ≈ 30 ms | `tools/eightPlayer.ts` |
 
 ## Where things are
 | Path | What |
@@ -108,6 +129,11 @@ python3 scripts/cutout.py V088 …        # new VieAni art → cut-outs + game s
 ```
 
 ## Open points for the PO
+0. **8-player difficulty spread (measured 27 Nov, decide before Alpha).** Dễ is a walkover (a standard bot in your seat wins
+   97 %) and Khó is nearly hopeless (average place 6,5, no wins), because all 7 bots get +2 gold. Options:
+   - Dễ = a mix (e.g. 4 simple + 3 personality bots);
+   - Khó = +1 gold, or the gold only for 3 of the 7 bots;
+   - keep it as it is and let playtests decide.
 1. **Playtest the difficulty levels.** Is Thường fair for a first-time player? Is Khó hard enough? If Khó needs more, the next
    step is smarter play rather than more gold (+3 gold measured no better than +2):
    - positioning (keep its main damage dealer in a back corner),
@@ -120,9 +146,9 @@ python3 scripts/cutout.py V088 …        # new VieAni art → cut-outs + game s
 6. **Licence check** for AI-generated art before any commercial release (T39).
 
 ## Next development tasks (suggested order)
-1. Act on the PO's playtest feedback (difficulty, balance, ★3 outliers).
+1. PO playtests the 8-player match; decide the difficulty spread (open point 0); balance, ★3 outliers.
 2. T13 Cộng sinh + the 17 waiting items (throwing, board objects, illusions, row sweeps …).
-3. T21 / T20: 8-player lobby with 7 bot personalities (the smart bot is the base; vary its style per bot) + ranking.
+3. T21 / T20 follow-ups: look at another player's board (scouting), a short match summary at the end (all places), Người Nuôi Ong / insect tộc hệ strength.
 4. T26 first-game tutorial, T25 audio (CC0/CC-BY with credits), in-game credits screen (game-icons.net CC BY 3.0).
 5. T33 phone layout + tap-to-inspect (the info card needs a mouse today), T30 feedback form.
 
@@ -133,7 +159,7 @@ python3 scripts/cutout.py V088 …        # new VieAni art → cut-outs + game s
 - `data/*.json` still carry the old `types` / `attackType` fields (unused since v3, kept for reference).
 - `assets/backgrounds/*.png` + `wide/` are the old pixel drafts (unused, small); the game uses `painted/`.
 
-## Session log 19–20 Nov 2026 (details in the archive)
+## Session log 19–27 Nov 2026 (details for 19–20 Nov in the archive)
 | Version | Change |
 |---|---|
 | 0.11.0 | v3 rules: 5 stats by role, Giáp %, no types, tier colours, new damage rule; Sheet synced |
@@ -145,5 +171,6 @@ python3 scripts/cutout.py V088 …        # new VieAni art → cut-outs + game s
 | 0.14.0 | Smarter bot (`botAI.ts`), 96,5 % vs the old one; Hạt Dưa bonus in the Máu bar between rounds |
 | 0.15.0 | Main-menu difficulty Dễ / Thường / Khó + scenery picker; 8 painted backgrounds |
 | 0.15.1 | Reward cards fit long Linh Vật texts; owned-VieAni shop boost on Dễ / Thường |
+| 0.16.0 (27 Nov) | 8-player match: pairings, ghost fights, knockouts, places 1–8, 7 bot personalities, scoreboard; fixed a bot crash on empty shop slots |
 
-Google Sheet updated on 20 Nov: Vật phẩm (C25, C36, E36) and Kế hoạch dự án (M1 done, T21 in progress, T27 note, T44 done).
+Google Sheet updated on 27 Nov: Kế hoạch dự án T20, T21 (see below). On 20 Nov: Vật phẩm (C25, C36, E36) and Kế hoạch dự án (M1 done, T21 in progress, T27 note, T44 done).

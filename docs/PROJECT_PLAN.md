@@ -134,7 +134,7 @@ Parallel community track: T05 → T06 → T07 → T42.
 - For the later native phase: Google Play testing rule https://support.google.com/googleplay/android-developer/answer/14151465 ;
   Apple fee https://developer.apple.com/programs/whats-included/ ; Steam Direct https://partner.steamgames.com/steamdirect
 
-## Progress (20 Nov 2026, v0.15.1)
+## Progress (27 Nov 2026, v0.16.0)
 Ahead of plan: battle core, skills and the 1-vs-1 game loop are done; next are 8-player + bot personalities, tutorial, audio, phone.
 | Task | Status |
 |---|---|
@@ -146,8 +146,8 @@ Ahead of plan: battle core, skills and the 1-vs-1 game loop are done; next are 8
 | T16 economy, T17 star-up | done (1-vs-1 match; shop boost for owned VieAni on Dễ/Thường) |
 | T18 synergy engine | done – 17 tộc hệ in battle |
 | T19 items | 33/50 battle items work; rewards at rounds 1,4,8…36 (PvE removed by PO) |
-| T20 round flow | done for 1-vs-1; 8-player ranking with T21 |
-| T21 bots | in progress – one smart bot + difficulty Dễ/Thường/Khó (20 Nov); 7 personalities for 8-player to do |
+| T20 round flow | done 27 Nov – 8-player match: pairings, ghost fights, knockouts, places 1–8 |
+| T21 bots | 7 personalities live (27 Nov); difficulty spread in 8-player waits for a PO decision |
 | T24 UI | mostly done: HUD, shop, tộc hệ panel, item bag, info cards, VieIndex, main-menu match setup |
 | T27 balance pass 1 | done 20 Nov (v0.13.0); PO playtesting; ★3 outliers open |
 | T44 backgrounds | done 20 Nov – 8 painted backgrounds, chosen in the main menu |
