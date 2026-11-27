@@ -92,10 +92,11 @@ describe("simulate", () => {
 });
 
 describe("player damage and mirroring", () => {
-  it("PO 19 Nov: loser takes Σ (tier + ★ − 1) of the winner's survivors ÷ 2 (rounded up) – PO example 20 → 10 HP", () => {
+  it("PO 27 Nov: loser takes Σ (tier points + ★ − 1) ÷ 2 (rounded up); tier points 1/2/3/5/7 – PO example 20 → 13 HP", () => {
     const sv = (tier: number, star: number) => ({ uid: tier * 10 + star, side: "B" as const, hp: 1, tier, star });
     const res = { winner: "B" as const, ticks: 0, events: [], survivors: [sv(4, 2), sv(3, 3), sv(5, 1), sv(5, 1)] };
-    expect(playerDamage(res)).toEqual({ A: 10, B: 0 });
+    // (5 + 1) + (3 + 2) + 7 + 7 = 25 → 13 (was 10 with tier points 4 and 5)
+    expect(playerDamage(res)).toEqual({ A: 13, B: 0 });
     expect(playerDamage({ ...res, survivors: [sv(3, 1)] })).toEqual({ A: 2, B: 0 }); // 3 ÷ 2 → 2
     expect(playerDamage({ ...res, survivors: [] })).toEqual({ A: 0, B: 0 });
   });

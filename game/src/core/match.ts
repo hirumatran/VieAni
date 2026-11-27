@@ -265,6 +265,14 @@ export class Match {
       // early levels can only roll tiers that may be missing from a small test set: fall back to any tier with copies left
       if (w.every((n) => n <= 0)) w = odds.map((_, t) => left(t + 1).reduce((n, s) => n + this.pool.get(s.id)!, 0));
       if (w.every((n) => n <= 0)) { p.shop.push(null); continue; }
+      // extra chance for a VieAni the player already owns (Dễ / Thường)
+      const mine = this.species.filter((s) => boosted.has(s.id) && this.pool.get(s.id)! > 0 && odds[s.tier - 1] > 0);
+      if (mine.length && this.rng.next() < C.OWNED_SLOT_CHANCE) {
+        const id = mine[this.rng.weighted(mine.map((s) => this.pool.get(s.id)!))].id;
+        this.pool.set(id, this.pool.get(id)! - 1);
+        p.shop.push(id);
+        continue;
+      }
       const cands = left(this.rng.weighted(w) + 1);
       const id = cands[this.rng.weighted(cands.map((s) => this.pool.get(s.id)! * (boosted.has(s.id) ? boost : 1)))].id;
       this.pool.set(id, this.pool.get(id)! - 1);

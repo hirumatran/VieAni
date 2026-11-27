@@ -1,12 +1,13 @@
 // All game-rule numbers in one place (see docs/GDD.md). Balance by editing this file.
 
-export const VERSION = "0.19.1";
+export const VERSION = "0.20.0";
 
 export const PLAYERS = 8;
 export const PLAYER_HP = 100;
 /** player damage after a lost round = Σ over surviving enemy VieAni of (tierPts[tier] + ★ − 1), ÷ divisor, rounded up
  *  (PO 19 Nov 2026: tier + ★ − 1, ÷ 2). Kept as an object so balance tools can try other numbers. */
-export const DAMAGE = { tierPts: [0, 1, 2, 3, 4, 5], divisor: 2 };
+// PO 27 Nov 2026 (option C): rarer tiers hit harder – tier 4 counts 5, tier 5 counts 7 (8-player median 35 → 32 rounds)
+export const DAMAGE = { tierPts: [0, 1, 2, 3, 5, 7], divisor: 2 };
 
 export const BOARD_COLS = 8;
 export const BOARD_ROWS = 8; // full battle grid; each player owns 4 rows
@@ -41,6 +42,9 @@ export const HARD_BOT_GOLD = 2;
 /** player's shop: a VieAni they already own (★1/★2, board or bench) is this many times more likely to be drawn within its
  *  tier – easier ★2/★3 (PO 20 Nov 2026: Dễ and Thường only; tier odds per level stay the same) */
 export const OWNED_SHOP_BOOST: Record<Difficulty, number> = { easy: 3, normal: 2, hard: 1 };
+/** PO 27 Nov 2026: on top of that, each shop slot has this extra chance to show a VieAni the player owns (★1/★2, a tier the
+ *  level can roll, copies left) – Dễ / Thường only, like the boost above */
+export const OWNED_SLOT_CHANCE = 0.15;
 export const MAX_LEVEL = 10; // full 12 Con Giáp needs Ấn Thống Nhất (3 Linh Vật + Rồng Lạc Việt at level 10)
 
 // --- shop ---
