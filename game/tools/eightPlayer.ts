@@ -5,6 +5,9 @@ import { writeFileSync } from "node:fs";
 import { loadData } from "../src/core/data";
 import { Match, TEST_CODES } from "../src/core/match";
 const d = loadData();
+import * as CFG from "../src/core/config";
+// damage experiment: DMG='{"tierPts":[0,1,2,3,5,7],"divisor":2}'
+if (process.env.DMG) Object.assign(CFG.DAMAGE, JSON.parse(process.env.DMG));
 const N = Number(process.env.N ?? 40);
 const P = Number(process.env.PLAYERS ?? 8);
 const q = (a: number[], f: number) => { const s = [...a].sort((x, y) => x - y); return s[Math.min(s.length - 1, Math.floor(f * s.length))]; };

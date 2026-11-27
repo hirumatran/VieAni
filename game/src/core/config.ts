@@ -1,9 +1,12 @@
 // All game-rule numbers in one place (see docs/GDD.md). Balance by editing this file.
 
-export const VERSION = "0.19.0";
+export const VERSION = "0.19.1";
 
 export const PLAYERS = 8;
 export const PLAYER_HP = 100;
+/** player damage after a lost round = Σ over surviving enemy VieAni of (tierPts[tier] + ★ − 1), ÷ divisor, rounded up
+ *  (PO 19 Nov 2026: tier + ★ − 1, ÷ 2). Kept as an object so balance tools can try other numbers. */
+export const DAMAGE = { tierPts: [0, 1, 2, 3, 4, 5], divisor: 2 };
 
 export const BOARD_COLS = 8;
 export const BOARD_ROWS = 8; // full battle grid; each player owns 4 rows

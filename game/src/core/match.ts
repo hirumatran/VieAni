@@ -155,16 +155,19 @@ export class Match {
   /** offer ITEM_CHOICES different items of this round's tier (only items the battle can already use) */
   rollItems(p: PlayerState) {
     const tier = C.itemTierForRound(this.round);
-    const pool = DROPPABLE.filter((id) => this.item(id).tier === tier);
+    // a team item the player already has (team slot or bag) is not offered again (PO 27 Nov 2026: duplicates were useless)
+    const owned = new Set([...p.teamItems, ...p.items]);
+    const pool = DROPPABLE.filter((id) => this.item(id).tier === tier && !(this.isTeamItem(id) && owned.has(id)));
     const offer: number[] = [];
     while (offer.length < Math.min(C.ITEM_CHOICES, pool.length)) {
       const id = pool[this.rng.int(0, pool.length - 1)];
       if (!offer.includes(id)) offer.push(id);
     }
-    // Linh Vật: in its round window, one of the 3 choices is that charm (if the player does not have it yet)
-    const charm = C.CHARM_ITEM_IDS.find((id) => {
+    // Linh Vật: in its round window, one of the 3 choices is that charm (if the player does not have it yet) – and only if
+    // they took the earlier ones: without Bắc Bộ, Trung Bộ / Nam Bộ can no longer complete Ấn Thống Nhất (PO 27 Nov 2026)
+    const charm = C.CHARM_ITEM_IDS.find((id, k) => {
       const [lo, hi] = C.CHARM_ROUND_WINDOWS[id];
-      return this.round >= lo && this.round <= hi && !p.charms.includes(id);
+      return this.round >= lo && this.round <= hi && !p.charms.includes(id) && C.CHARM_ITEM_IDS.slice(0, k).every((e) => p.charms.includes(e));
     });
     if (charm != null) offer[this.rng.int(0, offer.length - 1)] = charm;
     p.itemOffer = offer;

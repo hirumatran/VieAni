@@ -12,8 +12,9 @@ export const BOARD_CORNERS: Pt[] = [[352, 58], [928, 58], [1024, 604], [256, 604
 export const BENCH_CORNERS: Pt[] = [[256, 632], [1024, 632], [1044, 706], [236, 706]];
 
 /** match screen (PO, 13 Nov 2026): shop strip along the bottom, so board + bench are scaled to ~79 % and moved up */
-export const MATCH_BOARD_CORNERS: Pt[] = [[413, 50], [867, 50], [943, 480], [337, 480]];
-export const MATCH_BENCH_CORNERS: Pt[] = [[337, 494], [943, 494], [958, 552], [322, 552]];
+// 27 Nov 2026: 30 px lower than before, so the enemy's back row stands clear of the scoreboard (HUD at 75 % freed the room)
+export const MATCH_BOARD_CORNERS: Pt[] = [[413, 80], [867, 80], [943, 510], [337, 510]];
+export const MATCH_BENCH_CORNERS: Pt[] = [[337, 524], [943, 524], [958, 582], [322, 582]];
 /** the shop strip: everything below this line (drop a VieAni here to sell it) */
 export const MATCH_SHOP_TOP = 562;
 

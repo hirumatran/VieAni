@@ -122,3 +122,24 @@ describe("info card item bonuses match the battle (PO 27 Nov 2026)", () => {
     if (rangedOnly) expect(itemStatBonus(1, Number(rangedOnly[0]))).toEqual({ flatAtk: 0, armor: 0, hpPct: 0, aspdPct: 0 });
   });
 });
+
+describe("item offers (PO 27 Nov 2026)", () => {
+  it("no team item the player already has; later Linh Vật only after the earlier ones", async () => {
+    const { Match, TEST_CODES } = await import("../src/core/match");
+    const C = await import("../src/core/config");
+    const m = new Match(d, TEST_CODES.map((c) => d.roster[Number(c.slice(1)) - 1]), 4);
+    const p = m.human;
+    const teamIds = d.items.filter((i) => i.cat === "TD").map((i) => i.id);
+    p.teamItems = [...teamIds];
+    for (const round of C.ITEM_ROUNDS) {
+      m.round = round;
+      for (let k = 0; k < 20; k++) { m.rollItems(p); for (const id of p.itemOffer!) expect(teamIds).not.toContain(id); }
+    }
+    // never took Bắc Bộ → Trung Bộ / Nam Bộ never offered in their windows
+    p.charms = [];
+    for (const round of [12, 16, 20, 24, 28]) { m.round = round; for (let k = 0; k < 20; k++) { m.rollItems(p); expect(p.itemOffer!.some((id) => id === 52 || id === 53)).toBe(false); } }
+    // took Bắc Bộ → Trung Bộ is offered at round 12
+    p.charms = [51]; m.round = 12; m.rollItems(p);
+    expect(p.itemOffer).toContain(52);
+  });
+});

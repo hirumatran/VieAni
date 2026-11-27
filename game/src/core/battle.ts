@@ -1168,7 +1168,7 @@ export function simulate(d: GameData, units: Placed[], seed: number, teamItems: 
  *  (rounded up) so a match lasts ~30 rounds and the rewards up to round 36 / the Nam Bộ charm stay reachable.
  *  On a draw both players take damage from the other side's survivors. */
 export function playerDamage(res: BattleResult, _round = 0): { A: number; B: number } {
-  const sum = (side: Side) => Math.ceil(res.survivors.filter((s) => s.side === side).reduce((n, s) => n + s.tier + ((s.star ?? 1) - 1), 0) / 2);
+  const sum = (side: Side) => Math.ceil(res.survivors.filter((s) => s.side === side).reduce((n, s) => n + (C.DAMAGE.tierPts[s.tier] ?? s.tier) + ((s.star ?? 1) - 1), 0) / C.DAMAGE.divisor);
   if (res.winner === "A") return { A: 0, B: sum("A") };
   if (res.winner === "B") return { A: sum("B"), B: 0 };
   return { A: sum("B"), B: sum("A") };
