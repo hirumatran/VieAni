@@ -49,6 +49,8 @@ export class MatchScene extends BoardScene {
   private timeLeft = 0;
   private pendingToast = "";
   private hint!: Phaser.GameObjects.Text;
+  /** 8-player scoreboard along the top (rebuilt on every HUD refresh) */
+  private scoreObjs: Phaser.GameObjects.GameObject[] = [];
 
   constructor(d: GameData) {
     super(d, "match", MATCH_BOARD_CORNERS, MATCH_BENCH_CORNERS);
@@ -62,7 +64,7 @@ export class MatchScene extends BoardScene {
     if (data?.fresh) this.demo = null;
     if (data?.fresh || !this.match || this.match.over) {
       this.demo = null;
-      this.match = testMatch(this.data_, Math.floor(Math.random() * 1e9));
+      this.match = testMatch(this.data_, Math.floor(Math.random() * 1e9), C.PLAYERS); // you + 7 computer players
       this.match.difficulty = settings.difficulty; // main menu choice (Dễ / Thường / Khó)
       this.pendingToast = t("testNote")(TEST_CODES.length, TEST_CODES[TEST_CODES.length - 1] ?? "");
     }
@@ -116,6 +118,9 @@ export class MatchScene extends BoardScene {
     button(this, 78, 34, 130, 44, "← " + t("back"), () => this.scene.start("title")).setDepth(top);
     this.hint = this.add.text(SCREEN_W / 2 - 40, 18, t("matchHint"), { fontFamily: FONT_UI, fontSize: "14px", color: CREAM, backgroundColor: "#2b1d14b0", padding: { x: 10, y: 4 } })
       .setOrigin(0.5, 0).setDepth(top);
+    // 8 players: the scoreboard takes the top strip; the tip is shown once as a toast instead
+    if (this.match.players.length > 2) this.hint.setVisible(false);
+    this.scoreObjs = [];
 
     // left: round, HP, level, gold
     const g = this.add.graphics().setDepth(top - 1);
@@ -298,7 +303,10 @@ export class MatchScene extends BoardScene {
     this.txt.round.setText(t("round")(m.round));
     this.txt.you.setText("❤ " + t("you"));
     this.txt.youHp.setText(`${h.hp}/${maxHpOf(m)}`);
-    this.txt.bot.setText("❤ " + t("opponent"));
+    const pr = m.humanPairing();
+    // 8 players: this round's opponent by short name (full name on the scoreboard hover and in the round panel)
+    this.txt.bot.setText("❤ " + (m.players.length > 2 ? `${m.shortName(b)}${pr?.ghost ? " " + t("ghostTag") : ""}` : t("opponent")));
+    this.drawScoreboard();
     this.txt.botHp.setText(`${b.hp}/${maxHpOf(m)}`);
     this.txt.level.setText(String(h.level));
     const need = m.xpNeeded(h);
@@ -875,13 +883,14 @@ export class MatchScene extends BoardScene {
     this.hideItemTip();
     this.sellZone.setVisible(false);
     if (m.autoFill(m.human).length) this.layout(false);
-    m.botTurn();
+    m.botTurns();
     const seed = Math.floor(Math.random() * 1e9);
     const { units, res } = m.battle(seed);
     this.txt.timer.setText("");
     this.hint.setVisible(false);
     this.updateCounter();
     this.startBattle(units.filter((u) => u.side === "A"), units.filter((u) => u.side === "B"), seed, res);
+    this.drawScoreboard(); // faded while fighting
   }
 
   protected afterBattle(res: BattleResult) {
@@ -906,6 +915,59 @@ export class MatchScene extends BoardScene {
     return layer;
   }
 
+  /** "❤ Bạn 68 · ❤ Già Làng Tây Nguyên 42" – the human and this round's opponent */
+  private vsLine(rep: RoundReport) {
+    const m = this.match;
+    const opp = rep.opponent >= 0 ? m.players[rep.opponent] : m.bot;
+    const name = m.players.length > 2 ? opp.name + (rep.ghost ? " " + t("ghostTag") : "") : t("opponent");
+    return `❤ ${t("you")} ${m.human.hp}   ·   ❤ ${name} ${opp.hp}`;
+  }
+
+  /** "Bị loại: Nhà Nông (hạng 8)" + players left */
+  private knockedOutLine(rep: RoundReport) {
+    const m = this.match;
+    if (m.players.length <= 2) return "";
+    const out = rep.knockedOut.filter((i) => i !== 0).map((i) => `${m.players[i].name} (${t("placeShort")(m.players[i].place ?? 0)})`);
+    return [out.length ? t("knockedOutLine")(out.join(", ")) : "", m.human.hp > 0 ? t("playersLeft")(m.aliveIdx().length) : ""].filter(Boolean).join("   ·   ");
+  }
+
+  /** top strip: every player with HP, best first; gold frame = you, red = this round's opponent, grey = knocked out */
+  private drawScoreboard() {
+    for (const o of this.scoreObjs) o.destroy();
+    this.scoreObjs = [];
+    const m = this.match;
+    if (m.players.length <= 2) return;
+    const top = 5000, w = 104, h = 42, gap = 6, x0 = 160, y0 = 5;
+    const pr = m.humanPairing();
+    const order = m.players.map((p, i) => ({ p, i }))
+      .sort((a, b) => (b.p.hp > 0 ? 1 : 0) - (a.p.hp > 0 ? 1 : 0) || b.p.hp - a.p.hp || (a.p.place ?? 99) - (b.p.place ?? 99) || a.i - b.i);
+    const maxHp = maxHpOf(m);
+    order.forEach(({ p, i }, k) => {
+      const x = x0 + k * (w + gap), out = p.hp <= 0, me = i === 0, opp = !!pr && pr.b === i;
+      const g = this.add.graphics().setDepth(top);
+      g.fillStyle(out ? 0x2a2420 : WOOD, 1).fillRoundedRect(x, y0, w, h, 8);
+      g.lineStyle(me || opp ? 3 : 1.5, me ? GOLD : opp ? 0xe0533d : 0x8a7350, out ? 0.5 : 1).strokeRoundedRect(x, y0, w, h, 8);
+      const col = out ? "#8a8078" : me ? "#ffe6a3" : CREAM;
+      const label = (opp ? "⚔ " : "") + (me ? t("you") : m.shortName(p));
+      // line 1: name; line 2: HP bar + HP (or the final place when knocked out)
+      const nm = this.add.text(x + 7, y0 + 3, label, { fontFamily: FONT_UI, fontSize: "12.5px", color: col, fontStyle: "bold", fixedWidth: w - 12 }).setDepth(top);
+      const hpTxt = this.add.text(x + w - 6, y0 + 22, out ? `#${p.place}` : String(p.hp), { fontFamily: FONT_UI, fontSize: "12.5px", color: out ? "#8a8078" : "#ffffff", fontStyle: "bold" })
+        .setOrigin(1, 0).setDepth(top);
+      const bw = w - 14 - 30;
+      if (!out) {
+        g.fillStyle(0x000000, 0.55).fillRoundedRect(x + 7, y0 + 27, bw, 7, 3);
+        g.fillStyle(me ? 0x5bd36b : opp ? 0xe0533d : 0xd9a441, 1).fillRoundedRect(x + 7, y0 + 27, Math.max(4, bw * p.hp / maxHp), 7, 3);
+      }
+      // hover: full name + level
+      const z = this.add.zone(x + w / 2, y0 + h / 2, w, h).setInteractive().setDepth(top);
+      z.on("pointerover", () => { nm.setText(`${me ? t("you") : m.shortName(p)} · ${t("levelShort")} ${p.level}`); });
+      z.on("pointerout", () => nm.setText(label));
+      this.scoreObjs.push(g, nm, hpTxt, z);
+    });
+    // during a fight the enemy's back row stands right below the strip: fade it so their heads stay visible
+    for (const o of this.scoreObjs) (o as unknown as Phaser.GameObjects.Components.Alpha).setAlpha?.(this.fighting ? 0.35 : 1);
+  }
+
   private showRoundPanel(rep: RoundReport) {
     const title = rep.winner === "A" ? t("win") : rep.winner === "B" ? t("lose") : t("draw");
     const color = rep.winner === "A" ? "#ffe6a3" : rep.winner === "B" ? "#ff8a7a" : "#e6e0d4";
@@ -913,17 +975,22 @@ export class MatchScene extends BoardScene {
     const layer = this.panel(title, color, [
       [rep.damage.A ? t("hpLost")(rep.damage.A) : "", rep.damage.B ? t("enemyHpLost")(rep.damage.B) : ""].filter(Boolean).join("   ·   "),
       t("income")(base, interest, streak, result, rep.winner === "A") + (rep.income.items ? `  · Lì Xì +${rep.income.items}` : ""),
-      `❤ ${t("you")} ${this.match.human.hp}   ·   ❤ ${t("opponent")} ${this.match.bot.hp}`,
+      this.vsLine(rep),
+      this.knockedOutLine(rep),
     ]);
     if (rep.levelUp) this.pendingToast = t("levelUp")(this.match.human.level);
     layer.add(button(this, SCREEN_W / 2, SCREEN_H / 2 + 120, 240, 56, t("nextRound"), () => this.scene.restart({}), true));
   }
 
   private showGameOver(rep: RoundReport) {
-    const won = this.match.human.hp > 0, both = this.match.players.every((p) => p.hp <= 0);
-    const layer = this.panel(both ? t("draw") : won ? t("champion") : t("eliminated"), both ? "#e6e0d4" : won ? "#ffe6a3" : "#ff8a7a", [
+    const m = this.match, n = m.players.length;
+    const won = m.human.hp > 0, both = m.players.every((p) => p.hp <= 0);
+    const place = m.human.place ?? (won ? 1 : n);
+    const title = n > 2 ? (place === 1 ? t("champion") : t("placeTitle")(place, n)) : both ? t("draw") : won ? t("champion") : t("eliminated");
+    const layer = this.panel(title, place === 1 ? "#ffe6a3" : place <= 4 && n > 2 ? "#e6e0d4" : "#ff8a7a", [
       t("finalLine")(rep.round),
-      `❤ ${t("you")} ${this.match.human.hp}   ·   ❤ ${t("opponent")} ${this.match.bot.hp}`,
+      n > 2 ? t("placeLine")(place, n) : this.vsLine(rep),
+      this.knockedOutLine(rep),
     ]);
     layer.add(button(this, SCREEN_W / 2 - 130, SCREEN_H / 2 + 110, 220, 56, t("playAgain"), () => this.scene.restart({ fresh: true }), true));
     layer.add(button(this, SCREEN_W / 2 + 130, SCREEN_H / 2 + 110, 220, 56, "← " + t("back"), () => this.scene.start("title")));
@@ -931,6 +998,7 @@ export class MatchScene extends BoardScene {
 }
 
 function maxHpOf(m: Match) {
+  if (m.players.length > 2) return Math.max(m.startHp, ...m.players.map((p) => p.hp));
   return Math.max(m.startHp, m.human.hp, m.bot.hp);
 }
 

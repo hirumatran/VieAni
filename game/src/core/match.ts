@@ -223,6 +223,8 @@ export class Match {
   get bot() { const pr = this.humanPairing(); return this.players[pr ? pr.b : 1]; }
   /** the match ends when the human is knocked out or only one player is left */
   get over(): boolean { return this.human.hp <= 0 || this.aliveIdx().length <= 1; }
+  /** short name for the scoreboard */
+  shortName(p: PlayerState) { return p.persona != null ? PERSONAS[p.persona].short : p.name; }
   /** every computer player still in takes its turn */
   botTurns() { for (const i of this.aliveIdx()) if (i !== 0) this.botTurn(this.players[i]); }
   sp(id: number) { return this.d.byId.get(id)!; }
@@ -592,7 +594,7 @@ export class Match {
 }
 
 /** the PO test scenario: shop limited to V001–V004 */
-export function testMatch(d: GameData, seed: number): Match {
+export function testMatch(d: GameData, seed: number, players = 2): Match {
   const species = TEST_CODES.map((c) => d.roster[Number(c.slice(1)) - 1]).filter(Boolean);
-  return new Match(d, species, seed, TEST_HP);
+  return new Match(d, species, seed, TEST_HP, players);
 }

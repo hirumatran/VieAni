@@ -14,11 +14,12 @@ it("eight players", () => {
   const placeBy: Record<string, number[]> = {};
   for (let seed = 1; seed <= N; seed++) {
     const m = new Match(d, TEST_CODES.map((c) => d.roster[Number(c.slice(1)) - 1]), seed, undefined, P);
+    m.difficulty = (process.env.DIFF ?? "normal") as typeof m.difficulty; // the human seat is a standard smart bot
     const outs: number[] = [];
     let g = 0;
     while (m.aliveIdx().length > 1 && m.round <= 80) {
       const t0 = performance.now();
-      for (const i of m.aliveIdx()) m.botTurn(m.players[i]);
+      for (const i of m.aliveIdx()) m.botTurn(m.players[i], i === 0 ? "smart" : undefined);
       g += m.pairings.filter((x) => x.ghost).length;
       const hp = m.humanPairing();
       const r = m.finishRound(hp ? m.battle(seed * 1000 + m.round).res : undefined, seed * 7 + m.round);

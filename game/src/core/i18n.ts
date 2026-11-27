@@ -78,6 +78,12 @@ const STRINGS = {
     diffHardNote: (g: number) => `Như Thường, máy được thêm ${g} vàng mỗi vòng`,
     scenery: "Phong cảnh",
     sceneryRandom: "Ngẫu nhiên",
+    ghostTag: "(bản sao)",
+    knockedOutLine: (list: string) => `Bị loại: ${list}`,
+    placeShort: (n: number) => `hạng ${n}`,
+    placeTitle: (n: number, of: number) => `HẠNG ${n}/${of}`,
+    placeLine: (n: number, of: number) => `Bạn xếp hạng ${n} trong ${of} người chơi`,
+    playersLeft: (n: number) => `Còn ${n} người chơi`,
   },
   en: {
     tagline: "Legends of the Wild",
@@ -152,6 +158,12 @@ const STRINGS = {
     diffHardNote: (g: number) => `Like Normal, the computer gets +${g} gold per round`,
     scenery: "Scenery",
     sceneryRandom: "Random",
+    ghostTag: "(copy)",
+    knockedOutLine: (list: string) => `Knocked out: ${list}`,
+    placeShort: (n: number) => `place ${n}`,
+    placeTitle: (n: number, of: number) => `PLACE ${n}/${of}`,
+    placeLine: (n: number, of: number) => `You finished ${n} of ${of} players`,
+    playersLeft: (n: number) => `${n} players left`,
   },
 };
 
