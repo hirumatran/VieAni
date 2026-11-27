@@ -78,8 +78,8 @@ describe("owned VieAni show up more in the player's shop on Dễ / Thường (PO
   });
 });
 
-describe("extra 15 % per shop slot for owned VieAni (PO 27 Nov 2026)", () => {
-  it("on Thường at least the extra 15 % of slots on top of what Khó (no boost) shows", () => {
+describe("extra chance per shop slot for owned VieAni (PO 27 Nov 2026, 5 %)", () => {
+  it("on Thường at least the extra per-slot chance on top of what Khó (no boost) shows", () => {
     const share = (diff: C.Difficulty) => {
       let hit = 0, n = 0;
       for (let seed = 1; seed <= 60; seed++) {
@@ -93,5 +93,17 @@ describe("extra 15 % per shop slot for owned VieAni (PO 27 Nov 2026)", () => {
     };
     const hard = share("hard"), normal = share("normal");
     expect(normal).toBeGreaterThan(hard + C.OWNED_SLOT_CHANCE * 0.8);
+  });
+});
+
+describe("★3 VieAni leave the shop (PO 27 Nov 2026)", () => {
+  it("a species the player has at ★3 is never offered to that player again", () => {
+    for (const diff of ["easy", "normal", "hard"] as C.Difficulty[]) {
+      const m = newMatch(13); m.difficulty = diff;
+      const p = m.human; p.level = 3;
+      const id = p.shop.find((x) => x != null)!;
+      p.team.addToBench({ uid: 7100, speciesId: id, star: 3 });
+      for (let r = 0; r < 40; r++) { m.rollShop(p); expect(p.shop).not.toContain(id); }
+    }
   });
 });

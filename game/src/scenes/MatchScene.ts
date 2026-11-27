@@ -72,15 +72,18 @@ export class MatchScene extends BoardScene {
 
   /** play whole matches without graphics (computer on both sides) until the bottom player activates Ấn Thống Nhất with 12 signs */
   private runDemo() {
+    // 8-player match like the real game (27 Nov 2026). Against the smart bots the zodiac strategy succeeds in only ~3 % of
+    // matches, so the seeds known to succeed (7, 32) are tried first, then random ones.
     const start = Math.floor(Math.random() * 1e6);
-    for (let tries = 1; tries <= 200; tries++) {
-      const seed = start + tries;
-      const m = testMatch(this.data_, seed);
+    const seeds = [7, 32, ...Array.from({ length: 40 }, (_, k) => start + k)];
+    for (let tries = 1; tries <= seeds.length; tries++) {
+      const seed = seeds[tries - 1];
+      const m = testMatch(this.data_, seed, C.PLAYERS);
       const log: string[] = [];
       const seen = { rong: false, lv: false, charms: 0 };
-      while (!m.over && m.round <= 45) {
+      while (m.human.hp > 0 && m.aliveIdx().length > 1 && m.round <= 45) {
         m.zodiacTurn(m.human);
-        m.botTurn();
+        m.botTurns();
         const p = m.human;
         if (p.charms.length > seen.charms) { seen.charms = p.charms.length; log.push(`Vòng ${m.round}: nhận ${m.item(p.charms[p.charms.length - 1]).name}`); }
         if (!seen.rong && p.team.units().some((u) => u.speciesId === RONG_LAC_VIET)) { seen.rong = true; log.push(`Vòng ${m.round}: mua được Rồng Lạc Việt`); }
@@ -95,7 +98,7 @@ export class MatchScene extends BoardScene {
         }
       }
     }
-    this.match = testMatch(this.data_, start);
+    this.match = testMatch(this.data_, start, C.PLAYERS);
     this.demo = null;
   }
 

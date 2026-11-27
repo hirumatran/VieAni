@@ -1,6 +1,6 @@
 // All game-rule numbers in one place (see docs/GDD.md). Balance by editing this file.
 
-export const VERSION = "0.20.0";
+export const VERSION = "0.20.1";
 
 export const PLAYERS = 8;
 export const PLAYER_HP = 100;
@@ -42,9 +42,9 @@ export const HARD_BOT_GOLD = 2;
 /** player's shop: a VieAni they already own (★1/★2, board or bench) is this many times more likely to be drawn within its
  *  tier – easier ★2/★3 (PO 20 Nov 2026: Dễ and Thường only; tier odds per level stay the same) */
 export const OWNED_SHOP_BOOST: Record<Difficulty, number> = { easy: 3, normal: 2, hard: 1 };
-/** PO 27 Nov 2026: on top of that, each shop slot has this extra chance to show a VieAni the player owns (★1/★2, a tier the
+/** PO 27 Nov 2026: on top of that, each shop slot has this extra chance (5 %) to show a VieAni the player owns (★1/★2, a tier the
  *  level can roll, copies left) – Dễ / Thường only, like the boost above */
-export const OWNED_SLOT_CHANCE = 0.15;
+export const OWNED_SLOT_CHANCE = 0.05; // PO 27 Nov 2026: 15 % → 5 %
 export const MAX_LEVEL = 10; // full 12 Con Giáp needs Ấn Thống Nhất (3 Linh Vật + Rồng Lạc Việt at level 10)
 
 // --- shop ---

@@ -257,10 +257,12 @@ export class Match {
     p.shop = [];
     // the human player on Dễ / Thường sees VieAni they own more often (the computer's shop is never boosted)
     const boost = p === this.human ? C.OWNED_SHOP_BOOST[this.difficulty] : 1;
-    const boosted = new Set(boost > 1 ? p.team.units().filter((u) => u.star < 3).map((u) => u.speciesId) : []);
+    // a VieAni the player already has at ★3 never shows up in their shop again (PO 27 Nov 2026; all players)
+    const done = new Set(p.team.units().filter((u) => u.star === 3).map((u) => u.speciesId));
+    const boosted = new Set(boost > 1 ? p.team.units().filter((u) => u.star < 3 && !done.has(u.speciesId)).map((u) => u.speciesId) : []);
     const odds = C.SHOP_ODDS[Math.min(p.level, C.SHOP_ODDS.length) - 1];
     for (let i = 0; i < C.SHOP_SLOTS; i++) {
-      const left = (tier: number) => this.species.filter((s) => s.tier === tier && this.pool.get(s.id)! > 0);
+      const left = (tier: number) => this.species.filter((s) => s.tier === tier && this.pool.get(s.id)! > 0 && !done.has(s.id));
       let w = odds.map((o, t) => (left(t + 1).length ? o : 0));
       // early levels can only roll tiers that may be missing from a small test set: fall back to any tier with copies left
       if (w.every((n) => n <= 0)) w = odds.map((_, t) => left(t + 1).reduce((n, s) => n + this.pool.get(s.id)!, 0));
