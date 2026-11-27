@@ -1,6 +1,6 @@
 // All game-rule numbers in one place (see docs/GDD.md). Balance by editing this file.
 
-export const VERSION = "0.20.1";
+export const VERSION = "0.21.0";
 
 export const PLAYERS = 8;
 export const PLAYER_HP = 100;
@@ -45,7 +45,7 @@ export const OWNED_SHOP_BOOST: Record<Difficulty, number> = { easy: 3, normal: 2
 /** PO 27 Nov 2026: on top of that, each shop slot has this extra chance (5 %) to show a VieAni the player owns (★1/★2, a tier the
  *  level can roll, copies left) – Dễ / Thường only, like the boost above */
 export const OWNED_SLOT_CHANCE = 0.05; // PO 27 Nov 2026: 15 % → 5 %
-export const MAX_LEVEL = 10; // full 12 Con Giáp needs Ấn Thống Nhất (3 Linh Vật + Rồng Lạc Việt at level 10)
+export const MAX_LEVEL = 10; // full 12 Con Giáp needs Ấn Thống Nhất (3 Linh Vật + Rồng Lạc Việt, from level 9 – see UNITY)
 
 // --- shop ---
 export const SHOP_SLOTS = 5;
@@ -107,11 +107,12 @@ export const TEAM_ITEM_SLOTS = 2;
 export const BOARD_OBJECTS_MAX = 2;
 
 // --- Linh Vật charms (Ấn Thống Nhất) ---
-/** at MAX_LEVEL, with Rồng Lạc Việt on board and all 3 charms, this many missing zodiac signs count as present */
-export const CHARM_BONUS_ZODIAC = 2; // = UNITY.bonus (kept for texts / old references)
+/** with Rồng Lạc Việt on board and all 3 charms at UNITY.level, this many missing zodiac signs count as present */
+export const CHARM_BONUS_ZODIAC = 3; // = UNITY.bonus
 export const CHARM_ITEM_IDS = [51, 52, 53];
-/** level needed for Ấn Thống Nhất (object so balance tools can try other values) */
-export const UNITY = { level: 10, bonus: 2 };
+/** Ấn Thống Nhất: level needed and free zodiac signs (PO 27 Nov 2026: level 9 + 3 signs, was 10 + 2 – reached in ~18 % instead
+ *  of 0–3 % of 8-player matches by a player going for it). Object so balance tools can try other values. */
+export const UNITY = { level: 9, bonus: 3 };
 /** round window in which each charm can be offered (Bắc Bộ, Trung Bộ, Nam Bộ) */
 export const CHARM_ROUND_WINDOWS: Record<number, [number, number]> = { 51: [1, 10], 52: [11, 20], 53: [21, 30] };
 export const ROLES = ["Đỡ Đòn", "Chiến Đấu", "Săn Mồi", "Phép Thuật", "Hỗ Trợ"] as const;

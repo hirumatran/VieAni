@@ -88,7 +88,7 @@ export class MatchScene extends BoardScene {
         const p = m.human;
         if (p.charms.length > seen.charms) { seen.charms = p.charms.length; log.push(`Vòng ${m.round}: nhận ${m.item(p.charms[p.charms.length - 1]).name}`); }
         if (!seen.rong && p.team.units().some((u) => u.speciesId === RONG_LAC_VIET)) { seen.rong = true; log.push(`Vòng ${m.round}: mua được Rồng Lạc Việt`); }
-        if (!seen.lv && p.level >= C.MAX_LEVEL) { seen.lv = true; log.push(`Vòng ${m.round}: đạt cấp 10`); }
+        if (!seen.lv && p.level >= C.UNITY.level) { seen.lv = true; log.push(`Vòng ${m.round}: đạt cấp ${C.UNITY.level}`); }
         m.finishRound(m.battle(seed * 1000 + m.round).res);
         if (p.unityRound != null) {
           if (p.itemOffer) m.zodiacTurn(p); // take this round's reward the same way
@@ -559,14 +559,14 @@ export class MatchScene extends BoardScene {
     const [lo, hi] = C.CHARM_ROUND_WINDOWS[id];
     const rounds = C.ITEM_ROUNDS.filter((r) => r >= lo && r <= hi).join(", ");
     const need = [
-      `${p.level >= C.MAX_LEVEL ? "✓" : "✗"} Cấp 10 (đang ${p.level})`,
+      `${p.level >= C.UNITY.level ? "✓" : "✗"} Cấp ${C.UNITY.level} trở lên (đang ${p.level})`,
       `${p.team.toPlaced().some((u) => u.speciesId === RONG_LAC_VIET) ? "✓" : "✗"} Rồng Lạc Việt trên sân`,
       `${C.CHARM_ITEM_IDS.every((c) => p.charms.includes(c)) ? "✓" : "✗"} Đủ 3 Linh Vật (${p.charms.length}/3)`,
     ].join("\n");
     const W = 300, box = this.add.container(0, 0).setDepth(9600);
     const title = this.add.text(12, 10, it.name + (p.charms.includes(id) ? "  ✓" : ""), { fontFamily: FONT_UI, fontSize: "15px", color: "#ffe6a3", fontStyle: "bold" });
     const sub = this.add.text(12, 31, `Xuất hiện ở phần thưởng vòng ${rounds}`, { fontFamily: FONT_UI, fontSize: "11.5px", color: "#cdbb98", fontStyle: "bold" });
-    const body = this.add.text(12, 52, `Ấn Thống Nhất – 2 con giáp còn thiếu trên sân được tính là có mặt khi:\n${need}`, { fontFamily: FONT_UI, fontSize: "12.5px", color: CREAM, wordWrap: { width: W - 24 }, lineSpacing: 3 });
+    const body = this.add.text(12, 52, `Ấn Thống Nhất – ${C.UNITY.bonus} con giáp còn thiếu trên sân được tính là có mặt khi:\n${need}`, { fontFamily: FONT_UI, fontSize: "12.5px", color: CREAM, wordWrap: { width: W - 24 }, lineSpacing: 3 });
     const h = 52 + body.height + 12;
     const g = this.add.graphics();
     g.fillStyle(0x1b120c, 0.97).fillRoundedRect(0, 0, W, h, 10).lineStyle(2, GOLD, 0.9).strokeRoundedRect(0, 0, W, h, 10);

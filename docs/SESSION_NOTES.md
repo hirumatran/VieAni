@@ -1,6 +1,6 @@
 # VieAni – handover notes (resume here)
 
-**State on 27 Nov 2026 – game v0.20.1 (8-player match, Full HD, HUD 75 %, scouting), live at https://hirumatran.itch.io/vieani · 83 tests pass · everything committed on `main`.**
+**State on 27 Nov 2026 – game v0.21.0 (8-player match, Full HD, HUD 75 %, scouting), live at https://hirumatran.itch.io/vieani · 83 tests pass · everything committed on `main`.**
 
 To resume: start a new session and say *"read docs/SESSION_NOTES.md and continue VieAni"*.
 Full logs: `docs/archive/SESSION_NOTES_2026-11-10_to_17.md` (10–17 Nov) and `docs/archive/SESSION_NOTES_2026-11-19_to_20.md`
@@ -20,7 +20,7 @@ Full logs: `docs/archive/SESSION_NOTES_2026-11-10_to_17.md` (10–17 Nov) and `d
   and `game/src/core/config.ts`, not the sheet – keep both in step (when the PO edits the sheet: sync back + `npm test`).
 - Every change: tests + build + browser check (Playwright, preinstalled Chromium) → update this file → commit → push.
 
-## What the game is now (v0.20.1)
+## What the game is now (v0.21.0)
 **Main menu:** Bắt Đầu (**8-player match**: you + 7 computer personalities, all 87 VieAni V001–V087), Luyện Tập, VieIndex, Cài Đặt, Đăng Nhập (later),
 dev buttons (🎬 animation lab, ✨ status auras, 🐉 Ấn Thống Nhất demo), VI/EN switch, and the **"Trận đấu" card**:
 - **Độ khó** – Dễ (old simple bot), Thường (smart bot, default), Khó (smart bot + 2 gold per round, said in the menu).
@@ -88,7 +88,8 @@ dev buttons (🎬 animation lab, ✨ status auras, 🐉 Ấn Thống Nhất demo
   - **Hạt Dưa Mai An Tiêm:** +1 % max Máu per enemy its carrier defeats, permanent, max +30 %.
 - **Linh Vật + Ấn Thống Nhất:**
   - The 3 charms appear in their round windows: Bắc Bộ 1/4/8, Trung Bộ 12/16/20, Nam Bộ 24/28.
-  - Ấn Thống Nhất = level 10 + Rồng Lạc Việt on the board + all 3 charms → 2 missing zodiac signs count.
+  - Ấn Thống Nhất = level 9+ + Rồng Lạc Việt on the board + all 3 charms → 3 missing zodiac signs count (PO 27 Nov; was
+    level 10 + 2 signs). `UNITY` in config.ts.
 
 **Info card (hover):**
 - Species brief with IUCN status, live Máu / Năng lượng, and "Đã hạ: N kẻ địch" (live during the fight).
@@ -190,6 +191,7 @@ python3 scripts/cutout.py V088 …        # new VieAni art → cut-outs + game s
 | 0.16.0 (27 Nov) | 8-player match: pairings, ghost fights, knockouts, places 1–8, 7 bot personalities, scoreboard; fixed a bot crash on empty shop slots |
 | 0.16.1 (27 Nov) | Info card shows the carried item's stat bonuses (items always worked in battle: Gậy Tre first hit 73 → 82, Bánh Chưng Máu 700 → 805; the card showed base stats) |
 | 0.16.2 (27 Nov) | Legendary VieAni (the 12 tier-5) ×1,3 Máu and Tấn Công (`LEGEND_MUL` in stats_v3.py); tier 5 vs tier 4 49 % → 100 %; 8-player median 36 → 34 rounds; Sheet synced |
+| 0.21.0 (27 Nov) | Ấn Thống Nhất from level 9 with 3 free zodiac signs (was 10 + 2): a player going for it succeeds ~18 % (was 0–3 %); personalities re-tuned (5 of 7 within 4,0–5,0) |
 | 0.20.1 (27 Nov) | Owned-VieAni slot bonus 15 % → 5 %; ★3 VieAni leave that player's shop; Ấn Thống Nhất test / demo on 8 players (rate ~3 %) |
 | 0.20.0 (27 Nov) | Board 30 px lower (enemy back row clear of the scoreboard); no duplicate team-item offers; Linh Vật Trung / Nam Bộ only after the earlier ones; damage tier points 1/2/3/5/7; +15 % per shop slot for owned VieAni (Dễ/Thường); Sheet Luật chơi updated (also fixed two #ERROR! cells) |
 | 0.19.0 (27 Nov) | Native Full HD canvas (1920×1080; layout stays 1280×720, cameras ×1,5, text at 2×, smooth filtering); random background rolled once per visit; click a carried item (right list) to take it back; hover the level for the shop odds now / next level |

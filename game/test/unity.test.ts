@@ -20,21 +20,21 @@ describe("Linh Vật + Ấn Thống Nhất", () => {
     expect(p.itemOffer!.some((id) => m.isCharm(id))).toBe(false); // after the last window
   });
 
-  it("adds 2 zodiac signs only with level 10 + Rồng Lạc Việt on the board + 3 charms", () => {
+  it("adds 3 zodiac signs only with level 9+ and Rồng Lạc Việt on the board and all 3 charms (PO 27 Nov 2026)", () => {
     const m = testMatch(d, 22);
     const p = m.human;
-    p.level = C.MAX_LEVEL; p.team.maxOnBoard = C.MAX_LEVEL;
-    const signs = [...new Set(d.roster.filter((s) => s.zodiac && s.id !== RONG_LAC_VIET).map((s) => s.zodiac))].slice(0, 9);
+    p.level = 9; p.team.maxOnBoard = 9;
+    const signs = [...new Set(d.roster.filter((s) => s.zodiac && s.id !== RONG_LAC_VIET).map((s) => s.zodiac))].slice(0, 8);
     const units = [RONG_LAC_VIET, ...signs.map((z) => d.roster.find((s) => s.zodiac === z && s.id !== RONG_LAC_VIET)!.id)];
     units.forEach((speciesId, i) => p.team.place({ uid: 500 + i, speciesId, star: 1 }, { where: "board", row: 4 + Math.floor(i / 8), col: i % 8 }));
-    expect(m.zodiacCount(p)).toBe(10);
+    expect(m.zodiacCount(p)).toBe(9);
     p.charms = [51, 52];
     expect(m.unityActive(p)).toBe(false);
     p.charms = [51, 52, 53];
     expect(m.unityActive(p)).toBe(true);
     expect(m.zodiacCount(p)).toBe(12);
-    p.level = 9;
-    expect(m.zodiacCount(p)).toBe(10);
+    p.level = 8;
+    expect(m.zodiacCount(p)).toBe(9);
   });
 
   // 27 Nov 2026: against the smart bots (8 players) the zodiac strategy almost never gets there (0–3 %, tools/unityRate.ts);
