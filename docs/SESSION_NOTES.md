@@ -7,6 +7,8 @@ Full logs: `docs/archive/SESSION_NOTES_2026-11-10_to_17.md` (10–17 Nov) and `d
 (19–20 Nov, every version with its numbers).
 
 ## Ground rules (PO)
+- **Questions to the PO always come with several selectable answers** (multiple-choice tool, 2–4 options, recommended first;
+  PO 27 Nov 2026). Also in `CLAUDE.md`, which Claude Code loads at the start of every session.
 - Names: always **VieAni** and **VieIndex** (never Vinmon / Vindex).
 - Repo **hirumatran/VieAni**, branch **main only**. Every push to main that touches `game/`, `data/` or `assets/` publishes to
   itch.io (`.github/workflows/itch.yml`, butler, secret BUTLER_API_KEY). The local checkout / cloud environment is still called
