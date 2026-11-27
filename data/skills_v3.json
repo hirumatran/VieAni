@@ -387,7 +387,7 @@
     "hit": "1",
     "control": false,
     "atkPct": 240,
-    "text": "Đòi 1 vật phẩm của kẻ địch giữ vật phẩm bậc cao nhất, gây 175 / 315 / 560 sát thương lên nó và trao vật phẩm cho đồng đội ít máu nhất đến hết trận; 1 lần mỗi trận"
+    "text": "Đòi 1 vật phẩm của kẻ địch giữ vật phẩm bậc cao nhất, gây 230 / 410 / 730 sát thương lên nó và trao vật phẩm cho đồng đội ít máu nhất đến hết trận; 1 lần mỗi trận"
    },
    "passive": {
     "template": "Hào quang",
@@ -625,7 +625,7 @@
     "hit": "aoe",
     "control": true,
     "atkPct": 140,
-    "text": "Phun lửa cả một hàng: 135 / 240 / 430 sát thương và để lại ô 'Làng Cháy' gây Bỏng 3% Máu mỗi giây trong 4 giây"
+    "text": "Phun lửa cả một hàng: 175 / 315 / 560 sát thương và để lại ô 'Làng Cháy' gây Bỏng 3% Máu mỗi giây trong 4 giây"
    },
    "passive": {
     "template": "Khi máu thấp",
@@ -785,7 +785,7 @@
     "hit": "aoe",
     "control": false,
     "atkPct": 160,
-    "text": "Múa quanh đồng đội: 145 / 260 / 460 sát thương kẻ địch kề bên; đồng đội trong 1 ô được xóa hiệu ứng xấu và miễn khống chế 2 / 3 / 4 giây"
+    "text": "Múa quanh đồng đội: 185 / 335 / 600 sát thương kẻ địch kề bên; đồng đội trong 1 ô được xóa hiệu ứng xấu và miễn khống chế 2 / 3 / 4 giây"
    },
    "passive": {
     "template": "Hào quang",
@@ -825,7 +825,7 @@
     "hit": "aoe",
     "control": true,
     "atkPct": 240,
-    "text": "Vỗ cánh tạo cuồng phong: 185 / 335 / 600 sát thương mọi kẻ địch và đẩy lùi 1 / 2 / 3 ô"
+    "text": "Vỗ cánh tạo cuồng phong: 245 / 440 / 785 sát thương mọi kẻ địch và đẩy lùi 1 / 2 / 3 ô"
    },
    "passive": {
     "template": "Chỉ số",
@@ -943,7 +943,7 @@
     "hit": "aoe",
     "control": false,
     "atkPct": 220,
-    "text": "Phi xuyên hàng địch tới hàng sau: 200 / 365 / 650 sát thương mọi kẻ địch trên đường"
+    "text": "Phi xuyên hàng địch tới hàng sau: 260 / 470 / 840 sát thương mọi kẻ địch trên đường"
    },
    "passive": {
     "template": "Cộng dồn",
@@ -982,7 +982,7 @@
     "hit": "1",
     "control": false,
     "atkPct": 480,
-    "text": "Đá liên hoàn 9 cú trong 1,5 giây, tổng 480 / 865 / 1.535 sát thương"
+    "text": "Đá liên hoàn 9 cú trong 1,5 giây, tổng 625 / 1.125 / 1.995 sát thương"
    },
    "passive": {
     "template": "Cộng dồn",
@@ -1061,7 +1061,7 @@
     "hit": "aoe",
     "control": true,
     "atkPct": 100,
-    "text": "Hất chín ngà: 80 / 150 / 260 sát thương 3 ô phía trước và đẩy lùi 1 ô"
+    "text": "Hất chín ngà: 105 / 190 / 340 sát thương 3 ô phía trước và đẩy lùi 1 ô"
    },
    "passive": {
     "template": "Chỉ số",
@@ -1497,7 +1497,7 @@
     "hit": "aoe",
     "control": false,
     "atkPct": 220,
-    "text": "Giáng sét xuống 3 kẻ địch nhiều máu nhất: mỗi kẻ 175 / 315 / 565 sát thương"
+    "text": "Giáng sét xuống 3 kẻ địch nhiều máu nhất: mỗi kẻ 230 / 410 / 730 sát thương"
    },
    "passive": {
     "template": "Khi máu thấp",
@@ -1577,7 +1577,7 @@
     "hit": "aoe",
     "control": true,
     "atkPct": 170,
-    "text": "Mưa lửa vùng 2×2 quanh mục tiêu: 140 / 255 / 450 sát thương và Bỏng 3% Máu mỗi giây trong 3 giây"
+    "text": "Mưa lửa vùng 2×2 quanh mục tiêu: 185 / 330 / 590 sát thương và Bỏng 3% Máu mỗi giây trong 3 giây"
    },
    "passive": {
     "template": "Khi bị hạ",
@@ -1617,7 +1617,7 @@
     "hit": "",
     "control": false,
     "atkPct": null,
-    "text": "Che chắn đồng đội ít máu nhất trong 2 ô: khiên 115 / 210 / 375 trong 4 giây và hồi 6% / 10% / 14% Máu tối đa"
+    "text": "Che chắn đồng đội ít máu nhất trong 2 ô: khiên 150 / 275 / 485 trong 4 giây và hồi 6% / 10% / 14% Máu tối đa"
    },
    "passive": {
     "template": "Hào quang",

@@ -652,8 +652,8 @@
    ],
    "dex": 26,
    "stats": {
-    "hp": 1140,
-    "atk": 73,
+    "hp": 1480,
+    "atk": 95,
     "aspd": 0.55,
     "armor": 35,
     "energy": 80
@@ -963,8 +963,8 @@
    "typeNote": "In the Thánh Gióng legend the iron horse breathes fire; folk tradition says the bamboo it scorched turned yellow (tre đằng ngà) and the village it burned became Làng Cháy",
    "dex": 32,
    "stats": {
-    "hp": 1080,
-    "atk": 96,
+    "hp": 1400,
+    "atk": 125,
     "aspd": 0.65,
     "armor": 34,
     "energy": 90
@@ -1171,8 +1171,8 @@
    ],
    "dex": 27,
    "stats": {
-    "hp": 1140,
-    "atk": 90,
+    "hp": 1490,
+    "atk": 117,
     "aspd": 0.65,
     "armor": 33,
     "energy": 80
@@ -1221,8 +1221,8 @@
    ],
    "dex": 13,
    "stats": {
-    "hp": 870,
-    "atk": 78,
+    "hp": 1140,
+    "atk": 102,
     "aspd": 0.7,
     "armor": 19,
     "energy": 130
@@ -1329,8 +1329,8 @@
    "typeNote": "Usually carved in stone",
    "dex": 29,
    "stats": {
-    "hp": 1280,
-    "atk": 70,
+    "hp": 1660,
+    "atk": 92,
     "aspd": 0.55,
     "armor": 47,
     "energy": 80
@@ -1379,8 +1379,8 @@
    ],
    "dex": 31,
    "stats": {
-    "hp": 1050,
-    "atk": 92,
+    "hp": 1360,
+    "atk": 119,
     "aspd": 0.75,
     "armor": 29,
     "energy": 110
@@ -1438,8 +1438,8 @@
    ],
    "dex": 19,
    "stats": {
-    "hp": 1050,
-    "atk": 100,
+    "hp": 1360,
+    "atk": 130,
     "aspd": 0.75,
     "armor": 28,
     "energy": 120
@@ -1498,8 +1498,8 @@
    "typeNote": "Demon fox spirit",
    "dex": 23,
    "stats": {
-    "hp": 870,
-    "atk": 83,
+    "hp": 1140,
+    "atk": 108,
     "aspd": 0.7,
     "armor": 19,
     "energy": 130
@@ -1560,8 +1560,8 @@
    ],
    "dex": 44,
    "stats": {
-    "hp": 1420,
-    "atk": 82,
+    "hp": 1850,
+    "atk": 106,
     "aspd": 0.55,
     "armor": 41,
     "energy": 70
@@ -2228,8 +2228,8 @@
    "dex": 35,
    "typeNote": "Dragons command rain, storm and thunder; Vietnamese communities held rain-praying rites (cầu mưa) to the dragon",
    "stats": {
-    "hp": 970,
-    "atk": 80,
+    "hp": 1260,
+    "atk": 104,
     "aspd": 0.6,
     "armor": 19,
     "energy": 90
@@ -2342,8 +2342,8 @@
    "dex": 33,
    "typeNote": "Fire symbolism shared with the Vermilion Bird (Chu Tước), guardian of the South and the Fire phase in the Five Phases (Ngũ Hành)",
    "stats": {
-    "hp": 940,
-    "atk": 83,
+    "hp": 1220,
+    "atk": 108,
     "aspd": 0.65,
     "armor": 19,
     "energy": 90
@@ -2437,8 +2437,8 @@
    ],
    "dex": 5,
    "stats": {
-    "hp": 1170,
-    "atk": 71,
+    "hp": 1520,
+    "atk": 92,
     "aspd": 0.55,
     "armor": 33,
     "energy": 70
