@@ -2,6 +2,7 @@ import Phaser from "phaser";
 import * as C from "../core/config";
 import type { Species } from "../core/data";
 import { SCREEN_H, SCREEN_W } from "../core/layout";
+import { itemStatBonus } from "../core/items";
 import { FONT_UI } from "./widgets";
 import VN from "../../../data/vn_info.json";
 
@@ -195,14 +196,20 @@ export class InfoCard {
     // the 5 stats (v3) at this ★: Máu, Tấn Công, Tốc Độ Đánh, Giáp, Năng lượng
     y += 3;
     const m = C.STAR_MULT[s.star - 1];
-    const rows: [string, string, number][] = [
-      ["Máu", String(Math.round(Math.round(sp.stats.hp * m) * (1 + (s.hpBonus ?? 0) / 100))), (sp.stats.hp * m) / 2500],
-      ["Tấn Công", String(Math.round(sp.stats.atk * m)), (sp.stats.atk * m) / 200],
-      ["Tốc Độ Đánh", `${num(sp.stats.aspd)} lần/giây`, sp.stats.aspd / 1.1],
-      ["Giáp", `−${sp.stats.armor}% sát thương`, sp.stats.armor / 60],
-      ["Năng lượng", `${sp.stats.energy} để tung kỹ năng`, sp.stats.energy / 150],
+    // with the carried item's own bonuses (and Hạt Dưa) – same formulas as the battle; the gain is shown in green
+    const ib = itemStatBonus(sp.range, s.item?.id);
+    const hpBase = Math.round(sp.stats.hp * m), hpNow = Math.round(hpBase * (1 + (s.hpBonus ?? 0) / 100 + ib.hpPct));
+    const atkBase = Math.round(sp.stats.atk * m), atkNow = Math.round((sp.stats.atk + ib.flatAtk) * m);
+    const aspdNow = sp.stats.aspd * (1 + ib.aspdPct), armNow = Math.min(C.ARMOR_CAP, sp.stats.armor + ib.armor);
+    const rows: [string, string, number, string][] = [
+      ["Máu", String(hpNow), hpNow / 2500, hpNow > hpBase ? `+${hpNow - hpBase}` : ""],
+      ["Tấn Công", String(atkNow), atkNow / 200, atkNow > atkBase ? `+${atkNow - atkBase}` : ""],
+      ["Tốc Độ Đánh", `${num(Math.round(aspdNow * 100) / 100)} lần/giây`, aspdNow / 1.1, ib.aspdPct ? `+${Math.round(ib.aspdPct * 100)}%` : ""],
+      ["Giáp", `−${armNow}% sát thương`, armNow / 60, armNow > sp.stats.armor ? `+${armNow - sp.stats.armor}` : ""],
+      ["Năng lượng", `${sp.stats.energy} để tung kỹ năng`, sp.stats.energy / 150, ""],
     ];
-    for (const [label, val, frac] of rows) {
+    for (const [label, val, frac, plus] of rows) {
+      if (plus) text(PAD + 92, y, plus, 11.5, "#3a9a4f", true);
       text(PAD, y, label, 11.5, MUTED, true);
       text(PAD + 210, y, val, 11.5, INK, true).setOrigin(1, 0);
       g.fillStyle(LINE, 1).fillRoundedRect(PAD + 218, y + 4, W - 2 * PAD - 218, 6, 3);

@@ -12,7 +12,7 @@ import { hasIllustration, preloadIllustrations, sizeScale, texturesFor, vcode } 
 import type { ViewTextures } from "../anim/VieAniView";
 import { attachAura } from "../anim/aura";
 import * as FX from "../anim/battleFx";
-import { DROPPABLE } from "../core/items";
+import { DROPPABLE, itemStatBonus } from "../core/items";
 import { CHARM_ITEM_IDS } from "../core/config";
 import { InfoCard, type CardSubject } from "../ui/InfoCard";
 
@@ -385,7 +385,7 @@ export class BoardScene extends Phaser.Scene {
     const own = v.side === "A" ? this.team.units().find((u) => u.uid === v.uid) : undefined;
     const hpBonus = own ? own.hpBonus : v.hpBonus;
     // between rounds every VieAni is at full HP; Hạt Dưa's permanent bonus is part of its max HP (the fight starts with it)
-    const restMax = Math.round(battleMaxHp(sp, v.anim.star as 1 | 2 | 3) * (1 + (hpBonus ?? 0) / 100));
+    const restMax = Math.round(battleMaxHp(sp, v.anim.star as 1 | 2 | 3) * (1 + (hpBonus ?? 0) / 100 + itemStatBonus(sp.range, v.item).hpPct));
     return {
       sp, code: vcode(this.data_, sp), ...cardTex(this, this.data_, sp, !!v.transformed), transformed: v.transformed,
       item: v.item != null ? (({ id, name, effect }) => ({ id, name, effect }))(this.data_.items.find((i) => i.id === v.item)!) : undefined, star: v.anim.star as 1 | 2 | 3, side: v.side,

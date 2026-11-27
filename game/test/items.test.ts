@@ -100,3 +100,25 @@ describe("kills and Hạt Dưa Mai An Tiêm (+1 % max HP per kill, PO 20 Nov 202
     expect(ITEM_RULES[35].hpPctPerKill).toBe(1);
   });
 });
+
+describe("info card item bonuses match the battle (PO 27 Nov 2026)", () => {
+  it("Gậy Tre / Bánh Chưng / Khiên Mây: the card's numbers equal the battle's", async () => {
+    const { itemStatBonus } = await import("../src/core/items");
+    const { maxHp } = await import("../src/core/battle");
+    const sp = d.species.find((s) => s.vi === "Báo Gấm")!;
+    for (const [item, star] of [[1, 1], [7, 2], [4, 3]] as [number, 1 | 2 | 3][]) {
+      const units: Placed[] = [
+        { uid: 1, speciesId: sp.id, star, row: 4, col: 3, side: "A", item },
+        { uid: 2, speciesId: id("Bò Xám"), star: 1, row: 3, col: 3, side: "B" },
+      ];
+      const res = simulate(d, units, 7);
+      const b = itemStatBonus(sp.range, item);
+      expect(res.start!.find((s) => s.uid === 1)!.maxHp).toBe(Math.round(maxHp(sp, star) * (1 + b.hpPct)));
+    }
+    expect(itemStatBonus(1, 1).flatAtk).toBe(10);
+    expect(itemStatBonus(1, 4).armor).toBe(10);
+    // a ranged-only item gives nothing to a melee VieAni
+    const rangedOnly = Object.entries(ITEM_RULES).find(([, r]) => r.rangedOnly && (r.flatAtk || r.atkSpeedPct || r.aspdPct));
+    if (rangedOnly) expect(itemStatBonus(1, Number(rangedOnly[0]))).toEqual({ flatAtk: 0, armor: 0, hpPct: 0, aspdPct: 0 });
+  });
+});

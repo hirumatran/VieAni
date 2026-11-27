@@ -104,3 +104,11 @@ export const NOT_YET = [10, 11, 16, 17, 18, 19, 20, 21, 22, 23, 28, 29, 32, 33, 
 export const DROPPABLE = Object.keys(ITEM_RULES).map(Number);
 /** species ids for item conditions */
 export const ELEPHANT_IDS = [38, 7]; // Voi châu Á, Voi chín ngà
+
+/** the carried item's own stat bonuses, as the battle applies them (ranged-only items do nothing on melee VieAni).
+ *  Used by the info card (PO 27 Nov 2026: item bonuses were not shown, only applied in battle). */
+export function itemStatBonus(range: number, itemId?: number): { flatAtk: number; armor: number; hpPct: number; aspdPct: number } {
+  const r = itemId != null ? ITEM_RULES[itemId] : undefined;
+  if (!r || (r.rangedOnly && range < 2)) return { flatAtk: 0, armor: 0, hpPct: 0, aspdPct: 0 };
+  return { flatAtk: r.flatAtk ?? 0, armor: r.armor ?? 0, hpPct: r.hpPct ?? 0, aspdPct: (r.atkSpeedPct ?? 0) + (r.aspdPct ?? 0) };
+}
