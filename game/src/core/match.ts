@@ -1,4 +1,4 @@
-// One match: two players (you + a bot) sharing a VieAni pool – shop, gold, XP/levels, ★ merging,
+// One match: you + 1…7 computer players sharing a VieAni pool – shop, gold, XP/levels, ★ merging, round pairings, placings,
 // rounds and HP. Pure logic, no graphics (MatchScene draws it). Rules = config.ts / GDD §4–§5.
 
 import * as C from "./config";
@@ -23,7 +23,11 @@ export const TEST_CODES = Object.keys(manifest as Record<string, { front?: unkno
 export const TEST_HP = C.PLAYER_HP;
 
 export interface PlayerState {
+  /** shown on the scoreboard ("Bạn" for the human) */
+  name: string;
   hp: number;
+  /** final placing (1 = winner), set when knocked out or when the match ends */
+  place: number | null;
   gold: number;
   level: number;
   xp: number;
@@ -53,7 +57,16 @@ export interface RoundReport {
   /** gold the human gets for the next round, split up for the result panel */
   income: { base: number; interest: number; streak: number; result: number; items: number };
   levelUp: boolean;
+  /** index of the player the human fought this round (−1 if the human is out) */
+  opponent: number;
+  /** the opponent was a copy of that player's board (odd number of players left) */
+  ghost: boolean;
+  /** players knocked out this round (indices, best placing first) */
+  knockedOut: number[];
 }
+
+/** one fight of a round: player a (side A) vs player b (side B); ghost = b's board is a copy, b takes no damage */
+export interface Pairing { a: number; b: number; ghost: boolean }
 
 const copies = (star: number) => 3 ** (star - 1);
 /** board spots per role: front line first for tanks, back line for mages/support (own half rows 4..7) */
@@ -64,7 +77,11 @@ const COL_ORDER = [3, 4, 2, 5, 1, 6, 0, 7];
 
 export class Match {
   readonly pool = new Map<number, number>();
-  readonly players: [PlayerState, PlayerState];
+  readonly players: PlayerState[];
+  /** this round's fights (set at the start of every round) */
+  pairings: Pairing[] = [];
+  /** last opponent of each player (avoid repeats) */
+  private lastOpp = new Map<number, number>();
   readonly species: Species[];
   round = 1;
   /** how the computer opponent plays (main menu setting) */
@@ -72,15 +89,44 @@ export class Match {
   private rng: Rng;
   private nextUid = 1;
 
-  constructor(readonly d: GameData, species: Species[], seed: number, readonly startHp = C.PLAYER_HP) {
+  constructor(readonly d: GameData, species: Species[], seed: number, readonly startHp = C.PLAYER_HP, playerCount = 2, names?: string[]) {
     this.species = species;
     this.rng = new Rng(seed);
     for (const s of species) this.pool.set(s.id, C.POOL_COPIES[s.tier] ?? 10);
-    const mk = (): PlayerState => ({ hp: startHp, gold: C.START_GOLD, level: 1, xp: 0, streak: 0, team: new Team(1), shop: [], locked: false, items: [], teamItems: [], itemOffer: null, charms: [], unityRound: null });
-    this.players = [mk(), mk()];
+    const mk = (i: number): PlayerState => ({ name: names?.[i] ?? (i === 0 ? "Bạn" : `Máy ${i}`), place: null, hp: startHp, gold: C.START_GOLD, level: 1, xp: 0, streak: 0, team: new Team(1), shop: [], locked: false, items: [], teamItems: [], itemOffer: null, charms: [], unityRound: null });
+    this.players = Array.from({ length: Math.max(2, playerCount) }, (_, i) => mk(i));
     for (const p of this.players) this.rollShop(p);
     if (C.isItemRound(1)) for (const p of this.players) this.rollItems(p);
+    this.pairUp();
   }
+
+  /** players still in the match (indices) */
+  aliveIdx(): number[] { return this.players.map((p, i) => (p.hp > 0 ? i : -1)).filter((i) => i >= 0); }
+
+  /** random fights for this round among the players still in; avoids last round's opponent when possible; with an odd
+   *  number left, one player fights a copy (ghost) of another player's board */
+  private pairUp() {
+    const alive = this.aliveIdx();
+    let best: Pairing[] = [], bestRepeats = Infinity;
+    for (let tries = 0; tries < 20 && bestRepeats > 0; tries++) {
+      const order = [...alive];
+      for (let i = order.length - 1; i > 0; i--) { const j = this.rng.int(0, i); [order[i], order[j]] = [order[j], order[i]]; }
+      const pr: Pairing[] = [];
+      for (let i = 0; i + 1 < order.length; i += 2) pr.push({ a: order[i], b: order[i + 1], ghost: false });
+      if (order.length % 2 === 1 && order.length > 1) {
+        const lone = order[order.length - 1];
+        const others = order.filter((x) => x !== lone);
+        pr.push({ a: lone, b: others[this.rng.int(0, others.length - 1)], ghost: true });
+      }
+      const repeats = pr.filter((x) => !x.ghost && this.lastOpp.get(x.a) === x.b).length;
+      if (repeats < bestRepeats) { best = pr; bestRepeats = repeats; }
+    }
+    // the human always plays on side A (bottom of the screen)
+    this.pairings = best.map((x) => (x.b === 0 && !x.ghost ? { a: 0, b: x.a, ghost: false } : x));
+  }
+
+  /** the human's fight this round */
+  humanPairing(): Pairing | undefined { return this.pairings.find((x) => x.a === 0); }
 
   // ------------------------------------------------------------------ items
   item(id: number) { return this.d.items.find((i) => i.id === id)!; }
@@ -165,8 +211,12 @@ export class Match {
   }
 
   get human() { return this.players[0]; }
-  get bot() { return this.players[1]; }
-  get over(): boolean { return this.players.some((p) => p.hp <= 0); }
+  /** the human's opponent this round (with 2 players: the computer) */
+  get bot() { const pr = this.humanPairing(); return this.players[pr ? pr.b : 1]; }
+  /** the match ends when the human is knocked out or only one player is left */
+  get over(): boolean { return this.human.hp <= 0 || this.aliveIdx().length <= 1; }
+  /** every computer player still in takes its turn */
+  botTurns() { for (const i of this.aliveIdx()) if (i !== 0) this.botTurn(this.players[i]); }
   sp(id: number) { return this.d.byId.get(id)!; }
   cost(id: number) { return this.sp(id).tier; }
   /** XP still needed for the next level (null at max level) */
@@ -336,7 +386,7 @@ export class Match {
 
   /** the computer's turn: the smarter bot (botAI.ts), or the original simple bot on Dễ (or when asked for "easy") */
   botTurn(p: PlayerState = this.bot, level?: "easy" | "smart") {
-    const lv = level ?? (p === this.bot && this.difficulty === "easy" ? "easy" : "smart");
+    const lv = level ?? (p !== this.human && this.difficulty === "easy" ? "easy" : "smart");
     if (lv === "smart") return smartTurn(this, p);
     const reserve = this.round >= 5 ? 10 : 0; // keep 10 gold for interest from round 5
     const owned = () => new Set(p.team.units().map((u) => u.speciesId));
@@ -413,53 +463,86 @@ export class Match {
   }
 
   // ------------------------------------------------------------------ round
-  /** human = side A (bottom), bot = side B (top, mirrored) */
+  /** human = side A (bottom), this round's opponent = side B (top, mirrored) */
   battle(seed: number): { units: Placed[]; res: BattleResult } {
-    const a = this.human.team.toPlaced("A");
-    const b = this.bot.team.toPlaced("B").map((u) => { const [row, col] = mirror(u.row, u.col); return { ...u, row, col }; });
+    const pr = this.humanPairing() ?? { a: 0, b: 1, ghost: false };
+    return this.fight(pr.a, pr.b, seed);
+  }
+
+  /** player a on side A vs player b on side B (b's own-half placement mirrored to the top) */
+  fight(ai: number, bi: number, seed: number): { units: Placed[]; res: BattleResult } {
+    const pa = this.players[ai], pb = this.players[bi];
+    const a = pa.team.toPlaced("A");
+    const b = pb.team.toPlaced("B").map((u) => { const [row, col] = mirror(u.row, u.col); return { ...u, row, col }; });
     const units = [...a, ...b];
     if (!a.length || !b.length) {
       const winner = a.length ? "A" : b.length ? "B" : "draw";
-      const survivors = units.map((u) => ({ uid: u.uid, side: u.side, hp: 1, tier: this.sp(u.speciesId).tier }));
+      const survivors = units.map((u) => ({ uid: u.uid, side: u.side, hp: 1, tier: this.sp(u.speciesId).tier, star: u.star }));
       return { units, res: { winner, ticks: 0, events: [], survivors, start: [] } };
     }
-    return { units, res: simulate(this.d, units, seed, { A: this.human.teamItems, B: this.bot.teamItems },
-      { zodiacBonus: { A: this.zodiacBonus(this.human), B: this.zodiacBonus(this.bot) }, skills: C.SKILLS_ON }) };
+    return { units, res: simulate(this.d, units, seed, { A: pa.teamItems, B: pb.teamItems },
+      { zodiacBonus: { A: this.zodiacBonus(pa), B: this.zodiacBonus(pb) }, skills: C.SKILLS_ON }) };
   }
 
-  /** damage, streaks, income, XP, next round, fresh shops */
-  finishRound(res: BattleResult): RoundReport {
+  /** damage, streaks, income, XP, knock-outs, next round, fresh shops.
+   *  `res` = the human's fight (already shown on screen); the other fights of the round are simulated here. */
+  finishRound(res?: BattleResult, seed = this.round * 7919): RoundReport {
+    const results = new Map<Pairing, BattleResult>();
+    for (const pr of this.pairings) results.set(pr, pr.a === 0 && res ? res : this.fight(pr.a, pr.b, seed + pr.a * 101 + pr.b).res);
     // kills: counted on the VieAni (shown in its info card); Hạt Dưa turns each into +1 % max HP (max +30 %)
-    for (const p of this.players)
+    // only each player's own fight counts (a ghost copy of their board fights elsewhere with the same VieAni ids)
+    for (const [pi, p] of this.players.entries()) {
+      const own = this.pairings.find((x) => x.a === pi || (!x.ghost && x.b === pi));
+      const kills = own ? results.get(own)!.kills ?? {} : {};
       for (const u of p.team.units()) {
-        const k = res.kills?.[u.uid] ?? 0;
+        const k = kills[u.uid] ?? 0;
         if (!k) continue;
         u.kills = (u.kills ?? 0) + k;
         const per = u.item != null ? ITEM_RULES[u.item]?.hpPctPerKill ?? 0 : 0;
         if (per) u.hpBonus = Math.min(30, (u.hpBonus ?? 0) + k * per);
       }
+    }
     // merges that waited because a copy was fighting on the board (copies bought during the fight)
-    for (const p of this.players) this.mergeAll(p);
-    const damage = playerDamage(res, this.round);
-    const [h, b] = this.players;
-    h.hp = Math.max(0, h.hp - damage.A);
-    b.hp = Math.max(0, b.hp - damage.B);
+    for (const p of this.players) if (p.hp > 0) this.mergeAll(p);
+
+    // damage and result per player (a ghost board takes no damage and gets no result)
+    const aliveBefore = this.aliveIdx();
+    const rawHp = new Map<number, number>();
+    const outcome = new Map<number, { won: boolean; lost: boolean; side: "A" | "B"; res: BattleResult }>();
+    for (const [pr, r] of results) {
+      const dmg = playerDamage(r, this.round);
+      const hitA = this.players[pr.a];
+      rawHp.set(pr.a, hitA.hp - dmg.A); hitA.hp = Math.max(0, hitA.hp - dmg.A);
+      outcome.set(pr.a, { won: r.winner === "A", lost: r.winner === "B", side: "A", res: r });
+      if (!pr.ghost) {
+        const hitB = this.players[pr.b];
+        rawHp.set(pr.b, hitB.hp - dmg.B); hitB.hp = Math.max(0, hitB.hp - dmg.B);
+        outcome.set(pr.b, { won: r.winner === "B", lost: r.winner === "A", side: "B", res: r });
+      }
+    }
+    const humanPr = this.humanPairing();
+    const humanRes: BattleResult = humanPr ? results.get(humanPr)! : res ?? { winner: "draw", ticks: 0, events: [], survivors: [] };
+    const damage = humanPr ? playerDamage(humanRes, this.round) : { A: 0, B: 0 };
+    if (humanPr?.ghost) damage.B = 0;
+
     let income = { base: 0, interest: 0, streak: 0, result: 0, items: 0 };
     let levelUp = false;
-    this.players.forEach((p, i) => {
-      const won = res.winner === (i === 0 ? "A" : "B");
-      const lost = res.winner === (i === 0 ? "B" : "A");
+    for (const i of aliveBefore) {
+      const p = this.players[i];
+      const o = outcome.get(i);
+      if (!o) continue;
+      const { won, lost } = o;
       p.streak = won ? Math.max(1, p.streak + 1) : lost ? Math.min(-1, p.streak - 1) : 0;
+      if (p.hp <= 0) continue; // knocked out: no income
       // items that pay off after a won round, if their carrier is still standing: Lì Xì (+gold)
       let itemGold = 0;
       // Gia Súc (6) Được mùa: +1 gold per won round
       if (won && (synergyStates(this.d, p.team.toPlaced().map((u) => u.speciesId)).find((x) => x.syn.name === "Gia Súc")?.level ?? -1) >= 2) itemGold += 1;
       if (won) {
-        const standing = new Set(res.survivors.filter((x) => x.side === (i === 0 ? "A" : "B")).map((x) => x.uid));
+        const standing = new Set(o.res.survivors.filter((x) => x.side === o.side).map((x) => x.uid));
         for (const u of p.team.units()) {
           if (u.item == null || !standing.has(u.uid)) continue;
-          const r = ITEM_RULES[u.item];
-          itemGold += r?.goldOnWin ?? 0;
+          itemGold += ITEM_RULES[u.item]?.goldOnWin ?? 0;
         }
       }
       const inc = {
@@ -469,17 +552,33 @@ export class Match {
         streak: C.STREAK_BONUS.filter(([n]) => Math.abs(p.streak) >= n).reduce((m, [, g]) => Math.max(m, g), 0),
         result: won ? C.WIN_BONUS : C.LOSS_BONUS,
       };
-      // Khó: the computer gets a little extra gold each round (said so in the menu)
-      const handicap = i === 1 && this.difficulty === "hard" ? C.HARD_BOT_GOLD : 0;
+      // Khó: the computer players get a little extra gold each round (said so in the menu)
+      const handicap = i !== 0 && this.difficulty === "hard" ? C.HARD_BOT_GOLD : 0;
       p.gold += inc.base + inc.interest + inc.streak + inc.result + inc.items + handicap;
       const up = this.addXp(p, C.XP_PER_ROUND);
       if (i === 0) { income = inc; levelUp = up; }
+    }
+
+    // knock-outs: placings from the bottom; several out in one round – the one with more HP left (before 0) places higher
+    const out = aliveBefore.filter((i) => this.players[i].hp <= 0).sort((x, y) => (rawHp.get(y) ?? 0) - (rawHp.get(x) ?? 0));
+    const leftAfter = aliveBefore.length - out.length;
+    out.forEach((i, k) => {
+      const p = this.players[i];
+      p.place = leftAfter + 1 + k;
+      // their VieAni go back to the shared pool
+      for (const u of p.team.units()) { this.pool.set(u.speciesId, (this.pool.get(u.speciesId) ?? 0) + copies(u.star)); p.team.remove(u.uid); }
     });
-    for (const p of this.players) if (p.unityRound == null && this.unityActive(p) && this.zodiacCount(p) >= 12) p.unityRound = this.round;
-    const report: RoundReport = { round: this.round, winner: res.winner, damage, income, levelUp };
+    if (leftAfter === 1) this.players[this.aliveIdx()[0]].place = 1;
+    if (leftAfter === 0) out.forEach((i, k) => (this.players[i].place = 1 + k)); // everybody out at once (draw)
+
+    for (const p of this.players) if (p.hp > 0 && p.unityRound == null && this.unityActive(p) && this.zodiacCount(p) >= 12) p.unityRound = this.round;
+    for (const pr of this.pairings) if (!pr.ghost) { this.lastOpp.set(pr.a, pr.b); this.lastOpp.set(pr.b, pr.a); }
+    const report: RoundReport = { round: this.round, winner: humanRes.winner, damage, income, levelUp,
+      opponent: humanPr ? humanPr.b : -1, ghost: !!humanPr?.ghost, knockedOut: out };
     this.round++;
-    for (const p of this.players) if (!p.locked) this.rollShop(p);
-    if (C.isItemRound(this.round)) for (const p of this.players) { if (p.itemOffer) this.chooseItem(p, 0); this.rollItems(p); }
+    for (const p of this.players) if (p.hp > 0 && !p.locked) this.rollShop(p);
+    if (C.isItemRound(this.round)) for (const p of this.players) if (p.hp > 0) { if (p.itemOffer) this.chooseItem(p, 0); this.rollItems(p); }
+    if (this.aliveIdx().length > 1) this.pairUp(); else this.pairings = [];
     return report;
   }
 }

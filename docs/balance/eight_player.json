@@ -1,0 +1,28 @@
+{
+ "players": 8,
+ "matches": 40,
+ "lengthRounds": {
+  "min": 30,
+  "median": 36,
+  "p90": 39,
+  "max": 49
+ },
+ "firstKnockOut": {
+  "median": 21,
+  "min": 18
+ },
+ "knockOutByPlace": [
+  21,
+  23,
+  25,
+  27,
+  29,
+  31,
+  36
+ ],
+ "msPerRound": {
+  "median": 30,
+  "p90": 49
+ },
+ "ghostFightsPerMatch": 6.4
+}

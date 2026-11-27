@@ -65,6 +65,7 @@ export function smartTurn(m: Match, p: PlayerState, style: BotStyle = SMART) {
     return synergyStates(m.d, ids).filter((s) => !s.syn.byZodiac);
   };
   const wantScore = (id: number) => {
+    if (id < 0 || !m.d.byId.has(id)) return -Infinity; // empty shop slot (bought, or the pool ran out)
     const same = units().filter((u) => u.speciesId === id);
     const ones = same.filter((u) => u.star === 1).length, twos = same.filter((u) => u.star === 2).length;
     let s = 0;

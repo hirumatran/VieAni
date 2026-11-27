@@ -161,6 +161,7 @@ describe("Test match (V001–V004)", () => {
       const goldBefore = p.gold;
       const r = m.finishRound(res);
       reports++;
+      if (p.hp <= 0) { expect(p.gold).toBe(goldBefore); continue; } // knocked out: no income any more
       expect(r.income.base).toBe(7);
       expect(r.income.result).toBe(r.winner === "A" ? 3 : 1);
       expect(r.income.interest).toBe(Math.min(5, Math.floor(goldBefore / 10)));
