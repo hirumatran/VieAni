@@ -31,7 +31,9 @@ it("eight players", () => {
       ms.push(performance.now() - t0);
     }
     ends.push(m.round - 1);
-    if (seed % 10 === 0 || seed === N) process.stderr.write(`PROGRESS ${seed}/${N} matches\n`); // live progress (PO 27 Nov) firstOut.push(outs[0] ?? 0); outRounds.push(outs); ghosts.push(g);
+    // live progress (PO 27 Nov)
+    if (seed % 10 === 0 || seed === N) process.stderr.write(`PROGRESS ${seed}/${N} matches\n`);
+    firstOut.push(outs[0] ?? 0); outRounds.push(outs); ghosts.push(g);
     for (const p of m.players) (placeBy[p.name === "Bạn" ? "(chuẩn, ghế người chơi)" : p.name] ??= []).push(p.place ?? 0);
     const places = m.players.map((p) => p.place).sort();
     if (places.join() !== "1,2,3,4,5,6,7,8".slice(0, P * 2 - 1)) console.log("PLACES?", places.join());
