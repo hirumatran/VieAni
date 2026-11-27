@@ -1,0 +1,46 @@
+diff --git a/game/src/core/battle.ts b/game/src/core/battle.ts
+index 5dd9ca2..8beda29 100644
+--- a/game/src/core/battle.ts
++++ b/game/src/core/battle.ts
+@@ -215,7 +215,7 @@ export function simulate(d: GameData, units: Placed[], seed: number, teamItems:
+         if (sp.range >= 2) multi += tr.teamRangedMultiShot ?? 0;
+       }
+       // ----- tộc hệ (v3 numbers: "Phòng thủ" bonuses became Giáp points, "Tốc độ" became Tốc Độ Đánh)
+-      all += at(mlv(S, "Tứ Linh", sp), [0.15, 0.15]) + at(lv(S, "Tứ Linh"), [0, 0.15]);
++      all += at(mlv(S, "Tứ Linh", sp), [0.1, 0.1]) + at(lv(S, "Tứ Linh"), [0, 0.1]);
+       const zl = lv(S, "Mười Hai Con Giáp");
+       all += zl >= 3 ? 0.25 : at(mlv(S, "Mười Hai Con Giáp", sp), [0.05, 0.1, 0.15]);
+       armor += at(lv(S, "Hộ Quốc"), [5, 10, 15]);
+@@ -225,12 +225,12 @@ export function simulate(d: GameData, units: Placed[], seed: number, teamItems:
+       hpMul += at(mlv(S, "Sơn Tinh", sp), [0.1, 0.2]); // balance 20 Nov: núi cao – members +10 / 20 % Máu
+       armor += at(mlv(S, "Cao Nguyên Bắc Bộ", sp), [5, 10, 15]) + at(mlv(S, "Biển Đông", sp), [5, 10, 15]);
+       atkPct += at(mlv(S, "Biển Đông", sp), [0, 0.15, 0.3]);
+-      aspd += at(mlv(S, "Tây Nguyên", sp), [0.1, 0.2, 0.3]) + at(mlv(S, "Côn Trùng", sp), [0.15, 0.25, 0.25]);
++      aspd += at(mlv(S, "Tây Nguyên", sp), [0.1, 0.2, 0.3]) + at(mlv(S, "Côn Trùng", sp), [0.2, 0.3, 0.35]);
+       aspd -= at(lv(other(S), "Sông Nước"), [0, 0, 0.15]);
+       const gs = mlv(S, "Gia Súc", sp);
+       hpMul += at(gs, [0.1, 0.2, 0.3]); armor += at(gs, [4, 8, 12]);
+       const sct = mlv(S, "Săn Côn Trùng", sp);
+-      atkPct += at(sct, [0.1, 0.15, 0.2]); // buff 19 Nov: also stronger against everyone
++      atkPct += at(sct, [0.15, 0.25, 0.35]); // buff 19 Nov: also stronger against everyone
+       if (all) { atkPct += all; hpMul += all; aspd += all; armor *= 1 + all; }
+       atk *= 1 + atkPct;
+       const hp = Math.round(maxHp(sp, u.star) * hpMul);
+@@ -244,7 +244,7 @@ export function simulate(d: GameData, units: Placed[], seed: number, teamItems:
+         moveTicks: Math.round((C.ROLE_MOVE_SECONDS[sp.role ?? ""] ?? C.MOVE_SECONDS_PER_CELL) * TPS),
+         rule: { ...rule, multiShot: multi }, dmgMult: 1 + (rule.dmgPct ?? 0), crit, critMult,
+         lowHealUsed: false, reviveUsed: false, dodged: false, lastHitT: -999, bleeds: [],
+-        dodge: at(ts, [0.1, 0.2, 0.3]) + (insect ? at(mlv(S, "Côn Trùng", sp), [0, 0.15, 0.15]) : 0),
++        dodge: at(ts, [0.1, 0.2, 0.3]) + (insect ? at(mlv(S, "Côn Trùng", sp), [0.05, 0.2, 0.2]) : 0),
+         rangedDodge: at(mlv(S, "Cao Nguyên Bắc Bộ", sp), [0.15, 0.25, 0.25]),
+         stealthUntil: at(ts, [2, 3, 4]) * TPS, revealCrit: ts >= 2,
+         rabidUntil: -1, rabidImmune: gs >= 1 || (zl >= 2 && !!sp.zodiac) || u.item === 11,
+@@ -878,7 +878,7 @@ export function simulate(d: GameData, units: Placed[], seed: number, teamItems:
+       // tộc hệ revives: Mười Hai Con Giáp (12) first zodiac 50 %, Hội Nhà Mèo (3) first cat 20 %, Côn Trùng (9) 30 % chance
+       else if (lv(side, "Mười Hai Con Giáp") >= 3 && target.sp.zodiac && firstOnce(side + ":zodiacRevive")) pendingRevives.push({ t: t + 2 * TPS, f: target, pct: 0.5 });
+       else if (mlv(side, "Hội Nhà Mèo", target.sp) >= 1 && firstOnce(side + ":catRevive")) pendingRevives.push({ t: t + 2 * TPS, f: target, pct: 0.2 });
+-      else if (mlv(side, "Côn Trùng", target.sp) >= 2 && rng.next() < 0.3) pendingRevives.push({ t: t + 2 * TPS, f: target, pct: 0.3 });
++      else if (mlv(side, "Côn Trùng", target.sp) >= 2 && rng.next() < 0.4) pendingRevives.push({ t: t + 2 * TPS, f: target, pct: 0.3 });
+       if (SK && target.x && !target.x.summon) onDeathSkills(t, target);
+       // Hộ Quốc (6) 'giữ nước': first fall heals the team 15 %
+       if (lv(side, "Hộ Quốc") >= 2 && firstOnce(side + ":hoquoc")) for (const o of fighters) if (o.side === side && o.alive) heal(t, o, 0.15);
