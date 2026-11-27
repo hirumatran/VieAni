@@ -1,7 +1,7 @@
 import Phaser from "phaser";
 import { loadData, validate } from "./core/data";
 import { settings } from "./core/i18n";
-import { SCREEN_H, SCREEN_W } from "./core/layout";
+import { GAME_H, GAME_W } from "./core/layout";
 import { BoardScene } from "./scenes/BoardScene";
 import { TitleScene } from "./scenes/TitleScene";
 import { AnimLabScene } from "./scenes/AnimLabScene";
@@ -13,6 +13,11 @@ const data = loadData();
 const problems = validate(data);
 if (problems.length) console.warn("Data problems:", problems);
 document.documentElement.lang = settings.lang;
+
+// all text is rendered at 2× so it stays sharp on the 1.5× cameras
+const textFactory = Phaser.GameObjects.GameObjectFactory.prototype as unknown as { text: (...a: unknown[]) => Phaser.GameObjects.Text };
+const makeText = textFactory.text;
+textFactory.text = function (this: unknown, ...a: unknown[]) { return makeText.apply(this, a).setResolution(2); };
 
 async function boot() {
   // wait for the web fonts (Vietnamese glyphs) so Phaser text renders with them; never block > 2 s
@@ -28,8 +33,10 @@ async function boot() {
     type: Phaser.AUTO,
     parent: "game",
     backgroundColor: "#1b120c",
-    pixelArt: true,
-    scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH, width: SCREEN_W, height: SCREEN_H },
+    // Full HD canvas (PO 27 Nov 2026); smooth filtering – the art is clean illustrations, not pixel sprites
+    pixelArt: false,
+    antialias: true,
+    scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH, width: GAME_W, height: GAME_H },
     scene: [new TitleScene(), new BoardScene(data), new AnimLabScene(data), new MatchScene(data), new AuraLabScene(data), new ScoutScene(data)],
   });
   (window as unknown as { __game: Phaser.Game }).__game = game;

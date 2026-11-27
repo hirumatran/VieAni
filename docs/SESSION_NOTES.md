@@ -1,6 +1,6 @@
 # VieAni – handover notes (resume here)
 
-**State on 27 Nov 2026 – game v0.18.0 (8-player match, HUD 75 %, scouting), live at https://hirumatran.itch.io/vieani · 80 tests pass · everything committed on `main`.**
+**State on 27 Nov 2026 – game v0.19.0 (8-player match, Full HD, HUD 75 %, scouting), live at https://hirumatran.itch.io/vieani · 80 tests pass · everything committed on `main`.**
 
 To resume: start a new session and say *"read docs/SESSION_NOTES.md and continue VieAni"*.
 Full logs: `docs/archive/SESSION_NOTES_2026-11-10_to_17.md` (10–17 Nov) and `docs/archive/SESSION_NOTES_2026-11-19_to_20.md`
@@ -20,7 +20,7 @@ Full logs: `docs/archive/SESSION_NOTES_2026-11-10_to_17.md` (10–17 Nov) and `d
   and `game/src/core/config.ts`, not the sheet – keep both in step (when the PO edits the sheet: sync back + `npm test`).
 - Every change: tests + build + browser check (Playwright, preinstalled Chromium) → update this file → commit → push.
 
-## What the game is now (v0.18.0)
+## What the game is now (v0.19.0)
 **Main menu:** Bắt Đầu (**8-player match**: you + 7 computer personalities, all 87 VieAni V001–V087), Luyện Tập, VieIndex, Cài Đặt, Đăng Nhập (later),
 dev buttons (🎬 animation lab, ✨ status auras, 🐉 Ấn Thống Nhất demo), VI/EN switch, and the **"Trận đấu" card**:
 - **Độ khó** – Dễ (old simple bot), Thường (smart bot, default), Khó (smart bot + 2 gold per round, said in the menu).
@@ -158,6 +158,8 @@ python3 scripts/cutout.py V088 …        # new VieAni art → cut-outs + game s
 5. T33 phone layout + tap-to-inspect (the info card needs a mouse today), T30 feedback form.
 
 ## Known limitations
+- Full HD: the canvas is 1920×1080 but all code keeps 1280×720 layout coordinates; every scene calls `fitCamera(this)` first in
+  `create()`, and pointer positions must go through `lp(p)` (layout.ts) – never use `pointer.x / y` directly.
 - HUD scaling works by camera: a new HUD element must use depth 4999–5199 and sit inside one of `HUD_REGIONS`; pop-ups placed
   from HUD positions must convert with `hudToScreen()`, pointer checks against HUD positions with `screenToHud()` (layout.ts).
   The round panel, item reward cards and game-over panel are still full size (centre of the screen).
@@ -182,6 +184,7 @@ python3 scripts/cutout.py V088 …        # new VieAni art → cut-outs + game s
 | 0.16.0 (27 Nov) | 8-player match: pairings, ghost fights, knockouts, places 1–8, 7 bot personalities, scoreboard; fixed a bot crash on empty shop slots |
 | 0.16.1 (27 Nov) | Info card shows the carried item's stat bonuses (items always worked in battle: Gậy Tre first hit 73 → 82, Bánh Chưng Máu 700 → 805; the card showed base stats) |
 | 0.16.2 (27 Nov) | Legendary VieAni (the 12 tier-5) ×1,3 Máu and Tấn Công (`LEGEND_MUL` in stats_v3.py); tier 5 vs tier 4 49 % → 100 %; 8-player median 36 → 34 rounds; Sheet synced |
+| 0.19.0 (27 Nov) | Native Full HD canvas (1920×1080; layout stays 1280×720, cameras ×1,5, text at 2×, smooth filtering); random background rolled once per visit; click a carried item (right list) to take it back; hover the level for the shop odds now / next level |
 | 0.18.0 (27 Nov) | Scouting: click a player on the scoreboard to see their board / their live fight from their side |
 | 0.17.0 (27 Nov) | HUD at 75 % (PO picked option B from mock-ups in `docs/mockups/`): one camera per HUD area (`HUD_REGIONS`, `UI_SCALE` in layout.ts) + an overlay camera for pop-ups/panels/toasts; scoreboard always opaque; smaller ★ marks and item badges; info card + pop-ups at 75 %; toasts were hidden behind the shop strip (fixed); stale card footer replaced |
 

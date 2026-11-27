@@ -33,9 +33,13 @@ export const sceneryThumb = (key: string) => `backgrounds/thumbs/bg_${key}.webp`
 /** all battle backgrounds (labs use the first) */
 export const BACKGROUNDS = SCENERY.map((s) => sceneryPath(s.key));
 /** the chosen scenery, or a random one for "random" / an unknown key */
+/** "random" is rolled once per visit and then kept (PO 27 Nov 2026: not a new background every round / match) */
+let rolled: string | null = null;
 export function pickScenery(choice: string): string {
-  const s = SCENERY.find((x) => x.key === choice) ?? SCENERY[Math.floor(Math.random() * SCENERY.length)];
-  return s.key;
+  const s = SCENERY.find((x) => x.key === choice);
+  if (s) return s.key;
+  rolled ??= SCENERY[Math.floor(Math.random() * SCENERY.length)].key;
+  return rolled;
 }
 
 const UNIT: Pt[] = [[0, 0], [1, 0], [1, 1], [0, 1]];
@@ -133,3 +137,15 @@ export function screenToHud(x: number, y: number, s = UI_SCALE): { x: number; y:
 }
 /** top of the shop strip on the screen (drop a VieAni below it to sell) */
 export const SHOP_TOP_SCREEN = 716 + (MATCH_SHOP_TOP - 716) * UI_SCALE;
+
+// ------------------------------------------------------------------ native Full HD (PO 27 Nov 2026: text was blurry)
+/** the canvas is 1920×1080; every scene keeps its 1280×720 layout and the cameras draw it 1.5× (text at 2× resolution) */
+export const RENDER_SCALE = 1.5;
+export const GAME_W = SCREEN_W * RENDER_SCALE, GAME_H = SCREEN_H * RENDER_SCALE;
+/** pointer (canvas pixels) → layout coordinates */
+export const lp = (p: { x: number; y: number }) => ({ x: p.x / RENDER_SCALE, y: p.y / RENDER_SCALE });
+/** call first in every scene's create(): the main camera shows the 1280×720 layout on the 1920×1080 canvas */
+export function fitCamera(scene: { cameras: { main: { setOrigin(x: number, y: number): unknown; setZoom(z: number): unknown; setScroll(x: number, y: number): unknown } } }) {
+  const c = scene.cameras.main;
+  c.setOrigin(0, 0); c.setZoom(RENDER_SCALE); c.setScroll(0, 0);
+}

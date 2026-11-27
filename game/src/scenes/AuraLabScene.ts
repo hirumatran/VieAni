@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import { fitCamera } from "../core/layout";
 import { attachAura, AURA_OPTIONS, AURA_TITLES, type AuraKind } from "../anim/aura";
 import { tierColour, VieAniView } from "../anim/VieAniView";
 import { preloadIllustrations, texturesFor, vcode } from "../anim/illustrations";
@@ -30,6 +31,7 @@ export class AuraLabScene extends Phaser.Scene {
   }
 
   create() {
+    fitCamera(this);
     coverImage(this, "lab-bg");
     this.add.rectangle(SCREEN_W / 2, SCREEN_H / 2, SCREEN_W, SCREEN_H, 0x000000, 0.35);
     button(this, 78, 34, 130, 44, "← Menu", () => this.scene.start("title")).setDepth(100);

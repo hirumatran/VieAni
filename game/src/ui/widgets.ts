@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import { SCREEN_H, SCREEN_W } from "../core/layout";
 
 export const FONT_LOGO = '"Baloo 2", "Be Vietnam Pro", sans-serif';
 export const FONT_UI = '"Be Vietnam Pro", sans-serif';
@@ -33,7 +34,7 @@ export function button(scene: Phaser.Scene, x: number, y: number, w: number, h: 
 
 /** short message that fades out */
 export function toast(scene: Phaser.Scene, msg: string) {
-  const { width, height } = scene.scale;
+  const width = SCREEN_W, height = SCREEN_H; // layout size (the canvas is larger, see RENDER_SCALE)
   const txt = scene.add.text(width / 2, height - 70, msg, { fontFamily: FONT_UI, fontSize: "20px", color: CREAM, backgroundColor: "#2b1d14e6", padding: { x: 18, y: 10 } })
     .setOrigin(0.5).setDepth(9990).setAlpha(0); // above the HUD and panels (was 100: hidden behind the shop strip)
   scene.tweens.add({ targets: txt, alpha: 1, y: height - 84, duration: 200, yoyo: true, hold: 1600, onComplete: () => txt.destroy() });
@@ -41,7 +42,7 @@ export function toast(scene: Phaser.Scene, msg: string) {
 
 /** cover-fit an image to the screen */
 export function coverImage(scene: Phaser.Scene, key: string) {
-  const { width, height } = scene.scale;
+  const width = SCREEN_W, height = SCREEN_H;
   const bg = scene.add.image(width / 2, height / 2, key);
   bg.setScale(Math.max(width / bg.width, height / bg.height));
   bg.texture.setFilter(Phaser.Textures.FilterMode.LINEAR);

@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import { fitCamera } from "../core/layout";
 import { HARD_BOT_GOLD, VERSION, type Difficulty } from "../core/config";
 import { saveSettings, settings, t, type Lang } from "../core/i18n";
 import { pickScenery, SCENERY, sceneryPath, sceneryThumb, SCREEN_H, SCREEN_W } from "../core/layout";
@@ -21,6 +22,7 @@ export class TitleScene extends Phaser.Scene {
   }
 
   create() {
+    fitCamera(this);
     this.bg = undefined;
     this.showBackground(this.shownKey);
 

@@ -3,7 +3,7 @@ import { maxHp as battleMaxHp, type BattleResult } from "../core/battle";
 import * as C from "../core/config";
 import type { GameData } from "../core/data";
 import { settings, t } from "../core/i18n";
-import { HUD_REGIONS, hudToScreen, MATCH_BENCH_CORNERS, MATCH_BOARD_CORNERS, MATCH_SHOP_TOP, SCREEN_H, SCREEN_W, screenToHud, SHOP_TOP_SCREEN, UI_SCALE } from "../core/layout";
+import { HUD_REGIONS, hudToScreen, lp, RENDER_SCALE, MATCH_BENCH_CORNERS, MATCH_BOARD_CORNERS, MATCH_SHOP_TOP, SCREEN_H, SCREEN_W, screenToHud, SHOP_TOP_SCREEN, UI_SCALE } from "../core/layout";
 import { RONG_LAC_VIET, TEST_CODES, testMatch, type Match, type RoundReport } from "../core/match";
 import type { Team } from "../core/team";
 import { texturesFor, vcode } from "../anim/illustrations";
@@ -139,6 +139,9 @@ export class MatchScene extends BoardScene {
     // level: circular XP ring with the level number inside (PO request)
     text("lvlCap", RING.x, RING.y - 15, 10, "#cdbb98").setOrigin(0.5).setText(t("levelShort"));
     text("level", RING.x, RING.y + 4, 28, "#ffe6a3", FONT_LOGO).setOrigin(0.5);
+    // hover the level / XP: shop chance of each tier now and at the next level (PO 27 Nov 2026)
+    this.add.zone(125, 248, 216, 76).setInteractive().setDepth(top)
+      .on("pointerover", () => this.showOddsTip()).on("pointerout", () => this.hideItemTip());
     text("xp", 104, 228, 17);
     text("xpNext", 104, 252, 12, "#cdbb98");
     text("gold", 26, 300, 20, "#ffd84a");
@@ -168,7 +171,8 @@ export class MatchScene extends BoardScene {
     this.input.on("pointerdown", (p: Phaser.Input.Pointer, over: Phaser.GameObjects.GameObject[]) => {
       if (!this.synPopup || over.some((o) => o.getData?.("synRow"))) return; // a row click toggles by itself
       const b = this.synPopup.getBounds();
-      if (!b.contains(p.x, p.y)) this.closeSynPopup();
+      const q = lp(p);
+      if (!b.contains(q.x, q.y)) this.closeSynPopup();
     });
     this.drawCards();
     this.refreshHud();
@@ -652,8 +656,9 @@ export class MatchScene extends BoardScene {
     im.on("dragstart", () => { if (this.fighting) return; this.hideItemTip(); im.setDepth(9000).setScale(im.scale * 1.15); });
     im.on("drag", (pt: Phaser.Input.Pointer) => {
       if (this.fighting) return;
-      im.setPosition(pt.x, pt.y);
-      const v = this.viewAt(pt.x, pt.y);
+      const q = lp(pt);
+      im.setPosition(q.x, q.y);
+      const v = this.viewAt(q.x, q.y);
       this.highlight.clear();
       if (v && v.side === "A") {
         const b = v.sprite.getBounds();
@@ -664,8 +669,9 @@ export class MatchScene extends BoardScene {
       this.highlight.clear();
       if (this.fighting) return this.refreshBag();
       const m = this.match, p = m.human;
-      const v = this.viewAt(pt.x, pt.y);
-      const ph = screenToHud(pt.x, pt.y);
+      const q = lp(pt);
+      const v = this.viewAt(q.x, q.y);
+      const ph = screenToHud(q.x, q.y);
       const overTeam = ph.y >= BAG.y && ph.y <= BAG.y + 6 + BAG.team && ph.x >= BAG.teamX - 4;
       if (m.isTeamItem(id)) {
         if (m.equipTeam(p, bagIndex)) toast(this, `${this.itemData(id).name}: tác dụng cho cả đội`);
@@ -681,14 +687,14 @@ export class MatchScene extends BoardScene {
     return im;
   }
 
-  private showItemTip(id: number, x: number, y: number) {
+  private showItemTip(id: number, x: number, y: number, hint = "") {
     this.hideItemTip();
     const it = this.itemData(id);
     const box = this.add.container(0, 0).setDepth(9600);
     const W = 250;
     const title = this.add.text(12, 10, it.name, { fontFamily: FONT_UI, fontSize: "15px", color: "#ffe6a3", fontStyle: "bold" });
     const sub = this.add.text(12, 31, it.cat === "LV" ? "Linh Vật · không chiếm ô vật phẩm" : `Bậc ${it.tier} · ${ITEM_CAT[it.cat] ?? it.cat}`, { fontFamily: FONT_UI, fontSize: "11.5px", color: "#cdbb98", fontStyle: "bold" });
-    const body = this.add.text(12, 50, it.effect, { fontFamily: FONT_UI, fontSize: "12.5px", color: CREAM, wordWrap: { width: W - 24 }, lineSpacing: 2 });
+    const body = this.add.text(12, 50, it.effect + (hint ? `\n${hint}` : ""), { fontFamily: FONT_UI, fontSize: "12.5px", color: CREAM, wordWrap: { width: W - 24 }, lineSpacing: 2 });
     const h = 50 + body.height + 12;
     const g = this.add.graphics();
     g.fillStyle(0x1b120c, 0.97).fillRoundedRect(0, 0, W, h, 10).lineStyle(2, GOLD, 0.9).strokeRoundedRect(0, 0, W, h, 10);
@@ -708,6 +714,46 @@ export class MatchScene extends BoardScene {
     this.refreshEquipped();
   }
 
+  /** tooltip right of the level ring: SHOP_ODDS for the current and the next level, one coloured chip per tier */
+  private showOddsTip() {
+    this.hideItemTip();
+    const lv = this.match.human.level, W = 330, P = 12;
+    const box = this.add.container(0, 0).setDepth(9600);
+    const bgG = this.add.graphics(), g = this.add.graphics(); // background under the tier chips
+    const parts: Phaser.GameObjects.GameObject[] = [bgG, g];
+    const add = <T extends Phaser.GameObjects.GameObject>(o: T) => (parts.push(o), o);
+    add(this.add.text(P, 10, "Tỉ lệ xuất hiện trong cửa hàng", { fontFamily: FONT_UI, fontSize: "14px", color: "#ffe6a3", fontStyle: "bold" }));
+    let y = 36;
+    const levels = lv < C.MAX_LEVEL ? [lv, lv + 1] : [lv];
+    for (const L of levels) {
+      add(this.add.text(P, y + 3, L === lv ? `Cấp ${L} (bây giờ)` : `Cấp ${L} (cấp sau)`, { fontFamily: FONT_UI, fontSize: "12px", color: L === lv ? CREAM : "#cdbb98", fontStyle: "bold" }));
+      y += 22;
+      const odds = C.SHOP_ODDS[Math.min(L, C.SHOP_ODDS.length) - 1];
+      odds.forEach((pct, k) => {
+        const cw = (W - 2 * P - 4 * 6) / 5, x = P + k * (cw + 6);
+        g.fillStyle(TIER_COL[k + 1], pct > 0 ? 1 : 0.25).fillRoundedRect(x, y, cw, 26, 6);
+        add(this.add.text(x + cw / 2, y + 13, `B${k + 1}  ${pct}%`, { fontFamily: FONT_UI, fontSize: "12px", color: pct > 0 ? "#ffffff" : "#bdb3a6", fontStyle: "bold" })
+          .setOrigin(0.5).setShadow(1, 1, "#000", 2));
+      });
+      y += 34;
+    }
+    add(this.add.text(P, y, "B = bậc (giá vàng). Lên cấp bằng nút Mua XP.", { fontFamily: FONT_UI, fontSize: "11px", color: "#a89a8a" }));
+    y += 22;
+    bgG.fillStyle(0x1b120c, 0.97).fillRoundedRect(0, 0, W, y, 10).lineStyle(2, GOLD, 0.9).strokeRoundedRect(0, 0, W, y, 10);
+    box.add(parts);
+    const at = hudToScreen(240, 210), s = UI_SCALE;
+    box.setScale(s).setPosition(at.x + 6, at.y);
+    this.itemTip = box;
+  }
+
+  private takeBack(uid: number, id: number) {
+    this.hideItemTip();
+    if (this.fighting && !this.onBench(uid)) return toast(this, "Đang giao tranh – chỉ lấy được vật phẩm của VieAni ở hàng chờ");
+    if (!this.match.takeItem(this.match.human, uid)) return toast(this, `Túi đầy (tối đa ${C.INVENTORY_MAX} vật phẩm)`);
+    toast(this, `${this.itemData(id).name} về túi – kéo lên một VieAni để trang bị`);
+    this.syncItems();
+  }
+
   /** right side, under the tộc hệ: which VieAni carries which item (+ team items) */
   private refreshEquipped() {
     if (!this.txt.round?.active) return;
@@ -717,12 +763,12 @@ export class MatchScene extends BoardScene {
     this.equipSig = sig;
     for (const o of this.equipObjs) o.destroy();
     this.equipObjs = [];
-    const rows: { id: number; label: string; tex?: { key: string; frame?: number } }[] = [
+    const rows: { id: number; label: string; uid?: number; tex?: { key: string; frame?: number } }[] = [
       ...this.match.human.teamItems.map((id) => ({ id, label: "Toàn đội" })),
       ...carriers.map((u) => {
         const sp = this.data_.byId.get(u.speciesId)!;
         const t = texturesFor(this, this.data_, sp, "front").tex;
-        return { id: u.item!, label: shortName(sp.vi) + (this.team.locate(u.uid)?.where === "bench" ? " (chờ)" : ""), tex: { key: t.body, frame: t.bodyFrame } };
+        return { id: u.item!, uid: u.uid, label: shortName(sp.vi) + (this.team.locate(u.uid)?.where === "bench" ? " (chờ)" : ""), tex: { key: t.body, frame: t.bodyFrame } };
       }),
     ];
     if (!rows.length) return;
@@ -747,8 +793,10 @@ export class MatchScene extends BoardScene {
       }
       c.add([label, icon]);
       const hit = this.add.zone(-pw / 2, 0, pw + 36, 30).setInteractive({ useHandCursor: true });
-      hit.on("pointerover", () => this.showItemTip(r.id, SYN_X - 120, y - 16));
+      hit.on("pointerover", () => this.showItemTip(r.id, SYN_X - 120, y - 16, r.uid != null ? "▶ Bấm để lấy về túi, rồi kéo cho VieAni khác" : ""));
       hit.on("pointerout", () => this.hideItemTip());
+      // PO 27 Nov 2026: click a carried item to take it back into the bag (then drag it onto another VieAni)
+      if (r.uid != null) hit.on("pointerup", () => this.takeBack(r.uid!, r.id));
       c.add(hit);
       this.equipObjs.push(c);
     });
@@ -856,13 +904,13 @@ export class MatchScene extends BoardScene {
     const u = this.team.units().find((x) => x.uid === v.uid);
     if (!u) return;
     this.sellText.setText(t("sellHere")(this.match.sellValue(u)));
-    this.sellZone.setVisible(true).setAlpha(p.y >= SHOP_TOP_SCREEN ? 1 : 0.55);
+    this.sellZone.setVisible(true).setAlpha(lp(p).y >= SHOP_TOP_SCREEN ? 1 : 0.55);
     v.c.setDepth(5200); // keep the dragged VieAni above the sell zone
   }
 
   protected onDrop(p: Phaser.Input.Pointer, v: View): boolean {
     this.sellZone.setVisible(false);
-    if (p.y < SHOP_TOP_SCREEN) return false;
+    if (lp(p).y < SHOP_TOP_SCREEN) return false;
     const gold = this.match.sell(this.match.human, v.uid);
     v.anim.destroy();
     this.views.delete(v.uid);
@@ -936,13 +984,13 @@ export class MatchScene extends BoardScene {
   private hudCams: Phaser.Cameras.Scene2D.Camera[] = [];
   private setupHudCameras() {
     for (const c of this.hudCams) this.cameras.remove(c);
-    const s = UI_SCALE;
+    const s = UI_SCALE, K = RENDER_SCALE; // HUD size × canvas scale (layout 1280×720 on a 1920×1080 canvas)
     const areas = HUD_REGIONS.map((r) => {
       const v = hudToScreen(r.x0, r.y0, s);
-      return this.cameras.add(v.x, v.y, (r.x1 - r.x0) * s, (r.y1 - r.y0) * s).setOrigin(0, 0).setZoom(s).setScroll(r.x0, r.y0);
+      return this.cameras.add(v.x * K, v.y * K, (r.x1 - r.x0) * s * K, (r.y1 - r.y0) * s * K).setOrigin(0, 0).setZoom(s * K).setScroll(r.x0, r.y0);
     });
     // drawn last: pop-ups, info card, round panels, dragged things and toasts (depth ≥ 5200) stay above the HUD
-    const overlay = this.cameras.add(0, 0, SCREEN_W, SCREEN_H);
+    const overlay = this.cameras.add(0, 0, SCREEN_W * K, SCREEN_H * K).setOrigin(0, 0).setZoom(K).setScroll(0, 0);
     this.hudCams = [...areas, overlay];
     const main = this.cameras.main, areaMask = areas.reduce((m, c) => m | c.id, 0);
     // cameraFilter = the cameras that must NOT draw (or hit-test) the object

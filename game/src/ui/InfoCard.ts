@@ -210,9 +210,10 @@ export class InfoCard {
       ["Năng lượng", `${sp.stats.energy} để tung kỹ năng`, sp.stats.energy / 150, ""],
     ];
     for (const [label, val, frac, plus] of rows) {
-      if (plus) text(PAD + 92, y, plus, 11.5, "#3a9a4f", true);
       text(PAD, y, label, 11.5, MUTED, true);
-      text(PAD + 210, y, val, 11.5, INK, true).setOrigin(1, 0);
+      const vt = text(PAD + 210, y, val, 11.5, INK, true).setOrigin(1, 0);
+      // the item's gain, in green, just left of the value
+      if (plus) text(PAD + 210 - vt.width - 5, y, plus, 11.5, "#3a9a4f", true).setOrigin(1, 0);
       g.fillStyle(LINE, 1).fillRoundedRect(PAD + 218, y + 4, W - 2 * PAD - 218, 6, 3);
       g.fillStyle(main, 1).fillRoundedRect(PAD + 218, y + 4, Math.max(4, (W - 2 * PAD - 218) * Math.min(1, frac)), 6, 3);
       y += 16;

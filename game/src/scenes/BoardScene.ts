@@ -3,7 +3,7 @@ import { maxHp as battleMaxHp, mirror, playerDamage, simulate, type BattleEvent,
 import { AURA_CHOICE, auraKindForTier, BENCH_SLOTS, BOARD_COLS, BOARD_ROWS, HALF_ROWS, MOVE_SECONDS_PER_CELL, SKILLS_ON, TICKS_PER_SECOND, TRANSFORMS, VERSION } from "../core/config";
 import type { GameData, Species } from "../core/data";
 import { settings, t } from "../core/i18n";
-import { BENCH_CORNERS, pickScenery, sceneryPath, UI_SCALE, BOARD_CORNERS, Grid, SCREEN_H, SCREEN_W, type Pt } from "../core/layout";
+import { BENCH_CORNERS, fitCamera, lp, pickScenery, sceneryPath, UI_SCALE, BOARD_CORNERS, Grid, SCREEN_H, SCREEN_W, type Pt } from "../core/layout";
 import { Rng } from "../core/rng";
 import { Team, type OwnedUnit, type Spot } from "../core/team";
 import { button, coverImage, CREAM, FONT_LOGO, FONT_UI, toast } from "../ui/widgets";
@@ -136,6 +136,7 @@ export class BoardScene extends Phaser.Scene {
   }
 
   create() {
+    fitCamera(this);
     this.fighting = false;
     this.views.clear();
     this.team = this.loadTeam();
@@ -294,8 +295,9 @@ export class BoardScene extends Phaser.Scene {
     this.input.on("drag", (p: Phaser.Input.Pointer, obj: Phaser.GameObjects.Image) => {
       const v = this.views.get(obj.getData("uid"));
       if (!v || (this.fighting && !this.onBench(v.uid))) return;
-      v.c.setPosition(p.x, p.y + v.sprite.displayHeight * 0.35);
-      const s = this.spotUnder(p.x, p.y);
+      const q = lp(p);
+      v.c.setPosition(q.x, q.y + v.sprite.displayHeight * 0.35);
+      const s = this.spotUnder(q.x, q.y);
       this.highlight.clear();
       this.onDragMove(p, v);
       if (s && Team.valid(s) && !(this.fighting && s.where === "board")) {
@@ -311,7 +313,8 @@ export class BoardScene extends Phaser.Scene {
       if (!v || (this.fighting && !this.onBench(v.uid))) return;
       this.tweens.add({ targets: v.c, scale: 1, duration: 100 });
       if (this.onDrop(p, v)) return;
-      const s = this.spotUnder(p.x, p.y);
+      const q = lp(p);
+      const s = this.spotUnder(q.x, q.y);
       if (s && this.fighting && s.where === "board") toast(this, t("benchOnlyInFight"));
       else if (s && Team.valid(s)) {
         const wasFull = this.team.boardCount >= this.team.maxOnBoard;
@@ -328,7 +331,7 @@ export class BoardScene extends Phaser.Scene {
   protected setupHover() {
     this.card = new InfoCard(this, UI_SCALE);
     this.hoverUid = null;
-    this.input.on("pointermove", (p: Phaser.Input.Pointer) => this.hoverAt(p.x, p.y));
+    this.input.on("pointermove", (p: Phaser.Input.Pointer) => { const q = lp(p); this.hoverAt(q.x, q.y); });
     this.input.on("gameout", () => this.hideCard());
     // keep HP / energy / status live while the card is open
     this.time.addEvent({ delay: 150, loop: true, callback: () => this.refreshCard() });

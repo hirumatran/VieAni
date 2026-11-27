@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import { fitCamera } from "../core/layout";
 import { tierColour, VieAniView } from "../anim/VieAniView";
 import { preloadIllustrations, texturesFor, vcode } from "../anim/illustrations";
 import type { GameData, Species } from "../core/data";
@@ -28,6 +29,7 @@ export class AnimLabScene extends Phaser.Scene {
   }
 
   create() {
+    fitCamera(this);
     coverImage(this, "lab-bg");
     const g = this.add.graphics();
     for (let r = 0; r < BOARD_ROWS; r++)
