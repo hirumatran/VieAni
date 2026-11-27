@@ -40,9 +40,9 @@ const SLOW: [number, number][] = [[3, 3], [5, 4], [8, 5], [11, 6], [15, 7], [20,
 export const PERSONAS: { name: string; short: string; style: BotStyle; note: string }[] = [
   { name: "Thợ Săn Trường Sơn", short: "Thợ Săn", note: "Săn Mồi + Trường Sơn, lên cấp nhanh", style: { ...SMART, levelCurve: FAST, favor: ["Săn Mồi", "Trường Sơn"] } },
   { name: "Ngư Dân Biển Đông", short: "Ngư Dân", note: "Biển Đông + Sông Nước", style: { ...SMART, favor: ["Biển Đông", "Sông Nước"] } },
-  { name: "Già Làng Tây Nguyên", short: "Già Làng", note: "Tây Nguyên", style: { ...SMART, favor: ["Tây Nguyên"] } },
+  { name: "Già Làng Tây Nguyên", short: "Già Làng", note: "Tây Nguyên, lên cấp nhanh", style: { ...SMART, levelCurve: FAST, favor: ["Tây Nguyên"] } },
   { name: "Thầy Đồ Xứ Bắc", short: "Thầy Đồ", note: "Tứ Linh + Sơn Tinh + Hộ Quốc, chờ cuối trận", style: { ...SMART, levelCurve: SLOW, favor: ["Tứ Linh", "Sơn Tinh", "Hộ Quốc"] } },
-  { name: "Nhà Nông", short: "Nhà Nông", note: "Gia Súc + Gặm Nhấm + Mèo", style: { ...SMART, favor: ["Gia Súc", "Bầy Gặm Nhấm", "Hội Nhà Mèo"] } },
+  { name: "Nhà Nông", short: "Nhà Nông", note: "Gia Súc + Gặm Nhấm + Mèo, giữ vàng, lên cấp muộn", style: { ...SMART, levelCurve: SLOW, favor: ["Gia Súc", "Bầy Gặm Nhấm", "Hội Nhà Mèo"] } },
   { name: "Người Nuôi Ong", short: "Nuôi Ong", note: "Côn Trùng + Săn Côn Trùng", style: { ...SMART, favor: ["Côn Trùng", "Săn Côn Trùng"] } },
   { name: "Kiểm Lâm Cao Nguyên", short: "Kiểm Lâm", note: "Cao Nguyên Bắc Bộ + Bầy Chó Dữ", style: { ...SMART, favor: ["Cao Nguyên Bắc Bộ", "Bầy Chó Dữ"] } },
 ];

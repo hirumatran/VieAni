@@ -3,6 +3,9 @@ import { it } from "vitest";
 import { loadData } from "../src/core/data";
 import { testMatch } from "../src/core/match";
 const d = loadData();
+import * as C from "../src/core/config";
+// experiment: WIN='{"52":[11,16],"53":[17,24]}' moves the Linh Vật round windows
+if (process.env.WIN) Object.assign(C.CHARM_ROUND_WINDOWS, JSON.parse(process.env.WIN));
 it("unity rate 8p", () => {
   let ok = 0, lv10 = 0; const rounds: number[] = [], places: number[] = [];
   const N = Number(process.env.N ?? 60);
