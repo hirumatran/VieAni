@@ -177,7 +177,7 @@ export class Match {
 
   /** Ấn Thống Nhất: max level + Rồng Lạc Việt on the board + all 3 Linh Vật → 2 missing zodiac signs count as present */
   unityActive(p: PlayerState): boolean {
-    return p.level >= C.MAX_LEVEL && C.CHARM_ITEM_IDS.every((id) => p.charms.includes(id))
+    return p.level >= C.UNITY.level && C.CHARM_ITEM_IDS.every((id) => p.charms.includes(id))
       && p.team.toPlaced().some((u) => u.speciesId === RONG_LAC_VIET);
   }
 

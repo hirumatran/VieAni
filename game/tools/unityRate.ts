@@ -6,6 +6,7 @@ const d = loadData();
 import * as C from "../src/core/config";
 // experiment: WIN='{"52":[11,16],"53":[17,24]}' moves the Linh Vật round windows
 if (process.env.WIN) Object.assign(C.CHARM_ROUND_WINDOWS, JSON.parse(process.env.WIN));
+if (process.env.ULV) C.UNITY.level = Number(process.env.ULV); // experiment: level needed for Ấn Thống Nhất
 it("unity rate 8p", () => {
   let ok = 0, lv10 = 0; const rounds: number[] = [], places: number[] = [];
   const N = Number(process.env.N ?? 60);
@@ -16,7 +17,7 @@ it("unity rate 8p", () => {
       m.finishRound(m.battle(seed * 1000 + m.round).res);
       if (m.human.unityRound != null && !rounds.includes(-seed)) { ok++; rounds.push(m.human.unityRound); rounds.push(-seed); }
     }
-    if (m.human.level >= 10) lv10++;
+    if (m.human.level >= C.UNITY.level) lv10++;
     places.push(m.human.place ?? 1);
   }
   const r = rounds.filter((x) => x > 0).sort((a, b) => a - b);
