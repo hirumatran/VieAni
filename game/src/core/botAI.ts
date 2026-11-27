@@ -20,6 +20,8 @@ export interface BotStyle {
   panicHp: number;
   /** most rerolls per turn */
   maxRolls: number;
+  /** tộc hệ this bot likes to build (personality); their members are bought and fielded more readily */
+  favor?: string[];
 }
 
 export const SMART: BotStyle = {
@@ -29,6 +31,21 @@ export const SMART: BotStyle = {
   panicHp: 40,
   maxRolls: 5,
 };
+
+const FAST: [number, number][] = [[2, 3], [3, 4], [5, 5], [7, 6], [10, 7], [13, 8], [17, 9], [22, 10]];
+const SLOW: [number, number][] = [[3, 3], [5, 4], [8, 5], [11, 6], [15, 7], [20, 8], [26, 9], [32, 10]];
+
+/** the 7 computer players of an 8-player match (PO 27 Nov 2026): each leans to its own tộc hệ and economy style.
+ *  Names are roles from Vietnamese country life (no real people). */
+export const PERSONAS: { name: string; style: BotStyle; note: string }[] = [
+  { name: "Thợ Săn Trường Sơn", note: "Săn Mồi + Trường Sơn, lên cấp nhanh", style: { ...SMART, levelCurve: FAST, favor: ["Săn Mồi", "Trường Sơn"] } },
+  { name: "Ngư Dân Biển Đông", note: "Biển Đông + Sông Nước", style: { ...SMART, favor: ["Biển Đông", "Sông Nước"] } },
+  { name: "Già Làng Tây Nguyên", note: "Tây Nguyên", style: { ...SMART, favor: ["Tây Nguyên"] } },
+  { name: "Thầy Đồ Xứ Bắc", note: "Tứ Linh + Sơn Tinh + Hộ Quốc, chờ cuối trận", style: { ...SMART, levelCurve: SLOW, favor: ["Tứ Linh", "Sơn Tinh", "Hộ Quốc"] } },
+  { name: "Nhà Nông", note: "Gia Súc + Gặm Nhấm + Mèo", style: { ...SMART, favor: ["Gia Súc", "Bầy Gặm Nhấm", "Hội Nhà Mèo"] } },
+  { name: "Người Nuôi Ong", note: "Côn Trùng + Săn Côn Trùng", style: { ...SMART, favor: ["Côn Trùng", "Săn Côn Trùng"] } },
+  { name: "Kiểm Lâm Cao Nguyên", note: "Cao Nguyên Bắc Bộ + Bầy Chó Dữ", style: { ...SMART, favor: ["Cao Nguyên Bắc Bộ", "Bầy Chó Dữ"] } },
+];
 
 /** strength of one VieAni: stats grow with tier (TIER_MUL in scripts/stats_v3.py) and ★ (HP and damage both) */
 const TIER_MUL = [1, 1, 1.2, 1.4, 1.6, 1.9];
@@ -80,6 +97,9 @@ export function smartTurn(m: Match, p: PlayerState, style: BotStyle = SMART) {
         else if (st.count > 0) s += 6 * st.count;
       }
     }
+    // personality: members of a favourite tộc hệ are wanted more
+    // (strong early, half from round 18 – late in the match every bot plays for the strongest board)
+    if (style.favor?.length && m.d.synergies.some((g) => style.favor!.includes(g.name) && g.members.includes(id))) s += m.round < 18 ? 18 : 9;
     s += 6 * TIER_MUL[sp(id).tier] ** 2 * (sp(id).tier <= Math.ceil(p.level / 2) + 1 ? 1 : 0.5);
     return s;
   };
@@ -112,7 +132,7 @@ export function smartTurn(m: Match, p: PlayerState, style: BotStyle = SMART) {
   const all = units();
   const score = (board: OwnedUnit[]) => {
     const states = synergyStates(m.d, board.map((u) => u.speciesId));
-    const syn = states.filter((s) => !s.syn.byZodiac).reduce((n, s) => n + (s.level + 1), 0);
+    const syn = states.filter((s) => !s.syn.byZodiac).reduce((n, s) => n + (s.level + 1) * (style.favor?.includes(s.syn.name) && m.round < 18 ? 1.25 : 1), 0);
     const front = board.filter((u) => FRONT.has(sp(u.speciesId).role ?? "")).length;
     const frontMul = board.length >= 4 && front < 2 ? 0.85 : 1;
     return board.reduce((n, u) => n + power(u), 0) * (1 + 0.08 * syn) * frontMul;

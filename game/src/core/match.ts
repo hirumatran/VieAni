@@ -9,7 +9,7 @@ import { Team, type OwnedUnit, type Spot } from "./team";
 import manifest from "../../../assets/illustrations/manifest.json";
 import { DROPPABLE, ITEM_RULES } from "./items";
 import { synergyStates } from "./synergy";
-import { smartTurn } from "./botAI";
+import { PERSONAS, SMART, smartTurn } from "./botAI";
 
 /** species id of Rồng Lạc Việt (needed on the board for Ấn Thống Nhất) */
 export const RONG_LAC_VIET = 1;
@@ -25,6 +25,8 @@ export const TEST_HP = C.PLAYER_HP;
 export interface PlayerState {
   /** shown on the scoreboard ("Bạn" for the human) */
   name: string;
+  /** computer personality (index into PERSONAS; 8-player matches) */
+  persona?: number;
   hp: number;
   /** final placing (1 = winner), set when knocked out or when the match ends */
   place: number | null;
@@ -95,6 +97,12 @@ export class Match {
     for (const s of species) this.pool.set(s.id, C.POOL_COPIES[s.tier] ?? 10);
     const mk = (i: number): PlayerState => ({ name: names?.[i] ?? (i === 0 ? "Bạn" : `Máy ${i}`), place: null, hp: startHp, gold: C.START_GOLD, level: 1, xp: 0, streak: 0, team: new Team(1), shop: [], locked: false, items: [], teamItems: [], itemOffer: null, charms: [], unityRound: null });
     this.players = Array.from({ length: Math.max(2, playerCount) }, (_, i) => mk(i));
+    // 8-player match: the computer players get the personalities in a random order
+    if (this.players.length > 2) {
+      const order = PERSONAS.map((_, i) => i);
+      for (let i = order.length - 1; i > 0; i--) { const j = this.rng.int(0, i); [order[i], order[j]] = [order[j], order[i]]; }
+      this.players.slice(1).forEach((p, k) => { p.persona = order[k % order.length]; if (!names?.[k + 1]) p.name = PERSONAS[p.persona].name; });
+    }
     for (const p of this.players) this.rollShop(p);
     if (C.isItemRound(1)) for (const p of this.players) this.rollItems(p);
     this.pairUp();
@@ -387,7 +395,7 @@ export class Match {
   /** the computer's turn: the smarter bot (botAI.ts), or the original simple bot on Dễ (or when asked for "easy") */
   botTurn(p: PlayerState = this.bot, level?: "easy" | "smart") {
     const lv = level ?? (p !== this.human && this.difficulty === "easy" ? "easy" : "smart");
-    if (lv === "smart") return smartTurn(this, p);
+    if (lv === "smart") return smartTurn(this, p, p.persona != null ? PERSONAS[p.persona].style : SMART);
     const reserve = this.round >= 5 ? 10 : 0; // keep 10 gold for interest from round 5
     const owned = () => new Set(p.team.units().map((u) => u.speciesId));
     for (let rolls = 0; rolls < 4; rolls++) {

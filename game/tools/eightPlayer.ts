@@ -11,6 +11,7 @@ const q = (a: number[], f: number) => { const s = [...a].sort((x, y) => x - y); 
 it("eight players", () => {
   const ends: number[] = [], firstOut: number[] = [], humanOut: number[] = [], ms: number[] = [], ghosts: number[] = [];
   const outRounds: number[][] = [];
+  const placeBy: Record<string, number[]> = {};
   for (let seed = 1; seed <= N; seed++) {
     const m = new Match(d, TEST_CODES.map((c) => d.roster[Number(c.slice(1)) - 1]), seed, undefined, P);
     const outs: number[] = [];
@@ -26,6 +27,7 @@ it("eight players", () => {
       ms.push(performance.now() - t0);
     }
     ends.push(m.round - 1); firstOut.push(outs[0] ?? 0); outRounds.push(outs); ghosts.push(g);
+    for (const p of m.players) (placeBy[p.name === "Bạn" ? "(chuẩn, ghế người chơi)" : p.name] ??= []).push(p.place ?? 0);
     const places = m.players.map((p) => p.place).sort();
     if (places.join() !== "1,2,3,4,5,6,7,8".slice(0, P * 2 - 1)) console.log("PLACES?", places.join());
   }
@@ -35,6 +37,8 @@ it("eight players", () => {
     firstKnockOut: { median: q(firstOut, 0.5), min: Math.min(...firstOut) },
     knockOutByPlace: Array.from({ length: P - 1 }, (_, k) => q(outRounds.map((o) => o[k] ?? 0), 0.5)),
     msPerRound: { median: +q(ms, 0.5).toFixed(1), p90: +q(ms, 0.9).toFixed(1) },
+    avgPlace: Object.fromEntries(Object.entries(placeBy).map(([k, v]) => [k, +(v.reduce((a, b) => a + b, 0) / v.length).toFixed(2)]).sort((a, b) => a[1] - b[1])),
+    winRate: Object.fromEntries(Object.entries(placeBy).map(([k, v]) => [k, +(v.filter((x) => x === 1).length / v.length * 100).toFixed(0)])),
     ghostFightsPerMatch: +(ghosts.reduce((a, b) => a + b, 0) / N).toFixed(1),
   };
   console.log("EIGHT", JSON.stringify(res));

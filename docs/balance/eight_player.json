@@ -1,28 +1,48 @@
 {
  "players": 8,
- "matches": 40,
+ "matches": 60,
  "lengthRounds": {
-  "min": 30,
+  "min": 29,
   "median": 36,
-  "p90": 39,
-  "max": 49
+  "p90": 40,
+  "max": 42
  },
  "firstKnockOut": {
   "median": 21,
-  "min": 18
+  "min": 17
  },
  "knockOutByPlace": [
   21,
   23,
   25,
-  27,
-  29,
+  26,
+  28,
   31,
   36
  ],
  "msPerRound": {
-  "median": 30,
-  "p90": 49
+  "median": 29.5,
+  "p90": 49.6
+ },
+ "avgPlace": {
+  "Kiểm Lâm Cao Nguyên": 4.05,
+  "Thợ Săn Trường Sơn": 4.07,
+  "Ngư Dân Biển Đông": 4.1,
+  "Già Làng Tây Nguyên": 4.13,
+  "Thầy Đồ Xứ Bắc": 4.43,
+  "(chuẩn, ghế người chơi)": 4.45,
+  "Nhà Nông": 4.93,
+  "Người Nuôi Ong": 5.83
+ },
+ "winRate": {
+  "(chuẩn, ghế người chơi)": 10,
+  "Ngư Dân Biển Đông": 8,
+  "Người Nuôi Ong": 7,
+  "Kiểm Lâm Cao Nguyên": 15,
+  "Thầy Đồ Xứ Bắc": 15,
+  "Già Làng Tây Nguyên": 17,
+  "Thợ Săn Trường Sơn": 20,
+  "Nhà Nông": 8
  },
  "ghostFightsPerMatch": 6.4
 }

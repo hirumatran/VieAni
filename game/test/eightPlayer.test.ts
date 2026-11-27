@@ -3,6 +3,7 @@ import * as C from "../src/core/config";
 import { loadData } from "../src/core/data";
 import { Match, TEST_CODES } from "../src/core/match";
 import { playerDamage } from "../src/core/battle";
+import { PERSONAS } from "../src/core/botAI";
 
 const d = loadData();
 const species = () => TEST_CODES.map((c) => d.roster[Number(c.slice(1)) - 1]);
@@ -12,7 +13,8 @@ describe("8-player match (PO 27 Nov 2026)", () => {
   it("every player still in fights exactly once a round; odd numbers get one ghost fight; the human is always side A", () => {
     const m = new Match(d, species(), 3, undefined, 8);
     expect(m.players).toHaveLength(8);
-    expect(m.players.map((p) => p.name)).toEqual(["Bạn", "Máy 1", "Máy 2", "Máy 3", "Máy 4", "Máy 5", "Máy 6", "Máy 7"]);
+    expect(m.players[0].name).toBe("Bạn");
+    expect(new Set(m.players.slice(1).map((p) => p.name))).toEqual(new Set(PERSONAS.map((x) => x.name))); // 7 different personalities
     for (let r = 0; r < 60 && m.aliveIdx().length > 1; r++) {
       const alive = m.aliveIdx();
       const fighters = m.pairings.flatMap((x) => (x.ghost ? [x.a] : [x.a, x.b])).sort((a, b) => a - b);
