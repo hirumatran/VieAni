@@ -67,3 +67,23 @@ describe("8-player match (PO 27 Nov 2026)", { timeout: 60_000 }, () => {
     for (let i = 1; i < 3; i++) if (m.players[i].hp > 0) expect(m.players[i].gold).toBeGreaterThanOrEqual(C.BASE_INCOME + C.LOSS_BONUS + C.HARD_BOT_GOLD);
   });
 });
+
+describe("scouting (PO 27 Nov 2026)", () => {
+  it("roundFight is cached and is the result finishRound uses; flipFight is the same fight from the other side", async () => {
+    const { flipFight } = await import("../src/core/match");
+    const m = new Match(d, species(), 21, undefined, 8);
+    for (let r = 0; r < 6; r++) { for (const i of m.aliveIdx()) m.botTurn(m.players[i]); m.finishRound(m.battle(r).res); }
+    for (const i of m.aliveIdx()) m.botTurn(m.players[i]);
+    const pr = m.pairings.find((x) => x.a !== 0 && !x.ghost)!;
+    const f1 = m.roundFight(pr), f2 = m.roundFight(pr);
+    expect(f2).toBe(f1);
+    const hpB = m.players[pr.b].hp, dmg = playerDamage(f1.res, m.round);
+    m.finishRound(m.battle(1).res);
+    expect(m.players[pr.b].hp).toBe(Math.max(0, hpB - dmg.B));
+    const fl = flipFight(f1.units, f1.res);
+    expect(fl.res.winner).toBe(f1.res.winner === "A" ? "B" : f1.res.winner === "B" ? "A" : "draw");
+    // the scouted (top) player's units are now side A on the bottom half
+    for (const u of fl.units.filter((x) => x.side === "A")) expect(u.row).toBeGreaterThanOrEqual(4);
+    expect(flipFight(fl.units, fl.res).units).toEqual(f1.units);
+  });
+});

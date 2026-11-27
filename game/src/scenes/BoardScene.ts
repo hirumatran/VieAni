@@ -425,7 +425,7 @@ export class BoardScene extends Phaser.Scene {
   }
 
   /** show the enemy, then replay the fight (simulated here unless a result is given) */
-  protected startBattle(mine: Placed[], enemy: Placed[], seed: number, res?: BattleResult) {
+  protected startBattle(mine: Placed[], enemy: Placed[], seed: number, res?: BattleResult, fromMs = 0) {
     this.fighting = true;
     this.battleUids = new Set([...mine, ...enemy].map((u) => u.uid));
     for (const v of this.views.values()) v.battleKills = 0;
@@ -437,13 +437,18 @@ export class BoardScene extends Phaser.Scene {
     for (const s of r.start ?? []) { const v = this.views.get(s.uid); if (v) { v.maxHp = v.hp = s.maxHp; } }
     for (const v of this.views.values()) if (v.c.visible && this.battleUids.has(v.uid)) { v.hpBar.setVisible(true); this.drawHp(v); }
 
-    this.replay(r);
+    this.replay(r, fromMs);
   }
 
-  protected replay(res: BattleResult) {
+  /** fromMs > 0: join a fight already running (scouting) – earlier events are applied at once without animation */
+  protected replay(res: BattleResult, fromMs = 0) {
     const speed = settings.speed;
     const msPerTick = 100 / speed;
-    for (const e of res.events) this.time.delayedCall(e.t * msPerTick + 400, () => this.apply(e, msPerTick));
+    for (const e of res.events) {
+      const at = e.t * msPerTick + 400 - fromMs;
+      if (at <= 0) this.fastForward(e);
+      else this.time.delayedCall(at, () => this.apply(e, msPerTick));
+    }
     // transformations (Cá Chép → Rồng Con): if still standing at the passive's time, it changes form until the end
     for (const v of this.views.values()) {
       const code = vcode(this.data_, this.data_.byId.get(v.speciesId)!);
@@ -452,7 +457,7 @@ export class BoardScene extends Phaser.Scene {
       const at = tf.seconds[v.anim.star - 1] * TICKS_PER_SECOND;
       const died = res.events.find((e) => e.type === "death" && e.uid === v.uid);
       if (res.ticks < at || (died && died.t <= at)) continue;
-      this.time.delayedCall(at * msPerTick + 400, () => {
+      this.time.delayedCall(Math.max(0, at * msPerTick + 400 - fromMs), () => {
         if (v.anim.dead) return;
         v.transformed = tf.name;
         void v.anim.transform(v.alt!);
@@ -461,7 +466,39 @@ export class BoardScene extends Phaser.Scene {
         this.tweens.add({ targets: txt, y: txt.y - 40, alpha: 0, duration: 1400, delay: 300, onComplete: () => txt.destroy() });
       });
     }
-    this.time.delayedCall(res.ticks * msPerTick + 1200, () => this.showResult(res));
+    this.time.delayedCall(Math.max(0, res.ticks * msPerTick + 1200 - fromMs), () => this.showResult(res));
+  }
+
+  /** the state change of an event, without animation (positions, HP, deaths, summons, revivals) */
+  protected fastForward(e: BattleEvent) {
+    if (e.type === "spawn") {
+      const sv = this.spawn({ uid: e.uid, speciesId: e.speciesId, star: 1 }, e.side);
+      this.battleUids.add(e.uid);
+      sv.sprite.disableInteractive();
+      this.place(sv, { where: "board", row: e.row, col: e.col }, false);
+      sv.c.setScale(sv.c.scale * 0.7);
+      sv.maxHp = sv.hp = e.hp;
+      sv.hpBar.setVisible(true); this.drawHp(sv);
+      return;
+    }
+    const v = this.views.get(e.uid);
+    if (!v) return;
+    if (e.type === "move") this.place(v, { where: "board", row: e.row, col: e.col }, false);
+    else if (e.type === "attack" || e.type === "cast") {
+      v.energy = e.en;
+      const tv = this.views.get(e.target);
+      if (tv && !(e.type === "attack" && e.miss)) { tv.hp -= e.dmg; tv.energy = e.tEn; this.drawHp(tv); }
+    } else if (e.type === "hp") { v.hp = Math.min(v.maxHp, v.hp + e.delta); this.drawHp(v); }
+    else if (e.type === "death") {
+      this.removeStatus(v);
+      const kv = e.by != null ? this.views.get(e.by) : undefined;
+      if (kv) kv.battleKills = (kv.battleKills ?? 0) + 1;
+      v.anim.dead = true; v.c.setVisible(false);
+    } else if (e.type === "revive") {
+      v.anim.reset(); v.hp = e.hp;
+      this.place(v, { where: "board", row: e.row, col: e.col }, false);
+      v.c.setVisible(true); v.hpBar.setVisible(true); this.drawHp(v);
+    }
   }
 
   protected apply(e: BattleEvent, msPerTick: number) {

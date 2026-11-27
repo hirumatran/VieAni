@@ -897,6 +897,9 @@ export class MatchScene extends BoardScene {
     m.botTurns();
     const seed = Math.floor(Math.random() * 1e9);
     const { units, res } = m.battle(seed);
+    m.setHumanFight(units, res); // scouting the opponent shows this very fight
+    this.closeScout();
+    this.fightStartMs = this.time.now;
     this.txt.timer.setText("");
     this.hint.setVisible(false);
     this.updateCounter();
@@ -905,6 +908,7 @@ export class MatchScene extends BoardScene {
   }
 
   protected afterBattle(res: BattleResult) {
+    this.closeScout();
     const rep = this.match.finishRound(res);
     // this battle's kills are now stored on the units (finishRound)
     for (const v of this.views.values()) v.battleKills = 0;
@@ -957,6 +961,17 @@ export class MatchScene extends BoardScene {
   }
   private classifyHud = () => {};
 
+  // ------------------------------------------------------------------ scouting (PO 27 Nov 2026)
+  private fightStartMs = 0;
+  /** look at another player: their board between rounds, their own fight while fights run */
+  private openScout(i: number) {
+    this.closeScout();
+    this.hideCard();
+    this.scene.launch("scout", { match: this.match, player: i, bgKey: this.bgKey, elapsedMs: this.fighting ? this.time.now - this.fightStartMs : undefined });
+    this.scene.bringToTop("scout");
+  }
+  private closeScout() { if (this.scene.isActive("scout")) this.scene.stop("scout"); }
+
   /** "❤ Bạn 68 · ❤ Già Làng Tây Nguyên 42" – the human and this round's opponent */
   private vsLine(rep: RoundReport) {
     const m = this.match;
@@ -1001,9 +1016,10 @@ export class MatchScene extends BoardScene {
         g.fillStyle(me ? 0x5bd36b : opp ? 0xe0533d : 0xd9a441, 1).fillRoundedRect(x + 7, y0 + 27, Math.max(4, bw * p.hp / maxHp), 7, 3);
       }
       // hover: full name + level
-      const z = this.add.zone(x + w / 2, y0 + h / 2, w, h).setInteractive().setDepth(top);
+      const z = this.add.zone(x + w / 2, y0 + h / 2, w, h).setInteractive({ useHandCursor: !me && !out }).setDepth(top);
       z.on("pointerover", () => { nm.setText(`${me ? t("you") : m.shortName(p)} · ${t("levelShort")} ${p.level}`); });
       z.on("pointerout", () => nm.setText(label));
+      if (!me && !out) z.on("pointerup", () => this.openScout(i)); // scouting: their board / their fight
       this.scoreObjs.push(g, nm, hpTxt, z);
     });
     // always opaque (PO 27 Nov 2026: the faded strip was hard to read); at 75 % it ends above the board grid

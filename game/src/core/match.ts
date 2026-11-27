@@ -133,6 +133,18 @@ export class Match {
     this.pairings = best.map((x) => (x.b === 0 && !x.ghost ? { a: 0, b: x.a, ghost: false } : x));
   }
 
+  /** this round's fights, computed once (scouting shows the same fight that counts at the end of the round) */
+  private fightCache = new Map<Pairing, { units: Placed[]; res: BattleResult }>();
+  roundFight(pr: Pairing, seed = this.round * 7919): { units: Placed[]; res: BattleResult } {
+    let f = this.fightCache.get(pr);
+    if (!f) { f = this.fight(pr.a, pr.b, seed + pr.a * 101 + pr.b); this.fightCache.set(pr, f); }
+    return f;
+  }
+  /** the human's fight was played on screen: remember it as this round's result for that pairing */
+  setHumanFight(units: Placed[], res: BattleResult) { const pr = this.humanPairing(); if (pr) this.fightCache.set(pr, { units, res }); }
+  /** the fight a player takes part in this round (their own; a ghost copy of their board fights elsewhere) */
+  pairingOf(i: number): Pairing | undefined { return this.pairings.find((x) => x.a === i || (!x.ghost && x.b === i)); }
+
   /** the human's fight this round */
   humanPairing(): Pairing | undefined { return this.pairings.find((x) => x.a === 0); }
 
@@ -498,7 +510,7 @@ export class Match {
    *  `res` = the human's fight (already shown on screen); the other fights of the round are simulated here. */
   finishRound(res?: BattleResult, seed = this.round * 7919): RoundReport {
     const results = new Map<Pairing, BattleResult>();
-    for (const pr of this.pairings) results.set(pr, pr.a === 0 && res ? res : this.fight(pr.a, pr.b, seed + pr.a * 101 + pr.b).res);
+    for (const pr of this.pairings) results.set(pr, pr.a === 0 && res ? res : (this.fightCache.get(pr) ?? this.fight(pr.a, pr.b, seed + pr.a * 101 + pr.b)).res);
     // kills: counted on the VieAni (shown in its info card); Hạt Dưa turns each into +1 % max HP (max +30 %)
     // only each player's own fight counts (a ghost copy of their board fights elsewhere with the same VieAni ids)
     for (const [pi, p] of this.players.entries()) {
@@ -588,6 +600,7 @@ export class Match {
     this.round++;
     for (const p of this.players) if (p.hp > 0 && !p.locked) this.rollShop(p);
     if (C.isItemRound(this.round)) for (const p of this.players) if (p.hp > 0) { if (p.itemOffer) this.chooseItem(p, 0); this.rollItems(p); }
+    this.fightCache.clear();
     if (this.aliveIdx().length > 1) this.pairUp(); else this.pairings = [];
     return report;
   }
@@ -597,4 +610,21 @@ export class Match {
 export function testMatch(d: GameData, seed: number, players = 2): Match {
   const species = TEST_CODES.map((c) => d.roster[Number(c.slice(1)) - 1]).filter(Boolean);
   return new Match(d, species, seed, TEST_HP, players);
+}
+
+/** the same fight seen from the other side (side B at the bottom): rows/columns mirrored, A ⇄ B swapped – for scouting a player
+ *  who was the top side of their fight */
+export function flipFight(units: Placed[], res: BattleResult): { units: Placed[]; res: BattleResult } {
+  const sw = (s: "A" | "B"): "A" | "B" => (s === "A" ? "B" : "A");
+  const fl = (row: number, col: number) => mirror(row, col);
+  const u2 = units.map((u) => { const [row, col] = fl(u.row, u.col); return { ...u, row, col, side: sw(u.side) }; });
+  const events = res.events.map((e) => {
+    if (e.type === "move" || e.type === "revive") { const [row, col] = fl(e.row, e.col); return { ...e, row, col }; }
+    if (e.type === "spawn") { const [row, col] = fl(e.row, e.col); return { ...e, row, col, side: sw(e.side) }; }
+    return e;
+  });
+  return {
+    units: u2,
+    res: { ...res, events, winner: res.winner === "draw" ? "draw" : sw(res.winner), survivors: res.survivors.map((x) => ({ ...x, side: sw(x.side) })) },
+  };
 }

@@ -1,6 +1,6 @@
 # VieAni – handover notes (resume here)
 
-**State on 27 Nov 2026 – game v0.17.0 (8-player match, HUD 75 %), live at https://hirumatran.itch.io/vieani · 79 tests pass · everything committed on `main`.**
+**State on 27 Nov 2026 – game v0.18.0 (8-player match, HUD 75 %, scouting), live at https://hirumatran.itch.io/vieani · 80 tests pass · everything committed on `main`.**
 
 To resume: start a new session and say *"read docs/SESSION_NOTES.md and continue VieAni"*.
 Full logs: `docs/archive/SESSION_NOTES_2026-11-10_to_17.md` (10–17 Nov) and `docs/archive/SESSION_NOTES_2026-11-19_to_20.md`
@@ -20,7 +20,7 @@ Full logs: `docs/archive/SESSION_NOTES_2026-11-10_to_17.md` (10–17 Nov) and `d
   and `game/src/core/config.ts`, not the sheet – keep both in step (when the PO edits the sheet: sync back + `npm test`).
 - Every change: tests + build + browser check (Playwright, preinstalled Chromium) → update this file → commit → push.
 
-## What the game is now (v0.17.0)
+## What the game is now (v0.18.0)
 **Main menu:** Bắt Đầu (**8-player match**: you + 7 computer personalities, all 87 VieAni V001–V087), Luyện Tập, VieIndex, Cài Đặt, Đăng Nhập (later),
 dev buttons (🎬 animation lab, ✨ status auras, 🐉 Ấn Thống Nhất demo), VI/EN switch, and the **"Trận đấu" card**:
 - **Độ khó** – Dễ (old simple bot), Thường (smart bot, default), Khó (smart bot + 2 gold per round, said in the menu).
@@ -33,8 +33,11 @@ dev buttons (🎬 animation lab, ✨ status auras, 🐉 Ấn Thống Nhất demo
 - **Knockouts:** a player at 0 HP is out, gets their place (8 → 1), stops getting income, and their VieAni go back to the
   shared pool. The match ends when you are out (end screen "HẠNG N/8") or when you are the last one ("VÔ ĐỊCH!").
 - **Screen:** a top scoreboard lists every player by HP (gold = you, red ⚔ = this round's opponent, grey #N = out;
-  hover shows level). It fades during the fight. The left panel shows this round's opponent; the round panel names who was
-  knocked out.
+  hover shows level), always opaque. The left panel shows this round's opponent; the round panel names who was knocked out.
+- **Scouting (v0.18.0):** click a player on the scoreboard → `ScoutScene` (read-only, over the match). Between rounds: their
+  board, bench, tộc hệ and items (hover = info card). During the fights: their own fight, joined at the moment your fight has
+  reached (`replay(res, fromMs)` fast-forwards earlier events), seen from their side (`flipFight`). The fight shown is the
+  one that counts (`Match.roundFight` cache). "← Bàn của bạn" / Esc returns; it closes by itself when your fight starts or ends.
 - **Bots:** 7 personalities (`PERSONAS` in `core/botAI.ts`). Each favours its own tộc hệ (strongly until round 18, half
   after) and some level differently:
   - Thợ Săn Trường Sơn (Săn Mồi + Trường Sơn, levels fast)
@@ -150,7 +153,7 @@ python3 scripts/cutout.py V088 …        # new VieAni art → cut-outs + game s
 ## Next development tasks (suggested order)
 1. PO playtests the 8-player match; decide the difficulty spread (open point 0); balance, ★3 outliers.
 2. T13 Cộng sinh + the 17 waiting items (throwing, board objects, illusions, row sweeps …).
-3. T21 / T20 follow-ups: look at another player's board (scouting), a short match summary at the end (all places), Người Nuôi Ong / insect tộc hệ strength.
+3. T21 / T20 follow-ups: a short match summary at the end (all places), Người Nuôi Ong / insect tộc hệ strength; scale the round panel and item reward cards like the HUD if the PO wants.
 4. T26 first-game tutorial, T25 audio (CC0/CC-BY with credits), in-game credits screen (game-icons.net CC BY 3.0).
 5. T33 phone layout + tap-to-inspect (the info card needs a mouse today), T30 feedback form.
 
@@ -179,6 +182,7 @@ python3 scripts/cutout.py V088 …        # new VieAni art → cut-outs + game s
 | 0.16.0 (27 Nov) | 8-player match: pairings, ghost fights, knockouts, places 1–8, 7 bot personalities, scoreboard; fixed a bot crash on empty shop slots |
 | 0.16.1 (27 Nov) | Info card shows the carried item's stat bonuses (items always worked in battle: Gậy Tre first hit 73 → 82, Bánh Chưng Máu 700 → 805; the card showed base stats) |
 | 0.16.2 (27 Nov) | Legendary VieAni (the 12 tier-5) ×1,3 Máu and Tấn Công (`LEGEND_MUL` in stats_v3.py); tier 5 vs tier 4 49 % → 100 %; 8-player median 36 → 34 rounds; Sheet synced |
+| 0.18.0 (27 Nov) | Scouting: click a player on the scoreboard to see their board / their live fight from their side |
 | 0.17.0 (27 Nov) | HUD at 75 % (PO picked option B from mock-ups in `docs/mockups/`): one camera per HUD area (`HUD_REGIONS`, `UI_SCALE` in layout.ts) + an overlay camera for pop-ups/panels/toasts; scoreboard always opaque; smaller ★ marks and item badges; info card + pop-ups at 75 %; toasts were hidden behind the shop strip (fixed); stale card footer replaced |
 
 Google Sheet updated on 27 Nov: Kế hoạch dự án T20, T21 (see below). On 20 Nov: Vật phẩm (C25, C36, E36) and Kế hoạch dự án (M1 done, T21 in progress, T27 note, T44 done).
