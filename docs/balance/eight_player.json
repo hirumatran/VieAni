@@ -2,47 +2,47 @@
  "players": 8,
  "matches": 120,
  "lengthRounds": {
-  "min": 24,
+  "min": 28,
   "median": 32,
   "p90": 36,
-  "max": 40
+  "max": 38
  },
  "firstKnockOut": {
-  "median": 20,
+  "median": 21,
   "min": 17
  },
  "knockOutByPlace": [
-  20,
+  21,
   22,
   24,
-  26,
+  25,
   27,
   29,
   32
  ],
  "msPerRound": {
-  "median": 42,
-  "p90": 70.9
+  "median": 42.3,
+  "p90": 73.4
  },
  "avgPlace": {
-  "Thầy Đồ Xứ Bắc": 3.07,
-  "(chuẩn, ghế người chơi)": 3.83,
-  "Kiểm Lâm Cao Nguyên": 4.06,
-  "Nhà Nông": 4.63,
-  "Ngư Dân Biển Đông": 4.89,
-  "Thợ Săn Trường Sơn": 4.89,
-  "Già Làng Tây Nguyên": 4.96,
+  "Thầy Đồ Xứ Bắc": 3.93,
+  "Kiểm Lâm Cao Nguyên": 4.08,
+  "(chuẩn, ghế người chơi)": 4.14,
+  "Ngư Dân Biển Đông": 4.22,
+  "Nhà Nông": 4.38,
+  "Thợ Săn Trường Sơn": 4.75,
+  "Già Làng Tây Nguyên": 4.83,
   "Người Nuôi Ong": 5.67
  },
  "winRate": {
-  "(chuẩn, ghế người chơi)": 19,
-  "Ngư Dân Biển Đông": 4,
-  "Người Nuôi Ong": 4,
-  "Kiểm Lâm Cao Nguyên": 13,
-  "Thầy Đồ Xứ Bắc": 35,
-  "Già Làng Tây Nguyên": 4,
-  "Thợ Săn Trường Sơn": 7,
-  "Nhà Nông": 14
+  "(chuẩn, ghế người chơi)": 16,
+  "Ngư Dân Biển Đông": 12,
+  "Người Nuôi Ong": 10,
+  "Kiểm Lâm Cao Nguyên": 14,
+  "Thầy Đồ Xứ Bắc": 18,
+  "Già Làng Tây Nguyên": 9,
+  "Thợ Săn Trường Sơn": 5,
+  "Nhà Nông": 16
  },
  "ghostFightsPerMatch": 5.5
 }
